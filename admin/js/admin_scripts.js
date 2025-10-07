@@ -3325,39 +3325,56 @@ function getHeightAndWidthNew(idval)
 }
 
 
+//commented by rahul for bs height and width
+// function getHeightAndWidthBS()
 
-function getHeightAndWidthBS()
+// {
 
-{
+// 	var position_id = document.getElementById('position_id').value;
 
-	var position_id = document.getElementById('position_id').value;
+// 	//alert(position);
 
-	//alert(position);
-
-	link=SITE_URL+'remote.php?action=getheightandwidth&position_id='+position_id;
+// 	link=SITE_URL+'remote.php?action=getheightandwidth&position_id='+position_id;
 	
-	var linkComp = link.split( "?");
+// 	var linkComp = link.split( "?");
 
-	var result;
+// 	var result;
 
-	var obj = new ajaxObject(linkComp[0], fin);
+// 	var obj = new ajaxObject(linkComp[0], fin);
 
-	obj.update(linkComp[1],"GET");
+// 	obj.update(linkComp[1],"GET");
 
-	obj.callback = function (responseTxt, responseStat) {
+// 	obj.callback = function (responseTxt, responseStat) {
 
-		// we'll do something to process the data here.
+// 		// we'll do something to process the data here.
 
-		result = responseTxt.split("::");
+// 		result = responseTxt.split("::");
 
-		document.getElementById('bs_width').value = result[0]; 
+// 		document.getElementById('bs_width').value = result[0]; 
 
-		document.getElementById('bs_height').value = result[1];
+// 		document.getElementById('bs_height').value = result[1];
 
-	}
+// 	}
 
+// }
+
+
+function getHeightAndWidthBS(element){
+    var position_id = element.value;
+    var link = SITE_URL + 'remote.php?action=getheightandwidth&position_id=' + position_id;
+    var linkComp = link.split("?");
+    var result;
+
+    var obj = new ajaxObject(linkComp[0], fin);
+    obj.update(linkComp[1], "GET");
+    obj.callback = function(responseTxt, responseStat){
+        result = responseTxt.split("::");
+
+        // Find the banner block container for this element
+        $(element).parent().parent().next().next('tr').find('input').val(result[0]);
+		$(element).parent().parent().next().next().next().next('tr').find('input').val(result[1]);
+    }
 }
-
 
 
 

@@ -3281,13 +3281,47 @@ class Scrolling_Windows extends Admin
 
 		$time = time();
 
-		
 
-		$sql = "INSERT INTO `tblscrollingbars` (`page_id`,`sb_content`,`sb_content_font_family` ,`sb_content_font_size` ,`sb_content_font_color` ,`sb_show_content_credit`,`sb_content_credit_name`,`sb_content_credit_link`,`sb_content_image`,`sb_listing_date_type` ,`sb_days_of_month`,`sb_single_date`, `sb_start_date`,`sb_end_date`,`sb_status`,`sb_order`) VALUES ('".addslashes($page_id)."','".addslashes($sb_content)."','".addslashes($sb_content_font_family)."' ,'".addslashes($sb_content_font_size)."' ,'".addslashes($sb_content_font_color)."','".addslashes($sb_show_content_credit)."' ,'".addslashes($sb_content_credit_name)."' ,'".addslashes($sb_content_credit_link)."','".addslashes($sb_content_image)."','".addslashes($sb_listing_date_type)."','".addslashes($sb_days_of_month)."','".addslashes($sb_single_date)."','".addslashes($sb_start_date)."','".addslashes($sb_end_date)."','1','".addslashes($sb_order)."')";
 
-		$STH = $DBH->prepare($sql);
+        //COMMENTED BY RAHUL
+        // $sql = "INSERT INTO `tblscrollingbars` (`page_id`,`sb_content`,`sb_content_font_family` ,`sb_content_font_size` ,`sb_content_font_color` ,`sb_show_content_credit`,`sb_content_credit_name`,`sb_content_credit_link`,`sb_content_image`,`sb_listing_date_type` ,`sb_days_of_month`,`sb_single_date`, `sb_start_date`,`sb_end_date`,`sb_status`,`sb_order`,`sb_deleted`) VALUES ('".addslashes($page_id)."','".addslashes($sb_content)."','".addslashes($sb_content_font_family)."' ,'".addslashes($sb_content_font_size)."' ,'".addslashes($sb_content_font_color)."','".addslashes($sb_show_content_credit)."' ,'".addslashes($sb_content_credit_name)."' ,'".addslashes($sb_content_credit_link)."','".addslashes($sb_content_image)."','".addslashes($sb_listing_date_type)."','".addslashes($sb_days_of_month)."','".addslashes($sb_single_date)."','".addslashes($sb_start_date)."','".addslashes($sb_end_date)."','1','".addslashes($sb_order)."','0')";
 
-                $STH->execute();
+        // $STH = $DBH->prepare($sql);
+
+        // $STH->execute();
+            
+            $sql = "INSERT INTO `tblscrollingbars` 
+                (`page_id`, `sb_content`, `sb_content_font_family`, `sb_content_font_size`, `sb_content_font_color`, 
+                `sb_show_content_credit`, `sb_content_credit_name`, `sb_content_credit_link`, `sb_content_image`, 
+                `sb_listing_date_type`, `sb_days_of_month`, `sb_single_date`, `sb_start_date`, `sb_end_date`, 
+                `sb_status`, `sb_order`, `sb_deleted`) 
+            VALUES 
+                (:page_id, :sb_content, :sb_content_font_family, :sb_content_font_size, :sb_content_font_color,
+                :sb_show_content_credit, :sb_content_credit_name, :sb_content_credit_link, :sb_content_image,
+                :sb_listing_date_type, :sb_days_of_month, :sb_single_date, :sb_start_date, :sb_end_date,
+                1, :sb_order, 0)";
+
+            $STH = $DBH->prepare($sql);
+
+            $STH->execute([
+                ':page_id' => $page_id,
+                ':sb_content' => $sb_content,
+                ':sb_content_font_family' => $sb_content_font_family,
+                ':sb_content_font_size' => $sb_content_font_size,
+                ':sb_content_font_color' => $sb_content_font_color,
+                ':sb_show_content_credit' => $sb_show_content_credit,
+                ':sb_content_credit_name' => $sb_content_credit_name,
+                ':sb_content_credit_link' => $sb_content_credit_link,
+                ':sb_content_image' => $sb_content_image,
+                ':sb_listing_date_type' => $sb_listing_date_type,
+                ':sb_days_of_month' => $sb_days_of_month, 
+                // Use NULL if empty
+                ':sb_single_date' => !empty($sb_single_date) ? $sb_single_date : null,
+                ':sb_start_date' => !empty($sb_start_date) ? $sb_start_date : null,
+                ':sb_end_date' => !empty($sb_end_date) ? $sb_end_date : null,
+                ':sb_order' => $sb_order
+            ]);
+
 
                 if($STH->rowCount() > 0)
 

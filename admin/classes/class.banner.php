@@ -232,7 +232,7 @@ class Banner extends Admin
 
     
 
-    public function addBannerSizeMaster($position_id,$bs_width,$bs_height,$arr_bs_banner_type,$arr_bs_currency,$arr_bs_amount,$bs_effective_date,$bs_remarks,$admin_id){
+    public function addBannerSizeMaster($position_id,$bs_width,$bs_height,$arr_bs_banner_type,$arr_bs_currency,$arr_bs_amount,$bs_effective_date,$bs_remarks,$admin_id,$bs_status){
         $my_DBH = new mysqlConnection();
         $DBH = $my_DBH->raw_handle();
         $DBH->beginTransaction();
@@ -256,18 +256,18 @@ class Banner extends Admin
 
             // Bind the parameters and execute inside a loop (for multiple banners)
             $STH->execute([
-                ':position_id'     => $position_id,
-                ':bs_width'        => $bs_width,
-                ':bs_height'       => $bs_height,
-                ':bs_remarks'      => $bs_remarks,
+                ':position_id'     => $position_id[$i],
+                ':bs_width'        => $bs_width[$i],
+                ':bs_height'       => $bs_height[$i],
+                ':bs_remarks'      => $bs_remarks[$i],
                 ':bs_banner_type'  => $arr_bs_banner_type[$i],
                 ':bs_currency'     => $arr_bs_currency[$i],
                 ':bs_amount'       => $arr_bs_amount[$i],
-                ':bs_effective_date'=> $bs_effective_date,
-                ':bs_status'       => 1,
+                ':bs_effective_date'=> $bs_effective_date[$i],
                 ':added_by_admin'  => $admin_id,
                 ':updated_by_admin'=> $admin_id,
                 ':updated_on_date' => $updated_on_date,
+                ':bs_status'         => $bs_status[$i] ?? 0,
                 ':bs_deleted'      => 0
             ]);
         }
@@ -278,24 +278,18 @@ class Banner extends Admin
         return $return;
     }
 
-    public function updateBannerSizeMaster($bs_id,$position_id,$bs_width,$bs_height,$arr_bs_banner_type,$arr_bs_currency,$arr_bs_amount,$bs_effective_date,$bs_remarks,$admin_id){
+    public function updateBannerSizeMaster($bs_id,$position_id,$bs_width,$bs_height,$arr_bs_banner_type,$arr_bs_currency,$arr_bs_amount,$bs_effective_date,$bs_remarks,$admin_id,$bs_status){
+       
         $my_DBH = new mysqlConnection();
         $DBH = $my_DBH->raw_handle();
         $DBH->beginTransaction();
         $return = false;
         $updated_on_date = date('Y-m-d H:i:s');
-        for($i=0;$i<count($arr_bs_banner_type);$i++){
             $sql = "UPDATE tblbannerssizes SET
-            position_id      = :position_id,
-            bs_width         = :bs_width,
-            bs_height        = :bs_height,
             bs_remarks       = :bs_remarks,
-            bs_banner_type   = :bs_banner_type,
-            bs_currency      = :bs_currency,
-            bs_amount        = :bs_amount,
             bs_effective_date= :bs_effective_date,
-            updated_by_admin = :updated_by_admin,
-            updated_on_date  = :updated_on_date
+            updated_on_date  = :updated_on_date,
+             bs_status  = :bs_status
         WHERE bs_id = :bs_id AND bs_deleted = 0";
 
             // Prepare the statement
@@ -303,18 +297,13 @@ class Banner extends Admin
 
             // Loop through each banner if needed (for multiple banners)
             $STH->execute([
-                ':position_id'       => $position_id,
-                ':bs_width'          => $bs_width,
-                ':bs_height'         => $bs_height,
                 ':bs_remarks'        => $bs_remarks,
-                ':bs_banner_type'    => $arr_bs_banner_type[$i],
-                ':bs_currency'       => $arr_bs_currency[$i],
-                ':bs_amount'         => $arr_bs_amount[$i],
                 ':bs_effective_date' => $bs_effective_date,
-                ':updated_by_admin'  => $admin_id,
                 ':updated_on_date'   => $updated_on_date,
-                ':bs_id'             => $bs_id // The ID of the banner size to update
+                ':bs_id'             => $bs_id,
+                ':bs_status'         => $bs_status ?? 0
             ]);
+            
 
             // Check if update succeeded
             if($STH->rowCount() > 0){
@@ -324,8 +313,6 @@ class Banner extends Admin
             }
 
             return $return;
-
-        }
     }
 
     public function deleteBannerSizeMaster($bs_id)
