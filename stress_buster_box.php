@@ -1,0 +1,7350 @@
+<?php
+include('config.php');  
+$page_id = '9';
+list($page_name,$page_title,$page_contents,$meta_title,$meta_keywords,$meta_description,$menu_title,$menu_link,$link_enable,$parent_menu) = getPageDetails($page_id);
+
+if(isLoggedIn())
+{
+	doUpdateOnline($_SESSION['user_id']);
+	$user_id = $_SESSION['user_id'];
+}
+else
+{
+	$user_id = 0;
+}
+
+$day = date('j');
+
+list($arr_step1,$arr_box_title1,$arr_banner_type1,$arr_banner1,$arr_box_desc1,$arr_stress_buster_box_id1,$arr_credit_line1,$arr_credit_line_url1,$arr_day1,$arr_sound_clip_id1) =  getStressBusterBoxDetails(1,$day);
+
+list($arr_step2,$arr_box_title2,$arr_banner_type2,$arr_banner2,$arr_box_desc2,$arr_stress_buster_box_id2,$arr_credit_line2,$arr_credit_line_url2,$arr_day2,$arr_sound_clip_id2) =  getStressBusterBoxDetails(2,$day);
+
+list($arr_step3,$arr_box_title3,$arr_banner_type3,$arr_banner3,$arr_box_desc3,$arr_stress_buster_box_id3,$arr_credit_line3,$arr_credit_line_url3,$arr_day3,$arr_sound_clip_id3) =  getStressBusterBoxDetails(3,$day);
+
+list($arr_pdf_id1,$arr_pdf_step1,$arr_pdf1,$arr_pdf_title1,$arr_credit1,$arr_credit_url1,$arr_status1) = getStressBusterBoxPDF(1,$day);
+
+list($arr_pdf_id2,$arr_pdf_step1,$arr_pdf2,$arr_pdf_title2,$arr_credit2,$arr_credit_url2,$arr_status2) = getStressBusterBoxPDF(2,$day);
+
+list($arr_pdf_id3,$arr_pdf_step1,$arr_pdf3,$arr_pdf_title3,$arr_credit3,$arr_credit_url3,$arr_status3) = getStressBusterBoxPDF(3,$day);
+
+list($user_area_box_title1,$user_area_box_desc1) = getUserarea('1','Stressbuster');
+
+list($user_area_box_title2,$user_area_box_desc2) = getUserarea('2','Stressbuster');
+
+list($user_area_box_title3,$user_area_box_desc3) = getUserarea('3','Stressbuster');
+
+list($music1,$music_id1,$credit1,$credit_url1) = getStressBusterBoxBKMusic(1,$day);
+
+$music_type1 = strtolower(substr($music1,strrpos($music1, '.') + 1));
+if($music_type1 =='mp3')
+{
+	$type1 = 'audio/mpeg';
+}
+elseif($music_type1 =='wav')
+{
+	$type1 = 'audio/wav';
+}
+elseif($music_type1 =='mid')
+{
+	$type1 = 'audio/mid';
+}
+
+list($music2,$music_id2,$credit2,$credit_url2) = getStressBusterBoxBKMusic(2,$day);
+
+$music_type2 = strtolower(substr($music2,strrpos($music2, '.') + 1));
+
+if($music_type2 =='mp3')
+{
+	$type2 = 'audio/mpeg';
+}
+elseif($music_type2 =='wav')
+{
+	$type2 = 'audio/wav';
+}
+elseif($music_type2 =='mid')
+{
+	$type2 = 'audio/mid';
+}
+
+list($music3,$music_id3,$credit3,$credit_url3) = getStressBusterBoxBKMusic(3,$day);
+$music_type3 = strtolower(substr($music3,strrpos($music3, '.') + 1));
+
+if($music_type3 =='mp3')
+{
+	$type3 = 'audio/mpeg';
+}
+elseif($music_type3 =='wav')
+{
+	$type3 = 'audio/wav';
+}
+elseif($music_type3 =='mid')
+{
+	$type3 = 'audio/mid';
+}
+
+$display_banner1 = 'none';
+$display_banner2 = 'none';
+$display_banner3 = 'none';
+
+$error = false;
+$tr_err_user_banner_type1 = 'none';
+$tr_err_user_title1 = 'none';
+$tr_err_user_banner_type2 = 'none';
+$tr_err_user_title2 = 'none';
+$tr_err_user_banner_type3 = 'none';
+$tr_err_user_title3 = 'none';
+$err_user_banner_type1 = '';
+$err_user_title1 = '';
+$err_user_banner_type2 = '';
+$err_user_title2 = '';
+$err_user_banner_type3 = '';
+$err_user_title3 = '';
+
+$step1 ='';
+$step2 = 'none'; 
+$step3 = 'none';
+$step4 = 'none';
+$step5 = 'none';
+
+$fav1 = array();
+$fav2 = array();
+$fav3 = array();
+
+$theam_id = $_SESSION['theam_id'];
+$theam_id1 = $theam_id;
+$theam_id2 = $theam_id;
+$theam_id3 = $theam_id;
+
+$usbb_id = 0;
+
+if(isset($_POST['btnUpload1']))	
+{
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+	$user_stressed1 = strip_tags(trim($_POST['user_stressed1']));
+	$user_select1 =  $_POST['select_banner1'];
+
+
+
+	$fav1 = $_POST['favourite1'];
+
+
+
+	$user_adv1 = $_POST['adv1'];
+
+
+
+	$user_title1 = $_POST['user_title1'];
+
+
+
+	$user_banner_type1 = $_POST['user_banner_type1'];
+
+
+
+	
+
+
+
+	if($user_banner_type1 == 'Image')
+
+
+
+	{
+
+
+
+		$user_file_type_msg1 = 'Please upload jpg/gif image';
+
+
+
+	}
+
+
+
+	elseif($user_banner_type1 == 'Flash')
+
+
+
+	{
+
+
+
+		$user_file_type_msg1 = 'Please upload swf file';
+
+
+
+	}
+
+
+
+
+	elseif($user_banner_type1 == 'Audio')
+
+
+
+	{
+
+
+
+		$user_file_type_msg1 = 'Please upload mp3/wav/mid file';
+
+
+
+	}
+
+
+
+	elseif($user_banner_type1 == 'PDF')
+
+
+
+	{
+
+
+
+		$user_file_type_msg1 = 'Please upload pdf file';
+
+
+
+	}
+
+
+
+	
+
+
+
+	if($user_select1 != '')
+
+
+
+	{
+
+
+
+		$display_banner1 = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	if(is_array($fav1) && count($fav1)>0)
+
+
+
+	{
+
+
+
+		$fav1 = array_unique($fav1);
+
+
+
+		$fav1 = array_values($fav1);
+
+
+
+		$fav1_comma_separated = implode(",", $fav1);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav1 = array();   
+
+
+
+		$fav1_comma_separated = '';
+
+
+
+	}
+
+
+
+	 
+
+
+
+	if($user_banner_type1 == 'Video')
+
+
+
+	{   
+
+
+
+		$user_display_trfile1 = 'none';
+
+
+
+		$user_display_trtext1 = '';
+
+
+
+		$user_banner1 = trim($_POST['user_video_banner1']);
+
+
+
+		
+
+
+
+		if($user_banner1 == '')
+
+
+
+		{
+
+
+
+			$error = true;
+
+
+
+			$tr_err_user_banner_type1 = '';
+
+
+
+			$err_user_banner_type1 .= 'Please enter youtube video url.';
+
+
+
+		}
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{  
+
+
+
+		$user_display_trfile1 = '';
+
+
+
+		$user_display_trtext1 = 'none';
+
+
+
+
+
+
+
+		if(isset($_FILES['user_banner1']['tmp_name']) && $_FILES['user_banner1']['tmp_name'] != '')
+
+
+
+		{
+
+
+
+			$user_banner1 = $_FILES['user_banner1']['name'];
+
+
+
+			$user_file1 = substr($user_banner1, -4, 4);
+
+
+
+			 
+
+
+
+			if($user_banner_type1 == 'Image')
+
+
+
+			{
+
+
+
+				if(($user_file1 != '.jpg')and($user_file1 != '.JPG') and ($user_file1 !='jpeg') and ($user_file1 != 'JPEG') and ($user_file1 !='.gif') and ($user_file1 != '.GIF') and ($user_file1 !='.png') and ($user_file1 != '.PNG'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 = 'Please Upload Only(jpg/gif/jpeg/png) files for banner';
+
+
+
+				}	 
+
+
+
+				elseif( $_FILES['user_banner1']['type'] != 'image/jpeg' and $_FILES['user_banner1']['type'] != 'image/pjpeg'  and $_FILES['user_banner1']['type'] != 'image/gif' and $_FILES['user_banner1']['type'] != 'image/png' )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= 'Please Upload Only(jpg/gif/jpeg/png) files ';
+
+
+
+				}
+
+
+
+				$image_size = $_FILES['user_banner1']['size']/1024;	 
+
+
+
+				$max_image_allowed_file_size = 2000; // size in KB
+
+
+
+				if($image_size > $max_image_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= "<br>Size of image file should be less than $max_image_allowed_file_size kb";
+
+
+
+				}
+
+
+
+			}
+
+
+
+			elseif($user_banner_type1 == 'Flash')
+
+
+
+			{
+
+
+
+				if(($user_file1 != '.swf')and($user_file2 != '.SWF'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= 'Please Upload Only(swf) files  ';
+
+
+
+				}	 
+
+
+
+				elseif( $_FILES['user_banner1']['type'] != 'application/x-shockwave-flash'  )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= 'Please Upload Only(swf) files ';
+
+
+
+				}
+
+
+
+				$flash_size = $_FILES['user_banner1']['size']/1024;	 
+
+
+
+				$max_flash_allowed_file_size = 2000; // size in KB
+
+
+
+				if($flash_size > $max_flash_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= "<br>Size of flash file should be less than $max_flash_allowed_file_size kb";
+
+
+
+				}
+
+
+
+			}
+
+
+
+			elseif($user_banner_type1 == 'Audio')
+
+
+
+			{
+
+
+
+				if(($user_file1 != '.mp3')and($user_file1 != '.wav')and($user_file1 != '.MP3')and($user_file1 != '.WAV')and($user_file1 != '.mid')and($user_file1 != '.MID'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= 'Please Upload Only(mp3 / wav / mid) files  ';
+
+
+
+				}
+
+
+
+				$audio_size = $_FILES['user_banner1']['size']/1024;	 
+
+
+
+				$max_audio_allowed_file_size = 2000; // size in KB
+
+
+
+				if($audio_size > $max_audio_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= "<br>Size of audio file should be less than $max_audio_allowed_file_size kb";
+
+
+
+				}	 
+
+
+
+			}
+
+
+
+			elseif($user_banner_type1 == 'PDF')
+
+
+
+			{
+
+
+
+				if(($user_file1 != '.pdf')and($user_file1 != '.PDF'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= 'Please Upload Only(PDF / pdf) files  ';
+
+
+
+				}
+
+
+
+				$pdf_size = $_FILES['user_banner1']['size']/1024;
+
+
+
+				$max_pdf_allowed_file_size = 2000; // size in KB
+
+
+
+				if($pdf_size > $max_pdf_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= "<br>Size of PDF file should be less than $max_pdf_allowed_file_size kb";
+
+
+
+				}	 
+
+
+
+			}
+
+
+
+
+
+
+
+			if(!$error)
+
+
+
+			{	
+
+
+
+				$user_banner1 = time()."_".$user_banner1;
+
+
+
+				$user_temp_dir1 = SITE_PATH.'/uploads/';
+
+
+
+				$user_temp_file1 = $user_temp_dir1.$user_banner1;
+
+
+
+			
+
+
+
+				if(!move_uploaded_file($_FILES['user_banner1']['tmp_name'], $user_temp_file1)) 
+
+
+
+				{
+
+
+
+					if(file_exists($user_temp_file1)) { unlink($user_temp_file1); } // Remove temp file
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type1 = '';
+
+
+
+					$err_user_banner_type1 .= '<br>Couldn\'t Upload banner';
+
+
+
+				}
+
+
+
+			}
+
+
+
+			else
+
+
+
+			{
+
+
+
+				$user_banner1 = '';
+
+
+
+			}
+
+
+
+		}
+
+
+
+		else
+
+
+
+		{
+
+
+
+			$error = true;
+
+
+
+			$tr_err_user_banner_type1 = '';
+
+
+
+			$err_user_banner_type1 = "Please upload any Image/Flash/Audio file";
+
+
+
+		}	
+
+
+
+	}
+
+
+
+	
+
+
+
+	if(!$error)
+
+
+
+	{
+
+
+
+		if($user_banner1 != '')
+
+
+
+		{
+
+
+
+			if($user_banner_type1 == 'PDF')
+
+
+
+			{
+
+
+
+				InsertStressBusterPDF(1,$user_title1,$user_banner_type1,$user_banner1,$day,$user_id);
+
+
+
+			}
+
+
+
+			else
+
+
+
+			{
+
+
+
+				InsertStressBusterStep(1,$user_title1,$user_banner_type1,$user_banner1,$day,$user_id);
+
+
+
+			}
+
+
+
+		}									
+
+
+
+	}
+
+
+
+
+
+
+
+}
+
+
+
+elseif(isset($_POST['btnSubmit1']))	
+
+
+
+{
+
+
+
+	$step1 = 'none';
+
+
+
+	$step2 = '';
+
+
+
+	$step3 = 'none';
+
+
+
+	$step4 = 'none';
+
+
+
+	$step5 = 'none';
+
+
+
+	
+
+
+
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+
+
+
+	$user_stressed1 = strip_tags(trim($_POST['user_stressed1']));
+
+
+
+	$user_select1 =  $_POST['select_banner1'];
+
+
+
+	$fav1 = $_POST['favourite1'];
+
+
+
+	$user_adv1 = $_POST['adv1'];
+
+
+
+	$user_title1 = $_POST['user_title1'];
+
+
+
+	$user_banner_type1 = $_POST['user_banner_type1'];
+
+
+
+	
+
+
+
+	if(is_array($fav1) && count($fav1)>0)
+
+
+
+	{
+
+
+
+		$fav1 = array_unique($fav1);
+
+
+
+		$fav1 = array_values($fav1);
+
+
+
+		$fav1_comma_separated = implode(",", $fav1);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav1 = array();   
+
+
+
+		$fav1_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	$user_file_type_msg2 = 'Please upload jpg/gif image';
+
+
+
+}
+
+
+
+elseif(isset($_POST['btnUpload2']))	
+
+
+
+{
+
+
+
+	$step1 = 'none';
+
+
+
+	$step2 = '';
+
+
+
+	$step3 = 'none';
+
+
+
+	$step4 = 'none';
+
+
+
+	$step5 = 'none';
+
+
+
+	
+
+
+
+	/*  First Div Value  */
+
+
+
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+
+
+
+	$user_stressed1 = strip_tags(trim($_POST['user_stressed1']));
+
+
+
+	$user_select1 =  $_POST['select_banner1'];
+
+
+
+	$fav1 = $_POST['favourite1'];
+
+
+
+	$user_adv1 = $_POST['adv1'];
+
+
+
+	
+
+
+
+	if(is_array($fav1) && count($fav1)>0)
+
+
+
+	{
+
+
+
+		$fav1 = array_unique($fav1);
+
+
+
+		$fav1 = array_values($fav1);
+
+
+
+		$fav1_comma_separated = implode(",", $fav1);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav1 = array();   
+
+
+
+		$fav1_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	/* Second DIV Value  */	
+
+
+
+	$user_select2 =  $_POST['select_banner2'];
+
+
+
+	$fav2 = $_POST['favourite2'];
+
+
+
+	$user_adv2 = $_POST['adv2'];
+
+
+
+	$user_title2 = strip_tags(trim($_POST['user_title2']));
+
+
+
+	$user_banner_type2 = $_POST['user_banner_type2'];
+
+
+
+	
+
+
+
+	if($user_banner_type2 == 'Image')
+
+
+
+	{
+
+
+
+		$user_file_type_msg2 = 'Please upload jpg/gif image';
+
+
+
+	}
+
+
+
+	elseif($user_banner_type2 == 'Flash')
+
+
+
+	{
+
+
+
+		$user_file_type_msg2 = 'Please upload swf file';
+
+
+
+	}
+
+
+
+	elseif($user_banner_type2 == 'Audio')
+
+
+
+	{
+
+
+
+		$user_file_type_msg2 = 'Please upload mp3/wav/mid file';
+
+
+
+	}
+
+
+
+	elseif($user_banner_type2 == 'PDF')
+
+
+
+	{
+
+
+
+		$user_file_type_msg2 = 'Please upload pdf file';
+
+
+
+	}
+
+
+
+	
+
+
+
+	if(is_array($fav2) && count($fav2)>0)
+
+
+
+	{	
+
+
+
+		$fav2 = array_unique($fav2);
+
+
+
+		$fav2 = array_values($fav2);
+
+
+
+		$fav2_comma_separated = implode(",", $fav2);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav2 = array();
+
+
+
+		$fav2_comma_separated = '';
+
+
+
+	}
+
+
+
+		
+
+
+
+	if($user_select2 != '')
+
+
+
+	{
+
+
+
+		$display_banner2 = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	if($user_banner_type2 == 'Video')
+
+
+
+	{   
+
+
+
+		$user_display_trfile2 = 'none';
+
+
+
+		$user_display_trtext2 = '';
+
+
+
+		$user_banner2 = trim($_POST['user_video_banner2']);
+
+
+
+		
+
+
+
+		if($user_banner2 == '')
+
+
+
+		{
+
+
+
+			$error = true;
+
+
+
+			$tr_err_user_banner_type2 = '';
+
+
+
+			$err_user_banner_type2 .= 'Please enter youtube video url.';
+
+
+
+		}
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{  
+
+
+
+		$user_display_trfile2 = '';
+
+
+
+		$user_display_trtext2 = 'none';
+
+
+
+
+
+
+
+		if(isset($_FILES['user_banner2']['tmp_name']) && $_FILES['user_banner2']['tmp_name'] != '')
+
+
+
+		{
+
+
+
+			$user_banner2 = $_FILES['user_banner2']['name'];
+
+
+
+			$user_file2=substr($user_banner2, -4, 4);
+
+
+
+
+
+
+
+			if($user_banner_type2 == 'Image')
+
+
+
+			{
+
+
+
+				if(($user_file2 != '.jpg')and($user_file2 != '.JPG') and ($user_file2 !='jpeg') and ($user_file2 != 'JPEG') and ($user_file2 !='.gif') and ($user_file2 != '.GIF') and ($user_file2 !='.png') and ($user_file2 != '.PNG'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 = 'Please Upload Only(jpg/gif/jpeg/png) files for banner';
+
+
+
+				}	 
+
+
+
+				elseif( $_FILES['user_banner2']['type'] != 'image/jpeg' and $_FILES['user_banner2']['type'] != 'image/pjpeg'  and $_FILES['user_banner2']['type'] != 'image/gif' and $_FILES['user_banner2']['type'] != 'image/png' )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= 'Please Upload Only(jpg/gif/jpeg/png) files ';
+
+
+
+				}
+
+
+
+				$image_size = $_FILES['user_banner2']['size']/1024;	 
+
+
+
+				$max_image_allowed_file_size = 2000; // size in KB
+
+
+
+				if($image_size > $max_image_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= "<br>Size of image file should be less than $max_image_allowed_file_size kb";
+
+
+
+				}
+
+
+
+			}
+
+
+
+			elseif($user_banner_type2 == 'Flash')
+
+
+
+			{
+
+
+
+				if(($user_file2 != '.swf')and($user_file2 != '.SWF'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= 'Please Upload Only(swf) files  ';
+
+
+
+				}	 
+
+
+
+				elseif( $_FILES['user_banner2']['type'] != 'application/x-shockwave-flash'  )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= 'Please Upload Only(swf) files ';
+
+
+
+				}
+
+
+
+				$flash_size = $_FILES['user_banner2']['size']/1024;	 
+
+
+
+				$max_flash_allowed_file_size = 2000; // size in KB
+
+
+
+				if($flash_size > $max_flash_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= "<br>Size of flash file should be less than $max_flash_allowed_file_size kb";
+
+
+
+				}
+
+
+
+			}
+
+
+
+			elseif($user_banner_type2 == 'Audio')
+
+
+
+			{
+
+
+
+				if(($user_file2 != '.mp3')and($user_file2 != '.wav')and($user_file2 != '.MP3')and($user_file2 != '.WAV')and($user_file2 != '.mid')and($user_file2 != '.MID'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= 'Please Upload Only(mp3 / wav / mid) files  ';
+
+
+
+				}
+
+
+
+				$audio_size = $_FILES['user_banner2']['size']/1024;	 
+
+
+
+				$max_audio_allowed_file_size = 2000; // size in KB
+
+
+
+				if($audio_size > $max_audio_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= "<br>Size of audio file should be less than $max_audio_allowed_file_size kb";
+
+
+
+				}		 
+
+
+
+			}
+
+
+
+			elseif($user_banner_type2 == 'PDF')
+
+
+
+			{
+
+
+
+				if(($user_file2 != '.pdf')and($user_file2 != '.PDF'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= 'Please Upload Only(PDF / pdf) files  ';
+
+
+
+				}
+
+
+
+				$pdf_size = $_FILES['user_banner2']['size']/1024;	 
+
+
+
+				$max_pdf_allowed_file_size = 2000; // size in KB
+
+
+
+				if($pdf_size > $max_pdf_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= "<br>Size of PDF file should be less than $max_pdf_allowed_file_size kb";
+
+
+
+				}	 
+
+
+
+			}
+
+
+
+
+
+
+
+			if(!$error)
+
+
+
+			{	
+
+
+
+				$user_banner2 = time()."_".$user_banner2;
+
+
+
+				$user_temp_dir2 = SITE_PATH.'/uploads/';
+
+
+
+				$user_temp_file2 = $user_temp_dir2.$user_banner2;
+
+
+
+		
+
+
+
+				if(!move_uploaded_file($_FILES['user_banner2']['tmp_name'], $user_temp_file2)) 
+
+
+
+				{
+
+
+
+					if(file_exists($user_temp_file2)) { unlink($user_temp_file2); } // Remove temp file
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type2 = '';
+
+
+
+					$err_user_banner_type2 .= '<br>Couldn\'t Upload banner';
+
+
+
+				}
+
+
+
+			}
+
+
+
+			else
+
+
+
+			{
+
+
+
+				$user_banner2 = '';
+
+
+
+			}
+
+
+
+		}
+
+
+
+		else
+
+
+
+		{
+
+
+
+			$error = true;
+
+
+
+			$tr_err_user_banner_type2 = '';
+
+
+
+			$err_user_banner_type2 = "Please upload any Image/Flash/Audio";
+
+
+
+		}  
+
+
+
+	}
+
+
+
+	
+
+
+
+	if(!$error)
+
+
+
+	{
+
+
+
+		if($user_banner2 != '')
+
+
+
+		{
+
+
+
+			if($user_banner_type2 == 'PDF')
+
+
+
+			{
+
+
+
+				InsertStressBusterPDF(2,$user_title2,$user_banner_type2,$user_banner2,$day,$user_id);
+
+
+
+			}
+
+
+
+			else
+
+
+
+			{
+
+
+
+				InsertStressBusterStep(2,$user_title2,$user_banner_type2,$user_banner2,$day,$user_id);
+
+
+
+			}
+
+
+
+		}									
+
+
+
+	}
+
+
+
+}
+
+
+
+elseif(isset($_POST['btnSubmit2']))	
+
+
+
+{   
+
+
+
+	$step1 = 'none';
+
+
+
+	$step2 = 'none';
+
+
+
+	$step3 = '';
+
+
+
+	$step4 = 'none';
+
+
+
+	$step5 = 'none';
+
+
+
+	
+
+
+
+	/*  First Div Value  */
+
+
+
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+
+
+
+	$user_stressed1 = strip_tags(trim($_POST['user_stressed1']));
+
+
+
+	$user_select1 =  $_POST['select_banner1'];
+
+
+
+	$fav1 = $_POST['favourite1'];
+
+
+
+	$user_adv1 = $_POST['adv1'];
+
+
+
+		
+
+
+
+	if(is_array($fav1) && count($fav1)>0)
+
+
+
+	{
+
+
+
+		$fav1 = array_unique($fav1);
+
+
+
+		$fav1 = array_values($fav1);
+
+
+
+		$fav1_comma_separated = implode(",", $fav1);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav1 = array();   
+
+
+
+		$fav1_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	$user_select2 =  $_POST['select_banner2'];
+
+
+
+	$fav2 = $_POST['favourite2'];
+
+
+
+	$user_adv2 = $_POST['adv2'];
+
+
+
+	
+
+
+
+	if(is_array($fav2) && count($fav2)>0)
+
+
+
+	{	
+
+
+
+		$fav2 = array_unique($fav2);
+
+
+
+		$fav2 = array_values($fav2);
+
+
+
+		$fav2_comma_separated = implode(",", $fav2);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav2 = array();
+
+
+
+		$fav2_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	$user_file_type_msg3 = 'Please upload jpg/gif image';
+
+
+
+}
+
+
+
+elseif(isset($_POST['btnUpload3']))	
+
+
+
+{
+
+
+
+	$step1 = 'none';
+
+
+
+	$step2 = 'none';
+
+
+
+	$step3 = '';
+
+
+
+	$step4 = 'none';
+
+
+
+	$step5 = 'none';
+
+
+
+	
+
+
+
+	/*  First Div Value  */
+
+
+
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+
+
+
+	$user_stressed1 = strip_tags(trim($_POST['user_stressed1']));
+
+
+
+	$user_select1 =  $_POST['select_banner1'];
+
+
+
+	$user_adv1 = $_POST['adv1'];
+
+
+
+	$fav1 = $_POST['favourite1'];
+
+
+
+	
+
+
+
+	if(is_array($fav1) && count($fav1)>0)
+
+
+
+	{
+
+
+
+		$fav1 = array_unique($fav1);
+
+
+
+		$fav1 = array_values($fav1);
+
+
+
+		$fav1_comma_separated = implode(",", $fav1);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav1 = array();   
+
+
+
+		$fav1_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	/*  Second div Value */
+
+
+
+	$user_select2 =  $_POST['select_banner2'];
+
+
+
+	$user_adv2 = $_POST['adv2'];
+
+
+
+	$fav2 = $_POST['favourite2'];
+
+
+
+		
+
+
+
+	if(is_array($fav2) && count($fav2)>0)
+
+
+
+	{
+
+
+
+		$fav2 = array_unique($fav2);
+
+
+
+		$fav2 = array_values($fav2);
+
+
+
+		$fav2_comma_separated = implode(",", $fav2);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav2 = array();
+
+
+
+		$fav2_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	
+
+
+
+	/* Third div value */
+
+
+
+	$user_select3 =  $_POST['select_banner3'];
+
+
+
+	$fav3 = $_POST['favourite3'];
+
+
+
+	$user_adv3 = $_POST['adv3'];
+
+
+
+	$user_title3 = strip_tags(trim($_POST['user_title3']));
+
+
+
+	$user_banner_type3 = $_POST['user_banner_type3'];
+
+
+
+	
+
+
+
+	if($user_banner_type3 == 'Image')
+
+
+
+	{
+
+
+
+		$user_file_type_msg3 = 'Please upload jpg/gif image';
+
+
+
+	}
+
+
+
+	elseif($user_banner_type3 == 'Flash')
+
+
+
+	{
+
+
+
+		$user_file_type_msg3 = 'Please upload swf file';
+
+
+
+	}
+
+
+
+	elseif($user_banner_type3 == 'Audio')
+
+
+
+	{
+
+
+
+		$user_file_type_msg3 = 'Please upload mp3/wav/mid file';
+
+
+
+	}
+
+
+
+	elseif($user_banner_type3 == 'PDF')
+
+
+
+	{
+
+
+
+		$user_file_type_msg3 = 'Please upload pdf file';
+
+
+
+	}
+
+
+
+		
+
+
+
+	if(is_array($fav3) && count($fav3)>0)
+
+
+
+	{
+
+
+
+		$fav3 = array_unique($fav3);
+
+
+
+		$fav3 = array_values($fav3);
+
+
+
+		$fav3_comma_separated = implode(",", $fav3);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav3 = array();
+
+
+
+		$fav3_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	if($user_select3 != '')
+
+
+
+	{
+
+
+
+		$display_banner3 = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	if($user_banner_type3 == 'Video')
+
+
+
+	{   
+
+
+
+		$user_display_trfile3 = 'none';
+
+
+
+		$user_display_trtext3 = '';
+
+
+
+		$user_banner3 = trim($_POST['user_video_banner3']);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{  
+
+
+
+		$user_display_trfile3 = '';
+
+
+
+		$user_display_trtext3 = 'none';
+
+
+
+
+
+
+
+		if(isset($_FILES['user_banner3']['tmp_name']) && $_FILES['user_banner3']['tmp_name'] != '')
+
+
+
+		{
+
+
+
+			$user_banner3 = $_FILES['user_banner3']['name'];
+
+
+
+			$user_file3=substr($user_banner3, -4, 4);
+
+
+
+				 
+
+
+
+			if($user_banner_type3 == 'Image')
+
+
+
+			{
+
+
+
+				if(($user_file3 != '.jpg')and($user_file3 != '.JPG') and ($user_file3 !='jpeg') and ($user_file3 != 'JPEG') and ($user_file3 !='.gif') and ($user_file3 != '.GIF') and ($user_file3 !='.png') and ($user_file3 != '.PNG'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 = 'Please Upload Only(jpg/gif/jpeg/png) files for banner';
+
+
+
+				}	 
+
+
+
+				elseif( $_FILES['user_banner3']['type'] != 'image/jpeg' and $_FILES['user_banner3']['type'] != 'image/pjpeg'  and $_FILES['user_banner3']['type'] != 'image/gif' and $_FILES['user_banner3']['type'] != 'image/png' )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= 'Please Upload Only(jpg/gif/jpeg/png) files ';
+
+
+
+				}
+
+
+
+				$image_size = $_FILES['user_banner3']['size']/1024;	 
+
+
+
+				$max_image_allowed_file_size = 2000; // size in KB
+
+
+
+				if($image_size > $max_image_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= "<br>Size of image file should be less than $max_image_allowed_file_size kb";
+
+
+
+				}
+
+
+
+			}
+
+
+
+			elseif($user_banner_type3 == 'Flash')
+
+
+
+			{
+
+
+
+				if(($user_file3 != '.swf')and($user_file3 != '.SWF'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= 'Please Upload Only(swf) files  ';
+
+
+
+				}	 
+
+
+
+				elseif( $_FILES['user_banner3']['type'] != 'application/x-shockwave-flash'  )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= 'Please Upload Only(swf) files ';
+
+
+
+				}
+
+
+
+				$flash_size = $_FILES['user_banner3']['size']/1024;	 
+
+
+
+				$max_flash_allowed_file_size = 2000; // size in KB
+
+
+
+				if($flash_size > $max_flash_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= "<br>Size of image file should be less than $max_flash_allowed_file_size kb";
+
+
+
+				}
+
+
+
+			}
+
+
+
+			elseif($user_banner_type3 == 'Audio')
+
+
+
+			{
+
+
+
+				if(($user_file3 != '.mp3')and($user_file3 != '.wav')and($user_file3 != '.MP3')and($user_file3 != '.WAV')and($user_file3 != '.mid')and($user_file3 != '.MID'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= 'Please Upload Only(mp3 / wav / mid) files  ';
+
+
+
+				}
+
+
+
+				$audio_size = $_FILES['user_banner3']['size']/1024;	 
+
+
+
+				$max_audio_allowed_file_size = 2000; // size in KB
+
+
+
+				if($audio_size > $max_audio_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= "<br>Size of image file should be less than $max_audio_allowed_file_size kb";
+
+
+
+				}	 
+
+
+
+			}
+
+
+
+			elseif($user_banner_type3 == 'PDF')
+
+
+
+			{
+
+
+
+				if(($user_file3 != '.pdf')and($user_file3 != '.PDF'))
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= 'Please Upload Only(PDF / pdf) files  ';
+
+
+
+				}
+
+
+
+				$pdf_size = $_FILES['user_banner3']['size']/1024;	 
+
+
+
+				$max_pdf_allowed_file_size = 2000; // size in KB
+
+
+
+				if($pdf_size > $max_pdf_allowed_file_size )
+
+
+
+				{
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= "<br>Size of PDF file should be less than $max_pdf_allowed_file_size kb";
+
+
+
+				}	 
+
+
+
+			}
+
+
+
+
+
+
+
+			if(!$error)
+
+
+
+			{	
+
+
+
+				$user_banner3 = time()."_".$user_banner3;
+
+
+
+				$user_temp_dir3 = SITE_PATH.'/uploads/';
+
+
+
+				$user_temp_file3 = $user_temp_dir3.$user_banner3;
+
+
+
+				
+
+
+
+				if(!move_uploaded_file($_FILES['user_banner3']['tmp_name'], $user_temp_file3)) 
+
+
+
+				{
+
+
+
+					if(file_exists($user_temp_file3)) { unlink($user_temp_file3); } // Remove temp file
+
+
+
+					$error = true;
+
+
+
+					$tr_err_user_banner_type3 = '';
+
+
+
+					$err_user_banner_type3 .= '<br>Couldn\'t Upload banner 1';
+
+
+
+				}
+
+
+
+			}
+
+
+
+		}  
+
+
+
+	}
+
+
+
+	
+
+
+
+	if(!$error)
+
+
+
+	{
+
+
+
+	  if($user_banner3 != '')
+
+
+
+		{
+
+
+
+			if($user_banner_type3 == 'PDF')
+
+
+
+			{
+
+
+
+				InsertStressBusterPDF(3,$user_title3,$user_banner_type3,$user_banner3,$day,$user_id);
+
+
+
+			}
+
+
+
+			else
+
+
+
+			{
+
+
+
+				InsertStressBusterStep(3,$user_title3,$user_banner_type3,$user_banner3,$day,$user_id);
+
+
+
+			}
+
+
+
+		}									
+
+
+
+	}
+
+
+
+}
+
+
+
+elseif(isset($_POST['btnSubmit3']))	
+
+
+
+{   
+
+
+
+	/*  First Div Value  */
+
+
+
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+
+
+
+	$user_stressed1 = strip_tags(trim($_POST['user_stressed1']));
+
+
+
+	$user_select1 =  $_POST['select_banner1'];
+
+
+
+	$fav1 = $_POST['favourite1'];
+
+
+
+	$user_adv1 = $_POST['adv1'];
+
+
+
+	
+
+
+
+	if(is_array($fav1) && count($fav1)>0)
+
+
+
+	{
+
+
+
+		$fav1 = array_unique($fav1);
+
+
+
+		$fav1 = array_values($fav1);
+
+
+
+		$fav1_comma_separated = implode(",", $fav1);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav1 = array();   
+
+
+
+		$fav1_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	/*  Second div Value */
+
+
+
+	$user_select2 =  $_POST['select_banner2'];
+
+
+
+	$fav2 = $_POST['favourite2'];
+
+
+
+	$user_adv2 = $_POST['adv2'];
+
+
+
+	
+
+
+
+	if(is_array($fav2) && count($fav2)>0)
+
+
+
+	{
+
+
+
+		$fav2 = array_unique($fav2);
+
+
+
+		$fav2 = array_values($fav2);
+
+
+
+		$fav2_comma_separated = implode(",", $fav2);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav2 = array();
+
+
+
+		$fav2_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	/* Third div value */
+
+
+
+	$user_select3 =  $_POST['select_banner3'];
+
+
+
+	$fav3 = $_POST['favourite3'];
+
+
+
+	$user_adv3 = $_POST['adv3'];
+
+
+
+	
+
+
+
+	if(is_array($fav3) && count($fav3)>0)
+
+
+
+	{
+
+
+
+		$fav3 = array_unique($fav3);
+
+
+
+		$fav3 = array_values($fav3);
+
+
+
+		$fav3_comma_separated = implode(",", $fav3);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav3 = array();
+
+
+
+		$fav3_comma_separated = '';
+
+
+
+	}
+
+
+
+		
+
+
+
+	if($user_select3 != '')
+
+
+
+	{
+
+
+
+		$display_banner3 = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	if(!$error)
+
+
+
+	{
+
+
+
+   		if($user_id > 0)
+
+
+
+		{
+
+
+
+			$usbb_id = InsertStressBusterAllDetails($user_stressed1,$user_select1,$user_adv1,$fav1_comma_separated,$user_select2,$user_adv2,$fav2_comma_separated,$user_select3,$user_adv3,$fav3_comma_separated,$comment_box,$user_id);
+
+
+
+			$final_message = 'Your details successfully saved';
+
+
+
+		}
+
+
+
+		else
+
+
+
+		{
+
+
+
+			$ref = base64_encode('stress_buster_box.php');
+
+
+
+			$final_message = 'If you want to save the data for next time then <a href="login.php?ref='.$ref.'"> login here. </a>';
+
+
+
+		}
+
+
+
+		$step1 = 'none';
+
+
+
+		$step2 = 'none';
+
+
+
+		$step3 = 'none';
+
+
+
+		$step4 = '';
+
+
+
+		$step5 = 'none';
+
+
+
+	}
+
+
+
+}
+
+
+
+elseif(isset($_POST['btnSubmit4']))	
+
+
+
+{   
+
+
+
+	/*  First Div Value  */
+
+
+
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+
+
+
+	$intensity_scale_2 = $_POST['intensity_scale_2'];
+
+
+
+	$usbb_id = $_POST['hdnusbb_id'];
+
+
+
+	
+
+
+
+	$step1 = 'none';
+
+
+
+	$step2 = 'none';
+
+
+
+	$step3 = 'none';
+
+
+
+	$step4 = 'none';
+
+
+
+	$step5 = '';
+
+
+
+	
+
+
+
+	if( ($user_id > 0) && ($usbb_id > 0) )
+
+
+
+	{  
+
+
+
+		addStressIntensityMeter($intensity_scale_1,$intensity_scale_2,$user_id,$usbb_id);
+
+
+
+	}
+
+
+
+	
+
+
+
+	if($intensity_scale_1 > $intensity_scale_2)
+
+
+
+	{	
+
+
+
+		$final_message = 'CONGRATS, you have succeeded in controlling your Stress';
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$final_message = 'Hey, CHILL, Cool down. Stress hurts onself & his dear ones more than Others. So Cool down';
+
+
+
+	}	
+
+
+
+}
+
+
+
+elseif(isset($_POST['back2']))	
+
+
+
+{
+
+
+
+	$step1 = '';
+
+
+
+	$step2 = 'none';
+
+
+
+	$step3 = 'none';
+
+
+
+	$step4 = 'none';
+
+
+
+	$step5 = 'none';
+
+
+
+	/*  First div values   */	
+
+
+
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+
+
+
+	$user_stressed1 = strip_tags(trim($_POST['user_stressed1']));
+
+
+
+	$user_select1 =  $_POST['select_banner1'];
+
+
+
+	$fav1 = $_POST['favourite1'];
+
+
+
+	$user_adv1 = $_POST['adv1'];
+
+
+
+	$user_file_type_msg1 = 'Please upload jpg/gif image';
+
+
+
+	
+
+
+
+	if(is_array($fav1) && count($fav1)>0)
+
+
+
+	{
+
+
+
+		$fav1 = array_unique($fav1);
+
+
+
+		$fav1 = array_values($fav1);
+
+
+
+		$fav1_comma_separated = implode(",", $fav1);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav1 = array();   
+
+
+
+		$fav1_comma_separated = '';
+
+
+
+	}
+
+
+
+}
+
+
+
+elseif(isset($_POST['back3']))	
+
+
+
+{
+
+
+
+	$step1 = 'none';
+
+
+
+	$step2 = '';
+
+
+
+	$step3 = 'none';
+
+
+
+	$step4 = 'none';
+
+
+
+	$step5 = 'none';
+
+
+
+	/*  First Div Value  */
+
+
+
+	$intensity_scale_1 = $_POST['intensity_scale_1'];
+
+
+
+	$user_stressed1 = strip_tags(trim($_POST['user_stressed1']));
+
+
+
+	$user_select1 =  $_POST['select_banner1'];
+
+
+
+	$fav1 = $_POST['favourite1'];
+
+
+
+	$user_adv1 = $_POST['adv1'];
+
+
+
+		
+
+
+
+	if(is_array($fav1) && count($fav1)>0)
+
+
+
+	{
+
+
+
+		$fav1 = array_unique($fav1);
+
+
+
+		$fav1 = array_values($fav1);
+
+
+
+		$fav1_comma_separated = implode(",", $fav1);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		 $fav1 = array();   
+
+
+
+		$fav1_comma_separated = '';
+
+
+
+	}
+
+
+
+	
+
+
+
+	/*  Second div Value */
+
+
+
+	$user_select2 =  $_POST['select_banner2'];
+
+
+
+	$fav2 = $_POST['favourite2'];
+
+
+
+	$user_adv2 = $_POST['adv2'];
+
+
+
+	$user_file_type_msg2 = 'Please upload jpg/gif image';
+
+
+
+	
+
+
+
+	if(is_array($fav2) && count($fav2)>0)
+
+
+
+	{
+
+
+
+		$fav2 = array_unique($fav2);
+
+
+
+		$fav2 = array_values($fav2);
+
+
+
+		$fav2_comma_separated = implode(",", $fav2);
+
+
+
+	}
+
+
+
+	else
+
+
+
+	{
+
+
+
+		$fav2 = array();
+
+
+
+		$fav2_comma_separated = '';
+
+
+
+	}
+
+
+
+}
+
+
+
+/* Commom Part of Div */
+
+
+
+list($color_code,$image,$credit,$credit_url) = getTheam($day,$theam_id);
+
+
+
+/* For Div One   */
+
+
+
+if($user_banner_type1 == 'Video')
+
+
+
+{
+
+
+
+	$user_display_trfile1 = 'none';
+
+
+
+	$user_display_trtext1 = '';
+
+
+
+}
+
+
+
+else
+
+
+
+{
+
+
+
+	$user_display_trfile1 = '';
+
+
+
+	$user_display_trtext1 = 'none';
+
+
+
+}
+
+
+
+/*  For Div Two  */
+
+
+
+if($user_banner_type2 == 'Video')
+
+
+
+{
+
+
+
+	$user_display_trfile2 = 'none';
+
+
+
+	$user_display_trtext2 = '';
+
+
+
+}
+
+
+
+else
+
+
+
+{
+
+
+
+	$user_display_trfile2 = '';
+
+
+
+	$user_display_trtext2 = 'none';
+
+
+
+}
+
+
+
+/*  For Div Three  */
+
+
+
+if($user_banner_type3 == 'Video')
+
+
+
+{
+
+
+
+	$user_display_trfile3 = 'none';
+
+
+
+	$user_display_trtext3 = '';
+
+
+
+}
+
+
+
+else
+
+
+
+{
+
+
+
+	$user_display_trfile3 = '';
+
+
+
+	$user_display_trtext3 = 'none';
+
+
+
+}
+
+
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+
+
+	<meta name="description" content="<?php echo $meta_description;?>" />
+
+
+
+	<meta name="keywords" content="<?php echo $meta_keywords;?>" />
+
+
+
+	<meta name="title" content="<?php echo $meta_title;?>" />
+
+
+
+	<title><?php echo $meta_title;?></title>
+
+
+
+	<link href="cwri.css" rel="stylesheet" type="text/css" />
+
+ <link href="csswell/bootstrap/css/bootstrap.min.css" rel="stylesheet"> 
+
+    <link href='css/jquery.rating.css' type="text/css" rel="stylesheet"/>
+
+
+
+    <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
+
+
+
+	<script type="text/JavaScript" src="js/jquery-1.4.2.min.js"></script>
+
+
+
+	<script type="text/JavaScript" src="js/commonfn.js"></script>
+
+
+
+	<script type="text/javascript" src="js/jquery.bxSlider2.js"></script>
+
+
+
+    <script src='js/jquery.rating.js' type="text/javascript" language="javascript"></script>
+
+
+
+    
+
+
+
+	<script type="text/javascript" src="js/jquery-ui-1.7.1.custom.min.js"></script>
+
+
+
+	<script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
+
+
+
+	<link rel="stylesheet" href="css/redmond/jquery-ui-1.7.1.custom.css" type="text/css" />
+
+
+
+	<link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
+
+
+	<link href="css/ticker-style.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.ticker.js" type="text/javascript"></script>
+   	
+
+
+
+	<script type="text/javascript">
+
+
+
+		$(document).ready(function(){
+
+			$('#js-news').ticker({
+					controls: true,        // Whether or not to show the jQuery News Ticker controls
+					 htmlFeed: true, 
+					titleText: '',   // To remove the title set this to an empty String
+					displayType: 'reveal', // Animation type - current options are 'reveal' or 'fade'
+					direction: 'ltr'       // Ticker direction - current options are 'ltr' or 'rtl'
+					
+				});
+
+			$('#slider').bxSlider({
+
+
+
+				auto : true,
+
+
+
+				autoConrols : true
+
+
+
+			});
+
+
+
+			
+
+
+
+			$('#slider2').bxSlider({
+
+
+
+				auto : true,
+
+
+
+				autoConrols : true
+
+
+
+			});
+
+
+
+			
+
+
+
+			$('#slider3').bxSlider({
+
+
+
+				auto : true,
+
+
+
+				autoConrols : true
+
+
+
+			});
+
+
+
+			$('#slider_main1').bxSlider();
+                        $('#slider_main2').bxSlider();
+                        $('#slider_main3').bxSlider();
+                        $('#slider_main4').bxSlider();
+                        $('#slider_main5').bxSlider();
+                        $('#slider_main6').bxSlider();	
+
+
+
+			$('input.wow').rating();
+
+
+
+			
+
+
+
+			$(".QTPopup").css('display','none')
+
+
+
+			
+
+
+
+			$(".feedback").click(function(){
+
+
+
+				$(".QTPopup").animate({width: 'show'}, 'slow');
+
+
+
+			});	
+
+
+
+			
+
+
+
+			$("#your_opinion").click(function(){
+
+
+
+				$(".QTPopup").animate({width: 'show'}, 'slow');
+
+
+
+			});
+
+
+
+		
+
+
+
+			$(".closeBtn").click(function(){			
+
+
+
+				$(".QTPopup").css('display', 'none');
+
+
+
+			});
+
+
+
+			
+
+
+
+			var abc = $('#intensity_scale_1').selectToUISlider().next();
+
+
+
+			var xyz = $('#intensity_scale_2').selectToUISlider().next();
+
+
+
+		});
+
+
+
+	</script>
+
+
+
+	<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+
+
+
+	<script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+
+
+
+	<script type="text/javascript">
+
+
+
+		ddsmoothmenu.init({
+
+
+
+		mainmenuid: "smoothmenu1", //menu DIV id
+
+
+
+		orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+
+
+
+		classname: 'ddsmoothmenu', //class added to menu's outer DIV
+
+
+
+		//customtheme: ["#1c5a80", "#18374a"],
+
+
+
+		contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+
+
+
+		})
+
+
+
+	</script>
+
+
+
+</head>
+
+
+
+<body>
+
+<?php include_once('analyticstracking'); ?>
+
+<?php include_once('analyticstracking_ci.php'); ?>
+
+<?php include_once('analyticstracking_y.php'); ?>
+
+
+
+<div id="fb-root"></div>
+
+
+
+<script>(function(d, s, id) {
+
+
+
+  var js, fjs = d.getElementsByTagName(s)[0];
+
+
+
+  if (d.getElementById(id)) return;
+
+
+
+  js = d.createElement(s); js.id = id;
+
+
+
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=427704967243377";
+
+
+
+  fjs.parentNode.insertBefore(js, fjs);
+
+
+
+}(document, 'script', 'facebook-jssdk'));</script>
+
+
+
+<?php include_once('analyticstracking.php'); ?>
+
+<!--header-->
+<header>
+ <?php include 'topbar.php'; ?>
+<?php include_once('header.php');?>
+</header>
+<!--header End --> 	
+ <!--breadcrumb--> 
+  
+ <div class="container"> 
+    <div class="breadcrumb">
+               
+                    <div class="row">
+                    <div class="col-md-8">	
+                      <?php echo getBreadcrumbCode($page_id);?> 
+                       </div>
+                         <div class="col-md-4">
+                         <?php
+                                    if(isLoggedIn())
+                                    { 
+                                        echo getWelcomeUserBoxCode($_SESSION['name'],$_SESSION['user_id']);
+                                    }
+                                    ?>
+                         </div>
+                       </div>
+                </div>
+            </div>
+<!--breadcrumb end --> 
+<!--container-->              
+<div class="container" >
+<div class="row">	
+<div class="col-md-8">	
+	  	<table align="center" width="100%" border="0" id="color_code" cellpadding="0" cellspacing="1" bgcolor="<?php echo $color_code; ?>">
+
+
+
+                            <tr>
+
+
+
+                            	<td align="center" valign="top" id="bgimage" background="<?php  echo $image; ?>" bgcolor="#FFFFFF" style=" padding:10px;">
+
+
+
+                                   	<form id="frm_StressBusterBox1" name="frm_StressBusterBox1" method="post" action="#" enctype="multipart/form-data">
+
+
+
+                                    	<input type="hidden" name="hdnusbb_id" id="hdnusbb_id" value="<?php echo $usbb_id;?>"  />
+
+
+
+                                        <div id="step1" style="display:<?php echo $step1; ?>">
+
+
+
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="50" colspan="2" align="left" valign="top">
+
+
+
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                        	<tr>
+
+
+
+                                                                <td width="45%" height="35" align="left" valign="top" ><span class="Header_brown"><div id="tooltip"><?php echo getPageName($page_id);?></div></span></td>          
+
+
+
+                                                            	<td width="55%" height="35" align="right" valign="top"><img src="images/screen1.jpg" width="90" height="30" /></td>      
+
+
+
+                                                            </tr>
+
+
+
+                                                        </table>    
+
+
+
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">    
+
+
+
+                                                            <tr>
+
+
+
+                                                                <td width="60%" height="35" align="left" valign="top" >&nbsp;</td>
+
+
+
+                                                                <td width="40%" height="35" align="right" valign="top">
+
+
+
+                                                                    <select name="theam_id1" id="theam_id" onchange="ChangeTheam()" class="form-control" >
+
+
+
+                                                                    <option>Select Theme</option>
+
+
+
+                                                                    <?php echo getTheamOptions($theam_id,$day); ?>
+
+
+
+                                                                    </select>
+
+
+
+                                                                </td>
+
+
+
+                                                            </tr>
+
+
+
+                                                        </table> 
+
+
+
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                          <tr>
+
+
+
+                                                            <td><?php echo getPageContents($page_id);?></td>
+
+
+
+                                                          </tr>
+
+
+
+                                                        </table>
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td colspan="2" align="left" valign="top">
+
+
+
+                                                    	<table width="100%" border="0" cellspacing="0" cellpadding="2">
+
+
+
+                                                            <tr>
+
+
+
+                                                                <td height="30" align="left" valign="middle" class="Header_brown">My Current Stress Intensity</td>
+
+
+
+                                                            </tr>
+
+
+
+                                                            <tr>
+
+
+
+                                                                <td height="30" align="left" valign="middle">
+
+
+
+                                                                	<select name="intensity_scale_1" id="intensity_scale_1" style="display:none;">
+
+
+
+                                                                        <option value="0">Very Low</option>
+
+
+
+                                                                    <?php
+
+
+
+                                                                    for($j=1;$j<=10;$j++)
+
+
+
+                                                                    { ?>
+
+
+
+                                                                        <option value="<?php echo $j;?>" <?php if($intensity_scale_1 == $j) {?> selected="selected" <?php } ?>>
+
+
+
+                                                                        <?php 
+
+
+
+                                                                        if( ($j >= 0) && ($j <= 2) )
+
+
+
+                                                                        {
+
+
+
+                                                                            echo " (Very Low)";
+
+
+
+                                                                        }
+
+
+
+                                                                        elseif( ($j >= 3) && ($j <= 4) )
+
+
+
+                                                                        {
+
+
+
+                                                                            echo " (Low)";
+
+
+
+                                                                        }
+
+
+
+                                                                        elseif( ($j >= 5) && ($j <= 6) )
+
+
+
+                                                                        {
+
+
+
+                                                                            echo " (Average)";
+
+
+
+                                                                        }
+
+
+
+                                                                        elseif( ($j >= 7) && ($j <= 8) )
+
+
+
+                                                                        {
+
+
+
+                                                                            echo " (High)";
+
+
+
+                                                                        }
+
+
+
+                                                                        elseif( ($j >= 9) && ($j <= 10) )
+
+
+
+                                                                        {
+
+
+
+                                                                            echo " (Very High)";
+
+
+
+                                                                        }
+
+
+
+                                                                        ?>
+
+
+
+                                                                        </option>
+
+
+
+                                                                        <?php
+
+
+
+                                                                    }?>
+
+
+
+                                                                    </select>		
+
+
+
+                                                                </td>
+
+
+
+                                                            </tr>
+
+
+
+                                                            <tr>
+
+
+
+                                                                <td height="30" align="left" valign="middle">&nbsp;</td>
+
+
+
+                                                            </tr>
+
+
+
+                                                        </table> 
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td colspan="2" align="left" valign="top"><strong>I am stressed because</strong></td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td colspan="2" align="left" valign="top"><textarea name="user_stressed1" id="user_stressed1" class="form-control"  rows="4"><?php echo $user_stressed1; ?></textarea></td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="35" colspan="2" align="left" valign="top">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td colspan="2" align="center" valign="top">
+
+
+
+                                                      <span class="Header_brown">My  state of mind at this particular moment.</span>
+
+
+
+                                                        <div class="slider_main" id="slider_main_bg">
+
+
+
+                                                        <?php if(count($arr_step1)>0)
+
+
+
+                                                            {
+
+
+
+                                                                 ?>
+
+
+
+                                                            <div id="slider">
+
+
+
+                                                            <?php   
+
+
+
+                                                            for($i=0;$i<count($arr_step1);$i++)
+
+
+
+                                                            {     ?>
+
+
+
+                                                                <div class="slider_inner">
+
+
+
+                                                                    <table align="center" width="290" border="0" cellspacing="0" cellpadding="0" style="padding-left:10px; padding-right:10px;">
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="30" align="left" valign="middle"><span class="Header_brown"><?php echo $arr_box_title1[$i]; ?></span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td align="left" valign="middle">
+
+
+
+                                                                        
+
+
+
+                                                                               <?php if($arr_banner_type1[$i] == 'Flash') { ?>
+
+
+
+                                                                    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="270" ><param name="movie" value="<?php echo SITE_URL."uploads/".$arr_banner1[$i];?>" /> <param name="wmode" value="transparent" /><param name="quality" value="high" /><embed src="<?php echo SITE_URL."uploads/".$arr_banner1[$i];?>" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="270"  wmode="transparent"></embed>
+
+
+
+                                                                </object>
+
+
+
+                                                                <?php } elseif($arr_banner_type1[$i] == 'Image') { ?>
+
+
+
+                                                                    <img src="<?php echo SITE_URL."uploads/".$arr_banner1[$i];?>" width="270" border="0" />
+
+
+
+                                                                <?php } elseif($arr_banner_type1[$i] == 'Video') { ?>
+
+
+
+                                                                  <iframe width="270" src="<?php echo getSressBusterBannerString($arr_banner1[$i]); ?>" frameborder="0" allowfullscreen></iframe>
+
+
+
+                                                                <?php } elseif($arr_banner_type1[$i] == 'Audio') { ?>
+
+
+
+                                                                    
+
+
+
+                                                                  <embed type="application/x-shockwave-flash" flashvars="audioUrl=<?php echo SITE_URL."/uploads/".$arr_banner1[$i];?>" src="http://www.google.com/reader/ui/3523697345-audio-player.swf" width="270" height="27" quality="best"  wmode="transparent"></embed>
+
+
+
+                                                                <?php }  ?>
+
+
+
+                                                                        
+
+
+
+                                                                        </td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td class="footer" height="25" align="right" valign="top"><a href="<?php echo $arr_credit_line_url1[$i]; ?>" target="_blank"><?php echo $arr_credit_line1[$i]; ?></a></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td align="left" valign="top"><?php echo $arr_box_desc1[$i]?></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="50" align="left" valign="middle"><strong>Select:</strong>
+
+
+
+                                                                    <input type="radio" <?php if($user_select1 == $arr_stress_buster_box_id1[$i]){ ?> checked="checked" <?php } ?> id="select_banner_1_<?php echo $i; ?>" name="select_banner1" value="<?php echo $arr_stress_buster_box_id1[$i]; ?>" onclick="Playsound('<?php echo $arr_sound_clip_id1[$i]; ?>'); Display_Banner('1')" />
+
+
+
+                                                                    <br> 
+
+
+
+                                                                    <span class="footer">(Please select / tick mark only one as applicable to you.)</span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="50" align="left" valign="middle"><strong>Favourite:</strong>
+
+
+
+                                                                    <input type="checkbox" name="favourite1[]" <?php if (in_array($arr_stress_buster_box_id1[$i] , $fav1)) { ?> checked="checked" <?php } ?> id="favourite_1_<?php echo $i; ?>" value="<?php echo $arr_stress_buster_box_id1[$i]; ?>" />
+
+
+
+                                                                         <br>
+
+
+
+                                                                       <span class="footer">(Mark above as your favourite.)</span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                  </table>
+
+
+
+                                                              </div>
+
+
+
+                                                            <?php } ?>
+
+
+
+                                                           </div> <!-- end Slider #1 -->
+
+
+
+                                                          <?php } else {   ?>
+
+
+
+                                                           <span>Thank you for being on this page,<br />
+
+
+
+                                                                                             data is not available, please try after some time !  </span>
+
+
+
+                                                          <?php } ?>
+
+
+
+                                                        </div>
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="35" colspan="2" align="left" valign="top">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                 <tr>
+
+
+
+                                                    <td colspan="2" align="center" valign="top">
+
+
+
+                                                    <div id="disply_banner1" class="slider_main2" style="display:<?php echo $display_banner1; ?>">
+
+
+
+                                                    <?php $output = get_BoxSelectedItemCode($user_select1);
+
+
+
+                                                    echo $output; ?>
+
+
+
+                                                     </div>
+
+
+
+                                                    
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                 <tr>
+
+
+
+                                                    <td height="35" colspan="2" align="left" valign="top">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                              <?php if(count($arr_step1)>0)
+
+
+
+                                                        {
+
+
+
+                                                             ?>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="35" colspan="2" align="left" valign="top"><span style="float:left;"><strong>Rate it:</strong></span>
+
+
+
+                                                  <span><input name="adv1" <?php if($user_adv1 == 1) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="1" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv1" <?php if($user_adv1 == 2) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="2" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv1" <?php if($user_adv1 == 3) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="3" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv1" <?php if($user_adv1 == 4) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="4" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv1" <?php if($user_adv1 == 5) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="5" onclick="HideRateIt();"/></span></td>
+
+
+
+                                                    
+
+
+
+                                                </tr>
+
+
+
+                                                <?php } ?>
+
+
+
+                                               <?php  if(count($arr_pdf1)>0) { ?>
+
+
+
+                                               <tr>
+
+
+
+                                                    <td colspan="2" align="left" valign="top"><strong>Know More:</strong></td>
+
+
+
+                                                 </tr>
+
+
+
+                                                 <?php  } ?>
+
+
+
+                                             <?php  for($i=0;$i<count($arr_pdf1);$i++)
+
+
+
+                                                            {     ?>
+
+
+
+                                                            <tr>
+
+
+
+                                                            <td height="50" colspan="2" align="left" valign="top">
+
+
+
+                                                             <a href="<?php echo SITE_URL."uploads/".$arr_pdf1[$i]; ?>" target="_blank" class="body_link"><?php echo $arr_pdf_title1[$i]; ?></a>
+
+
+
+                                                             <input type="checkbox" class="chk_pdf" id="chk_pdf_<?php echo $arr_pdf_id1[$i]; ?>" name="chk_pdf[]" value="<?php echo $arr_pdf_id1[$i]; ?>" />
+
+
+
+                                                             <br /><a href="<?php echo $arr_credit_url1[$i]; ?>" target="_blank"><span class="footer"><?php echo $arr_credit1[$i];  ?></span></a></td>
+
+
+
+                                                            </tr>
+
+
+
+                                                <?php } ?>
+
+
+
+                                                <?php  if(count($arr_pdf1)>0) { ?>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td>
+
+
+
+                                                        <input name="submit" type="button" id="submit" value="Add To Library"  onclick="PDF_Library(<?php echo $page_id ?>)"/>
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <?php } ?>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="40" colspan="2" align="left" valign="middle" bgcolor="#FFF2C1" style="padding-left:15px;"><strong><?php echo $user_area_box_title1; ?></strong></td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="30" colspan="2" align="left" valign="top" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+
+
+                                                    <?php echo $user_area_box_desc1; ?> 
+
+
+
+                                                    </td>
+
+
+
+                                              </tr>
+
+
+
+                                                    <tr>
+
+
+
+                                                        
+
+
+
+                                                        <td align="left"  bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;"><strong>Title: </strong>
+
+</td>
+<td>
+
+                                                          <input type="text" class="form-control"  name="user_title1" id="user_title1" value="<?php echo $user_title1; ?>" /></td>
+
+
+
+                                                   </tr>
+
+
+
+                                                   <tr>
+
+
+
+                                                         <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                   <tr> 
+
+
+
+                                                   <tr>
+
+
+
+                                                        <td width="35%" align="left" bgcolor="#FFF2C1" style="padding-left:15px;">
+
+
+
+                                                            <strong>Upload File Type:</strong>
+
+
+
+                                                            <select name="user_banner_type1" id="user_banner_type1" onchange="BannerBox1('1')">
+
+
+
+                                                                <option value="Image" <?php if($user_banner_type1 == 'Image'){ ?> selected <?php } ?>>Image</option>
+
+
+
+                                                                <option value="Flash" <?php if($user_banner_type1 == 'Flash'){ ?> selected <?php } ?>>Flash</option>
+
+
+
+                                                                <option value="Audio" <?php if($user_banner_type1 == 'Audio'){ ?> selected <?php } ?>>Audio</option>
+
+
+
+                                                                <option value="Video" <?php if($user_banner_type1 == 'Video'){ ?> selected <?php } ?>>Video</option>
+
+
+
+                                                                <option value="PDF"   <?php if($user_banner_type1 == 'PDF'){ ?> selected <?php } ?>>PDF</option>
+
+
+
+                                                            </select>
+
+
+
+                                                        </td>
+
+
+
+                                                        <td width="65%" align="left" bgcolor="#FFF2C1" >
+
+
+
+                                                            <div id="user_trfile1" style="display:<?php echo $user_display_trfile1;?>">
+
+
+
+                                                                <input type="file" class="form-control"  width="100px" name="user_banner1" id="user_banner1" />
+
+
+
+                                                                &nbsp;<span id="user_file_type_msg1" class="footer"><?php echo $user_file_type_msg1;?></span>
+
+
+
+                                                            </div>   
+
+
+
+                                                            <div id="user_trtext1" style="display:<?php echo $user_display_trtext1;?>">  
+
+
+
+                                                                <input type="text" name="user_video_banner1" id="user_video_banner1" value="<?php echo $user_banner1;?>" />
+
+
+
+                                                            &nbsp;<span class="footer">Please Enter Youtube Video URL.</span>
+
+
+
+                                                            </div>
+
+
+
+                                                        </td>
+
+
+
+                                                </tr>
+
+
+
+                                               
+
+
+
+                                                 <tr id="tr_err_user_banner_type1"  style="display:<?php echo $tr_err_user_banner_type1;?>;">
+
+
+
+                                                    <td align="left" colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;" class="err_msg" id="user_err_banner_type1"><?php echo $err_user_banner_type1;?></td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                 <tr>
+
+
+
+                                                    <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+
+
+                                                    <input name="btnUpload1" type="submit" class="button" id="btnUpload1" value="Upload" /></td>
+
+
+
+                                                </tr>
+
+
+
+                                                 <tr>
+
+
+
+                                                    <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="40"  align="left" valign="bottom">
+
+
+
+                                                    <input name="btnSubmit1" type="submit" class="btn btn-primary" id="btnSubmit1" value="Continue" /></td>
+
+
+
+                                                    
+
+
+
+                                                </tr>
+
+
+
+                                            </table>
+
+
+
+                                        </div>
+
+
+
+                                        
+
+
+
+                                        <?php    /*   Secong DIV Start         */     ?>
+
+
+
+                                        
+
+
+
+                                        <div id="step2" style="display:<?php echo $step2; ?>">
+
+
+
+                                            <table width="570" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="50" colspan="2" align="left" valign="top">
+
+
+
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                            
+
+
+
+                                                            <tr>
+
+
+
+                                                                <td width="75%" height="35" align="left" valign="top"><span class="Header_brown">&nbsp;</td>
+
+
+
+                                                                <td width="25%" height="35" align="right" valign="top"><img src="images/screen2.jpg" width="90" height="30" /></td>
+
+
+
+                                                            </tr>
+
+
+
+                                                            <tr>
+
+
+
+                                                               <td width="100%" height="35" align="right" valign="top" colspan="2">
+
+
+
+                                                                 <select name="theam_id2" id="theam_id2" onchange="ChangeTheam2()">
+
+
+
+                                                                   <option>Select Theme</option>
+
+
+
+                                                                   <?php echo getTheamOptions($theam_id,$day); ?>
+
+
+
+                                                                 </select></td>
+
+
+
+                                                            </tr>
+
+
+
+                                                        </table>                            
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                               
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="200" colspan="2" align="center" valign="top" id="step2slider">
+
+
+
+                                                    <span class="Header_brown">My Current STRESS Reaction would be...</span>
+
+
+
+                                                           <div class="slider_main" id="slider_main_bg">
+
+
+
+                                                            <?php if(count($arr_step2)>0)
+
+
+
+                                                            {
+
+
+
+                                                                 ?>
+
+
+
+                                                            <div id="slider2">
+
+
+
+                                                            <?php   
+
+
+
+                                                            for($i=0;$i<count($arr_step2);$i++)
+
+
+
+                                                            {     ?>
+
+
+
+                                                                <div class="slider_inner">
+
+
+
+                                                                    <table align="center" width="290" border="0" cellspacing="0" cellpadding="0" style="padding-left:10px; padding-right:10px;">
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="30" align="left" valign="middle"><span class="Header_brown"><?php echo $arr_box_title2[$i]; ?></span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td align="left" valign="middle">
+
+
+
+                                                                        
+
+
+
+                                                                               <?php if($arr_banner_type2[$i] == 'Flash') { ?>
+
+
+
+                                                                    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="270" ><param name="movie" value="<?php echo SITE_URL."uploads/".$arr_banner2[$i];?>" /> <param name="wmode" value="transparent" /><param name="quality" value="high" /><embed src="<?php echo SITE_URL."uploads/".$arr_banner2[$i];?>" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="270"  wmode="transparent"></embed>
+
+
+
+                                                                </object>
+
+
+
+                                                                <?php } elseif($arr_banner_type2[$i] == 'Image') { ?>
+
+
+
+                                                                    <img src="<?php echo SITE_URL."uploads/".$arr_banner2[$i];?>" width="270" border="0" />
+
+
+
+                                                                <?php } elseif($arr_banner_type2[$i] == 'Video') { ?>
+
+
+
+                                                                  <iframe width="270" src="<?php echo getSressBusterBannerString($arr_banner2[$i]); ?>" frameborder="0" allowfullscreen></iframe>
+
+
+
+                                                                <?php } elseif($arr_banner_type2[$i] == 'Audio') { ?>
+
+
+
+                                                                    
+
+
+
+                                                                  <embed type="application/x-shockwave-flash" flashvars="audioUrl=<?php echo SITE_URL."/uploads/".$arr_banner2[$i];?>" src="http://www.google.com/reader/ui/3523697345-audio-player.swf" width="270" height="27" quality="best"  wmode="transparent"></embed>
+
+
+
+                                                                <?php }  ?>
+
+
+
+                                                                        
+
+
+
+                                                                        </td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                      <td class="footer" height="25" align="right" valign="top"><a href="<?php echo $arr_credit_line_url2[$i]; ?>" target="_blank"><?php echo $arr_credit_line2[$i]; ?></a></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td align="left" valign="top"><?php echo $arr_box_desc2[$i]?></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="50" align="left" valign="middle"><strong>Select:</strong>
+
+
+
+                                                                    <input type="radio"   <?php if($user_select2 == $arr_stress_buster_box_id2[$i]){ ?> checked="checked" <?php } ?> id="select_banner_2_<?php echo $i; ?>" name="select_banner2" value="<?php echo $arr_stress_buster_box_id2[$i]; ?>" 
+
+
+
+                                                                   onclick="Playsound('<?php echo $arr_sound_clip_id2[$i]; ?>'); Display_Banner('2')" />
+
+
+
+                                                                    <br> 
+
+
+
+                                                                    <span class="footer">(Please select / tick mark only one as applicable to you.)</span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="50" align="left" valign="middle"><strong>Favourite:</strong>
+
+
+
+                                                                    <input type="checkbox" name="favourite2[]" <?php if (in_array($arr_stress_buster_box_id2[$i] , $fav2)) { ?> checked="checked" <?php } ?> id="favourite_2_<?php echo $i; ?>" value="<?php echo $arr_stress_buster_box_id2[$i]; ?>" />
+
+
+
+                                                                     <br>
+
+
+
+                                                                       <span class="footer">(Mark above as your favourite.)</span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                  </table>
+
+
+
+                                        
+
+
+
+                                                                 
+
+
+
+                                                              </div>
+
+
+
+                                                            <?php } ?>
+
+
+
+                                                           </div> <!-- end Slider #2 -->
+
+
+
+                                                           <?php } else {   ?>
+
+
+
+                                                           <span>Thank you for being on this page,<br />
+
+
+
+                                                                                             data is not available, please try after some time !  </span>
+
+
+
+                                                          <?php } ?>
+
+
+
+                                                        </div>
+
+
+
+                                                        
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="35" colspan="2" align="left" valign="top">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                 <tr>
+
+
+
+                                                    <td colspan="2" align="center" valign="top">
+
+
+
+                                                    <div id="disply_banner2" class="slider_main2" style="display:<?php echo $display_banner2; ?>">
+
+
+
+                                                    <?php $output = get_BoxSelectedItemCode($user_select2);
+
+
+
+                                                    echo $output; ?>
+
+
+
+                                                     </div>
+
+
+
+                                                    
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="35" colspan="2" align="left" valign="top">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                               <?php if(count($arr_step2)>0)
+
+
+
+                                                            {
+
+
+
+                                                                 ?>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="35" colspan="2" align="left" valign="top"><span style="float:left;"><strong>Rate it:</strong></span>
+
+
+
+                                                  <span><input name="adv2" <?php if($user_adv2 == 1) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="1" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv2" <?php if($user_adv2 == 2) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="2" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv2" <?php if($user_adv2 == 3) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="3" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv2" <?php if($user_adv2 == 4) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="4" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv2" <?php if($user_adv2 == 5) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="5" onclick="HideRateIt();"/></span></td>
+
+
+
+                                                    
+
+
+
+                                                </tr>
+
+
+
+                                               <?php } ?>
+
+
+
+                                               <?php  if(count($arr_pdf2)>0) { ?>
+
+
+
+                                                 <tr>
+
+
+
+                                                    <td colspan="2" align="left" valign="top"><strong>Know More:</strong></td>
+
+
+
+                                                 </tr>
+
+
+
+                                                 <?php  } ?>
+
+
+
+                                                <?php  for($i=0;$i<count($arr_pdf2);$i++)
+
+
+
+                                                            {     ?>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="50" colspan="2" align="left" valign="top">
+
+
+
+                                                    <a href="<?php echo SITE_URL."uploads/".$arr_pdf2[$i]; ?>" target="_blank" class="body_link"><?php echo $arr_pdf_title2[$i]; ?></a>
+
+
+
+                                                     <input type="checkbox" class="chk_pdf" id="chk_pdf_<?php echo $arr_pdf_id2[$i]; ?>" name="chk_pdf[]" value="<?php echo $arr_pdf_id2[$i]; ?>" />
+
+
+
+                                                     <br /><a href="<?php echo $arr_credit_url2[$i]; ?>" target="_blank"><span class="footer"><?php echo $arr_credit2[$i];  ?></span></a></td>
+
+
+
+                                                            </tr>
+
+
+
+                                                <?php } ?>
+
+
+
+                                                <?php  if(count($arr_pdf2)>0) { ?>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td>
+
+
+
+                                                        <input name="submit" type="button" id="submit" value="Add To Library"  onclick="PDF_Library(<?php echo $page_id ?>)"/>
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <?php } ?>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="40" colspan="2" align="left" valign="middle" bgcolor="#FFF2C1" style="padding-left:15px;"><strong><?php echo $user_area_box_title2; ?></strong></td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="30" colspan="2" align="left" valign="top" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+
+
+                                                    	<?php echo $user_area_box_desc2; ?>
+
+
+
+                                                    </td>
+
+
+
+                                              </tr>
+
+
+
+                                                    <tr>
+
+
+
+                                                        
+
+
+
+                                                        <td align="left"  bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;"><strong>Title:</strong>
+
+</td>
+<td>
+
+                                                          <input type="text" class="form-control"  name="user_title2" id="user_title2" value="<?php echo $user_title2; ?>" /></td>
+
+
+
+                                                   </tr>
+
+
+
+                                                   <tr>
+
+
+
+                                                         <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                   <tr> 
+
+
+
+                                                   <tr>
+
+
+
+                                                        <td width="35%" align="left" bgcolor="#FFF2C1" style="padding-left:15px;">
+
+
+
+                                                            <strong>Upload File Type:</strong>
+
+
+
+                                                            <select name="user_banner_type2" id="user_banner_type2" onchange="BannerBox1('2')">
+
+
+
+                                                                <option value="Image" <?php if($user_banner_type2 == 'Image'){ ?> selected <?php } ?>>Image</option>
+
+
+
+                                                                <option value="Flash" <?php if($user_banner_type2 == 'Flash'){ ?> selected <?php } ?>>Flash</option>
+
+
+
+                                                                <option value="Audio" <?php if($user_banner_type2 == 'Audio'){ ?> selected <?php } ?>>Audio</option>
+
+
+
+                                                                <option value="Video" <?php if($user_banner_type2 == 'Video'){ ?> selected <?php } ?>>Video</option>
+
+
+
+                                                                <option value="PDF"   <?php if($user_banner_type2 == 'PDF'){ ?> selected <?php } ?>>PDF</option>
+
+
+
+                                                            </select>
+
+
+
+                                                        </td>
+
+
+
+                                                        <td width="65%" align="left" bgcolor="#FFF2C1" >
+
+
+
+                                                            <div id="user_trfile2" style="display:<?php echo $user_display_trfile2;?>">
+
+
+
+                                                                <input type="file"  class="form-control"  width="100px" name="user_banner2" id="user_banner2" />
+
+
+
+                                                                &nbsp;<span id="user_file_type_msg2" class="footer"><?php echo $user_file_type_msg2;?></span>
+
+
+
+                                                            </div>   
+
+
+
+                                                            <div id="user_trtext2" style="display:<?php echo $user_display_trtext2;?>">  
+
+
+
+                                                                <input type="text" name="user_video_banner2" id="user_video_banner2" value="<?php echo $user_banner2;?>" />
+
+
+
+                                                            &nbsp;<span class="footer">Please Enter Youtube Video URL.</span>
+
+
+
+                                                            </div>
+
+
+
+                                                        </td>
+
+
+
+                                                </tr>
+
+
+
+                                               
+
+
+
+                                                 <tr id="tr_err_user_banner_type2"  style="display:<?php echo $tr_err_user_banner_type2;?>;">
+
+
+
+                                                    <td align="left" colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;" class="err_msg" id="user_err_banner_type2"><?php echo $err_user_banner_type2;?></td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                 <tr>
+
+
+
+                                                    <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+
+
+                                                    <input name="btnUpload2" type="submit" class="button" id="btnUpload2" value="Upload" /></td>
+
+
+
+                                                </tr>
+
+
+
+                                                 <tr>
+
+
+
+                                                    <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="40" colspan="2" align="left" valign="bottom">
+
+
+
+                                                    <input name="btnSubmit2" type="submit" class="btn btn-primary"id="btnSubmit2" value="Continue" />
+
+
+
+                                                    <input name="back2" type="submit" class="btn btn-primary" id="back2" value="Back" /></td>
+
+
+
+                                                           
+
+
+
+                                                </tr>
+
+
+
+                                            </table>
+
+
+
+                                           
+
+
+
+                                        </div>
+
+
+
+                                        <?php         /*   THIRD DIV START        */                                                ?>
+
+
+
+                                        
+
+
+
+                                        <div id="step3" style="display:<?php echo $step3; ?>">
+
+
+
+                                            <table width="570" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="50" colspan="2" align="left" valign="top">
+
+
+
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                            <tr>
+
+
+
+                                                                <td width="75%" height="35" align="left" valign="top"><span class="Header_brown">Relax Chill OUT!!!!</td>
+
+
+
+                                                                <td width="25%" height="35" align="right" valign="top"><img src="images/screen3.jpg" width="90" height="30" /></td>
+
+
+
+                                                            </tr>
+
+
+
+                                                            <tr>
+
+
+
+                                                               <td width="100%" height="35" align="right" valign="top" colspan="2">
+
+
+
+                                                                 <select name="theam_id3" id="theam_id3" onchange="ChangeTheam3()">
+
+
+
+                                                                   <option>Select Theme</option>
+
+
+
+                                                                   <?php echo getTheamOptions($theam_id,$day); ?>
+
+
+
+                                                                 </select></td>
+
+
+
+                                                            </tr>
+
+
+
+                                                        </table>                            
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="200" colspan="2" align="center" valign="top">
+
+
+
+                                                    <span class="Header_brown">This will give me Relaxation</span>
+
+
+
+                                                        <div class="slider_main" id="slider_main_bg">
+
+
+
+                                                         <?php if(count($arr_step3)>0)
+
+
+
+                                                            {
+
+
+
+                                                                 ?>
+
+
+
+                                                            <div id="slider3">
+
+
+
+                                                            <?php   
+
+
+
+                                                            for($i=0;$i<count($arr_step3);$i++)
+
+
+
+                                                            {     ?>
+
+
+
+                                                                <div class="slider_inner">
+
+
+
+                                                                    <table align="center" width="290" border="0" cellspacing="0" cellpadding="0" style="padding-left:10px; padding-right:10px;">
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="30" align="left" valign="middle"><span class="Header_brown"><?php echo $arr_box_title3[$i]; ?></span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td align="left" valign="middle">
+
+
+
+                                                                        
+
+
+
+                                                                               <?php if($arr_banner_type3[$i] == 'Flash') { ?>
+
+
+
+                                                                    <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0" width="270" ><param name="movie" value="<?php echo SITE_URL."uploads/".$arr_banner3[$i];?>" /> <param name="wmode" value="transparent" /><param name="quality" value="high" /><embed src="<?php echo SITE_URL."uploads/".$arr_banner3[$i];?>" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="270"  wmode="transparent"></embed>
+
+
+
+                                                                </object>
+
+
+
+                                                                <?php } elseif($arr_banner_type3[$i] == 'Image') { ?>
+
+
+
+                                                                    <img src="<?php echo SITE_URL."uploads/".$arr_banner3[$i];?>" width="270" border="0" />
+
+
+
+                                                                <?php } elseif($arr_banner_type3[$i] == 'Video') { ?>
+
+
+
+                                                                  <iframe width="270" src="<?php echo getSressBusterBannerString($arr_banner3[$i]); ?>" frameborder="0" allowfullscreen></iframe>
+
+
+
+                                                                <?php } elseif($arr_banner_type3[$i] == 'Audio') { ?>
+
+
+
+                                                                    
+
+
+
+                                                                  <embed type="application/x-shockwave-flash" flashvars="audioUrl=<?php echo SITE_URL."/uploads/".$arr_banner3[$i];?>" src="http://www.google.com/reader/ui/3523697345-audio-player.swf" width="270" height="27" quality="best"  wmode="transparent"></embed>
+
+
+
+                                                                <?php }  ?>
+
+
+
+                                                                        
+
+
+
+                                                                        </td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                       <td class="footer" height="25" align="right" valign="top"><a href="<?php echo $arr_credit_line_url3[$i]; ?>" target="_blank"><?php echo $arr_credit_line3[$i]; ?></a></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td align="left" valign="top"><?php echo $arr_box_desc3[$i]?></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="50" align="left" valign="middle"><strong>Select:</strong>
+
+
+
+                                                                    <input type="radio"   <?php if($user_select3 == $arr_stress_buster_box_id3[$i]){ ?> checked="checked" <?php } ?> id="select_banner_3_<?php echo $i; ?>" name="select_banner3" value="<?php echo $arr_stress_buster_box_id3[$i]; ?>" 
+
+
+
+                                                                    onclick="Playsound('<?php echo $arr_sound_clip_id3[$i]; ?>'); Display_Banner('3')" />
+
+
+
+                                                                    <br> 
+
+
+
+                                                                    <span class="footer">(Please select / tick mark only one as applicable to you.)</span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                      <tr>
+
+
+
+                                                                        <td height="50" align="left" valign="middle"><strong>Favourite:</strong>
+
+
+
+                                                                    <input type="checkbox" name="favourite3[]" <?php if (in_array($arr_stress_buster_box_id3[$i] , $fav3)) { ?> checked="checked" <?php } ?> id="favourite_3_<?php echo $i; ?>" value="<?php echo $arr_stress_buster_box_id3[$i]; ?>" /><br />
+
+
+
+                                                                      <span class="footer">Mark above as your favourite</span></td>
+
+
+
+                                                                      </tr>
+
+
+
+                                                                  </table>
+
+
+
+                                                               </div>
+
+
+
+                                                            <?php } ?>
+
+
+
+                                                           </div> <!-- end Slider #3 -->
+
+
+
+                                                           <?php } else {   ?>
+
+
+
+                                                           <span>Thank you for being on this page,<br />
+
+
+
+                                                            data is not available, please try after some time !  </span>
+
+
+
+                                                          <?php } ?>
+
+
+
+                                                        </div>
+
+
+
+                                                      
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td height="35" colspan="2" align="left" valign="top">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td colspan="2" align="center" valign="top">
+
+
+
+                                                        <div id="disply_banner3" class="slider_main" style="display:<?php echo $display_banner3; ?>">
+
+
+
+                                                        	<?php echo get_BoxSelectedItemCode($user_select3);?>
+
+
+
+                                                        </div>
+
+
+
+                                                	</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td height="35" colspan="2" align="left" valign="top">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <?php 
+
+
+
+												if(count($arr_step3)>0)
+
+
+
+                                                { ?>
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="35" colspan="2" align="left" valign="top">
+
+
+
+                                                    	<span style="float:left;"><strong>Rate it:</strong></span>
+
+
+
+                                                        <span><input name="adv3" <?php if($user_adv3 == 1) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="1" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv3" <?php if($user_adv3 == 2) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="2" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv3" <?php if($user_adv3 == 3) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="3" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv3" <?php if($user_adv3 == 4) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="4" onclick="HideRateIt();"/>
+
+
+
+                                                        <input name="adv3" <?php if($user_adv3 == 5) { ?> checked="checked"  <?php } ?> type="radio" class="star" value="5" onclick="HideRateIt();"/></span>
+
+
+
+                                                  	</td>
+
+
+
+                                                </tr>
+
+
+
+                                               	<?php 
+
+
+
+											   	} 
+
+
+
+												 
+
+
+
+                                                if(count($arr_pdf3)>0) 
+
+
+
+                                                { ?>
+
+
+
+                                                <tr>
+
+
+
+	                                                <td colspan="2" align="left" valign="top"><strong>Know More:</strong></td>
+
+
+
+                                                </tr>
+
+
+
+												<?php  
+
+
+
+												} 
+
+
+
+												  
+
+
+
+												for($i=0;$i<count($arr_pdf3);$i++)
+
+
+
+                                                {?>
+
+
+
+                                               	<tr>
+
+
+
+                                                	<td height="50" colspan="2" align="left" valign="top">
+
+
+
+                                                    	<a href="<?php echo SITE_URL."uploads/".$arr_pdf3[$i]; ?>" target="_blank" class="body_link"><?php echo $arr_pdf_title3[$i]; ?></a>
+
+
+
+                                                        <input type="checkbox" class="chk_pdf" id="chk_pdf_<?php echo $arr_pdf_id3[$i]; ?>" name="chk_pdf[]" value="<?php echo $arr_pdf_id3[$i]; ?>" /><br />
+
+
+
+                                                        <a href="<?php echo $arr_credit_url3[$i]; ?>" target="_blank"><span class="footer"><?php echo $arr_credit3[$i];  ?></span></a>
+
+
+
+                                                   	</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <?php 
+
+
+
+												} 
+
+
+
+												  
+
+
+
+												if(count($arr_pdf3)>0) 
+
+
+
+												{ ?>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td colspan="2" align="left" valign="top">
+
+
+
+                                                		<input name="submit" type="button" id="submit" value="Add To Library"  onclick="PDF_Library(<?php echo $page_id ?>)"/>
+
+
+
+                                                	</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <?php 
+
+
+
+												} ?>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td height="40" colspan="2" align="left" valign="middle" bgcolor="#FFF2C1" style="padding-left:15px;"><strong><?php echo $user_area_box_title3; ?></strong></td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td height="30" colspan="2" align="left" valign="top" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+
+
+                                                    	<?php echo $user_area_box_desc3; ?>
+
+
+
+                                                	</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td align="left"  bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+
+
+                                                    	<strong>Title:</strong>
+
+</td>
+<td>
+
+                                                        <input type="text" class="form-control"  name="user_title3" id="user_title3" value="<?php echo $user_title3; ?>" />
+
+
+
+                                                  	</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr> 
+
+
+
+                                                <tr>
+
+
+
+                                                	<td width="35%" align="left" bgcolor="#FFF2C1" style="padding-left:15px;">
+
+
+
+                                                		<strong>Upload File Type:</strong>
+
+
+
+                                                        <select name="user_banner_type3" id="user_banner_type3" onchange="BannerBox1('3')">
+
+
+
+                                                            <option value="Image" <?php if($user_banner_type3 == 'Image'){ ?> selected <?php } ?>>Image</option>
+
+
+
+                                                            <option value="Flash" <?php if($user_banner_type3 == 'Flash'){ ?> selected <?php } ?>>Flash</option>
+
+
+
+                                                            <option value="Audio" <?php if($user_banner_type3 == 'Audio'){ ?> selected <?php } ?>>Audio</option>
+
+
+
+                                                            <option value="Video" <?php if($user_banner_type3 == 'Video'){ ?> selected <?php } ?>>Video</option>
+
+
+
+                                                            <option value="PDF"   <?php if($user_banner_type3 == 'PDF'){ ?> selected <?php } ?>>PDF</option>
+
+
+
+                                                        </select>
+
+
+
+                                                    </td>
+
+
+
+                                                    <td width="65%" align="left" bgcolor="#FFF2C1" >
+
+
+
+                                                    	<div id="user_trfile3" style="display:<?php echo $user_display_trfile3;?>">
+
+
+
+                                                    		<input class="form-control" width="100px" type="file" name="user_banner3" id="user_banner3" />
+
+
+
+                                                    		&nbsp;<span id="user_file_type_msg3" class="footer"><?php echo $user_file_type_msg3;?></span>
+
+
+
+                                                    	</div>   
+
+
+
+                                                    	<div id="user_trtext3" style="display:<?php echo $user_display_trtext3;?>">  
+
+
+
+                                                    		<input type="text" name="user_video_banner3" id="user_video_banner3" value="<?php echo $user_banner3;?>" />
+
+
+
+                                                    		&nbsp;<span class="footer">Please Enter Youtube Video URL.</span>
+
+
+
+                                                    	</div>
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                               	<tr id="tr_err_user_banner_type3"  style="display:<?php echo $tr_err_user_banner_type3;?>;">
+
+
+
+                                                    <td align="left" colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;" class="err_msg" id="user_err_banner_type3"><?php echo $err_user_banner_type3;?></td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+
+
+                                                		<input name="btnUpload3" type="submit" class="button" id="btnUpload3" value="Upload" />
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; ">
+
+
+
+                                                    	<div class="fb-like" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false"></div>
+
+                                                       
+
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="<?php echo SITE_URL."/stress_buster_box.php" ;?>" data-via="your_screen_name" data-lang="en">Tweet</a>
+
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+
+
+                                                	</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td align="left" colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+
+
+                                                		<input type="button" name="your_opinion" id="your_opinion" value="Your Opinion" class="button" />
+
+
+
+                                                	</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+
+
+                                                </tr>
+
+
+
+                                                <tr>
+
+
+
+                                                	<td height="40"  colspan="2" align="left" valign="bottom">
+
+
+
+                                                		<input name="btnSubmit3" type="submit" class="btn btn-primary"id="btnSubmit3" value="Continue" />
+
+
+
+                                                		<input name="back3" type="submit" class="btn btn-primary" id="back3" value="Back" />
+
+
+
+                                                    </td>
+
+
+
+                                            	</tr>
+
+
+
+                                        	</table>
+
+
+
+                                        </div>
+
+
+
+                                        <?php  /* Fourth Div Start  */ ?>
+
+
+
+                                        <div id="step4" style="display:<?php echo $step4; ?>">
+
+
+
+                                            <table width="570" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="50" align="left" valign="top">
+
+
+
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                            <tr>
+
+
+
+                                                                <td width="100%" height="35" align="left" valign="top">
+
+
+
+                                                                    <span class="Header_brown"><?php echo $final_message; ?></span><br />
+
+
+
+                                                                    <table width="100%" border="0" cellspacing="0" cellpadding="2">
+
+
+
+                                                                        <tr>
+
+
+
+                                                                            <td height="30" align="left" valign="middle" class="Header_brown">Check your Stress Intensity Meter NOW </td>
+
+
+
+                                                                        </tr>
+
+
+
+                                                                        <tr>
+
+
+
+                                                                            <td height="30" align="left" valign="middle">
+
+
+
+                                                                                <select name="intensity_scale_2" id="intensity_scale_2" style="display:none;">
+
+
+
+                                                                                    <option value="0">Very Low</option>
+
+
+
+                                                                                <?php
+
+
+
+                                                                                for($j=1;$j<=10;$j++)
+
+
+
+                                                                                { ?>
+
+
+
+                                                                                    <option value="<?php echo $j;?>" <?php if($intensity_scale_2 == $j) {?> selected="selected" <?php } ?>>
+
+
+
+                                                                                    <?php 
+
+
+
+                                                                                    if( ($j >= 0) && ($j <= 2) )
+
+
+
+                                                                                    {
+
+
+
+                                                                                        echo " (Very Low)";
+
+
+
+                                                                                    }
+
+
+
+                                                                                    elseif( ($j >= 3) && ($j <= 4) )
+
+
+
+                                                                                    {
+
+
+
+                                                                                        echo " (Low)";
+
+
+
+                                                                                    }
+
+
+
+                                                                                    elseif( ($j >= 5) && ($j <= 6) )
+
+
+
+                                                                                    {
+
+
+
+                                                                                        echo " (Average)";
+
+
+
+                                                                                    }
+
+
+
+                                                                                    elseif( ($j >= 7) && ($j <= 8) )
+
+
+
+                                                                                    {
+
+
+
+                                                                                        echo " (High)";
+
+
+
+                                                                                    }
+
+
+
+                                                                                    elseif( ($j >= 9) && ($j <= 10) )
+
+
+
+                                                                                    {
+
+
+
+                                                                                        echo " (Very High)";
+
+
+
+                                                                                    }
+
+
+
+                                                                                    ?>
+
+
+
+                                                                                    </option>
+
+
+
+                                                                                    <?php
+
+
+
+                                                                                }?>
+
+
+
+                                                                                </select>		
+
+
+
+                                                                            </td>
+
+
+
+                                                                        </tr>
+
+
+
+                                                                        <tr>
+
+
+
+                                                                            <td height="30" align="left" valign="middle">&nbsp;</td>
+
+
+
+                                                                        </tr>
+
+
+
+                                                                        <tr>
+
+
+
+                                                                            <td height="30" align="left" valign="middle"><input name="btnSubmit4" type="submit" class="button" id="btnSubmit4" value="Check" /></td>
+
+
+
+                                                                        </tr>
+
+
+
+                                                                        <tr>
+
+
+
+                                                                            <td height="30" align="left" valign="middle">&nbsp;</td>
+
+
+
+                                                                        </tr>
+
+
+
+                                                                    </table> 
+
+
+
+                                                                </td>
+
+
+
+                                                            </tr>
+
+
+
+                                                        </table>                            
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                            </table>
+
+
+
+                                        </div>
+
+
+
+                                        <?php  /* Fifth Div Start  */ ?>
+
+
+
+                                        <div id="step5" style="display:<?php echo $step5; ?>">
+
+
+
+                                            <table width="570" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                <tr>
+
+
+
+                                                    <td height="50" align="left" valign="top">
+
+
+
+                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+                                                            <tr>
+
+
+
+                                                                <td width="100%" height="35" align="left" valign="top">
+
+
+
+                                                                    <span class="Header_brown"><?php echo $final_message; ?></span>
+
+
+
+                                                                </td>
+
+
+
+                                                            </tr>
+
+
+
+                                                        </table>                            
+
+
+
+                                                    </td>
+
+
+
+                                                </tr>
+
+
+
+                                            </table>
+
+
+
+                                        </div>
+
+
+
+                                        <div id="playmusic"></div>
+
+
+
+                                    </form>
+
+
+
+                                </td>
+
+
+
+	                        </tr>
+
+
+
+                        </table>
+
+             
+</div>                
+                   
+                      <!-- ad right_sidebar-->
+               <div class="col-md-2">	
+                 <?php include_once('left_sidebar.php'); ?></div>
+  
+ <!-- ad right_sidebar end -->
+ <div class="col-md-2">	
+                 <?php include_once('right_sidebar.php'); ?>
+</div>
+  
+ <!-- ad right_sidebar end -->
+                   
+   </div>	
+</div>
+<!--container-->                     
+                   
+      <br/>     
+       <!--  Footer-->
+  <footer> 
+   <div class="container">
+   <div class="row">
+   <div class="col-md-12">	
+   <?php include_once('footer.php');?>            
+  </div>
+  </div>
+  </div>
+  </footer>
+  <!--  Footer-->
+<?php 
+
+
+
+if($step4 != '')
+
+
+
+{ 
+
+
+
+	if($step1 == '')
+
+
+
+	{  
+
+
+
+		$music = $music1; 
+
+
+
+		$credit = $credit1; 
+
+
+
+		$credit_url = $credit_url1;
+
+
+
+		$type =  $type1;
+
+
+
+	}
+
+
+
+	elseif($step2 =='') 
+
+
+
+	{
+
+
+
+		$music = $music2; 
+
+
+
+		$credit = $credit2; 
+
+
+
+		$credit_url = $credit_url2;
+
+
+
+		$type =  $type2; 
+
+
+
+	}
+
+
+
+	elseif($step3 =='') 
+
+
+
+	{ 
+
+
+
+		$music = $music3; 
+
+
+
+		$credit = $credit3; 
+
+
+
+		$credit_url = $credit_url3;
+
+
+
+		$type =  $type3;
+
+
+
+	} 
+
+
+
+ 
+
+
+
+	if($music !='') 
+
+
+
+	{ ?>
+
+
+
+        <div class="floatdiv">
+
+
+
+            <embed src="<?php echo SITE_URL.'uploads/'. $music;?>" autostart="true" loop="true" width="50" height="30" type="<?php echo $type; ?>"></embed>
+
+
+
+            <br><span class="footer">(Toggle BG Music)</span><br>
+
+
+
+            <a href="<?php echo $credit_url; ?>" target="_blank"><span class="footer"><?php echo $credit; ?></span></a>
+
+
+
+        </div>
+
+
+
+    <?php 
+
+
+
+	}  
+
+
+
+} ?>
+
+
+ <!--must need plugin jquery-->
+       <!-- <script src="csswell/js/jquery.min.js"></script>-->        
+        <!--bootstrap js plugin-->
+        <script src="csswell/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>    
+</body>
+
+
+
+</html>

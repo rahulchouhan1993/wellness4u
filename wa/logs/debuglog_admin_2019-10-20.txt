@@ -1,0 +1,224 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:00:50
+[getServingTypeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_type_id, cat_name as serving_type FROM `tblcategories` WHERE `parent_cat_id` = '61' AND `cat_deleted` = '0' ORDER BY serving_type ASC
+DEBUG_END - time: 2019-10-20 19:00:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:00:50
+[getServingSizeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_size_id, cat_name as serving_size FROM `tblcategories` WHERE `parent_cat_id` = '76' AND `cat_deleted` = '0' ORDER BY serving_size ASC
+DEBUG_END - time: 2019-10-20 19:00:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:00:50
+[getServingTypeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_type_id, cat_name as serving_type FROM `tblcategories` WHERE `parent_cat_id` = '61' AND `cat_deleted` = '0' ORDER BY serving_type ASC
+DEBUG_END - time: 2019-10-20 19:00:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:00:50
+[getServingSizeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_size_id, cat_name as serving_size FROM `tblcategories` WHERE `parent_cat_id` = '76' AND `cat_deleted` = '0' ORDER BY serving_size ASC
+DEBUG_END - time: 2019-10-20 19:00:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:10:58
+[ADD_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [am_title] => Manage Appointments
+    [am_link] => manage_appt.php
+    [am_order] => 25
+    [am_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1569843614.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [__utma] => 231471641.56057593.1569843614.1571544930.1571547396.56
+    [PHPSESSID] => 7d2087b36c1d21b4a45d4659e3a68993
+)
+</pre>
+DEBUG_END - time: 2019-10-20 19:10:58
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:22:51
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 28
+    [aa_title] => Add Appointment Panel
+    [aa_link] => add_appt.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1569843614.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [__utma] => 231471641.56057593.1569843614.1571544930.1571547396.56
+    [PHPSESSID] => 7d2087b36c1d21b4a45d4659e3a68993
+)
+</pre>
+DEBUG_END - time: 2019-10-20 19:22:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:22:51
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 28
+    [:aa_title] => Add Appointment Panel
+    [:aa_link] => add_appt.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-10-20 19:22:51
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 28
+    [aa_title] => Add Appointment Panel
+    [aa_link] => add_appt.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-10-20 19:22:51
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-10-20 19:22:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:23:01
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 28
+    [aa_title] => Add Appointment Panel
+    [aa_link] => add_appt.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1569843614.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [__utma] => 231471641.56057593.1569843614.1571544930.1571547396.56
+    [PHPSESSID] => 7d2087b36c1d21b4a45d4659e3a68993
+)
+</pre>
+DEBUG_END - time: 2019-10-20 19:23:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:23:01
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 28
+    [:aa_title] => Add Appointment Panel
+    [:aa_link] => add_appt.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-10-20 19:23:01
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 28
+    [aa_title] => Add Appointment Panel
+    [aa_link] => add_appt.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-10-20 19:23:01
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-10-20 19:23:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:23:41
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 28
+    [aa_title] => Add Appointment Panel
+    [aa_link] => add_appt.php
+    [aa_vendor_menu] => 0
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1569843614.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [__utma] => 231471641.56057593.1569843614.1571544930.1571547396.56
+    [PHPSESSID] => 7d2087b36c1d21b4a45d4659e3a68993
+)
+</pre>
+DEBUG_END - time: 2019-10-20 19:23:41
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:23:41
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 28
+    [:aa_title] => Add Appointment Panel
+    [:aa_link] => add_appt.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 0
+    [:aa_add_date] => 2019-10-20 19:23:41
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 28
+    [aa_title] => Add Appointment Panel
+    [aa_link] => add_appt.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 0
+    [aa_add_date] => 2019-10-20 19:23:41
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-10-20 19:23:41
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-10-20 19:33:59
+[ADD_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [am_title] => Manage Seating
+    [am_link] => manage_seating.php
+    [am_order] => 26
+    [am_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1569843614.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [__utma] => 231471641.56057593.1569843614.1571544930.1571547396.56
+    [PHPSESSID] => 7d2087b36c1d21b4a45d4659e3a68993
+)
+</pre>
+DEBUG_END - time: 2019-10-20 19:33:59
+----------------------------------------------------
+

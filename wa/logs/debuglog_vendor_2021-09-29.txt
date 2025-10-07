@@ -1,0 +1,3766 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 11:53:44
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [va_id] => 10
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [loc_cnt] => 
+    [loc_total_cnt] => 
+    [cw_cnt] => 
+    [cw_total_cnt] => 
+    [healcareandwellbeing] => 462
+    [reference_number] => EVE-23
+    [institution_id] => Test Mumbai Indian Angels
+    [sponsor_id] => ddfv
+    [event_name] => Test Dance Championship 290821
+    [event_tags] => Array
+        (
+            [0] => Dietician/Nutritionist/
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 477
+            [3] => 478
+            [4] => 481
+        )
+
+    [profile_cat_3] => 40
+    [fav_cat_3] => Array
+        (
+            [0] => 326
+        )
+
+    [profile_cat_4] => 34
+    [fav_cat_4] => Array
+        (
+            [0] => 275
+            [1] => 274
+        )
+
+    [profile_cat_5] => 
+    [fav_cat_5] => 
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EWorld%20Dance%20Event%20at%20Mumbai%3C/p%3E
+    [__utma] => 231471641.1123946038.1632895986.1632895986.1632895986.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632895986.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmb] => 231471641.2.10.1632895986
+    [fpestid] => urjPzM-6QlEWqXvaELowTFDKr8vIkWRdhzbfp6txz6bP2s4uQ78NJTrQawec4lMODaEnsg
+    [PHPSESSID] => df2657679f2dd361555aa2c65e6ca71a
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+</pre>
+DEBUG_END - time: 2021-09-29 11:53:44
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 12:40:30
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2021-09-29 12:40:30
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 12:55:44
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [loc_cnt] => 0
+    [loc_total_cnt] => 1
+    [cw_cnt] => 0
+    [cw_total_cnt] => 1
+    [hdnevent_id] => 39
+    [hdnevent_price_id] => 17
+    [registration_type_id] => Array
+        (
+            [0] => 468
+        )
+
+    [reg_currency_id] => Array
+        (
+            [0] => 1
+        )
+
+    [registration_fees] => Array
+        (
+            [0] => 500
+        )
+
+    [registration_criteria] => Array
+        (
+            [0] => Should Register
+        )
+
+    [registration_show] => Array
+        (
+            [0] => 1
+        )
+
+    [ordering_type_id] => Array
+        (
+            [0] => 470
+        )
+
+    [ticket_name] => Array
+        (
+            [0] => rockstar
+        )
+
+    [is_bulk_booking] => Array
+        (
+            [0] => 1
+        )
+
+    [max_order] => Array
+        (
+            [0] => 100
+        )
+
+    [min_order] => Array
+        (
+            [0] => 50
+        )
+
+    [cusine_qty] => Array
+        (
+            [0] => 400
+        )
+
+    [cusine_qty_show] => Array
+        (
+            [0] => 1
+        )
+
+    [sold_qty_show] => Array
+        (
+            [0] => 1
+        )
+
+    [currency_id] => Array
+        (
+            [0] => 1
+        )
+
+    [ticket_price] => Array
+        (
+            [0] => 500
+        )
+
+    [default_price] => Array
+        (
+            [0] => 1
+        )
+
+    [is_offer] => Array
+        (
+            [0] => 1
+        )
+
+    [offer_price] => Array
+        (
+            [0] => 450
+        )
+
+    [offer_date_type] => Array
+        (
+            [0] => days_of_week
+        )
+
+    [offer_days_of_month_str] => Array
+        (
+            [0] => 
+        )
+
+    [offer_days_of_month] => Array
+        (
+            [0] => -1
+        )
+
+    [offer_days_of_week_str] => Array
+        (
+            [0] => -1
+        )
+
+    [offer_days_of_week] => Array
+        (
+            [0] => -1
+        )
+
+    [offer_single_date] => Array
+        (
+            [0] => 
+        )
+
+    [offer_start_date] => Array
+        (
+            [0] => 
+        )
+
+    [offer_end_date] => Array
+        (
+            [0] => 
+        )
+
+    [is_discount] => Array
+        (
+            [0] => 1
+        )
+
+    [discount_code] => Array
+        (
+            [0] => 1
+        )
+
+    [discount_date_type] => Array
+        (
+            [0] => days_of_week
+        )
+
+    [discount_days_of_month_str] => Array
+        (
+            [0] => 
+        )
+
+    [discount_days_of_week_str] => Array
+        (
+            [0] => 
+        )
+
+    [discount_days_of_week] => Array
+        (
+            [0] => -1
+        )
+
+    [discount_single_date] => Array
+        (
+            [0] => 
+        )
+
+    [discount_start_date] => Array
+        (
+            [0] => 
+        )
+
+    [discount_end_date] => Array
+        (
+            [0] => 
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.772734637.1632899669.1632899669.1632899669.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632899669.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmb] => 231471641.2.10.1632899669
+    [fpestid] => sdGEK1uPmmxaHK8_3ZgXE7M8BNuHcFexOz4avbfRQufT0vMkaemQfEsiRI9las-1MUEm4w
+    [PHPSESSID] => 423fa5de8b7811b7b04cf9c4be7c9c70
+)
+</pre>, FILES:<pre>Array
+(
+)
+</pre>
+DEBUG_END - time: 2021-09-29 12:55:44
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 13:13:56
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 23
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_master_id] => 23
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 97
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Am colony hall ,Mumbai
+        )
+
+    [start_date] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [online_registration_link] => Array
+        (
+            [0] => www.wellnessway4u.com
+        )
+
+    [online_registration_id] => Array
+        (
+            [0] => 24
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 10:15 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 4
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => good
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 21
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 31
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 20
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 60
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => test 290821
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => star
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 3443234
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => starwar
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => rdd
+        )
+
+    [contact_email] => Array
+        (
+            [0] => weffddd@vcom
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 5566666666
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => rttt
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => rrrr
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 4444
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.772734637.1632899669.1632899669.1632899669.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632899669.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmb] => 231471641.2.10.1632899669
+    [fpestid] => sdGEK1uPmmxaHK8_3ZgXE7M8BNuHcFexOz4avbfRQufT0vMkaemQfEsiRI9las-1MUEm4w
+    [PHPSESSID] => 423fa5de8b7811b7b04cf9c4be7c9c70
+)
+</pre>, FILES:<pre>Array
+(
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => music.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpWcPV8y
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 14119
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => dance.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpFw25dZ
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 9392
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => natural scneary 1.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpyp1Fjp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 16377
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => natural scneary 2.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpZYuCpP
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 13997
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2021-09-29 13:13:56
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 13:14:38
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 23
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_master_id] => 23
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 97
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Am colony hall ,Mumbai
+        )
+
+    [start_date] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [online_registration_link] => Array
+        (
+            [0] => www.wellnessway4u.com
+        )
+
+    [online_registration_id] => Array
+        (
+            [0] => 24
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 10:15 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 4
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => good
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 21
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 31
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 20
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 60
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => test 290821
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => star
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 3443234
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => starwar
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => rdd
+        )
+
+    [contact_email] => Array
+        (
+            [0] => weilfred@hotmail.in
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 5566666666
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => rttt
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => rrrr
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 4444
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => dfrr
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.772734637.1632899669.1632899669.1632899669.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632899669.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [fpestid] => sdGEK1uPmmxaHK8_3ZgXE7M8BNuHcFexOz4avbfRQufT0vMkaemQfEsiRI9las-1MUEm4w
+    [PHPSESSID] => 423fa5de8b7811b7b04cf9c4be7c9c70
+)
+</pre>, FILES:<pre>Array
+(
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => music.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpT9gXwp
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 14119
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => dance.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpLBHh0F
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 9392
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => natural scneary 1.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpkkeYtW
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 16377
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => natural scneary 2.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phprjT2Xc
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 13997
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2021-09-29 13:14:38
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 13:17:58
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 23
+    [cert_cnt_0] => NaN
+    [cert_total_cnt_0] => NaN
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 29092021131438_natural-scneary-1.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 29092021131438_natural-scneary-2.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 29092021131438_music.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 29092021131438_dance.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_id] => 54
+    [event_master_id] => 23
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 97
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Am colony hall ,Mumbai
+        )
+
+    [start_date] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [online_registration_link] => Array
+        (
+            [0] => www.wellnessway4u.com
+        )
+
+    [online_registration_id] => Array
+        (
+            [0] => 24
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 10:15 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 4
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+            [1] => 476
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => Female
+            [1] => Male
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => good
+            [1] => fff
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 21
+            [1] => 24
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 31
+            [1] => 45
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 6
+            [1] => 6
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 20
+            [1] => 27
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 45
+            [1] => 45
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 60
+            [1] => 50
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => test 290821
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => star
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 3443234
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => starwar
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => rdd
+        )
+
+    [contact_email] => Array
+        (
+            [0] => weilfred@hotmail.in
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 5566666666
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => rttt
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => rrrr
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 4444
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => dfrr
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.772734637.1632899669.1632899669.1632899669.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632899669.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [fpestid] => sdGEK1uPmmxaHK8_3ZgXE7M8BNuHcFexOz4avbfRQufT0vMkaemQfEsiRI9las-1MUEm4w
+    [PHPSESSID] => 423fa5de8b7811b7b04cf9c4be7c9c70
+)
+</pre>, FILES:<pre>Array
+(
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2021-09-29 13:17:58
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 13:20:55
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 23
+    [cert_cnt_0] => NaN
+    [cert_total_cnt_0] => NaN
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 29092021131438_natural-scneary-2.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 29092021131438_natural-scneary-1.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 29092021131438_music.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 29092021131438_dance.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_id] => 55
+    [event_master_id] => 23
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 97
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Am colony hall ,Mumbai
+        )
+
+    [start_date] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [online_registration_link] => Array
+        (
+            [0] => www.wellnessway4u.com
+        )
+
+    [online_registration_id] => Array
+        (
+            [0] => 24
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 10:15 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 4
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+            [1] => 476
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => Female
+            [1] => Male
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => good
+            [1] => fff
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 21
+            [1] => 24
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 31
+            [1] => 45
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 6
+            [1] => 6
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 20
+            [1] => 27
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 45
+            [1] => 45
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 60
+            [1] => 50
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Male
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => test 290821
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+            [1] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+            [1] => 421
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => star
+            [1] => alisha
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 3443234
+            [1] => 444
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => starwar
+            [1] => ffff
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+            [1] => 29-09-2021
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+            [1] => 07-10-2021
+        )
+
+    [hdnjudge_cert_scan_file_0_NaN] => 
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => rdd
+        )
+
+    [contact_email] => Array
+        (
+            [0] => weilfred@hotmail.in
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 5566666666
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => rttt
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => rrrr
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 4444
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => dfrr
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.772734637.1632899669.1632899669.1632899669.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632899669.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [fpestid] => sdGEK1uPmmxaHK8_3ZgXE7M8BNuHcFexOz4avbfRQufT0vMkaemQfEsiRI9las-1MUEm4w
+    [PHPSESSID] => 423fa5de8b7811b7b04cf9c4be7c9c70
+)
+</pre>, FILES:<pre>Array
+(
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                    [1] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2021-09-29 13:20:55
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 15:03:16
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 23
+    [cert_cnt_0] => 
+    [cert_total_cnt_0] => 
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 29092021131438_natural-scneary-1.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 29092021131438_natural-scneary-2.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 29092021131438_music.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 29092021131438_dance.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_id] => 56
+    [event_master_id] => 23
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 97
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Am colony hall ,Mumbai
+        )
+
+    [start_date] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [online_registration_link] => Array
+        (
+            [0] => www.wellnessway4u.com
+        )
+
+    [online_registration_id] => Array
+        (
+            [0] => 24
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 10:15 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 13
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 4
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+            [1] => 476
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => Female
+            [1] => Male
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => good
+            [1] => fff
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 21
+            [1] => 24
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 31
+            [1] => 45
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 6
+            [1] => 6
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 20
+            [1] => 27
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 45
+            [1] => 45
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 60
+            [1] => 50
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Male
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => test 290821
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+            [1] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+            [1] => 421
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => star
+            [1] => alisha
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 3443234
+            [1] => 444
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => starwar
+            [1] => ffff
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+            [1] => 29-09-2021
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+            [1] => 07-10-2021
+        )
+
+    [hdnjudge_cert_scan_file_0_1] => 
+    [facebook_page_link] => Array
+        (
+            [0] => https://www.facebook.com/WellnessWay4U/
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => https://twitter.com/WellnessWay4U
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => https://instagram.com/WellnessWay4U
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => https://wellnessway4u.com/youtube.com
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => rdd
+        )
+
+    [contact_email] => Array
+        (
+            [0] => weilfred@hotmail.in
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 5566666666
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => rttt
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => rrrr
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 4444
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => dfrr
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 29-09-2021
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 07-10-2021
+        )
+
+    [btnSubmit] => btnSubmit
+    [fpestid] => P2ui5PuFkvGvCFAkyXUCijjeY_1kMz83sGQtSjm_N8Ke8OISwTKbBOaVlKjpM2Tso3B7GQ
+    [__utma] => 231471641.1265935195.1632907490.1632907490.1632907490.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632907490.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmt] => 1
+    [PHPSESSID] => 50cf3460ba61f575d41632327fde60eb
+    [__utmb] => 231471641.4.10.1632907490
+)
+</pre>, FILES:<pre>Array
+(
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                    [1] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2021-09-29 15:03:16
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 15:05:33
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 23
+    [reference_number] => EVE-23
+    [event_status] => 1
+    [institution_id] => Test Mumbai Indian Angels
+    [sponsor_id] => ddfv
+    [event_name] => Test Dance Championship 290821
+    [event_tags] => Array
+        (
+            [0] => Dietician/Nutritionist/
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 477
+            [3] => 478
+            [4] => 481
+        )
+
+    [profile_cat_3] => 40
+    [fav_cat_3] => Array
+        (
+            [0] => 326
+        )
+
+    [profile_cat_4] => 34
+    [fav_cat_4] => Array
+        (
+            [0] => 275
+            [1] => 274
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EWorld%20Dance%20Event%20at%20Mumbai%3C/p%3E
+    [fpestid] => P2ui5PuFkvGvCFAkyXUCijjeY_1kMz83sGQtSjm_N8Ke8OISwTKbBOaVlKjpM2Tso3B7GQ
+    [__utma] => 231471641.1265935195.1632907490.1632907490.1632907490.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632907490.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 50cf3460ba61f575d41632327fde60eb
+    [__utmb] => 231471641.4.10.1632907490
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+</pre>
+DEBUG_END - time: 2021-09-29 15:05:33
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2021-09-29 15:27:57
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 23
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_master_id] => 23
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 98
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 11
+        )
+
+    [city_id] => Array
+        (
+            [0] => Panaji
+        )
+
+    [area_id] => Array
+        (
+            [0] => 736
+        )
+
+    [venue] => Array
+        (
+            [0] => Bambolim star hotel, Goa
+        )
+
+    [start_date] => Array
+        (
+            [0] => 30-09-2021
+        )
+
+    [start_time] => Array
+        (
+            [0] => 11:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 13-10-2021
+        )
+
+    [end_time] => Array
+        (
+            [0] => 16:45 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [online_registration_link] => Array
+        (
+            [0] => 
+        )
+
+    [online_registration_id] => Array
+        (
+            [0] => 
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 11:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 16:45 PM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 4
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => very good
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 19
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 30
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 27
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 67
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => good
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => ooo
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ww4u@gm.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 1234567890
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 488
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => d
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => de
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [btnSubmit] => btnSubmit
+    [fpestid] => P2ui5PuFkvGvCFAkyXUCijjeY_1kMz83sGQtSjm_N8Ke8OISwTKbBOaVlKjpM2Tso3B7GQ
+    [__utma] => 231471641.1265935195.1632907490.1632907490.1632907490.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1632907490.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 50cf3460ba61f575d41632327fde60eb
+    [__utmb] => 231471641.4.10.1632907490
+)
+</pre>, FILES:<pre>Array
+(
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => zumba venue.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpBBlvlU
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 7365
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => zumba dance.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpAQZZi8
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 11788
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => goa beach 1.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phprqZNgm
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 10244
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => goa beach 2.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpMBNWeA
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 6607
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2021-09-29 15:27:57
+----------------------------------------------------
+

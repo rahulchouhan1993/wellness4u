@@ -1,0 +1,16 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-14 17:56:40
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-14 17:56:40
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-14 17:57:14
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-14 17:57:14
+----------------------------------------------------
+

@@ -1,0 +1,10075 @@
+<?php
+include_once('../../classes/config.php');
+require_once('../../classes/admin.php');
+$obj = new Admin();
+if(!$obj->isAdminLoggedIn())
+{
+	exit(0);
+}
+
+$error = false;
+$err_msg = '';
+$action = $_REQUEST['action'];
+if($action=='adminlist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+    $superadmin = $obj->getAllSubadmins($txtsearch,$status);
+    
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($superadmin, $start, $records_per_page);
+	$count = count($superadmin);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '3';
+	$delete_action_id = '4';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Username</th>
+								<th>Email</th>
+								<th>Full Name</th>
+								<th>Contact No</th>
+								<th>Status</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deleteMultipleAdmin();">';	
+	}			
+								
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			
+			
+                                         
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['username'].'</td>
+								<td>'.$record['email'].'</td>
+								<td>'.$record['fname'].' '.$record['lname'].'</td>
+								<td>'.$record['contact_no'].'</td>
+								<td>'.$status.'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_admin.php?token='.base64_encode($record['admin_id']).'" title="Edit Admin"><i class="fa fa-pencil"></i></a>&nbsp;';
+			$option.='				<a href="reset_admin_password.php?id='.$record['admin_id'].'" title="Reset Admin Password"><i class="fa fa-key"></i></a>&nbsp;';
+			}
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['admin_id'].'">';
+			}			
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="8" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipleadmin')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+	
+	if($chkbox_records!='')
+    {
+		$delete_action_id = '4';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_admin_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_admin_id); $i++)
+			{
+				if($obj->deleteAdminUser($arr_admin_id[$i]))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='catlist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$cat = $obj->GetAllCat($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($cat, $start, $records_per_page);
+	$count = count($cat);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '7';
+	$delete_action_id = '8';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Main Profile</th>
+								<th>Status</th>
+								<th>Added By Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deleteMultipleCategory();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		$old_edit_action = $edit_action;
+		$old_delete_action = $delete_action;
+		foreach($data as $record)
+		{
+            if($record['cat_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			//if($record['cat_id'] == '1' || $record['cat_id'] == '10' || $record['cat_id'] == '14' || $record['cat_id'] == '61')
+			if($record['not_editable'] == '1')
+			{
+				$edit_action = false;
+				$delete_action = false;
+			}
+			else
+			{
+				$edit_action = $old_edit_action;
+				$delete_action = $old_delete_action;
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['cat_name'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:i a',strtotime($record['cat_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_category.php?token='.base64_encode($record['cat_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['cat_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="7" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplecategory')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '8';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_cat_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_cat_id); $i++)
+			{
+				if($obj->DeleteCat($arr_cat_id[$i],$admin_id))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='maincatlist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	$parent_cat_id = '';
+	$status = '';
+	
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	if(isset($_POST['parent_cat_id']) && trim($_POST['parent_cat_id']) != '')
+	{
+		$parent_cat_id = trim($_POST['parent_cat_id']);
+	}
+	
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$cat = $obj->GetAllMainCat($txtsearch,$parent_cat_id,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($cat, $start, $records_per_page);
+	$count = count($cat);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '11';
+	$delete_action_id = '12';		
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Category</th>
+								<th>Main Profile</th>
+								<th>Status</th>
+								<th>Added By Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deleteMultipleMainCategory();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';					
+				
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['cat_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['cat_name'].'</td>
+								<td>'.$obj->GetCatName($record['parent_cat_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:i a',strtotime($record['cat_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_main_category.php?token='.base64_encode($record['cat_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['cat_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="8" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplemaincategory')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '12';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_cat_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_cat_id); $i++)
+			{
+				if($obj->DeleteMainCat($arr_cat_id[$i],$admin_id))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='adminmenulist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+    $arr_records = $obj->getAllAdminMenusList($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+    
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($arr_records, $start, $records_per_page);
+	$count = count($arr_records);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '15';
+	$delete_action_id = '16';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Menu Title</th>
+								<th>Menu Link</th>
+								<th>Order Of Menu</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deleteMultipleAdminMenu();">';	
+	}		
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['am_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['am_title'].'</td>
+								<td>'.$record['am_link'].'</td>
+								<td>'.$record['am_order'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['am_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_admin_menu.php?token='.base64_encode($record['am_id']).'" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;';
+			$option.='				<a href="manage_admin_actions.php?am_id='.$record['am_id'].'" title="View Actions"><i class="fa fa-eye"></i></a>&nbsp;';
+			}
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['am_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="9" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipleadminmenu')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '16';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_am_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_am_id); $i++)
+			{
+				$tdata = array();
+				$tdata['am_id'] = $arr_am_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteAdminMenu($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='adminactionlist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$am_id = trim($_POST['am_id']);
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+    $arr_records = $obj->getAllAdminActionList($am_id,$txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+    
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($arr_records, $start, $records_per_page);
+	$count = count($arr_records);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '15';
+	$delete_action_id = '16';		
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Action Title</th>
+								<th>Action Page Link</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deleteMultipleAdminAction();">';	
+	}	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+				
+	if(is_array($data) && count($data) > 0)
+	{
+    	foreach($data as $record)
+		{
+            if($record['aa_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['aa_title'].'</td>
+								<td>'.$record['aa_link'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['aa_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_admin_action.php?am_id='.$record['am_id'].'&aa_id='.$record['aa_id'].'" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['aa_id'].'">';
+			}			
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="8" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipleadminaction')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '16';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_aa_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_aa_id); $i++)
+			{
+				$tdata = array();
+				$tdata['aa_id'] = $arr_aa_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteAdminAction($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='countrylist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$cat = $obj->GetAllCountry($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($cat, $start, $records_per_page);
+	$count = count($cat);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '20';
+	$delete_action_id = '24';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Country</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplecountry();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['country_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['country_name'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['country_add_date'])).'</td>
+								
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_country.php?token='.base64_encode($record['country_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['country_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="7" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplecountry')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '24';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_country_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_country_id); $i++)
+			{
+				if($obj->DeleteCountry($arr_country_id[$i],$admin_id))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='statelist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$country_id= '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$state = $obj->GetAllStates($txtsearch,$status,$country_id,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($state, $start, $records_per_page);
+	$count = count($state);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '22';
+	$delete_action_id = '26';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>State</th>
+								<th>Country</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplestates();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['state_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['state_name'].'</td>
+								<td>'.$obj->GetCountryName($record['country_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['state_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_state.php?token='.base64_encode($record['state_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['state_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="8" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplestates')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '26';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_state_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_state_id); $i++)
+			{
+				if($obj->DeleteState($arr_state_id[$i],$admin_id))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='citylist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$country_id= '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id= '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$city = $obj->GetAllCities($txtsearch,$status,$country_id,$state_id,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($city, $start, $records_per_page);
+	$count = count($city);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '29';
+	$delete_action_id = '30';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>City</th>
+								<th>State</th>
+								<th>Country</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplecities();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['city_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['city_name'].'</td>
+								<td>'.$obj->GetStateName($record['state_id']).'</td>
+								<td>'.$obj->GetCountryName($record['country_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['city_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_city.php?token='.base64_encode($record['city_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['city_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="9" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplecities')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '30';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_city_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_city_id); $i++)
+			{
+				if($obj->DeleteCity($arr_city_id[$i],$admin_id))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action == 'getstate')
+{
+	$country_id = $_REQUEST['country'];
+    $state_id = $_REQUEST['state'];
+    $data = $obj->GetState($state_id,$country_id);
+    
+    echo $data;
+    exit(0);
+}
+elseif($action == 'getcity')
+{
+	$country_id = $_REQUEST['country'];
+    $state_id = $_REQUEST['state'];
+	$city_id = $_REQUEST['city'];
+    $data = $obj->GetCity($state_id,$country_id,$city_id);
+    
+    echo $data;
+    exit(0);
+}
+elseif($action=='arealist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$country_id= '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id= '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id= '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$area = $obj->GetAllArea($txtsearch,$status,$country_id,$state_id,$city_id,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($area, $start, $records_per_page);
+	$count = count($area);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '33';
+	$delete_action_id = '34';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Area</th>
+								<th>City</th>
+								<th>State</th>
+								<th>Country</th>
+								<th>Pincode</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultipleareas();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['area_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['area_name'].'</td>
+								<td>'.$obj->GetCityName($record['city_id']).'</td>
+								<td>'.$obj->GetStateName($record['state_id']).'</td>
+								<td>'.$obj->GetCountryName($record['country_id']).'</td>
+								<td>'.$record['area_pincode'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['area_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_area.php?token='.base64_encode($record['area_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['area_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="11" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipleareas')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '34';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_area_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_area_id); $i++)
+			{
+				if($obj->DeleteArea($arr_area_id[$i],$admin_id))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='itemslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$ingredient_id = '';
+	if(isset($_POST['ingredient_id']) && trim($_POST['ingredient_id']) != '')
+	{
+		$ingredient_id = trim($_POST['ingredient_id']);
+	}
+	
+	$parent_cat_id = '';
+	if(isset($_POST['parent_cat_id']) && trim($_POST['parent_cat_id']) != '')
+	{
+		$parent_cat_id = trim($_POST['parent_cat_id']);
+	}
+	
+	$main_cat_id = '';
+	if(isset($_POST['main_cat_id']) && trim($_POST['main_cat_id']) != '')
+	{
+		$main_cat_id = trim($_POST['main_cat_id']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$item = $obj->GetAllItems($txtsearch,$status,$ingredient_id,$parent_cat_id,$main_cat_id,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	//echo '<br><pre>';
+	//print_r($item);
+	//echo '<br></pre>';
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '37';
+	$delete_action_id = '38';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Item Name</th>
+								<th>Item Code</th>
+								<th>Ingredients</th>
+								<th>Category</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultipleitems();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['item_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.stripslashes($record['item_name']).'</td>
+								<td>'.stripslashes($record['item_code']).'</td>
+								<td>'.$obj->getCommaSeperatedIngredientsOfItem($record['item_id']).'</td>
+								<td>'.$obj->getCategoryListingOfItem($record['item_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['item_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_items.php?token='.base64_encode($record['item_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['item_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="10" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipleitems')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '38';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_item_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_item_id); $i++)
+			{
+				if($obj->DeleteItem($arr_item_id[$i],$admin_id))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action == 'getsubcat')
+{
+	$cat_id = $_REQUEST['cat_id'];
+    $sub_cat = $_REQUEST['sub_cat'];
+    $data = $obj->GetCategories($sub_cat,$cat_id);
+    
+    echo $data;
+    exit(0);
+}
+elseif($action == 'getsubcats')
+{
+	$cat_id = $_REQUEST['cat_id'];
+    $sub_cat = $_REQUEST['sub_cat'];
+    $data = $obj->GetCategoriesById($cat_id,$sub_cat);
+    
+    echo $data;
+    exit(0);
+}
+elseif($action == 'getvendorlocationoption')
+{
+	$vendor_id = trim($_REQUEST['vendor_id']);
+	if(isset($_REQUEST['type']))
+	{
+		$type = trim($_REQUEST['type']);
+	}
+	else
+	{
+		$type = '';	
+	}
+	
+	if(isset($_REQUEST['multiple']))
+	{
+		$multiple = trim($_REQUEST['multiple']);
+	}
+	else
+	{
+		$multiple = '';	
+	}
+    $vloc_id = '';
+	$data = $obj->getVendorLocationOption($vendor_id,$vloc_id,$type,$multiple);
+    echo $data;
+}
+elseif($action == 'getmaincategoryoption')
+{
+	$parent_cat_id = trim($_REQUEST['parent_cat_id']);
+	if(isset($_REQUEST['type']))
+	{
+		$type = trim($_REQUEST['type']);
+	}
+	else
+	{
+		$type = '';	
+	}
+	
+	if(isset($_REQUEST['multiple']))
+	{
+		$multiple = trim($_REQUEST['multiple']);
+	}
+	else
+	{
+		$multiple = '';	
+	}
+	
+	if($multiple == '1')
+	{
+		$strpos_pc = strpos($parent_cat_id,',');
+		if($strpos_pc === false)
+		{
+			$arr_parent_cat_id = array($parent_cat_id);
+		}
+		else
+		{
+			$arr_parent_cat_id = explode(',',$parent_cat_id);		
+		}
+		$cat_id = array();
+	}
+	else
+	{
+		$arr_parent_cat_id = $parent_cat_id;
+		$cat_id = '';
+	}
+	
+    
+	$data = $obj->getMainCategoryOption($arr_parent_cat_id,$cat_id,$type,$multiple);
+    echo $data;
+}
+elseif($action == 'getstateoption')
+{
+	$country_id = trim($_REQUEST['country_id']);
+	$state_id = trim($_REQUEST['state_id']);
+	if(isset($_REQUEST['type']))
+	{
+		$type = trim($_REQUEST['type']);
+	}
+	else
+	{
+		$type = '';	
+	}
+	
+	if(isset($_REQUEST['multiple']))
+	{
+		$multiple = trim($_REQUEST['multiple']);
+	}
+	else
+	{
+		$multiple = '';	
+	}
+	
+	if($multiple == '1')
+	{
+		$arr_country_id = explode(',',$country_id);
+		$arr_state_id = explode(',',$state_id);
+	}
+	else
+	{
+		$arr_country_id = $country_id;
+		$arr_state_id = $state_id;
+	}
+	
+    
+	$data = $obj->getStateOption($arr_country_id,$arr_state_id,$type,$multiple);
+    echo $data;
+}
+elseif($action == 'getcityoption')
+{
+	$country_id = trim($_REQUEST['country_id']);
+	$state_id = trim($_REQUEST['state_id']);
+	$city_id = trim($_REQUEST['city_id']);
+	if(isset($_REQUEST['type']))
+	{
+		$type = trim($_REQUEST['type']);
+	}
+	else
+	{
+		$type = '';	
+	}
+	
+	if(isset($_REQUEST['multiple']))
+	{
+		$multiple = trim($_REQUEST['multiple']);
+	}
+	else
+	{
+		$multiple = '';	
+	}
+	
+	if($multiple == '1')
+	{
+		$arr_country_id = explode(',',$country_id);
+		$arr_state_id = explode(',',$state_id);
+		$arr_city_id = explode(',',$city_id);
+	}
+	else
+	{
+		$arr_country_id = $country_id;
+		$arr_state_id = $state_id;
+		$arr_city_id = $city_id;
+	}
+	
+    
+	$data = $obj->getCityOption($arr_country_id,$arr_state_id,$arr_city_id,$type,$multiple);
+    echo $data;
+}
+elseif($action == 'getareaoption')
+{
+	$country_id = trim($_REQUEST['country_id']);
+	$state_id = trim($_REQUEST['state_id']);
+	$city_id = trim($_REQUEST['city_id']);
+	$area_id = trim($_REQUEST['area_id']);
+	if(isset($_REQUEST['type']))
+	{
+		$type = trim($_REQUEST['type']);
+	}
+	else
+	{
+		$type = '';	
+	}
+	
+	if(isset($_REQUEST['multiple']))
+	{
+		$multiple = trim($_REQUEST['multiple']);
+	}
+	else
+	{
+		$multiple = '';	
+	}
+	
+	if($multiple == '1')
+	{
+		$arr_country_id = explode(',',$country_id);
+		$arr_state_id = explode(',',$state_id);
+		$arr_city_id = explode(',',$city_id);
+		$arr_area_id = explode(',',$area_id);
+	}
+	else
+	{
+		$arr_country_id = $country_id;
+		$arr_state_id = $state_id;
+		$arr_city_id = $city_id;
+		$arr_area_id = $area_id;
+	}
+	
+    
+	$data = $obj->getAreaOption($arr_country_id,$arr_state_id,$arr_city_id,$arr_area_id,$type,$multiple);
+    echo $data;
+}
+elseif($action=='cusineslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$cucat_parent_cat_id = '';
+	if(isset($_POST['cucat_parent_cat_id']) && trim($_POST['cucat_parent_cat_id']) != '')
+	{
+		$cucat_parent_cat_id = trim($_POST['cucat_parent_cat_id']);
+	}
+	
+	$cucat_cat_id = '';
+	if(isset($_POST['cucat_cat_id']) && trim($_POST['cucat_cat_id']) != '')
+	{
+		$cucat_cat_id = trim($_POST['cucat_cat_id']);
+	}
+	
+	$vendor_id = '';
+	if(isset($_POST['vendor_id']) && trim($_POST['vendor_id']) != '')
+	{
+		$vendor_id = trim($_POST['vendor_id']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$delivery_date = '';
+	if(isset($_POST['delivery_date']) && trim($_POST['delivery_date']) != '')
+	{
+		$delivery_date = trim($_POST['delivery_date']);
+	}
+	
+	$item = $obj->getAllCusines($txtsearch,$status,$cucat_parent_cat_id,$cucat_cat_id,$vendor_id,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$country_id,$state_id,$city_id,$area_id,$delivery_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '41';
+	$delete_action_id = '42';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Item Name</th>
+								<th>Cusine Image</th>
+								<th>Vendor</th>
+								<th>Price</th>
+								<th>Quantity</th>
+								<th>Category</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplecusines();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['cusine_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			if($record['cusine_image'] != '' )
+			{
+				$cusine_image = '<img border="0" height="50" src="'.SITE_URL.'/uploads/'.$record['cusine_image'].'" />';
+			}
+			else
+			{
+				$cusine_image = ''; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['item_name'].'</td>
+								<td>'.$cusine_image.'</td>
+								<td>'.$record['vendor_name'].'</td>
+								<td>'.$record['cusine_price'].'</td>
+								<td>'.$record['cusine_qty'].'</td>
+								<td>'.$obj->getCategoryListingOfCusine($record['cusine_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['cusine_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_cusine.php?token='.base64_encode($record['cusine_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['cusine_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="12" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplecusines')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '42';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_cusine_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_cusine_id); $i++)
+			{
+				$tdata = array();
+				$tdata['cusine_id'] = $arr_cusine_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteCusine($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='vendorslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$vendor_parent_cat_id = '';
+	if(isset($_POST['vendor_parent_cat_id']) && trim($_POST['vendor_parent_cat_id']) != '')
+	{
+		$vendor_parent_cat_id = trim($_POST['vendor_parent_cat_id']);
+	}
+	
+	$vendor_cat_id = '';
+	if(isset($_POST['vendor_cat_id']) && trim($_POST['vendor_cat_id']) != '')
+	{
+		$vendor_cat_id = trim($_POST['vendor_cat_id']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$item_id = '';
+	if(isset($_POST['item_id']) && trim($_POST['item_id']) != '')
+	{
+		$item_id = trim($_POST['item_id']);
+	}
+	
+	$vendor = $obj->getAllVendors($txtsearch,$status,$vendor_parent_cat_id,$vendor_cat_id,$country_id,$state_id,$city_id,$area_id,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$item_id);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($vendor, $start, $records_per_page);
+	$count = count($vendor);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '45';
+	$delete_action_id = '46';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Vendor Code</th>
+								<th>Vendor Name</th>
+								<th>Main Profile</th>
+								<th>Category</th>
+								<th>Location</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplevendors();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['vendor_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$obj->getVendorCodeByVendorId($record['vendor_id']).'</td>
+								<td>'.$record['vendor_name'].'</td>
+								<td>'.$record['main_profile'].'</td>
+								<td>'.$record['category_name'].'</td>
+								<td>'.$record['area_name'].' '.$record['city_name'].' '.$record['state_name'].' '.$record['country_name'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['vendor_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_vendor.php?token='.base64_encode($record['vendor_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['vendor_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="11" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplevendors')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '46';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_vendor_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_vendor_id); $i++)
+			{
+				$tdata_del = array();
+				$tdata_del['vendor_id'] = $arr_vendor_id[$i];
+				$tdata_del['admin_id'] = $admin_id;
+				if($obj->deleteVendor($tdata_del))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='bannersliderslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$publish_date_type = '';
+	if(isset($_POST['publish_date_type']) && trim($_POST['publish_date_type']) != '')
+	{
+		$publish_date_type = trim($_POST['publish_date_type']);
+	}
+	
+	$publish_days_of_month = '';
+	if(isset($_POST['publish_days_of_month']) && trim($_POST['publish_days_of_month']) != '')
+	{
+		$publish_days_of_month = trim($_POST['publish_days_of_month']);
+	}
+	
+	$publish_days_of_week = '';
+	if(isset($_POST['publish_days_of_week']) && trim($_POST['publish_days_of_week']) != '')
+	{
+		$publish_days_of_week = trim($_POST['publish_days_of_week']);
+	}
+	
+	$publish_single_date = '';
+	if(isset($_POST['publish_single_date']) && trim($_POST['publish_single_date']) != '')
+	{
+		$publish_single_date = trim($_POST['publish_single_date']);
+	}
+	
+	$publish_start_date = '';
+	if(isset($_POST['publish_start_date']) && trim($_POST['publish_start_date']) != '')
+	{
+		$publish_start_date = trim($_POST['publish_start_date']);
+	}
+	
+	$publish_end_date = '';
+	if(isset($_POST['publish_end_date']) && trim($_POST['publish_end_date']) != '')
+	{
+		$publish_end_date = trim($_POST['publish_end_date']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	//echo 'country:'.$country_id;
+	$item = $obj->getAllBannerSliders($txtsearch,$status,$publish_date_type,$publish_days_of_month,$publish_days_of_week,$publish_single_date,$publish_start_date,$publish_end_date,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$country_id,$state_id,$city_id,$area_id);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '49';
+	$delete_action_id = '50';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Banner Title</th>
+								<th>Banner Image</th>
+								<th>Order</th>
+								<th>Location</th>
+								<th>Publish Date Type</th>
+								<th>Publish Date</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplebannersliders();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['banner_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			if($record['banner_image'] != '' )
+			{
+				$banner_image = '<img border="0" height="50" src="'.SITE_URL.'/uploads/'.$record['banner_image'].'" />';
+			}
+			else
+			{
+				$banner_image = ''; 
+			}
+			
+			if($record['banner_publish_date_type'] == 'days_of_month')
+			{
+				$banner_publish_date_type = 'Days Of Month';
+				if($record['banner_publish_days_of_month'] == '' || $record['banner_publish_days_of_month'] == '-1')
+				{
+					$banner_publish_date = 'All';	
+				}
+				else
+				{
+					$banner_publish_date = $record['banner_publish_days_of_month'];
+				}
+			}
+			elseif($record['banner_publish_date_type'] == 'days_of_week')
+			{
+				$banner_publish_date_type = 'Days Of Week';
+				if($record['banner_publish_days_of_week'] == '' || $record['banner_publish_days_of_week'] == '-1')
+				{
+					$banner_publish_date = 'All';	
+				}
+				else
+				{
+					$banner_publish_date = $record['banner_publish_days_of_week'];
+				}
+			}
+			elseif($record['banner_publish_date_type'] == 'single_date')
+			{
+				$banner_publish_date_type = 'Single Date';
+				if($record['banner_publish_single_date'] == '' || $record['banner_publish_single_date'] == '0000-00-00')
+				{
+					$banner_publish_date = '';	
+				}
+				else
+				{
+					$banner_publish_date = date('d-M-Y',strtotime($record['banner_publish_single_date']));
+				}
+			}
+			elseif($record['banner_publish_date_type'] == 'date_range')
+			{
+				$banner_publish_date_type = 'Date Range';
+				if($record['banner_publish_start_date'] == '' || $record['banner_publish_start_date'] == '0000-00-00')
+				{
+					$banner_publish_date = '';	
+				}
+				else
+				{
+					$banner_publish_date = date('d-M-Y',strtotime($record['banner_publish_start_date']));
+				}
+				
+				if($record['banner_publish_end_date'] == '' || $record['banner_publish_end_date'] == '0000-00-00')
+				{
+					$banner_publish_date .= ' - ';	
+				}
+				else
+				{
+					$banner_publish_date .= ' - '.date('d-M-Y',strtotime($record['banner_publish_end_date']));
+				}
+			}
+			else
+			{
+				$banner_publish_date_type = '';
+				$banner_publish_date = '';
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['banner_title'].'</td>
+								<td>'.$banner_image.'</td>
+								<td>'.$record['banner_order'].'</td>
+								<td>'.$obj->getLocationStr($record['banner_country_id'],$record['banner_state_id'],$record['banner_city_id'],$record['banner_area_id']).'</td>
+								<td>'.$banner_publish_date_type.'</td>
+								<td>'.$banner_publish_date.'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['banner_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_banner_slider.php?token='.base64_encode($record['banner_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['banner_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="12" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplebannersliders')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '50';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_banner_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_banner_id); $i++)
+			{
+				$tdata = array();
+				$tdata['banner_id'] = $arr_banner_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteBannerSlider($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='orderslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$item_id = '';
+	if(isset($_POST['item_id']) && trim($_POST['item_id']) != '')
+	{
+		$item_id = trim($_POST['item_id']);
+	}
+	
+	$vendor_id = '';
+	if(isset($_POST['vendor_id']) && trim($_POST['vendor_id']) != '')
+	{
+		$vendor_id = trim($_POST['vendor_id']);
+	}
+	
+	$customer_id = '';
+	if(isset($_POST['customer_id']) && trim($_POST['customer_id']) != '')
+	{
+		$customer_id = trim($_POST['customer_id']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$delivery_date_type = '';
+	if(isset($_POST['delivery_date_type']) && trim($_POST['delivery_date_type']) != '')
+	{
+		$delivery_date_type = trim($_POST['delivery_date_type']);
+	}
+
+	$delivery_days_of_month = '';
+	if(isset($_POST['delivery_days_of_month']) && trim($_POST['delivery_days_of_month']) != '')
+	{
+		$delivery_days_of_month = trim($_POST['delivery_days_of_month']);
+	}
+
+	$delivery_days_of_week = '';
+	if(isset($_POST['delivery_days_of_week']) && trim($_POST['delivery_days_of_week']) != '')
+	{
+		$delivery_days_of_week = trim($_POST['delivery_days_of_week']);
+	}
+
+	$delivery_single_date = '';
+	if(isset($_POST['delivery_single_date']) && trim($_POST['delivery_single_date']) != '')
+	{
+		$delivery_single_date = trim($_POST['delivery_single_date']);
+	}
+
+	$delivery_start_date = '';
+	if(isset($_POST['delivery_start_date']) && trim($_POST['delivery_start_date']) != '')
+	{
+		$delivery_start_date = trim($_POST['delivery_start_date']);
+	}
+
+	$delivery_end_date = '';
+	if(isset($_POST['delivery_end_date']) && trim($_POST['delivery_end_date']) != '')
+	{
+		$delivery_end_date = trim($_POST['delivery_end_date']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$payment_status = '';
+	if(isset($_POST['payment_status']) && trim($_POST['payment_status']) != '')
+	{
+		$payment_status = trim($_POST['payment_status']);
+	}
+	
+	$orders = $obj->getAllOrders($txtsearch,$status,$item_id,$vendor_id,$customer_id,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$country_id,$state_id,$city_id,$area_id,$payment_status,$delivery_date_type,$delivery_days_of_month,$delivery_days_of_week,$delivery_single_date,$delivery_start_date,$delivery_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($orders, $start, $records_per_page);
+	$count = count($orders);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	/*
+	$edit_action_id = '49';
+	$delete_action_id = '50';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	*/
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Invoice</th>
+								<th>User Name</th>
+								<th>Email</th>
+								<th>Mobile</th>
+								<th>Delivery Location</th>
+								<th>Order Amount</th>
+								<th>Order Status</th>
+								<th>Payment Status</th>
+								<th>Order Date</th>
+								<th>Delivery Date</th>
+								<th>Action</th>';
+	/*
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplebannersliders();">';	
+	}		
+	*/
+	
+	$option.= '					
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+			$status = $obj->getOrderStatusString($record['order_status']);
+			$payment_status = $obj->getPaymentStatusString($record['payment_status']);
+			
+			$location = '';
+			if($record['user_area_name'] != '')
+			{
+				$location .= $record['user_area_name'].', ';
+			}
+			
+			if($record['user_city_name'] != '')
+			{
+				$location .= $record['user_city_name'].', ';
+			}
+			
+			if($record['user_state_name'] != '')
+			{
+				$location .= $record['user_state_name'].', ';
+			}
+			
+			if($record['user_country_name'] != '')
+			{
+				$location .= $record['user_country_name'].', ';
+			}
+			
+			$location = substr($location,0,-2);
+			
+			if($record['order_delivery_date'] != '0000-00-00')
+			{
+				$delivery_date = date('d-M-Y',strtotime($record['order_delivery_date']));
+			}
+			else
+			{
+				$delivery_date = '';
+			}
+            
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['invoice'].'</td>
+								<td>'.$record['user_name'].'</td>
+								<td>'.$record['user_email'].'</td>
+								<td>'.$record['user_mobile_no'].'</td>
+								<td>'.$location.'</td>
+								<td>'.$record['order_total_amt'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$payment_status.'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['order_add_date'])).'</td>
+								<td>'.$delivery_date.'</td>
+								<td>';
+			//if($edit_action)
+		//	{			
+			$option.='				<a href="view_order.php?invoice='.$record['invoice'].'" title="View Order"><i class="fa fa-eye"></i></a>&nbsp;';
+			//}
+			
+			
+			
+			$option.='			</td>';
+								
+			/*					
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['banner_id'].'">';
+			}					
+			*/
+			$option.='			
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="12" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action=='pageslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$item = $obj->getAllPages($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '55';
+	$delete_action_id = '56';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Page Name</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplepages();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['page_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['page_name'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['page_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_page.php?pgid='.$record['page_id'].'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['page_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="7" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplepages')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '56';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_page_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_page_id); $i++)
+			{
+				$tdata = array();
+				$tdata['page_id'] = $arr_page_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deletePage($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action == 'getvendoroptionbyitemid')
+{
+	$item_id = trim($_REQUEST['item_id']);
+	$vendor_id = trim($_REQUEST['vendor_id']);
+	if(isset($_REQUEST['type']))
+	{
+		$type = trim($_REQUEST['type']);
+	}
+	else
+	{
+		$type = '';	
+	}
+	
+	if(isset($_REQUEST['multiple']))
+	{
+		$multiple = trim($_REQUEST['multiple']);
+	}
+	else
+	{
+		$multiple = '';	
+	}
+	
+	if($multiple == '1')
+	{
+		$arr_item_id = explode(',',$item_id);
+		$arr_vendor_id = explode(',',$vendor_id);
+	}
+	else
+	{
+		$arr_item_id = $item_id;
+		$arr_vendor_id = $vendor_id;
+	}
+	
+    
+	$data = $obj->getVendorOptionByItemId($arr_item_id,$arr_vendor_id,$type,$multiple);
+    echo $data;
+}
+elseif($action=='shippingpriceslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$sp_type = '';
+	if(isset($_POST['sp_type']) && trim($_POST['sp_type']) != '')
+	{
+		$sp_type = trim($_POST['sp_type']);
+	}
+	
+	$sp_applied_on = '';
+	if(isset($_POST['sp_applied_on']) && trim($_POST['sp_applied_on']) != '')
+	{
+		$sp_applied_on = trim($_POST['sp_applied_on']);
+	}
+	
+	$sp_effective_date = '';
+	if(isset($_POST['sp_effective_date']) && trim($_POST['sp_effective_date']) != '')
+	{
+		$sp_effective_date = trim($_POST['sp_effective_date']);
+	}
+	
+	$item = $obj->getAllShippingPrices($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$country_id,$state_id,$city_id,$area_id,$sp_type,$sp_applied_on,$sp_effective_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '59';
+	$delete_action_id = '60';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Shipping Type</th>
+								<th>Shipping Applied On</th>
+								<th>Shipping Price</th>
+								<th>Min-Max Order Amount/Qty</th>
+								<th>Location</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Effective Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultipleshippingprices();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['sp_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			if($record['sp_effective_date'] != '0000-00-00')
+			{
+				$str_sp_effective_date = date('d-M-Y',strtotime($record['sp_effective_date']));
+			}
+			else
+			{
+				$str_sp_effective_date = '';
+			}
+			
+			if($record['sp_type'] == '2')
+			{
+				$str_min_max_value = $record['sp_min_qty_val'].' '.$obj->getCategoryName($record['sp_min_qty_id']).' - '.$record['sp_max_qty_val'].' '.$obj->getCategoryName($record['sp_max_qty_id']);
+				$str_sp_price = 'Rs '.$record['shipping_price'];
+			}
+			elseif($record['sp_type'] == '3')
+			{
+				$str_min_max_value = '';
+				$str_sp_price = '';
+			}
+			else
+			{
+				if($record['sp_type'] == '1')
+				{
+					$str_sp_price = $record['sp_percentage'].' %';
+				}
+				else
+				{
+					$str_sp_price = 'Rs '.$record['shipping_price'];
+				}
+				$str_min_max_value = 'Rs '.$record['min_order_amount'].' - Rs '.$record['max_order_amount'];
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$obj->getShippingTypeString($record['sp_type']).'</td>
+								<td>'.$obj->getShippingAppliedOnString($record['sp_type'],$record['sp_applied_on']).'</td>
+								<td>'.$str_sp_price.'</td>
+								<td>'.$str_min_max_value.'</td>
+								<td>'.$obj->getLocationStr($record['sp_country_id'],$record['sp_state_id'],$record['sp_city_id'],$record['sp_area_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['sp_add_date'])).'</td>
+								<td>'.$str_sp_effective_date.'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_shipping_price.php?token='.base64_encode($record['sp_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['sp_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="12" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipleshippingprices')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '60';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_sp_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_sp_id); $i++)
+			{
+				$tdata = array();
+				$tdata['sp_id'] = $arr_sp_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteShippingPrice($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='taxeslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$tax_type = '';
+	if(isset($_POST['tax_type']) && trim($_POST['tax_type']) != '')
+	{
+		$tax_type = trim($_POST['tax_type']);
+	}
+	
+	$tax_qty_id = '';
+	if(isset($_POST['tax_qty_id']) && trim($_POST['tax_qty_id']) != '')
+	{
+		$tax_qty_id = trim($_POST['tax_qty_id']);
+	}
+	
+	$tax_effective_date = '';
+	if(isset($_POST['tax_effective_date']) && trim($_POST['tax_effective_date']) != '')
+	{
+		$tax_effective_date = trim($_POST['tax_effective_date']);
+	}
+	
+	$tax_applied_on = '';
+	if(isset($_POST['tax_applied_on']) && trim($_POST['tax_applied_on']) != '')
+	{
+		$tax_applied_on = trim($_POST['tax_applied_on']);
+	}
+	
+	$item = $obj->getAllTaxes($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$country_id,$state_id,$city_id,$area_id,$tax_type,$tax_qty_id,$tax_effective_date,$tax_applied_on);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '63';
+	$delete_action_id = '64';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Tax Name</th>
+								<th>Tax Type</th>
+								<th>Tax Value</th>
+								<th>Applied On</th>
+								<th>Location</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Effective Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultipletaxes();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['tax_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$tax_value = '';
+			if($record['tax_type'] == 0)
+			{
+				$tax_value = 'Rs '.$record['tax_amount'];
+			}
+			elseif($record['tax_type'] == 1)
+			{
+				$tax_value = $record['tax_percentage'].'%';
+			}
+			elseif($record['tax_type'] == 2)
+			{
+				$tax_value = $record['tax_qty_val'].' '.$obj->getCategoryName($record['tax_qty_id']);
+			}
+			else
+			{
+				$tax_value = 'Rs 0';
+			}
+				
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['tax_name'].'</td>
+								<td>'.$obj->getTaxTypeString($record['tax_type']).'</td>
+								<td>'.$tax_value.'</td>
+								<td>'.$obj->getTaxAppliedOnString($record['tax_applied_on']).'</td>
+								<td>'.$obj->getLocationStr($record['tax_country_id'],$record['tax_state_id'],$record['tax_city_id'],$record['tax_area_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['tax_add_date'])).'</td>
+								<td>'.date('d-M-Y',strtotime($record['tax_effective_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_tax.php?token='.base64_encode($record['tax_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['tax_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="12" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipletaxes')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '64';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_sp_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_sp_id); $i++)
+			{
+				$tdata = array();
+				$tdata['tax_id'] = $arr_sp_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteTax($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='contactuslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$contactus_parent_cat_id = '';
+	if(isset($_POST['contactus_parent_cat_id']) && trim($_POST['contactus_parent_cat_id']) != '')
+	{
+		$contactus_parent_cat_id = trim($_POST['contactus_parent_cat_id']);
+	}
+	
+	$contactus_cat_id = '';
+	if(isset($_POST['contactus_cat_id']) && trim($_POST['contactus_cat_id']) != '')
+	{
+		$contactus_cat_id = trim($_POST['contactus_cat_id']);
+	}
+	
+	$contactus_speciality_id = '';
+	if(isset($_POST['contactus_speciality_id']) && trim($_POST['contactus_speciality_id']) != '')
+	{
+		$contactus_speciality_id = trim($_POST['contactus_speciality_id']);
+	}
+	
+	$contactus_item_id = '';
+	if(isset($_POST['contactus_item_id']) && trim($_POST['contactus_item_id']) != '')
+	{
+		$contactus_item_id = trim($_POST['contactus_item_id']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	
+	$orders = $obj->getAllContactUs($txtsearch,$status,$contactus_parent_cat_id,$contactus_cat_id,$contactus_speciality_id,$contactus_item_id,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$country_id,$state_id,$city_id,$area_id);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($orders, $start, $records_per_page);
+	$count = count($orders);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	//$edit_action_id = '';
+	$delete_action_id = '66';	
+	
+	/*
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	*/
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Contact No</th>
+								<th>Location</th>
+								<th>Query Type</th>
+								<th>Support/Query Sub Type</th>
+								<th>Speciality</th>
+								<th>Items</th>
+								<th>Enquiry Date</th>
+								<th>';
+	
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplecontactus();">';	
+	}		
+	
+	
+	$option.= '					
+								</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+			$location = $obj->getTopLocationStr($record['contactus_city_id'],$record['contactus_area_id']);
+			
+			$contactus_parent_cat_id_str = $obj->getCategoryName($record['contactus_parent_cat_id']);
+			if($record['contactus_parent_cat_id'] == '157')
+			{
+				$contactus_parent_cat_id_str .= ' - '.$record['contactus_parent_cat_other'];
+			}
+			
+			$contactus_cat_id_str = $obj->getCategoryName($record['contactus_cat_id']);
+			if($record['contactus_cat_id'] == '161' || $record['contactus_cat_id'] == '158' || $record['contactus_cat_id'] == '159')
+			{
+				$contactus_cat_id_str .= ' - '.$record['contactus_cat_other'];
+			}
+			
+            $contactus_speciality_id_str = $obj->getCommaSepratedCategoryName($record['contactus_speciality_id']);
+			$temp_arr = explode(',',$record['contactus_speciality_id']);
+			if(is_array($temp_arr) && count($temp_arr) > 1)
+			{
+				if(in_array('999999999',$temp_arr))
+				{
+					$contactus_speciality_id_str .= ', Others - '.stripslashes($record['contactus_speciality_other']).' ';
+				}
+			}
+			else
+			{
+				if($record['contactus_speciality_id']== '999999999')
+				{
+					$contactus_speciality_id_str = 'Others - '.stripslashes($record['contactus_speciality_other']).' ';
+				}
+			}
+			
+			$contactus_item_id_str = $obj->getCommaSepratedItemName($record['contactus_item_id']);
+			$temp_arr2 = explode(',',$record['contactus_item_id']);
+			if(is_array($temp_arr2) && count($temp_arr2) > 1)
+			{
+				if(in_array('999999999',$temp_arr2))
+				{
+					$contactus_item_id_str .= ', Others - '.stripslashes($record['contactus_item_other']).' ';
+				}
+			}
+			else
+			{
+				if($record['contactus_item_id']== '999999999')
+				{
+					$contactus_item_id_str = 'Others - '.stripslashes($record['contactus_item_other']).' ';
+				}
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['contactus_name'].'</td>
+								<td>'.$record['contactus_email'].'</td>
+								<td>'.$record['contactus_contact_no'].'</td>
+								<td>'.$location.'</td>
+								<td>'.$contactus_parent_cat_id_str.'</td>
+								<td>'.$contactus_cat_id_str.'</td>
+								<td>'.$contactus_speciality_id_str.'</td>
+								<td>'.$contactus_item_id_str.'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['cu_add_date'])).'</td>
+								<td>';
+			//if($edit_action)
+		//	{			
+			$option.='				<a href="view_contact_us.php?token='.base64_encode($record['cu_id']).'" title="View Contact Us Enquiry"><i class="fa fa-eye"></i></a>&nbsp;';
+			//}
+							
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['cu_id'].'">';
+			}					
+			$option.='			</td>';
+			
+			$option.='			
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="11" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplecontactus')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '66';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_sp_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_sp_id); $i++)
+			{
+				$tdata = array();
+				$tdata['cu_id'] = $arr_sp_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteContactUs($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action == 'getorderdeliverydate')
+{
+	$invoice = trim($_REQUEST['invoice']);
+	$data = $obj->getOrderDeliveryDateByInvoice($invoice);
+	if($data == '' || $data == '0000-00-00')
+	{
+		$data = '';
+	}
+	else
+	{
+		$data = date('d-m-Y',strtotime($data));
+	}
+    echo $data;
+}
+elseif($action == 'getordercartitemslistofinvoice')
+{
+	$invoice = trim($_REQUEST['invoice']);
+	$str_order_cart_id = trim($_REQUEST['str_order_cart_id']);
+	$mode = trim($_REQUEST['mode']);
+	if($str_order_cart_id == '' || $str_order_cart_id == ',')
+	{
+		$arr_order_cart_id = array();
+	}
+	else
+	{
+		$arr_order_cart_id = explode(',',$str_order_cart_id);
+	}
+	
+	if($mode == '')
+	{
+		$mode = '0';
+	}
+	
+	$output = $obj->getOrderCartItemsListOfInvoice($invoice,$arr_order_cart_id,$mode);
+	echo $output;
+}
+elseif($action == 'getlogisticpartneroption')
+{
+	$vendor_cat_id = trim($_REQUEST['vendor_cat_id']);
+	$type = trim($_REQUEST['type']);
+	$vendor_id = '';
+	$data = $obj->getLogisticPartnerOption($vendor_cat_id,$vendor_id,$type);
+    echo $data;
+}
+elseif($action=='orderdeliverylist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$delivery_status = '';
+	if(isset($_POST['delivery_status']) && trim($_POST['delivery_status']) != '')
+	{
+		$delivery_status = trim($_POST['delivery_status']);
+	}
+	
+	$delivery_date = '';
+	if(isset($_POST['delivery_date']) && trim($_POST['delivery_date']) != '')
+	{
+		$delivery_date = trim($_POST['delivery_date']);
+	}
+	
+	$logistic_partner_type_cat_id = '';
+	if(isset($_POST['logistic_partner_type_cat_id']) && trim($_POST['logistic_partner_type_cat_id']) != '')
+	{
+		$logistic_partner_type_cat_id = trim($_POST['logistic_partner_type_cat_id']);
+	}
+	
+	$logistic_partner_id = '';
+	if(isset($_POST['logistic_partner_type_id']) && trim($_POST['logistic_partner_type_id']) != '')
+	{
+		$logistic_partner_type_id = trim($_POST['logistic_partner_type_id']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$item = $obj->getAllOrderDelivery($txtsearch,$delivery_status,$delivery_date,$logistic_partner_type_cat_id,$logistic_partner_id,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '69';
+	$delete_action_id = '70';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Deliver Date</th>
+								<th>Client Name</th>
+								<th>Order No</th>
+								<th>Order Date</th>
+								<th>Order Value</th>
+								<th>Logistic Partner Name</th>
+								<th>Delivery Person Name</th>
+								<th>Receiver Name</th>
+								<th>Receiver Name(Others)</th>
+								<th>Proof of Delivery</th>
+								<th>Delivery Location</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultipleorderdelivery();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		$record_count = 0;
+		foreach($data as $record)
+		{
+			//echo '<br><pre>';
+			//print_r($record);
+			//echo '<br></pre>';
+           	$status = $obj->getOrderDeiveryStatusString($record['delivery_status']);
+           	$arr_order_detail = $obj->getOrderDetailsByInvoice($record['invoice']);
+			if(count($arr_order_detail) > 0)
+			{
+				$record_count++;
+				//echo '<br><pre>';
+				//print_r($arr_order_detail);
+				//echo '<br></pre>';
+				
+				$logistic_partner_name = $obj->getVendorName($record['logistic_partner_id']);;
+				if($record['logistic_partner_type'] == '158')
+				{
+					if($logistic_partner_name == '')
+					{
+						$logistic_partner_name = 'Internal Logistic';	
+					}
+				}
+				
+				$proof_of_delivery = '';
+				if($record['proof_of_delivery'] != '')
+				{
+					$file4 = substr($record['proof_of_delivery'], -4, 4);
+					if(strtolower($file4) == '.pdf')
+					{
+						$proof_of_delivery = '<a target="_blank" href="'.SITE_URL.'/uploads/'.$record['proof_of_delivery'].'" >Pdf File</a>';
+					}
+					else
+					{
+						$proof_of_delivery = '<img border="0" src="'.SITE_URL.'/uploads/'.$record['proof_of_delivery'].'" width="50" >';
+					}
+					
+				}
+				
+				$location = '';
+				if($arr_order_detail['user_area_name'] != '')
+				{
+					$location .= $arr_order_detail['user_area_name'].', ';
+				}
+				
+				if($arr_order_detail['user_city_name'] != '')
+				{
+					$location .= $arr_order_detail['user_city_name'].', ';
+				}
+				
+				if($arr_order_detail['user_state_name'] != '')
+				{
+					$location .= $arr_order_detail['user_state_name'].', ';
+				}
+				
+				if($arr_order_detail['user_country_name'] != '')
+				{
+					$location .= $arr_order_detail['user_country_name'].', ';
+				}
+				
+				$location = substr($location,0,-2);
+					
+				
+				$option.='		<tr>
+									<td>'.$i.'</td>
+									<td>'.date('d-M-Y',strtotime($record['delivery_date'])).'</td>
+									<td>'.$arr_order_detail['user_name'].'</td>
+									<td>'.$record['invoice'].'-'.$record['order_item_id'].'</td>
+									<td>'.date('d-M-Y',strtotime($arr_order_detail['order_add_date'])).'</td>
+									<td>Rs. '.$arr_order_detail['order_total_amt'].'</td>
+									<td>'.$logistic_partner_name.'</td>
+									<td>'.$record['delivery_person_name'].'</td>
+									<td>'.$record['reciever_name'].'</td>
+									<td>'.$record['other_reciever_name'].'</td>
+									<td>'.$proof_of_delivery.'</td>
+									<td>'.$location.'</td>
+									<td>'.$status.'</td>
+									<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+									<td>'.date('d-M-Y H:ia',strtotime($record['delivery_add_date'])).'</td>
+									<td>';
+				if($edit_action)
+				{			
+				$option.='				<a href="edit_order_delivery.php?token='.base64_encode($record['od_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+				}
+				
+				
+				
+				$option.='			</td>
+									<td>';
+									
+				if($delete_action)
+				{
+				$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['od_id'].'">';
+				}					
+				
+				$option.='			</td>
+								</tr>';	
+			}
+			
+			$i++;
+		}
+		
+		if($record_count == 0)
+		{
+			$option.='			<tr><td colspan="17" style="color:red;text-align:center">No record</d></tr>';	
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="17" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipleorderdelivery')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '70';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_sp_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_sp_id); $i++)
+			{
+				$tdata = array();
+				$tdata['od_id'] = $arr_sp_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteOrderDelivery($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action == 'getingredientsbyingrdienttype')
+{
+	$ingredient_type = trim($_REQUEST['ingredient_type']);
+	$ingredient_id = trim($_REQUEST['ingredient_id']);
+	
+	$arr_ingredient_type = explode(',',$ingredient_type);
+	$arr_ingredient_id = explode(',',$ingredient_id);
+	    
+	$data = $obj->getIngredientsByIngrdientType($arr_ingredient_type,$arr_ingredient_id);
+    echo $data;
+}
+elseif($action=='userslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$user_blocked = '';
+	if(isset($_POST['user_blocked']) && trim($_POST['user_blocked']) != '')
+	{
+		$user_blocked = trim($_POST['user_blocked']);
+	}
+		
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$users = $obj->getAllUsers($txtsearch,$status,$user_blocked,$country_id,$state_id,$city_id,$area_id,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($users, $start, $records_per_page);
+	$count = count($users);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '73';
+	$delete_action_id = '74';	
+	$reset_password_action_id = '75';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$reset_password_action_id))
+	{
+		$reset_password_action = true;
+	}	
+	else
+	{
+		$reset_password_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Customer Code</th>
+								<th>Name</th>
+								<th>Email</th>
+								<th>Mobile No</th>
+								<th>Location</th>
+								<th>OTP Status</th>
+								<th>Blocked Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultipleusers();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['user_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			if($record['user_blocked'] == 1 )
+			{
+				$user_blocked = 'Yes';
+			}
+			else
+			{
+				$user_blocked = 'No'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$obj->getCustomerCodeByUserId($record['user_id']).'</td>
+								<td>'.$record['first_name'].' '.$record['last_name'].'</td>
+								<td>'.$record['email'].'</td>
+								<td>'.$record['mobile_no'].'</td>
+								<td>'.$record['area_name'].' '.$record['city_name'].' '.$record['state_name'].' '.$record['country_name'].'</td>
+								<td>'.$status.'</td>
+								<td>'.$user_blocked.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['user_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_user.php?token='.base64_encode($record['user_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			if($reset_password_action)
+			{			
+			$option.='				<a href="reset_user_password.php?token='.base64_encode($record['user_id']).'"><i class="fa fa-key"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['user_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="12" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultipleusers')
+{
+    $chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '74';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_vendor_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_vendor_id); $i++)
+			{
+				$tdata_del = array();
+				$tdata_del['user_id'] = $arr_vendor_id[$i];
+				$tdata_del['admin_id'] = $admin_id;
+				if($obj->deleteUser($tdata_del))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action == 'getshippingappliedonoption')
+{
+	$sp_type = trim($_REQUEST['sp_type']);
+	$type = trim($_REQUEST['type']);
+	$sp_applied_on = '';
+	$data = $obj->getShippingAppliedOnOption($sp_type,$sp_applied_on,$type);
+    echo $data;
+}
+elseif($action == 'getcancellationappliedonoption')
+{
+	$cp_type = trim($_REQUEST['cp_type']);
+	$type = trim($_REQUEST['type']);
+	$cp_applied_on = '';
+	$data = $obj->getCancellationAppliedOnOption($cp_type,$cp_applied_on,$type);
+    echo $data;
+}
+elseif($action == 'getdiscountcouponappliedonoption')
+{
+	$dc_type = trim($_REQUEST['dc_type']);
+	$type = trim($_REQUEST['type']);
+	$dc_applied_on = '';
+	$data = $obj->getDiscountCouponAppliedOnOption($dc_type,$dc_applied_on,$type);
+    echo $data;
+}
+elseif($action=='cancellationpriceslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$cp_type = '';
+	if(isset($_POST['cp_type']) && trim($_POST['cp_type']) != '')
+	{
+		$cp_type = trim($_POST['cp_type']);
+	}
+	
+	$cp_applied_on = '';
+	if(isset($_POST['cp_applied_on']) && trim($_POST['cp_applied_on']) != '')
+	{
+		$cp_applied_on = trim($_POST['cp_applied_on']);
+	}
+	
+	$cp_effective_date = '';
+	if(isset($_POST['cp_effective_date']) && trim($_POST['cp_effective_date']) != '')
+	{
+		$cp_effective_date = trim($_POST['cp_effective_date']);
+	}
+	
+	$item = $obj->getAllCancellationPrices($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$cp_type,$cp_applied_on,$cp_effective_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '78';
+	$delete_action_id = '79';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Title</th>
+								<th>Cancellation Type</th>
+								<th>Cancellation Applied On</th>
+								<th>Cancellation Price/Percentage</th>
+								<th>Min-Max Cancellation Hrs</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Effective Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplecancellationprices();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['cp_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			
+			
+			if($record['cp_effective_date'] != '0000-00-00')
+			{
+				$str_cp_effective_date = date('d-M-Y',strtotime($record['cp_effective_date']));
+			}
+			else
+			{
+				$str_cp_effective_date = '';
+			}
+			
+			if($record['cp_type'] == '2')
+			{
+				$str_min_max_value = $record['cp_min_qty_val'].' '.$obj->getCategoryName($record['cp_min_qty_id']).' - '.$record['cp_max_qty_val'].' '.$obj->getCategoryName($record['cp_max_qty_id']);
+				$str_cp_price = 'Rs '.$record['cancellation_price'];
+			}
+			elseif($record['cp_type'] == '3')
+			{
+				$str_min_max_value = '';
+				$str_cp_price = '';
+			}
+			else
+			{
+				if($record['cp_type'] == '1')
+				{
+					$str_cp_price = $record['cp_percentage'].' %';
+				}
+				else
+				{
+					$str_cp_price = 'Rs '.$record['cancellation_price'];
+				}
+				$str_min_max_value = 'Rs '.$record['min_cancellation_amount'].' - Rs '.$record['max_cancellation_amount'];
+			}
+			
+			$str_min_max_hrs = $record['cp_min_hrs'].' - '.$record['cp_max_hrs'].' Hrs';
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['cp_title'].'</td>
+								<td>'.$obj->getCancellationTypeString($record['cp_type']).'</td>
+								<td>'.$obj->getCancellationAppliedOnString($record['cp_type'],$record['cp_applied_on']).'</td>
+								<td>'.$str_cp_price.'</td>
+								<td>'.$str_min_max_hrs.'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['cp_add_date'])).'</td>
+								<td>'.$str_cp_effective_date.'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_cancellation_price.php?token='.base64_encode($record['cp_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['cp_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="12" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplecancellationprices')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '79';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_cp_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_cp_id); $i++)
+			{
+				$tdata = array();
+				$tdata['cp_id'] = $arr_cp_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteCancellationPrice($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='ordercancellationlist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$item_id = '';
+	if(isset($_POST['item_id']) && trim($_POST['item_id']) != '')
+	{
+		$item_id = trim($_POST['item_id']);
+	}
+	
+	$vendor_id = '';
+	if(isset($_POST['vendor_id']) && trim($_POST['vendor_id']) != '')
+	{
+		$vendor_id = trim($_POST['vendor_id']);
+	}
+	
+	$customer_id = '';
+	if(isset($_POST['customer_id']) && trim($_POST['customer_id']) != '')
+	{
+		$customer_id = trim($_POST['customer_id']);
+	}
+	
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$cancel_request_date = '';
+	if(isset($_POST['cancel_request_date']) && trim($_POST['cancel_request_date']) != '')
+	{
+		$cancel_request_date = trim($_POST['cancel_request_date']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$orders = $obj->getAllCancellationOrders($txtsearch,$item_id,$vendor_id,$customer_id,$cancel_request_date,$country_id,$state_id,$city_id,$area_id);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($orders, $start, $records_per_page);
+	$count = count($orders);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	/*
+	$edit_action_id = '49';
+	$delete_action_id = '50';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	*/
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Invoice</th>
+								<th>User Name</th>
+								<th>Email</th>
+								<th>Mobile</th>
+								<th>Cancellation Request Date</th>
+								<th>Cancellation Process Date</th>
+								<th>Order Date</th>
+								<th>Cancellation Request By</th>
+								<th>Action</th>';
+	/*
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplebannersliders();">';	
+	}		
+	*/
+	
+	$option.= '					
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+			if($record['cancel_request_date'] != '0000-00-00')
+			{
+				$cancel_request_date = date('d-M-Y H:ia',strtotime($record['cancel_request_date']));
+			}
+			else
+			{
+				$cancel_request_date = '';
+			}
+			
+			if($record['cancel_process_date'] != '0000-00-00' && $record['cancel_process_date'] != '')
+			{
+				$cancel_process_date = date('d-M-Y H:ia',strtotime($record['cancel_process_date']));
+			}
+			else
+			{
+				$cancel_process_date = '';
+			}
+			
+			if($record['cancel_request_by_admin'] == '1' )
+			{
+				$cancel_request_by = 'Admin('.$obj->getAdminUsername($record['cancel_request_by_admin_id']).')';
+			}
+			else
+			{
+				$cancel_request_by = 'User';
+			}
+			            
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['invoice'].'</td>
+								<td>'.$record['user_name'].'</td>
+								<td>'.$record['user_email'].'</td>
+								<td>'.$record['user_mobile_no'].'</td>
+								<td>'.$cancel_request_date.'</td>
+								<td>'.$cancel_process_date.'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['order_add_date'])).'</td>
+								<td>'.$cancel_request_by.'</td>
+								<td>';
+			//if($edit_action)
+		//	{			
+			$option.='				<a href="edit_order_cancellation.php?invoice='.$record['invoice'].'" title="View Cancel Request"><i class="fa fa-eye"></i></a>&nbsp;';
+			//}
+			
+			
+			
+			$option.='			</td>';
+								
+			/*					
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['banner_id'].'">';
+			}					
+			*/
+			$option.='			
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="13" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'calculateitemcancellationcharge')
+{
+	$prod_subtotal = trim($_REQUEST['prod_subtotal']);
+	$order_cart_id = trim($_REQUEST['order_cart_id']);
+	$invoice = trim($_REQUEST['invoice']);
+	$cp_id = trim($_REQUEST['cp_id']);
+	
+	$data = '';
+	$arr_cp_record = $obj->getCancellationPriceDetails($cp_id);
+	if(count($arr_cp_record) > 0)
+	{
+		if($arr_cp_record['cp_type'] == '1' )
+		{
+			$data = $prod_subtotal * $arr_cp_record['cp_percentage'] / 100;	
+		}
+		else
+		{
+			$data = $arr_cp_record['cancellation_price'];	
+		}
+	}
+    echo $data;
+}
+elseif($action == 'calculatefinalcancellationcharge')
+{
+	$prod_subtotal = trim($_REQUEST['prod_subtotal']);
+	$order_cart_id = trim($_REQUEST['order_cart_id']);
+	$invoice = trim($_REQUEST['invoice']);
+	$cp_id = trim($_REQUEST['cp_id']);
+	$cp_sp_amount = trim($_REQUEST['cp_sp_amount']);
+	$cp_tax_amount = trim($_REQUEST['cp_tax_amount']);
+	
+	$data = 0.00;
+	
+	if($cp_sp_amount == '')
+	{
+		$cp_sp_amount = 0.00;
+	}
+	
+	if($cp_tax_amount == '')
+	{
+		$cp_tax_amount = 0.00;
+	}
+	
+	$cp_id = substr($cp_id,0,-1);
+	$order_cart_id = substr($order_cart_id,0,-1);
+	$prod_subtotal = substr($prod_subtotal,0,-1);
+	
+	$arr_cp_id = explode(',',$cp_id);
+	$arr_order_cart_id = explode(',',$order_cart_id);
+	$arr_prod_subtotal = explode(',',$prod_subtotal);
+	
+	for($i=0;$i<count($arr_cp_id);$i++)
+	{
+		$arr_cp_record = $obj->getCancellationPriceDetails($arr_cp_id[$i]);
+		if(count($arr_cp_record) > 0)
+		{
+			if($arr_cp_record['cp_type'] == '1' )
+			{
+				$data += ($arr_prod_subtotal[$i] * $arr_cp_record['cp_percentage'] / 100);	
+			}
+			else
+			{
+				$data += $arr_cp_record['cancellation_price'];	
+			}
+		}	
+	}
+	
+	$data += $cp_sp_amount + $cp_tax_amount;
+	
+	
+    echo 'Rs '.$data;
+}
+elseif($action == 'docancellationorder')
+{
+	$prod_subtotal = trim($_REQUEST['prod_subtotal']);
+	$order_cart_id = trim($_REQUEST['order_cart_id']);
+	$invoice = trim($_REQUEST['invoice']);
+	$cp_id = trim($_REQUEST['cp_id']);
+	$cp_sp_amount = trim($_REQUEST['cp_sp_amount']);
+	$cp_tax_amount = trim($_REQUEST['cp_tax_amount']);
+	$cancellation_note = trim($_REQUEST['cancellation_note']);
+	
+	$data = 0.00;
+	
+	if($cp_sp_amount == '')
+	{
+		$cp_sp_amount = 0.00;
+	}
+	
+	if($cp_tax_amount == '')
+	{
+		$cp_tax_amount = 0.00;
+	}
+	
+	$cp_id = substr($cp_id,0,-1);
+	$order_cart_id = substr($order_cart_id,0,-1);
+	$prod_subtotal = substr($prod_subtotal,0,-1);
+	
+	$strpos_cp_id = strpos($cp_id,',');
+	if ($strpos_cp_id === false) 
+	{
+		$arr_cp_id = array($cp_id);
+	}
+	else
+	{
+		$arr_cp_id = explode(',',$cp_id);	
+	}
+	
+	$strpos_oc_id = strpos($order_cart_id,',');
+	if ($strpos_oc_id === false) 
+	{
+		$arr_order_cart_id = array($order_cart_id);
+	}
+	else
+	{
+		$arr_order_cart_id = explode(',',$order_cart_id);	
+	}
+	
+	$strpos_st_id = strpos($prod_subtotal,',');
+	if ($strpos_st_id === false) 
+	{
+		$arr_prod_subtotal = array($prod_subtotal);
+	}
+	else
+	{
+		$arr_prod_subtotal = explode(',',$prod_subtotal);
+	}
+	
+	$error = '0';
+	$err_msg = '';
+	$url = '';
+	
+	$temp_cp_cnt = 0;
+	for($i=0;$i<count($arr_cp_id);$i++)
+	{
+		if($arr_cp_id[$i] != '')
+		{
+			$temp_cp_cnt++;
+		}			
+	}
+	
+	if($temp_cp_cnt == 0)
+	{
+		$error = '1';
+		$err_msg = 'Please select cancellation method';
+	}
+	
+	if($error == '0')
+	{
+		$admin_id = $_SESSION['admin_id'];
+		for($i=0;$i<count($arr_cp_id);$i++)
+		{
+			$arr_cp_record = $obj->getCancellationPriceDetails($arr_cp_id[$i]);
+			if((count($arr_cp_record) > 0) && $arr_order_cart_id[$i] != '')
+			{
+				if($arr_cp_record['cp_type'] == '1' )
+				{
+					$cp_amount = ($arr_prod_subtotal[$i] * $arr_cp_record['cp_percentage'] / 100);	
+				}
+				else
+				{
+					$cp_amount = $arr_cp_record['cancellation_price'];	
+				}
+				
+				$tdata = array();
+				$tdata['order_cart_id'] = $arr_order_cart_id[$i];
+				$tdata['cp_id'] = $arr_cp_id[$i];
+				$tdata['cancellation_note'] = $cancellation_note;
+				$tdata['cp_sp_amount'] = $cp_sp_amount;
+				$tdata['cp_tax_amount'] = $cp_tax_amount;
+				$tdata['cp_amount'] = $cp_amount;
+				$tdata['invoice'] = $invoice;
+				$tdata['prod_cancel_subtotal'] = $cp_amount;
+				$tdata['cancel_process_date'] = date('Y-m-d H:i:s');
+				$tdata['cancel_process_by_admin'] = $admin_id;
+				$tdata['cancel_process_done'] = 1;
+				
+				$obj->doCancelProcess($tdata);
+				
+				$data += $cp_amount;
+			}	
+			
+			
+		}
+		
+		$url = SITE_URL.'/admin/manage_order_cancellations.php';
+		$data += $cp_sp_amount + $cp_tax_amount;	
+	}
+	
+	echo ' '.'::::'.$error.'::::'.$err_msg.'::::'.$url;
+}
+elseif($action == 'generatediscountcoupon')
+{
+	$data = $obj->generateDiscountCoupon();
+    echo $data;
+}
+elseif($action=='discountcouponslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$dc_type = '';
+	if(isset($_POST['dc_type']) && trim($_POST['dc_type']) != '')
+	{
+		$dc_type = trim($_POST['dc_type']);
+	}
+	
+	$dc_applied_on = '';
+	if(isset($_POST['dc_applied_on']) && trim($_POST['dc_applied_on']) != '')
+	{
+		$dc_applied_on = trim($_POST['dc_applied_on']);
+	}
+	
+	$dc_effective_date = '';
+	if(isset($_POST['dc_effective_date']) && trim($_POST['dc_effective_date']) != '')
+	{
+		$dc_effective_date = trim($_POST['dc_effective_date']);
+	}
+	
+	$item = $obj->getAllDiscountCoupons($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date,$country_id,$state_id,$city_id,$area_id,$dc_type,$dc_applied_on,$dc_effective_date);
+	
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '86';
+	$delete_action_id = '87';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Discount Coupon</th>
+								<th>Discount Type</th>
+								<th>Discount Applied On</th>
+								<th>Discount Price</th>
+								<th>Min-Max Order Amount/Qty</th>
+								<th>Location</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplediscountcoupons();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['dc_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			/*
+			if($record['dc_from_effective_date'] != '0000-00-00' && $record['dc_from_effective_date'] != '')
+			{
+				$str_dc_effective_date = date('d/M/Y',strtotime($record['dc_from_effective_date']));
+				if($record['dc_to_effective_date'] != '0000-00-00' && $record['dc_to_effective_date'] != '')
+				{
+					$str_dc_effective_date .= ' - '.date('d/M/Y',strtotime($record['dc_to_effective_date']));
+				}
+			}
+			else
+			{
+				$str_dc_effective_date = '';
+			}
+			*/
+			
+			if($record['dc_type'] == '2')
+			{
+				$str_min_max_value = $record['dc_min_qty_val'].' '.$obj->getCategoryName($record['dc_min_qty_id']).' - '.$record['dc_max_qty_val'].' '.$obj->getCategoryName($record['dc_max_qty_id']);
+				$str_dc_price = 'Rs '.$record['discount_price'];
+			}
+			elseif($record['dc_type'] == '3')
+			{
+				$str_min_max_value = '';
+				$str_dc_price = '';
+			}
+			else
+			{
+				if($record['dc_type'] == '1')
+				{
+					$str_dc_price = $record['dc_percentage'].' %';
+				}
+				else
+				{
+					$str_dc_price = 'Rs '.$record['discount_price'];
+				}
+				$str_min_max_value = 'Rs '.$record['min_order_amount'].' - Rs '.$record['max_order_amount'];
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['discount_coupon'].'</td>
+								<td>'.$obj->getDiscountCouponTypeString($record['dc_type']).'</td>
+								<td>'.$obj->getDiscountCouponAppliedOnString($record['dc_type'],$record['dc_applied_on']).'</td>
+								<td>'.$str_dc_price.'</td>
+								<td>'.$str_min_max_value.'</td>
+								<td>'.$obj->getLocationStr($record['dc_country_id'],$record['dc_state_id'],$record['dc_city_id'],$record['dc_area_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['dc_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_discount_coupon.php?token='.base64_encode($record['dc_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['dc_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="12" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplediscountcoupons')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '87';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_dc_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_dc_id); $i++)
+			{
+				$tdata = array();
+				$tdata['dc_id'] = $arr_dc_id[$i];
+				$tdata['deleted_by_admin'] = $admin_id;
+				if($obj->deleteDiscountCoupon($tdata))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='mailingorderslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$item_id = '';
+	if(isset($_POST['item_id']) && trim($_POST['item_id']) != '')
+	{
+		$item_id = trim($_POST['item_id']);
+	}
+	
+	$vendor_id = '';
+	if(isset($_POST['vendor_id']) && trim($_POST['vendor_id']) != '')
+	{
+		$vendor_id = trim($_POST['vendor_id']);
+	}
+	
+	$customer_id = '';
+	if(isset($_POST['customer_id']) && trim($_POST['customer_id']) != '')
+	{
+		$customer_id = trim($_POST['customer_id']);
+	}
+	
+	$order_date = '';
+	if(isset($_POST['order_date']) && trim($_POST['order_date']) != '')
+	{
+		$order_date = trim($_POST['order_date']);
+	}
+	
+	$delivery_date = '';
+	if(isset($_POST['delivery_date']) && trim($_POST['delivery_date']) != '')
+	{
+		$delivery_date = trim($_POST['delivery_date']);
+	}
+
+	$country_id = '';
+	if(isset($_POST['country_id']) && trim($_POST['country_id']) != '')
+	{
+		$country_id = trim($_POST['country_id']);
+	}
+	
+	$state_id = '';
+	if(isset($_POST['state_id']) && trim($_POST['state_id']) != '')
+	{
+		$state_id = trim($_POST['state_id']);
+	}
+	
+	$city_id = '';
+	if(isset($_POST['city_id']) && trim($_POST['city_id']) != '')
+	{
+		$city_id = trim($_POST['city_id']);
+	}
+	
+	$area_id = '';
+	if(isset($_POST['area_id']) && trim($_POST['area_id']) != '')
+	{
+		$area_id = trim($_POST['area_id']);
+	}
+	
+	$payment_status = '';
+	if(isset($_POST['payment_status']) && trim($_POST['payment_status']) != '')
+	{
+		$payment_status = trim($_POST['payment_status']);
+	}
+	
+	$orders = $obj->getAllMailingOrders($txtsearch,$status,$item_id,$vendor_id,$customer_id,$order_date,$country_id,$state_id,$city_id,$area_id,$payment_status,$delivery_date);
+   
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 100;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($orders, $start, $records_per_page);
+	$count = count($orders);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '90';
+	//$delete_action_id = '50';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	/*
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	*/
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th width="5%">Sr No</th>
+								<th width="20%">Invoice</th>
+								<th width="20%">User Name/Email/Mobile</th>
+								<th width="20%">Delivery Location</th>
+								<th width="30%">Order Details</th>
+								<th width="5%">';
+	if($edit_action)
+	{
+	$option.= '					<input type="button" id="btnCreateMailingLabelList" name="btnCreateMailingLabelList" value="Create List" class="btn btn-primary" onclick="createMailingLabelList();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+			$status = $obj->getOrderStatusString($record['order_status']);
+			$payment_status = $obj->getPaymentStatusString($record['payment_status']);
+			$all_delivery_dates = $obj->getOrderAllDeliveryDatesStringByInvoice($record['invoice']);
+			
+			$location = '';
+			if($record['user_area_name'] != '')
+			{
+				$location .= $record['user_area_name'].', ';
+			}
+			
+			if($record['user_city_name'] != '')
+			{
+				$location .= $record['user_city_name'].', ';
+			}
+			
+			if($record['user_state_name'] != '')
+			{
+				$location .= $record['user_state_name'].', ';
+			}
+			
+			if($record['user_country_name'] != '')
+			{
+				$location .= $record['user_country_name'].', ';
+			}
+			
+			$location = substr($location,0,-2);
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['invoice'].'</td>
+								<td>Name : '.$record['user_name'].'<br>Email : '.$record['user_email'].'<br>Mobile : '.$record['user_mobile_no'].'</td>
+								<td>'.$location.'</td>
+								<td>Order Amount : '.$record['order_total_amt'].'<br>Order Status : '.$status.'<br>Payment Status : '.$payment_status.'<br>Order Date : '.date('d-M-Y H:ia',strtotime($record['order_add_date'])).'<br>Delivery Date : '.$all_delivery_dates.'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['invoice'].'">';
+			}
+			
+			
+			
+			$option.='			</td>';
+								
+			/*					
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['banner_id'].'">';
+			}					
+			*/
+			$option.='			
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="6" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'createmailinglabellist')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$edit_action_id = '90';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+		{
+			$return = false;
+			$arr_ml_invoice_list = explode(',',$chkbox_records);
+			$_SESSION['arr_ml_invoice_list'] = $arr_ml_invoice_list;
+			
+			$tdata = array();
+			$response = array('status'=>1);
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);
+			
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='vendorsaccesslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+	$item = $obj->getAllVendorsAccess($txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+	
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($item, $start, $records_per_page);
+	$count = count($item);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '93';
+	$delete_action_id = '94';	
+	$view_form_action_id = '95';	
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$view_form_action_id))
+	{
+		$view_form_action = true;
+	}	
+	else
+	{
+		$view_form_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Category</th>
+								<th>Title</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplevendorsaccess();">';	
+	}		
+	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+					
+	if(is_array($data) && count($data) > 0)
+	{
+		foreach($data as $record)
+		{
+            if($record['va_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$obj->getCategoryName($record['va_cat_id']).'</td>
+								<td>'.stripslashes($record['va_name']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['va_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_vendors_access.php?token='.base64_encode($record['va_id']).'"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			if($view_form_action)
+			{			
+			$option.='				<a href="manage_vendors_access_forms.php?va_id='.$record['va_id'].'"><i class="fa fa-eye"></i></a>&nbsp;';
+			}
+			
+			
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['va_id'].'">';
+			}					
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="8" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplevendorsaccess')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '94';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_va_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_va_id); $i++)
+			{
+				$arr_where = array();
+				$arr_where['va_id'] = $arr_va_id[$i];
+				
+				$tdata = array();
+				$tdata['tablename'] = 'tblvendoraccess';
+				$tdata['va_deleted'] = '1';
+				$tdata['va_modified_date'] = date('Y-m-d H:i:s');
+				$tdata['deleted_by_admin'] = $admin_id;
+				
+				if($obj->updateRecordCommon($tdata,$arr_where))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action=='vendorsaccessformslist')
+{
+	$admin_id = $_SESSION['admin_id'];
+	$va_id = trim($_POST['va_id']);
+	$txtsearch = '';
+	if(isset($_POST['txtsearch']) && trim($_POST['txtsearch']) != '')
+	{
+		$txtsearch = trim($_POST['txtsearch']);
+	}
+	
+	$status = '';
+	if(isset($_POST['status']) && trim($_POST['status']) != '')
+	{
+		$status = trim($_POST['status']);
+	}
+	
+	$added_by_admin = '';
+	if(isset($_POST['added_by_admin']) && trim($_POST['added_by_admin']) != '')
+	{
+		$added_by_admin = trim($_POST['added_by_admin']);
+	}
+	
+	$added_date_type = '';
+	if(isset($_POST['added_date_type']) && trim($_POST['added_date_type']) != '')
+	{
+		$added_date_type = trim($_POST['added_date_type']);
+	}
+	
+	$added_days_of_month = '';
+	if(isset($_POST['added_days_of_month']) && trim($_POST['added_days_of_month']) != '')
+	{
+		$added_days_of_month = trim($_POST['added_days_of_month']);
+	}
+	
+	$added_days_of_week = '';
+	if(isset($_POST['added_days_of_week']) && trim($_POST['added_days_of_week']) != '')
+	{
+		$added_days_of_week = trim($_POST['added_days_of_week']);
+	}
+	
+	$added_single_date = '';
+	if(isset($_POST['added_single_date']) && trim($_POST['added_single_date']) != '')
+	{
+		$added_single_date = trim($_POST['added_single_date']);
+	}
+	
+	$added_start_date = '';
+	if(isset($_POST['added_start_date']) && trim($_POST['added_start_date']) != '')
+	{
+		$added_start_date = trim($_POST['added_start_date']);
+	}
+	
+	$added_end_date = '';
+	if(isset($_POST['added_end_date']) && trim($_POST['added_end_date']) != '')
+	{
+		$added_end_date = trim($_POST['added_end_date']);
+	}
+	
+    $arr_records = $obj->getAllVendorsAccessForms($va_id,$txtsearch,$status,$added_by_admin,$added_date_type,$added_days_of_month,$added_days_of_week,$added_single_date,$added_start_date,$added_end_date);
+    
+	$option='';
+	//start pagination for notification
+    
+    $adjacents = 1;
+    $records_per_page = 40;
+    $page = (int) (isset($_POST['page_id']) ? $_POST['page_id'] : 1);
+    $page = ($page == 0 ? 1 : $page);
+    $start = ($page-1) * $records_per_page;
+    $i = (($page * $records_per_page) - ($records_per_page - 1)); // used for serial number.
+
+    $data = array_slice($arr_records, $start, $records_per_page);
+	$count = count($arr_records);
+	
+    $next = $page + 1;    
+    $prev = $page - 1;
+    $last_page = ceil($count/$records_per_page);
+    $second_last = $last_page - 1; 
+    $pagination = '';
+    
+    if($last_page > 1)
+	{
+        $pagination .= '<div class="pagination">';
+		if($page > 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$prev.');">&laquo; Previous&nbsp;&nbsp;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">&laquo; Previous&nbsp;&nbsp;</span>';   
+		}
+			
+		if($last_page < 7 + ($adjacents * 2))
+		{   
+			for ($counter = 1; $counter <= $last_page; $counter++)
+			{
+				if ($counter == $page)
+				{
+					$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+				}
+				else
+				{
+					$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+				}
+			}
+		}
+		elseif($last_page > 5 + ($adjacents * 2))
+		{
+			if($page < 1 + ($adjacents * 2))
+			{
+				for($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '...';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			elseif($last_page - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '...';
+				for($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+				$pagination.= '..';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$second_last.');">'.$second_last.'</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$last_page.');">'.$last_page.'</a>';   
+			}
+			else
+			{
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(1);">1</a>';
+				$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page(2);">2</a>';
+				$pagination.= '..';
+				for($counter = $last_page - (2 + ($adjacents * 2)); $counter <= $last_page; $counter++)
+				{
+					if($counter == $page)
+					{
+						$pagination.= '<span class="current paginate_button">'.$counter.'</span>';
+					}
+					else
+					{
+						$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$counter.');">'.$counter.'</a>';     
+					}
+				}
+			}
+		}
+		
+		if($page < $counter - 1)
+		{
+			$pagination.= '<a href="javascript:void(0);" class="paginate_button" onClick="change_page('.$next.');">Next &raquo;</a>';
+		}
+		else
+		{
+			$pagination.= '<span class="disabled paginate_button">Next &raquo;</span>';
+		}
+		$pagination.= '</div>';       
+    } 
+	
+	$edit_action_id = '97';
+	$delete_action_id = '98';		
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$edit_action_id))
+	{
+		$edit_action = true;
+	}	
+	else
+	{
+		$edit_action = false;
+	}
+	
+	if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+	{
+		$delete_action = true;
+	}	
+	else
+	{
+		$delete_action = false;
+	}
+	
+	$option.= '	<div class="table-responsive">
+					<table id="datatable" class="table table-hover" >
+						<thead>
+							<tr>
+								<th>Sr No</th>
+								<th>Form Name</th>
+								<th>Module</th>
+								<th>Status</th>
+								<th>Added by Admin</th>
+								<th>Added Date</th>
+								<th>Action</th>
+								<th>';
+
+	if($delete_action)
+	{
+	$option.= '					<input type="button" id="btndelete" name="btndelete" value="Delete" class="btn btn-primary" onclick="deletemultiplevendorsaccessforms();">';	
+	}	
+	
+	$option.= '					</th>
+							</tr>
+						</thead>
+						<tbody>';
+				
+	if(is_array($data) && count($data) > 0)
+	{
+    	foreach($data as $record)
+		{
+            if($record['vaf_status'] == 1 )
+			{
+				$status = 'Active';
+			}
+			else
+			{
+				$status = 'InActive'; 
+			}
+			
+			$option.='		<tr>
+								<td>'.$i.'</td>
+								<td>'.$record['vaf_title'].'</td>
+								<td>'.$obj->getAdminMenuName($record['vaf_am_id']).'</td>
+								<td>'.$status.'</td>
+								<td>'.$obj->getAdminUsername($record['added_by_admin']).'</td>
+								<td>'.date('d-M-Y H:ia',strtotime($record['vaf_add_date'])).'</td>
+								<td>';
+			if($edit_action)
+			{			
+			$option.='				<a href="edit_vendors_access_form.php?va_id='.$record['va_id'].'&vaf_id='.$record['vaf_id'].'" title="Edit"><i class="fa fa-pencil"></i></a>&nbsp;';
+			}
+			
+			$option.='			</td>
+								<td>';
+								
+			if($delete_action)
+			{
+			$option.='				<input type="checkbox" name="chkbox_records[]" value="'.$record['vaf_id'].'">';
+			}			
+			
+			$option.='			</td>
+							</tr>';
+			$i++;
+		}
+	}
+	else
+	{
+		$option.='			<tr><td colspan="8" style="color:red;text-align:center">No record</d></tr>';
+	}
+	
+	$option.='			</tbody>
+					</table>
+				</div>';
+	
+	if(count($data)>0 && !empty($data))
+	{
+	  $option.= $pagination;
+	}
+	echo $option;
+}
+elseif($action == 'deletemultiplevendorsaccessforms')
+{
+	$chkbox_records = trim($_POST['chkbox_records']);
+	$admin_id = $_SESSION['admin_id'];
+    
+    if($chkbox_records!='')
+    {
+		$delete_action_id = '98';	
+		if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+		{
+			$return = false;
+			$arr_vaf_id = explode(',',$chkbox_records);
+			for($i=0; $i<count($arr_vaf_id); $i++)
+			{
+				$arr_where = array();
+				$arr_where['vaf_id'] = $arr_vaf_id[$i];
+				
+				$tdata = array();
+				$tdata['tablename'] = 'tblvendoraccessforms';
+				$tdata['vaf_deleted'] = '1';
+				$tdata['vaf_modified_date'] = date('Y-m-d H:i:s');
+				$tdata['deleted_by_admin'] = $admin_id;
+				
+				if($obj->updateRecordCommon($tdata,$arr_where))
+				{
+					$return = true;
+				}
+			}
+			
+			if($return)
+			{
+				$tdata = array();
+				$response = array('status'=>1);
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);
+			}
+			else
+			{
+				$tdata = array();
+				$response = array('status'=>0,'msg'=>'Error while deleting try again latar.');
+				$tdata[] = $response;
+				echo json_encode($tdata);
+				exit(0);  
+			}
+		}	
+		else
+		{
+			$tdata = array();
+			$response = array('status'=>0,'msg'=>'Sorry you dont have access.');
+			$tdata[] = $response;
+			echo json_encode($tdata);
+			exit(0);  
+		}
+    }
+	else
+	{
+		$tdata = array();
+		$response = array('status'=>0,'msg'=>'Please select any record.');
+		$tdata[] = $response;
+		echo json_encode($tdata);
+		exit(0);  
+	}
+}
+elseif($action == 'getvendoraccessformcode')
+{
+	$va_id = '';	
+	if(isset($_REQUEST['va_id']))
+	{
+		$va_id = trim($_REQUEST['va_id']);
+	}
+	
+	$vafm_id = '';	
+	if(isset($_REQUEST['vafm_id']))
+	{
+		$vafm_id = trim($_REQUEST['vafm_id']);
+	}
+	   
+	$data = $obj->getVendorAccessFormCode($va_id,$vafm_id);
+    echo $data;
+}

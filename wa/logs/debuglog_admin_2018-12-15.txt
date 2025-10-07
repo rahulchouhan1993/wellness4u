@@ -1,0 +1,702 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:00:53
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 6
+    [hdnvaf_id] => 3
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 340
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 0
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+            [1] => 94
+            [2] => 90
+            [3] => 93
+            [4] => 96
+            [5] => 345
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:00:53
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:03:43
+[ADD_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 6
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 340
+        )
+
+    [vafm_id] => 2
+    [reference_number_show] => 1
+    [wellbeing_id_show] => 1
+    [organiser_id_show] => 1
+    [institution_id_show] => 1
+    [sponsor_id_show] => 1
+    [event_name_show] => 1
+    [event_contents_show] => 1
+    [prof_cat_id_1_show] => 1
+    [fav_cat_id_1_show] => 1
+    [prof_cat_id_2_show] => 1
+    [fav_cat_id_2_show] => 1
+    [prof_cat_id_3_show] => 0
+    [fav_cat_id_3_show] => 0
+    [prof_cat_id_4_show] => 0
+    [fav_cat_id_4_show] => 0
+    [prof_cat_id_5_show] => 0
+    [fav_cat_id_5_show] => 0
+    [location_category_show] => 1
+    [location_category] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [location_sub_category_show] => 1
+    [location_sub_category] => Array
+        (
+            [0] => 95
+            [1] => 89
+            [2] => 92
+            [3] => 94
+            [4] => 88
+            [5] => 97
+            [6] => 99
+            [7] => 101
+            [8] => 93
+            [9] => 96
+            [10] => 345
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [venue_details_show] => 1
+    [start_date_show] => 1
+    [start_time_show] => 1
+    [end_date_show] => 1
+    [end_time_show] => 1
+    [time_zone_id_show] => 1
+    [venue_image_show] => 1
+    [event_image_show] => 1
+    [no_of_groups_show] => 1
+    [no_of_teams_show] => 1
+    [no_of_participants_show] => 1
+    [no_of_judges_show] => 1
+    [rules_regulation_pdf_show] => 1
+    [institution_profile_pdf_show] => 1
+    [participants_gender_show] => 1
+    [participants_special_remark_show] => 1
+    [participants_from_age_group_show] => 1
+    [participants_to_age_group_show] => 1
+    [participants_from_height_show] => 1
+    [participants_to_height_show] => 1
+    [participants_from_weight_show] => 1
+    [participants_to_weight_show] => 1
+    [vc_certificate_type_show] => 1
+    [vc_certificate_name_show] => 1
+    [vc_certificate_number_show] => 1
+    [vc_certificate_issue_by_show] => 1
+    [vc_certificate_issue_date_show] => 1
+    [vc_certificate_validity_date_show] => 1
+    [vc_certificate_scan_copy_show] => 1
+    [judge_gender_show] => 1
+    [judge_special_remark_show] => 1
+    [judge_certificate_type_show] => 1
+    [judge_certificate_name_show] => 1
+    [judge_certificate_number_show] => 1
+    [judge_certificate_issue_by_show] => 1
+    [judge_certificate_issue_date_show] => 1
+    [judge_certificate_validity_date_show] => 1
+    [judge_certificate_scan_copy_show] => 1
+    [organiser_facebook_page_show] => 1
+    [organiser_twitter_page_show] => 1
+    [organiser_instagram_page_show] => 1
+    [organiser_youtube_channel_show] => 1
+    [organiser_gender_show] => 1
+    [organiser_contact_person_show] => 1
+    [organiser_email_show] => 1
+    [organiser_contact_number_show] => 1
+    [organiser_designation_show] => 1
+    [organiser_remarks_show] => 1
+    [org_certificate_type_show] => 1
+    [org_certificate_name_show] => 1
+    [org_certificate_number_show] => 1
+    [org_certificate_issue_by_show] => 1
+    [org_certificate_issue_date_show] => 1
+    [org_certificate_validity_date_show] => 1
+    [org_certificate_scan_copy_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:03:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:07:49
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:07:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:12:07
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 5
+    [hdn_va_cat_id] => 42
+    [hdn_va_sub_cat_id] => 344
+    [va_name] => Holistic
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 8
+            [1] => 11
+            [2] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 84
+            [1] => 85
+            [2] => 86
+            [3] => 21
+            [4] => 22
+            [5] => 25
+            [6] => 27
+            [7] => 28
+            [8] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:12:07
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:13:48
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:13:48
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:15:18
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 5
+    [hdn_va_cat_id] => 42
+    [hdn_va_sub_cat_id] => 344
+    [va_name] => Holistic
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:15:18
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:22:54
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 8
+    [hdn_va_cat_id] => 42
+    [hdn_va_sub_cat_id] => 342
+    [va_name] => CARE
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:22:54
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:24:18
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 8
+    [hdnvaf_id] => 1
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 342
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 0
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+            [1] => 94
+            [2] => 98
+            [3] => 99
+            [4] => 91
+            [5] => 90
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:24:18
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:31:23
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 8
+    [hdnvaf_id] => 11
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 342
+        )
+
+    [vafm_id] => 2
+    [vaf_status] => 1
+    [reference_number_show] => 1
+    [wellbeing_id_show] => 1
+    [organiser_id_show] => 1
+    [institution_id_show] => 1
+    [sponsor_id_show] => 1
+    [event_name_show] => 1
+    [event_contents_show] => 1
+    [prof_cat_id_1_show] => 1
+    [fav_cat_id_1_show] => 1
+    [prof_cat_id_2_show] => 0
+    [fav_cat_id_2_show] => 1
+    [prof_cat_id_3_show] => 0
+    [fav_cat_id_3_show] => 1
+    [prof_cat_id_4_show] => 0
+    [fav_cat_id_4_show] => 1
+    [prof_cat_id_5_show] => 1
+    [fav_cat_id_5_show] => 1
+    [location_category_show] => 0
+    [location_category] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [location_sub_category_show] => 0
+    [location_sub_category] => Array
+        (
+            [0] => 62
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [venue_details_show] => 1
+    [start_date_show] => 1
+    [start_time_show] => 1
+    [end_date_show] => 1
+    [end_time_show] => 1
+    [time_zone_id_show] => 1
+    [venue_image_show] => 1
+    [event_image_show] => 1
+    [no_of_groups_show] => 1
+    [no_of_teams_show] => 1
+    [no_of_participants_show] => 1
+    [no_of_judges_show] => 1
+    [rules_regulation_pdf_show] => 1
+    [institution_profile_pdf_show] => 1
+    [participants_gender_show] => 1
+    [participants_special_remark_show] => 1
+    [participants_from_age_group_show] => 1
+    [participants_to_age_group_show] => 1
+    [participants_from_height_show] => 1
+    [participants_to_height_show] => 1
+    [participants_from_weight_show] => 1
+    [participants_to_weight_show] => 1
+    [vc_certificate_type_show] => 1
+    [vc_certificate_name_show] => 1
+    [vc_certificate_number_show] => 1
+    [vc_certificate_issue_by_show] => 1
+    [vc_certificate_issue_date_show] => 1
+    [vc_certificate_validity_date_show] => 1
+    [vc_certificate_scan_copy_show] => 1
+    [judge_gender_show] => 1
+    [judge_special_remark_show] => 1
+    [judge_certificate_type_show] => 1
+    [judge_certificate_name_show] => 1
+    [judge_certificate_number_show] => 1
+    [judge_certificate_issue_by_show] => 1
+    [judge_certificate_issue_date_show] => 1
+    [judge_certificate_validity_date_show] => 1
+    [judge_certificate_scan_copy_show] => 1
+    [organiser_facebook_page_show] => 1
+    [organiser_twitter_page_show] => 1
+    [organiser_instagram_page_show] => 1
+    [organiser_youtube_channel_show] => 1
+    [organiser_gender_show] => 1
+    [organiser_contact_person_show] => 1
+    [organiser_email_show] => 1
+    [organiser_contact_number_show] => 1
+    [organiser_designation_show] => 1
+    [organiser_remarks_show] => 1
+    [org_certificate_type_show] => 1
+    [org_certificate_name_show] => 1
+    [org_certificate_number_show] => 1
+    [org_certificate_issue_by_show] => 1
+    [org_certificate_issue_date_show] => 1
+    [org_certificate_validity_date_show] => 1
+    [org_certificate_scan_copy_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:31:23
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 11:34:38
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 8
+    [hdnvaf_id] => 11
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 342
+        )
+
+    [vafm_id] => 2
+    [vaf_status] => 1
+    [reference_number_show] => 1
+    [wellbeing_id_show] => 1
+    [organiser_id_show] => 1
+    [institution_id_show] => 1
+    [sponsor_id_show] => 1
+    [event_name_show] => 1
+    [event_contents_show] => 1
+    [prof_cat_id_1_show] => 1
+    [fav_cat_id_1_show] => 1
+    [prof_cat_id_2_show] => 0
+    [fav_cat_id_2_show] => 0
+    [prof_cat_id_3_show] => 0
+    [fav_cat_id_3_show] => 0
+    [prof_cat_id_4_show] => 0
+    [fav_cat_id_4_show] => 1
+    [prof_cat_id_5_show] => 1
+    [fav_cat_id_5_show] => 1
+    [location_category_show] => 0
+    [location_category] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [location_sub_category_show] => 0
+    [location_sub_category] => Array
+        (
+            [0] => 62
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [venue_details_show] => 1
+    [start_date_show] => 1
+    [start_time_show] => 1
+    [end_date_show] => 1
+    [end_time_show] => 1
+    [time_zone_id_show] => 1
+    [venue_image_show] => 1
+    [event_image_show] => 1
+    [no_of_groups_show] => 1
+    [no_of_teams_show] => 1
+    [no_of_participants_show] => 1
+    [no_of_judges_show] => 1
+    [rules_regulation_pdf_show] => 1
+    [institution_profile_pdf_show] => 1
+    [participants_gender_show] => 1
+    [participants_special_remark_show] => 1
+    [participants_from_age_group_show] => 1
+    [participants_to_age_group_show] => 1
+    [participants_from_height_show] => 1
+    [participants_to_height_show] => 1
+    [participants_from_weight_show] => 1
+    [participants_to_weight_show] => 1
+    [vc_certificate_type_show] => 1
+    [vc_certificate_name_show] => 1
+    [vc_certificate_number_show] => 1
+    [vc_certificate_issue_by_show] => 1
+    [vc_certificate_issue_date_show] => 1
+    [vc_certificate_validity_date_show] => 1
+    [vc_certificate_scan_copy_show] => 1
+    [judge_gender_show] => 1
+    [judge_special_remark_show] => 1
+    [judge_certificate_type_show] => 1
+    [judge_certificate_name_show] => 1
+    [judge_certificate_number_show] => 1
+    [judge_certificate_issue_by_show] => 1
+    [judge_certificate_issue_date_show] => 1
+    [judge_certificate_validity_date_show] => 1
+    [judge_certificate_scan_copy_show] => 1
+    [organiser_facebook_page_show] => 1
+    [organiser_twitter_page_show] => 1
+    [organiser_instagram_page_show] => 1
+    [organiser_youtube_channel_show] => 1
+    [organiser_gender_show] => 1
+    [organiser_contact_person_show] => 1
+    [organiser_email_show] => 1
+    [organiser_contact_number_show] => 1
+    [organiser_designation_show] => 1
+    [organiser_remarks_show] => 1
+    [org_certificate_type_show] => 1
+    [org_certificate_name_show] => 1
+    [org_certificate_number_show] => 1
+    [org_certificate_issue_by_show] => 1
+    [org_certificate_issue_date_show] => 1
+    [org_certificate_validity_date_show] => 1
+    [org_certificate_scan_copy_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 92cd4709cb4550ca18f87e729f5eabf6
+)
+</pre>
+DEBUG_END - time: 2018-12-15 11:34:38
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 14:06:50
+[ADD_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [fav_cat_type_id] => 17
+    [selected_cat_id] => Array
+        (
+            [0] => 319
+        )
+
+    [va_name] => test
+    [am_id] => Array
+        (
+            [0] => 4
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 599d96fa146d3ca5a5fc25559fdcc5f8
+)
+</pre>
+DEBUG_END - time: 2018-12-15 14:06:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-15 14:07:29
+[getMainCategoryOption] Catch Error:SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')  and tblfavcategory.fav_cat_status = 1 and tblfavcategory.fav_cat_deleted = 0 ' at line 1 , sql:SELECT * FROM `tblcustomfavcategory` LEFT JOIN tblfavcategory ON tblcustomfavcategory.favcat_id = tblfavcategory.fav_cat_id WHERE  tblcustomfavcategory.fav_cat_type_id IN ()  and tblfavcategory.fav_cat_status = 1 and tblfavcategory.fav_cat_deleted = 0 and tblcustomfavcategory.cat_deleted=0 and tblcustomfavcategory.cat_status = 1 ORDER BY tblfavcategory.fav_cat ASC
+DEBUG_END - time: 2018-12-15 14:07:29
+----------------------------------------------------
+

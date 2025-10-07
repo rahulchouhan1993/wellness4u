@@ -1,0 +1,4027 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 11:01:37
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-01-13 11:01:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 11:46:38
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-01-13 11:46:38
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 11:46:48
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-01-13 11:46:48
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 11:47:12
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-01-13 11:47:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 12:55:53
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [loc_cnt] => 2
+    [loc_total_cnt] => 3
+    [cw_cnt] => 0
+    [cw_total_cnt] => 1
+    [hdnevent_id] => 16
+    [registration_type_id] => Array
+        (
+            [0] => 469
+            [1] => 467
+            [2] => 468
+        )
+
+    [reg_currency_id] => Array
+        (
+            [0] => 1
+            [1] => 1
+            [2] => 1
+        )
+
+    [registration_fees] => Array
+        (
+            [0] => 0
+            [1] => 200
+            [2] => 300
+        )
+
+    [registration_criteria] => Array
+        (
+            [0] => Should register
+            [1] => Should register
+            [2] => Should register
+        )
+
+    [registration_show] => Array
+        (
+            [0] => 1
+            [1] => 1
+            [2] => 1
+        )
+
+    [ordering_type_id] => Array
+        (
+            [0] => 465
+            [1] => 470
+            [2] => 470
+        )
+
+    [ticket_name] => Array
+        (
+            [0] => Cooking 
+            [1] => Silver India
+            [2] => Golden India
+        )
+
+    [is_bulk_booking] => Array
+        (
+            [0] => 1
+            [1] => 1
+            [2] => 1
+        )
+
+    [max_order] => Array
+        (
+            [0] => 200
+            [1] => 100
+            [2] => 200
+        )
+
+    [min_order] => Array
+        (
+            [0] => 100
+            [1] => 50
+            [2] => 100
+        )
+
+    [cusine_qty] => Array
+        (
+            [0] => 300
+            [1] => 150
+            [2] => 300
+        )
+
+    [cusine_qty_show] => Array
+        (
+            [0] => 1
+            [1] => 1
+            [2] => 1
+        )
+
+    [sold_qty_show] => Array
+        (
+            [0] => 1
+            [1] => 1
+            [2] => 1
+        )
+
+    [currency_id] => Array
+        (
+            [0] => 1
+            [1] => 1
+            [2] => 1
+        )
+
+    [ticket_price] => Array
+        (
+            [0] => 150
+            [1] => 0
+            [2] => 0
+        )
+
+    [default_price] => Array
+        (
+            [0] => 1
+            [1] => 0
+            [2] => 0
+        )
+
+    [is_offer] => Array
+        (
+            [0] => 1
+            [1] => 0
+            [2] => 0
+        )
+
+    [offer_price] => Array
+        (
+            [0] => 200
+            [1] => 
+            [2] => 
+        )
+
+    [offer_date_type] => Array
+        (
+            [0] => single_date
+            [1] => 
+            [2] => 
+        )
+
+    [offer_days_of_month_str] => Array
+        (
+            [0] => 
+            [1] => 
+            [2] => 
+        )
+
+    [offer_days_of_month] => Array
+        (
+            [0] => -1
+            [1] => -1
+            [2] => -1
+        )
+
+    [offer_days_of_week_str] => Array
+        (
+            [0] => 
+            [1] => 
+            [2] => 
+        )
+
+    [offer_days_of_week] => Array
+        (
+            [0] => -1
+            [1] => -1
+            [2] => -1
+        )
+
+    [offer_single_date] => Array
+        (
+            [0] => 11-01-2019
+            [1] => 
+            [2] => 
+        )
+
+    [offer_start_date] => Array
+        (
+            [0] => 
+            [1] => 
+            [2] => 
+        )
+
+    [offer_end_date] => Array
+        (
+            [0] => 
+            [1] => 
+            [2] => 
+        )
+
+    [is_discount] => Array
+        (
+            [0] => 1
+            [1] => 0
+            [2] => 0
+        )
+
+    [discount_code] => Array
+        (
+            [0] => 7
+            [1] => 
+            [2] => 
+        )
+
+    [discount_date_type] => Array
+        (
+            [0] => single_date
+            [1] => 
+            [2] => 
+        )
+
+    [discount_days_of_month_str] => Array
+        (
+            [0] => 
+            [1] => 
+            [2] => 
+        )
+
+    [discount_days_of_week_str] => Array
+        (
+            [0] => 
+            [1] => 
+            [2] => 
+        )
+
+    [discount_single_date] => Array
+        (
+            [0] => 11-01-2019
+            [1] => 
+            [2] => 
+        )
+
+    [discount_start_date] => Array
+        (
+            [0] => 
+            [1] => 
+            [2] => 
+        )
+
+    [discount_end_date] => Array
+        (
+            [0] => 
+            [1] => 
+            [2] => 
+        )
+
+    [discount_days_of_month] => Array
+        (
+            [0] => -1
+            [1] => -1
+        )
+
+    [discount_days_of_week] => Array
+        (
+            [0] => -1
+            [1] => -1
+        )
+
+    [cucat_parent_cat_id] => Array
+        (
+            [0] => 69
+        )
+
+    [cucat_cat_id] => Array
+        (
+            [0] => 473
+        )
+
+    [cucat_show] => Array
+        (
+            [0] => 1
+        )
+
+    [publish_date_type] => single_date
+    [publish_days_of_month] => -1
+    [publish_days_of_week] => -1
+    [publish_single_date] => 11-01-2019
+    [publish_start_date] => 
+    [publish_end_date] => 
+    [registration_cutoff_time] => 16
+    [registration_time_show] => 1
+    [cancel_cutoff_time] => 14
+    [cancel_cutoff_time_show] => 1
+    [cgst_tax] => 14
+    [sgst_tax] => 18
+    [cess_tax] => 
+    [gst_tax] => 16
+    [cusine_desc_1] => Mix cooking contest
+    [cusine_desc_show_1] => 1
+    [cusine_desc_2] => Mix cooking contest
+    [cusine_desc_show_2] => 1
+    [btnSubmit] => btnSubmit
+    [publish_days_of_month_str] => -1
+    [publish_days_of_week_str] => -1
+    [__utmz] => 231471641.1546422317.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => 180d0eeb53948a519b992bf55d89e517
+    [__sharethis_cookie_test__] => 1
+    [__utma] => 231471641.204460123.1546422317.1547360261.1547362774.18
+    [__utmb] => 231471641.4.10.1547362774
+)
+</pre>, FILES:<pre>Array
+(
+)
+</pre>
+DEBUG_END - time: 2019-01-13 12:55:53
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 12:55:54
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-01-13 12:55:54
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 14:41:55
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [va_id] => 9
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [loc_cnt] => 
+    [loc_total_cnt] => 
+    [cw_cnt] => 
+    [cw_total_cnt] => 
+    [healcareandwellbeing] => 461
+    [reference_number] => EVE-9
+    [institution_id] => Wellness media
+    [sponsor_id] => Colgate
+    [event_name] => Mix relay
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 477
+            [3] => 478
+            [4] => 481
+        )
+
+    [fav_cat_3] => 
+    [profile_cat_4] => 
+    [fav_cat_4] => 
+    [profile_cat_5] => 
+    [fav_cat_5] => 
+    [cert_cnt_0] => 1
+    [cert_total_cnt_0] => 2
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 97
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Kolhapur
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14067
+        )
+
+    [venue] => Array
+        (
+            [0] => Ajara Jogging park , Kolhapur
+        )
+
+    [start_date] => Array
+        (
+            [0] => 13-01-2019
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:15 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [end_time] => Array
+        (
+            [0] => 21:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 10:15 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 13:45 PM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 15:15 PM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 10:30 AM
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 12:45 PM
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 13:30 PM
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 14:45 PM
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 12:00 PM
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 13:00 PM
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 14:45 PM
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 21:00 PM
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 130
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 130
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_title] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks] => Array
+        (
+            [0] => good
+        )
+
+    [from_age] => Array
+        (
+            [0] => 21
+        )
+
+    [to_age] => Array
+        (
+            [0] => 40
+        )
+
+    [from_height] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height] => Array
+        (
+            [0] => 29
+        )
+
+    [from_weight] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight] => Array
+        (
+            [0] => 63
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+            [1] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+            [1] => 419
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => relay stars
+            [1] => relay india
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 36868
+            [1] => 97884
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Wellness media
+            [1] => Wellness media
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 13-01-2019
+            [1] => 13-01-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-01-2019
+            [1] => 31-01-2019
+        )
+
+    [hdnvc_cert_scan_file_0_1] => 
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => nice
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => Relay rockstars
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 2343444e5
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => Wellness media
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 13-01-2019
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Neha
+        )
+
+    [contact_email] => Array
+        (
+            [0] => p.shettigar@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 76788886767
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Good
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => India stars
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 23ihjkhk
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => Wellness media
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 13-01-2019
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EThis%20event%20will%20consist%20of%20various%20participants%3C/p%3E
+    [__utmz] => 231471641.1546422317.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => 180d0eeb53948a519b992bf55d89e517
+    [__sharethis_cookie_test__] => 1
+    [__utma] => 231471641.204460123.1546422317.1547362774.1547369759.19
+    [__utmb] => 231471641.4.10.1547369759
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => images realy race venue.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phph5upmf
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 8251
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => IN26_RELAY.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/php7snXTw
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 43843
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => amazing.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpVWLYrO
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 12887
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => Desert Landscape.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpVIkv05
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 228863
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                    [1] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-01-13 14:41:55
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 14:43:52
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 8
+    [reference_number] => EVE-8
+    [event_status] => 1
+    [institution_id] => Wellness media
+    [sponsor_id] => Sriyaan
+    [event_name] => Boxing
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 477
+            [3] => 478
+            [4] => 480
+            [5] => 482
+        )
+
+    [profile_cat_3] => 
+    [fav_cat_3] => 
+    [profile_cat_4] => 69
+    [fav_cat_4] => Array
+        (
+            [0] => 474
+            [1] => 473
+        )
+
+    [profile_cat_5] => 
+    [fav_cat_5] => 
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 12012019162815_Autumn-Leaves.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 12012019162815_Dock.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 12012019162815_boxing-venue-image.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 12012019162815_boxing-event-image.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 91
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Dadar Queen hall, near Dadar  railway station Dadar west.
+        )
+
+    [start_date] => Array
+        (
+            [0] => 12-01-2019
+        )
+
+    [start_time] => Array
+        (
+            [0] => 11:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 01-02-2019
+        )
+
+    [end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 130
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_title] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks] => Array
+        (
+            [0] => Good
+        )
+
+    [from_age] => Array
+        (
+            [0] => 21
+        )
+
+    [to_age] => Array
+        (
+            [0] => 55
+        )
+
+    [from_height] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height] => Array
+        (
+            [0] => 6
+        )
+
+    [from_weight] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight] => Array
+        (
+            [0] => 84
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => good
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Vikram
+        )
+
+    [contact_email] => Array
+        (
+            [0] => p.shettigar@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 76788886767
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Good
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => Boxers
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 6778
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => Wellness media
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 12-01-2019
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 01-02-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EThis%20event%20will%20contain%20various%20Categories%20and%20also%26nbsp%3B%20different%20ages%3C/p%3E
+    [__utmz] => 231471641.1546422317.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => 180d0eeb53948a519b992bf55d89e517
+    [__sharethis_cookie_test__] => 1
+    [__utma] => 231471641.204460123.1546422317.1547362774.1547369759.19
+    [__utmb] => 231471641.4.10.1547369759
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-01-13 14:43:52
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 14:45:37
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 7
+    [reference_number] => EVE-7
+    [event_status] => 1
+    [institution_id] => Wellness media
+    [sponsor_id] => Pantanjali
+    [event_name] => Wrestling
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 477
+            [3] => 478
+            [4] => 480
+            [5] => 482
+        )
+
+    [profile_cat_3] => 21
+    [fav_cat_3] => 
+    [profile_cat_4] => 69
+    [fav_cat_4] => 
+    [profile_cat_5] => 50
+    [fav_cat_5] => Array
+        (
+            [0] => 8
+        )
+
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 12012019111743_Hydrangeas.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 12012019111743_Chrysanthemum.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 12012019111743_Commenwealth-games-wrestling-2018.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 12012019111743_Commenwealth-games-wrestling-2018.jpg-images.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 91
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Pune
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14036
+        )
+
+    [venue] => Array
+        (
+            [0] => Akrudi, Sports complex, near Pune  railway station,  Pune.
+        )
+
+    [start_date] => Array
+        (
+            [0] => 12-01-2019
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [end_time] => Array
+        (
+            [0] => 22:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 130
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 1
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_title] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks] => Array
+        (
+            [0] => Good
+        )
+
+    [from_age] => Array
+        (
+            [0] => 16
+        )
+
+    [to_age] => Array
+        (
+            [0] => 68
+        )
+
+    [from_height] => Array
+        (
+            [0] => 5
+        )
+
+    [to_height] => Array
+        (
+            [0] => 5
+        )
+
+    [from_weight] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight] => Array
+        (
+            [0] => 135
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => Nice
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Priyanka
+        )
+
+    [contact_email] => Array
+        (
+            [0] => p.shettigar@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 76788886767123
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Good
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => India stars
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 2458670
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => Wellness media
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 12-01-2019
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EThis%20event%26nbsp%3B%20will%20contain%20a%20mix%26nbsp%3B%20participants%20of%20various%26nbsp%3B%20Categories.%26nbsp%3B%3C/p%3E
+    [__utmz] => 231471641.1546422317.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => 180d0eeb53948a519b992bf55d89e517
+    [__sharethis_cookie_test__] => 1
+    [__utma] => 231471641.204460123.1546422317.1547362774.1547369759.19
+    [__utmb] => 231471641.4.10.1547369759
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-01-13 14:45:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 14:48:01
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 7
+    [reference_number] => EVE-7
+    [event_status] => 1
+    [institution_id] => Wellness media
+    [sponsor_id] => Pantanjali
+    [event_name] => Wrestling
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 477
+            [3] => 478
+            [4] => 480
+            [5] => 482
+        )
+
+    [profile_cat_3] => 40
+    [fav_cat_3] => Array
+        (
+            [0] => 326
+        )
+
+    [profile_cat_4] => 69
+    [fav_cat_4] => Array
+        (
+            [0] => 474
+            [1] => 473
+            [2] => 475
+        )
+
+    [profile_cat_5] => 50
+    [fav_cat_5] => Array
+        (
+            [0] => 8
+        )
+
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 12012019111743_Chrysanthemum.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 12012019111743_Hydrangeas.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 12012019111743_Commenwealth-games-wrestling-2018.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 12012019111743_Commenwealth-games-wrestling-2018.jpg-images.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 91
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Pune
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14036
+        )
+
+    [venue] => Array
+        (
+            [0] => Akrudi, Sports complex, near Pune  railway station,  Pune.
+        )
+
+    [start_date] => Array
+        (
+            [0] => 12-01-2019
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [end_time] => Array
+        (
+            [0] => 22:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 130
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 1
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_title] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks] => Array
+        (
+            [0] => Good
+        )
+
+    [from_age] => Array
+        (
+            [0] => 16
+        )
+
+    [to_age] => Array
+        (
+            [0] => 68
+        )
+
+    [from_height] => Array
+        (
+            [0] => 5
+        )
+
+    [to_height] => Array
+        (
+            [0] => 5
+        )
+
+    [from_weight] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight] => Array
+        (
+            [0] => 135
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => Nice
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Priyanka
+        )
+
+    [contact_email] => Array
+        (
+            [0] => p.shettigar@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 76788886767123
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Good
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => India stars
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 2458670
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => Wellness media
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 12-01-2019
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EThis%20event%26nbsp%3B%20will%20contain%20a%20mix%26nbsp%3B%20participants%20of%20various%26nbsp%3B%20Categories.%26nbsp%3B%3C/p%3E
+    [__utmz] => 231471641.1546422317.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => 180d0eeb53948a519b992bf55d89e517
+    [__sharethis_cookie_test__] => 1
+    [__utma] => 231471641.204460123.1546422317.1547362774.1547369759.19
+    [__utmb] => 231471641.4.10.1547369759
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-01-13 14:48:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 14:49:22
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 9
+    [reference_number] => EVE-9
+    [event_status] => 1
+    [institution_id] => Wellness media
+    [sponsor_id] => Colgate
+    [event_name] => Mix relay
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 477
+            [3] => 478
+            [4] => 481
+        )
+
+    [profile_cat_3] => 40
+    [fav_cat_3] => Array
+        (
+            [0] => 326
+        )
+
+    [profile_cat_4] => 60
+    [fav_cat_4] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_5] => 
+    [fav_cat_5] => 
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 13012019144155_amazing.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 13012019144155_Desert-Landscape.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 13012019144155_images-realy-race-venue.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 13012019144155_IN26_RELAY.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 97
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Kolhapur
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14067
+        )
+
+    [venue] => Array
+        (
+            [0] => Ajara Jogging park , Kolhapur
+        )
+
+    [start_date] => Array
+        (
+            [0] => 13-01-2019
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:15 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [end_time] => Array
+        (
+            [0] => 21:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 130
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 130
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_title] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks] => Array
+        (
+            [0] => good
+        )
+
+    [from_age] => Array
+        (
+            [0] => 21
+        )
+
+    [to_age] => Array
+        (
+            [0] => 40
+        )
+
+    [from_height] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height] => Array
+        (
+            [0] => 6
+        )
+
+    [from_weight] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight] => Array
+        (
+            [0] => 63
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => nice
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Neha
+        )
+
+    [contact_email] => Array
+        (
+            [0] => p.shettigar@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 76788886767
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Good
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => India stars
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 23ihjkhk
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => Wellness media
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 13-01-2019
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 31-01-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EThis%20event%20will%20consist%20of%20various%20participants%3C/p%3E
+    [__utmz] => 231471641.1546422317.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => 180d0eeb53948a519b992bf55d89e517
+    [__sharethis_cookie_test__] => 1
+    [__utma] => 231471641.204460123.1546422317.1547362774.1547369759.19
+    [__utmb] => 231471641.4.10.1547369759
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-01-13 14:49:22
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-01-13 14:51:00
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 8
+    [reference_number] => EVE-8
+    [event_status] => 1
+    [institution_id] => Wellness media
+    [sponsor_id] => Sriyaan
+    [event_name] => Boxing
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 477
+            [3] => 478
+            [4] => 480
+            [5] => 482
+        )
+
+    [profile_cat_3] => 74
+    [fav_cat_3] => Array
+        (
+            [0] => 504
+        )
+
+    [profile_cat_4] => 69
+    [fav_cat_4] => Array
+        (
+            [0] => 474
+            [1] => 473
+        )
+
+    [profile_cat_5] => 
+    [fav_cat_5] => 
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 12012019162815_Dock.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 12012019162815_Autumn-Leaves.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 12012019162815_boxing-venue-image.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 12012019162815_boxing-event-image.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 504
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 91
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Dadar Queen hall, near Dadar  railway station Dadar west.
+        )
+
+    [start_date] => Array
+        (
+            [0] => 12-01-2019
+        )
+
+    [start_time] => Array
+        (
+            [0] => 11:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 01-02-2019
+        )
+
+    [end_time] => Array
+        (
+            [0] => 20:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 130
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_title] => Array
+        (
+            [0] => All
+        )
+
+    [parti_remarks] => Array
+        (
+            [0] => Good
+        )
+
+    [from_age] => Array
+        (
+            [0] => 21
+        )
+
+    [to_age] => Array
+        (
+            [0] => 55
+        )
+
+    [from_height] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height] => Array
+        (
+            [0] => 6
+        )
+
+    [from_weight] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight] => Array
+        (
+            [0] => 84
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_title] => Array
+        (
+            [0] => All
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => good
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Vikram
+        )
+
+    [contact_email] => Array
+        (
+            [0] => p.shettigar@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 76788886767
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Good
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => Boxers
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 6778
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => Wellness media
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 12-01-2019
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 01-02-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EThis%20event%20will%20contain%20various%20Categories%20and%20also%26nbsp%3B%20different%20ages%3C/p%3E
+    [__utmz] => 231471641.1546422317.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => 180d0eeb53948a519b992bf55d89e517
+    [__sharethis_cookie_test__] => 1
+    [__utma] => 231471641.204460123.1546422317.1547362774.1547369759.19
+    [__utmb] => 231471641.4.10.1547369759
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-01-13 14:51:00
+----------------------------------------------------
+

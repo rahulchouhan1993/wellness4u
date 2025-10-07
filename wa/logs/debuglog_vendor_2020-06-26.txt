@@ -1,0 +1,284 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-26 09:47:53
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-06-26 09:47:53
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-26 14:58:12
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-06-26 14:58:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-26 15:00:31
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-06-26 15:00:31
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-26 15:31:04
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 7
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 341
+    [vendor_name] => Royal Dance Company
+    [vendor_username] => Royal Stars
+    [vendor_password] => Royal$500Crore
+    [vendor_email] => wellnessway4u@gmail.com
+    [vendor_mobile] => 8655018341
+    [cert_cnt_0] => 1
+    [cert_total_cnt_0] => 2
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 21992
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Pavu
+        )
+
+    [contact_email] => Array
+        (
+            [0] => shettigarv@wellnessway4u.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 78432345
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 490
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => very good
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 51
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+            [1] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 421
+            [1] => 419
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Mumbai Dance Group
+            [1] => rty
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 9891564589
+            [1] => 98678
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Mumbai Dance Association
+            [1] => Indian Dance Association
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 01-04-2020
+            [1] => 01-05-2020
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 10-07-2020
+            [1] => 01-08-2020
+        )
+
+    [hdnvc_cert_scan_file_0_1] => 
+    [btnSubmit] => btnSubmit
+    [__utmz] => 231471641.1593144963.1.1.utmcsr=google|utmccn=(organic)|utmcmd=organic|utmctr=(not provided)
+    [PHPSESSID] => 18377f8ddbd095f6c0e2376717629140
+    [__utma] => 231471641.1385844044.1593144963.1593156572.1593163530.3
+    [__utmc] => 231471641
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => duration_show OLD.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpQZdZdO
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 164
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => Themes (1).png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpwyJIra
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 524155
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => comment_show OLD.png
+                    [1] => user _ view OLD.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                    [1] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpqnXRGw
+                    [1] => /tmp/phpIWhnXS
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 2115
+                    [1] => 2711
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-06-26 15:31:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-26 17:17:10
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-06-26 17:17:10
+----------------------------------------------------
+

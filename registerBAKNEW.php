@@ -1,0 +1,748 @@
+<?php
+include('config.php');
+$page_id = '2';
+list($page_name,$page_title,$page_contents,$meta_title,$meta_keywords,$meta_description,$menu_title,$menu_link,$link_enable,$parent_menu) = getPageDetails($page_id);
+
+if(isLoggedIn())
+{
+	doUpdateOnline($_SESSION['user_id']);
+	header("Location: edit_profile.php");
+	exit(0);
+}
+
+if(get_magic_quotes_gpc())
+{
+	foreach($_POST as $k => $v)
+	{
+		$_POST[$k] = stripslashes($_POST[$k]);
+	}
+}
+
+if($_GET['uid']!='' && $_GET['refid']!='')
+{
+	$refid = base64_decode($_GET['refid']);
+	$uid =  base64_decode($_GET['uid']);
+}
+else
+{
+	$refid = '';
+	$uid =  '';
+}
+
+
+
+
+
+$error = false;
+$tr_err_name = 'none';
+$tr_err_email = 'none';
+$tr_err_dob = 'none';
+$tr_err_height = 'none';
+$tr_err_weight = 'none';
+$tr_err_sex = 'none';
+$tr_err_mobile = 'none';
+$tr_err_country_id = 'none';
+$tr_err_state_id = 'none';
+$tr_err_city_id = 'none';
+$tr_err_place_id = 'none';
+$tr_err_food_veg_nonveg = 'none';
+$tr_err_password = 'none';
+$tr_err_cpassword = 'none';
+
+$tr_beef_pork = 'none';
+$err_name = '';
+$err_email = '';
+$err_dob = '';
+$err_height = '';
+$err_weight = '';
+$err_sex = '';
+$err_mobile = '';
+$err_country_id = '';
+$err_state_id = '';
+$err_city_id = '';
+$err_place_id = '';
+$err_food_veg_nonveg = '';
+$err_password = '';
+$err_cpassword = '';
+
+if(isset($_POST['btnSubmit']))	
+{
+	$name = strip_tags(trim($_POST['name']));
+	$email = strip_tags(trim($_POST['email']));
+	$day = trim($_POST['day']);
+	$month = trim($_POST['month']);
+	$year = trim($_POST['year']);
+	$height = strip_tags(trim($_POST['height']));
+	$weight = strip_tags(trim($_POST['weight']));
+	$sex = strip_tags(trim($_POST['sex']));
+	$mobile = strip_tags(trim($_POST['mobile']));
+	$country_id = strip_tags(trim($_POST['country_id']));
+	$state_id = strip_tags(trim($_POST['state_id']));
+	$city_id = strip_tags(trim($_POST['city_id']));
+	$place_id = strip_tags(trim($_POST['place_id']));
+	$food_veg_nonveg = strip_tags(trim($_POST['food_veg_nonveg']));
+	$beef = strip_tags(trim($_POST['beef']));
+	$pork = strip_tags(trim($_POST['pork']));
+	$password = trim($_POST['password']);
+	$cpassword = trim($_POST['cpassword']);
+	
+	$uid = $_POST['uid'];
+    $refid = $_POST['refid'];
+	
+	$puid = $_POST['puid'];
+    $arid = $_POST['arid'];
+	
+	if($name == '')
+	{
+		$error = true;
+		$tr_err_name = '';
+		$err_name = 'Please enter your name';
+	}
+	
+	if($email == '')
+	{
+		$error = true;
+		$tr_err_email = '';
+		$err_email = 'Please enter your email';
+	}
+	elseif(!eregi("^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$", $email))
+	{
+		$error = true;
+		$tr_err_email = '';
+		$err_email = 'Please enter valid email';
+	}
+	elseif(chkEmailExists($email))
+	{
+		$error = true;
+		$tr_err_email = '';
+		$err_email = 'This email is already registered';
+	}
+
+	if( ($day == '') || ($month == '') || ($year == '') )
+	{
+		$error = true;
+		$tr_err_dob = '';
+		$err_dob = 'Please select date of birth';
+	}
+	elseif(!checkdate($month,$day,$year))
+	{
+		$error = true;
+		$tr_err_dob = '';
+		$err_dob = 'Please select valid date of birth';
+	}
+	else
+	{
+		$dob = $year.'-'.$month.'-'.$day;
+	}	
+
+	if($height == '')
+	{
+		$error = true;
+		$tr_err_height = '';
+		$err_height = 'Please select your height';
+	}
+	elseif(!is_numeric($height))
+	{
+		$error = true;
+		$tr_err_height = '';
+		$err_height = 'Please enter valid height in cm';
+	}
+
+	if($weight == '')
+	{
+		$error = true;
+		$tr_err_weight = '';
+		$err_weight = 'Please enter your weight in kgs';
+	}
+	elseif(!is_numeric($weight))
+	{
+		$error = true;
+		$tr_err_weight = '';
+		$err_weight = 'Please enter valid weight in kgs';
+	}
+
+	if($sex == '')
+	{
+		$error = true;
+		$tr_err_sex = '';
+		$err_sex = 'Please select your sex';
+	}
+
+	if($mobile == '')
+	{
+		$error = true;
+		$tr_err_mobile = '';
+		$err_mobile = 'Please enter your mobile no';
+	}
+
+	if($country_id == '')
+	{
+		$error = true;
+		$tr_err_country_id = '';
+		$err_country_id = 'Please select your country';
+	}
+	
+	if($state_id == '')
+	{
+		$error = true;
+		$tr_err_state_id = '';
+		$err_state_id = 'Please select your state';
+	}
+
+	if($city_id == '')
+	{
+		$error = true;
+		$tr_err_city_id = '';
+		$err_city_id = 'Please select your city';
+	}
+
+	if($place_id == '')
+	{
+		$error = true;
+		$tr_err_place_id = '';
+		$err_place_id = 'Please select your place';
+	}
+
+	if($food_veg_nonveg == '')
+	{
+		$error = true;
+		$tr_err_food_veg_nonveg = '';
+		$err_food_veg_nonveg = 'Please select food option';
+	}
+	else
+	{
+		if($food_veg_nonveg == 'NV')
+		{
+			$tr_beef_pork = '';
+		}
+		else
+		{
+			$beef = '0';
+			$pork = '0';
+			$tr_beef_pork = 'none';
+		}
+	}
+
+	if($password == '')
+	{
+		$error = true;
+		$tr_err_password = '';
+		$err_password = 'Please enter password';
+	}
+	elseif(!chkValidPassword($password))
+	{
+		$error = true;
+		$tr_err_password = '';
+		$err_password = 'Please enter valid Password.<br>Atleast 1 Upper case alphabate[A-Z],<br> 1 Lower case alphabate[a-z] ,<br> 1 Numeric[0-9] ,<br>  1 special characters[!@#$%^&*()-_=+,<>./?]';
+	}
+	
+	if($cpassword == '')
+	{
+		$error = true;
+		$tr_err_cpassword = '';
+		$err_cpassword = 'Please enter confirm password';
+	}
+	elseif($cpassword != $password)
+	{
+		$error = true;
+		$tr_err_cpassword = '';
+		$err_cpassword = 'Please enter same confirm password';
+	}
+	
+
+	if(!$error)
+	{
+		$signUpUser = signUpUser($name,$email,$dob,$height,$weight,$sex,$mobile,$state_id,$city_id,$place_id,$food_veg_nonveg,$beef,$pork,$password,$country_id);
+		if($signUpUser > 0)
+		{
+			if($uid != '' && $refid !='' )
+			{
+				$tdata = array();
+				$tdata['id'] = $refid;
+				$tdata['uid'] = $uid;
+				updatereferafriend($tdata,$email);
+			}
+			
+			if($puid != '' && $arid !='' )
+			{
+				updateAdvisorsReferral($arid,$puid,$email);
+			}
+		
+			$url = SITE_URL.'/validate_user.php?sess='.base64_encode($email).'';
+			
+			list($email_ar_subject,$email_ar_from_name,$email_ar_from_email,$email_ar_to_email,$email_ar_body) = getEmailAutoresponderDetails('1');
+			
+			$to_email = $email;
+			$from_email = $email_ar_from_email;
+			$from_name = $email_ar_from_name;
+			$subject = $email_ar_subject;
+			$message = $email_ar_body;
+			
+			$message = str_ireplace("[[USER_NAME]]", $name, $message);
+			$message = str_ireplace("[[USER_EMAIL]]", $email, $message);
+			$message = str_ireplace("[[ANCHER_URL_START]]", '<a href="'.$url.'">', $message);
+			$message = str_ireplace("[[ANCHER_URL_END]]", '</a>', $message);
+			$message = str_ireplace("[[URL]]", $url, $message);
+
+			
+			/*$to_email = $email;
+			$from_email = 'info@wellnessway4u.com';
+			$from_name = 'info';
+			$subject = 'Complete your Registration at Wellness Way For You -- last step';
+			$message = '<p><strong>Hi '.$name.',</strong><p>';
+			$message .= '<p>Just click "<a href="'.$url.'">Activate Now</a>" to complete your registration. That\'s all there is to it. </p>';
+			$message .= '<p>Or Just copy and paste this url: '.$url.'</p>';
+			$message .= '<p>Best Regards</p>';
+			$message .= '<p>www.wellnessway4u.com</p>';*/
+
+			$mail = new PHPMailer();
+			$mail->IsHTML(true);
+			$mail->Host = "batmobile.websitewelcome.com"; // SMTP server
+			$mail->From = $from_email;
+			$mail->FromName = $from_name;
+			$mail->AddAddress($to_email);
+			$mail->Subject = $subject;
+			$mail->Body = $message;
+			$mail->Send();
+			$mail->ClearAddresses();
+			header("Location: message.php?msg=1&sess=".base64_encode($email).""); 
+			//$err_msg = $url;
+			
+		}
+		else
+		{
+			$err_msg = 'There is some problem right now!Please try again later';
+		}
+	}
+}
+else
+{
+	$name = '';
+	$email = '';
+	$dob = '';
+	$height = '';
+	$weight = '';
+	$sex = '';
+	$mobile = '';
+	$place_id = '';
+	$password = '';
+	$cpassword = '';
+	
+	if($_GET['puid']!='' && $_GET['arid']!='')
+	{
+		$arid = base64_decode($_GET['arid']);
+		$puid =  base64_decode($_GET['puid']);
+		
+		list($email,$name) = getNameAndEmailOfAdviserReferral($arid);
+	}
+	else
+	{
+		$arid = '';
+		$puid =  '';
+	}
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="description" content="<?php echo $meta_description;?>" />
+	<meta name="keywords" content="<?php echo $meta_keywords;?>" />
+	<meta name="title" content="<?php echo $meta_title;?>" />
+	<title><?php echo $meta_title;?></title>
+	<link href="cwri.css" rel="stylesheet" type="text/css" />
+	<script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
+	<script type="text/JavaScript" src="js/jquery-1.4.2.min.js"></script>
+	<script type="text/JavaScript" src="js/commonfn.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+	<script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+     <link href="css/ticker-style.css" rel="stylesheet" type="text/css" />
+	<script src="js/jquery.ticker.js" type="text/javascript"></script>
+    
+	<script type="text/javascript">
+		ddsmoothmenu.init({
+		mainmenuid: "smoothmenu1", //menu DIV id
+		orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+		classname: 'ddsmoothmenu', //class added to menu's outer DIV
+		//customtheme: ["#1c5a80", "#18374a"],
+		contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+		})
+
+		$(document).ready(function() {
+			
+			$('#js-news').ticker({
+				controls: true,        // Whether or not to show the jQuery News Ticker controls
+				 htmlFeed: true, 
+				titleText: '',   // To remove the title set this to an empty String
+				displayType: 'reveal', // Animation type - current options are 'reveal' or 'fade'
+				direction: 'ltr'       // Ticker direction - current options are 'ltr' or 'rtl'
+				
+			});
+		
+			$(".QTPopup").css('display','none')
+
+			$(".feedback").click(function(){
+				$(".QTPopup").animate({width: 'show'}, 'slow');
+			});	
+
+			$(".closeBtn").click(function(){			
+				$(".QTPopup").css('display', 'none');
+			});
+		});			
+	</script>
+
+<!-- template css -->
+      
+        <link href="csswell/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <!-- custom css (blue color by default) -->
+        <link href="csswell/css/style.css" rel="stylesheet" type="text/css" media="screen">   
+        <!-- font awesome for icons -->
+        <link href="csswell/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- flex slider css -->
+        <link href="csswell/css/flexslider.css" rel="stylesheet" type="text/css" media="screen">
+        <!-- animated css  -->
+        <link href="csswell/css/animate.css" rel="stylesheet" type="text/css" media="screen">
+        <!--Revolution slider css-->
+        <link href="csswell/rs-plugin/css/settings.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="csswell/css/rev-style.css" rel="stylesheet" type="text/css" media="screen">
+        <!--owl carousel css-->
+        <link href="csswell/css/owl.carousel.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="csswell/css/owl.theme.css" rel="stylesheet" type="text/css" media="screen">
+        <!--mega menu -->
+        <link href="csswell/css/yamm.css" rel="stylesheet" type="text/css">
+        <!--popups css-->
+        <link href="csswell/css/magnific-popup.css" rel="stylesheet" type="text/css">     
+             
+     
+
+    </head>
+    <body id="boxed">
+
+<?php include_once('analyticstracking.php'); ?>
+<?php include_once('analyticstracking_ci.php'); ?>
+<?php include_once('analyticstracking_y.php'); ?>
+
+  <div class="boxed-wrapper">
+     <!--top-bar end here-->
+      <?php include 'topbar.php'; ?>
+       <?php include 'header.php'; ?>
+
+ <?php echo getScrollingWindowsCodeMainContent($page_id);?> 
+
+
+                                         
+  
+      
+<html>
+
+<table width="100%">
+
+	<tr>
+		<td align="center" valign="top">
+                    <?php include_once('header.php');?>
+			
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					
+					<td width="50%" align="center" valign="top" >  
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td height="40" align="left" valign="top" class="breadcrumb">
+                                	<?php echo getBreadcrumbCode($page_id);?>
+                                </td>
+							</tr>
+						</table> 
+						<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#339900">
+							<tr>
+								<td align="center" valign="middle" bgcolor="#FFFFFF" style="background-repeat:repeat-x; padding:10px;">
+									<form action="<?php echo SITE_URL.'/register.php'?>" name="frmregister" id="frmregister" method="post">
+                                    	<input type="hidden" name="uid" id="uid" value="<?php echo $uid; ?>" />
+                                        <input type="hidden" name="refid" id="refid" value="<?php echo $refid ?>" /> 
+                                        <input type="hidden" name="puid" id="puid" value="<?php echo $puid; ?>" />
+                                        <input type="hidden" name="arid" id="arid" value="<?php echo $arid ?>" /> 
+										<table width="100%" border="0" cellspacing="0" cellpadding="0">
+											<tr>
+												<td height="35" colspan="2" align="left" valign="top" class="Header_brown"><?php echo getPageTitle($page_id);?></td>
+											</tr>
+                                            <tr>
+												<td colspan="2" align="left" class="err_msg"><?php echo $err_msg;?></td>
+											</tr>
+											<tr>
+												<td width="50%" height="30" align="left" valign="bottom">Name:</td>
+												<td width="50%" height="30" align="left" valign="bottom"><input name="name" type="text" class="input" id="name" size="45" value="<?php echo $name;?>" /></td>
+											</tr>
+											<tr id="tr_err_name" style="display:<?php echo $tr_err_name;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_name"><?php echo $err_name;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">Email ID:</td>
+												<td height="30" align="left" valign="bottom"><input name="email" type="text" class="input" id="email" size="45" value="<?php echo $email;?>" /></td>
+											</tr>
+											<tr id="tr_err_email" style="display:<?php echo $tr_err_email;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_email"><?php echo $err_email;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">DOB:</td>
+												<td height="30" align="left" valign="bottom">
+													<select name="day" id="day">
+														<option value="">DAY</option>
+													<?php
+													for($i=1;$i<=31;$i++)
+													{ ?>
+														<option value="<?php echo $i;?>" <?php if($day == $i) { ?> selected="selected" <?php } ?>><?php echo $i;?></option>
+													<?php
+													} ?>	
+													</select>
+													&nbsp;
+													<select name="month" id="month">
+														<option value="">MONTH</option>
+														<?php echo getMonthOptions($month); ?>
+													</select>
+													&nbsp;
+													<select name="year" id="year">
+														<option value="">YEAR</option>
+													<?php
+													for($i=1940;$i<=2008;$i++)
+													{ ?>
+														<option value="<?php echo $i;?>" <?php if($year == $i) { ?> selected="selected" <?php } ?>><?php echo $i;?></option>
+													<?php
+													} ?>	
+													</select>&nbsp;
+                                               	</td>
+											</tr>
+											<tr id="tr_err_dob" style="display:<?php echo $tr_err_dob;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_dob"><?php echo $err_dob;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">Height: (cm)</td>
+												<td height="30" align="left" valign="bottom">
+													<select name="height" id="height">
+														<option value="">Select Height</option>
+														<?php echo getHeightOptions($height); ?>
+													</select>												
+                                                </td>	
+											</tr>
+											<tr id="tr_err_height" style="display:<?php echo $tr_err_height;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_height"><?php echo $err_height;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">Weight: (kg)</td>
+												<td height="30" align="left" valign="bottom">
+													<select name="weight" id="weight">
+														<option value="">Select Weight</option>
+													<?php
+													for($i=20;$i<=200;$i++)
+													{ ?>
+														<option value="<?php echo $i;?>" <?php if($weight == $i) { ?> selected="selected" <?php } ?>><?php echo $i;?> Kgs</option>
+													<?php
+													} ?>	
+													</select>												
+                                                </td>
+											</tr>
+											<tr id="tr_err_weight" style="display:<?php echo $tr_err_weight;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_weight"><?php echo $err_weight;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">Sex:</td>
+												<td height="30" align="left" valign="bottom">
+													<input type="radio" name="sex" id="sex" value="Male" <?php if($sex == "Male") { ?> checked="checked" <?php } ?> />
+													Male 
+													<input type="radio" name="sex" id="sex" value="Female" <?php if($sex == "Female") { ?> checked="checked" <?php } ?> />
+													Female												</td>
+											</tr>
+											<tr id="tr_err_sex" style="display:<?php echo $tr_err_sex;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_sex"><?php echo $err_sex;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">Mobile No.:</td>
+
+												<td height="30" align="left" valign="bottom"><input name="mobile" type="text" class="input" id="mobile" size="45" maxlength="10" value="<?php echo $mobile; ?>" /></td>
+											</tr>
+											<tr id="tr_err_mobile" style="display:<?php echo $tr_err_mobile;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_mobile"><?php echo $err_mobile;?></td>
+											</tr>
+											<tr>
+                                                <td height="30" align="left" valign="bottom">Country:</td>
+                                                <td height="30" align="left" valign="bottom">
+                                                    <select name="country_id" id="country_id" onchange="getStateOptions('<?php echo $state_id;?>')">
+                                                        <option value="">Select Country</option>
+                                                        <?php echo getCountryOptions($country_id);?>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                            <tr id="tr_err_country_id" style="display:<?php echo $tr_err_country_id;?>;">
+                                                <td align="right">&nbsp; </td>
+                                                <td align="left" class="err_msg" id="err_country_id"><?php echo $err_country_id;?></td>
+                                            </tr>
+                                            <tr>
+                                                <td height="30" align="left" valign="bottom">State:</td>
+                                                <td height="30" align="left" valign="bottom" id="tdstate">
+                                                    <select name="state_id" id="state_id" onchange="getCityOptions('<?php echo $city_id;?>');">
+                                                        <option value="">Select State</option>
+                                                        <?php echo getStateOptions($country_id,$state_id); ?>
+                                                    </select>
+                                                </td>
+                                            </tr>
+											<tr id="tr_err_state_id" style="display:<?php echo $tr_err_state_id;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_state_id"><?php echo $err_state_id;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">City</td>
+												<td height="30" align="left" valign="bottom" id="tdcity">
+													<select name="city_id" id="city_id" onchange="getPlaceOptions('<?php echo $place_id;?>');">
+														<option value="">Select City</option>
+														<?php echo getCityOptions($state_id,$city_id); ?>
+													</select>												</td>	
+											</tr>
+											<tr id="tr_err_city_id" style="display:<?php echo $tr_err_city_id;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_city_id"><?php echo $err_city_id;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">Place</td>
+												<td height="30" align="left" valign="bottom" id="tdplace">
+													<select name="place_id" id="place_id">
+														<option value="">Select Place</option>
+														<?php echo getPlaceOptions($state_id,$city_id,$place_id); ?>
+													</select>												</td>	
+											</tr>
+											<tr id="tr_err_place_id" style="display:<?php echo $tr_err_place_id;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_place_id"><?php echo $err_place_id;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">&nbsp;</td>
+												<td height="30" align="left" valign="bottom"><?php echo getPageContents($page_id);?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">Food Option </td>
+												<td height="30" align="left" valign="bottom">
+													<input type="radio" name="food_veg_nonveg" id="food_veg_nonveg[]" value="V" <?php if($food_veg_nonveg == "V") { ?> 	 checked="checked" <?php } ?> onclick="toggleBeefAndPorkOption();" />Veg &nbsp;
+													<input type="radio" name="food_veg_nonveg" id="food_veg_nonveg[]" value="VE" <?php if($food_veg_nonveg == "VE") { ?> checked="checked" <?php } ?> onclick="toggleBeefAndPorkOption();" />Veg + Egg&nbsp;
+													<input type="radio" name="food_veg_nonveg" id="food_veg_nonveg[]" value="NV" <?php if($food_veg_nonveg == "NV") { ?> checked="checked" <?php } ?> onclick="toggleBeefAndPorkOption();" />All(Veg + Non Veg)&nbsp;												</td>	
+											</tr>
+											<tr id="tr_err_food_veg_nonveg" style="display:<?php echo $tr_err_food_veg_nonveg;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_food_veg_nonveg"><?php echo $err_food_veg_nonveg;?></td>
+											</tr>
+											<tr id="tr_beef_pork" style="display:<?php echo $tr_beef_pork;?>;">
+												<td height="30" align="left" valign="bottom">&nbsp; </td>
+												<td height="30" align="left" valign="bottom">
+													<input type="checkbox" name="beef" id="beef" value="1" <?php if($beef == "1") { ?> checked="checked" <?php } ?> />Beef &nbsp;
+													<input type="checkbox" name="pork" id="pork" value="1" <?php if($pork == "1") { ?> checked="checked" <?php } ?> />Pork&nbsp;												</td>	
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">&nbsp;</td>
+												<td height="30" align="left" valign="bottom">&nbsp;</td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom"><strong>Password:</strong></td>
+												<td height="30" align="left" valign="bottom"><input name="password" type="password" class="input" id="password" size="45" /></td>
+											</tr>
+											<tr id="tr_err_password" style="display:<?php echo $tr_err_password;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_password"><?php echo $err_password;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom"><strong>Confirm Password:</strong></td>
+												<td height="30" align="left" valign="bottom"><input name="cpassword" type="password" class="input" id="cpassword" size="45" /></td>
+											</tr>
+											<tr id="tr_err_cpassword" style="display:<?php echo $tr_err_cpassword;?>;">
+												<td align="right">&nbsp; </td>
+												<td align="left" class="err_msg" id="err_cpassword"><?php echo $err_cpassword;?></td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="bottom">&nbsp;</td>
+												<td height="30" align="left" valign="bottom">&nbsp;</td>
+											</tr>
+											<tr>
+												<td height="30" align="left" valign="top">Terms &amp; Conditions of Service:</td>
+												<td height="30" align="left" valign="top">
+													<p>
+													By clicking  the "I accept. Create My Account" below, I certify that I have read and agree to the<a onclick="NewWindow(this.href,'name','530','290','yes');return false" href="terms_and_conditions.php" class="footer_link"> Terms & Conditions of Service</a> below and both the <a onclick="NewWindow(this.href,'name','530','290','yes');return false" href="disclaimer.php" class="footer_link"> Disclaimer Policy</a> and the <a onclick="NewWindow(this.href,'name','530','290','yes');return false" href="privacy_policy.php" class="footer_link">Privacy Policy</a>.<br /></p>
+													<textarea readonly="readonly" name="tos" id="tos" rows="10" cols="32"><?php echo strip_tags(getPageContents('27'));?></textarea>
+												</td>
+											</tr>
+											<tr>
+												<td height="40" align="left" valign="middle">&nbsp;</td>
+												<td height="40" align="left" valign="bottom"><input name="btnSubmit" type="submit" class="button" id="btnSubmit" value="I accept. Create my account" /></td>
+											</tr>
+										</table>
+									</form>	
+								</td>
+							</tr>
+					   	</table>
+						<table width="100%" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+						</table>
+					</td>
+                                    <td width="50%" align="left" valign="top">
+						<?php include_once('left_sidebar.php'); ?>
+					</td>  
+					<td width="50%" align="left" valign="top">
+						<?php include_once('right_sidebar.php'); ?>
+					</td>
+				</tr>
+			</table>
+			
+		</td>
+	</tr>
+</table>
+
+            <?php include 'footer.php'; ?>
+            <!--default footer end here-->
+            
+            
+        <!--scripts and plugins -->
+        <!--must need plugin jquery-->
+        <script src="csswell/js/jquery.min.js"></script>        
+        <!--bootstrap js plugin-->
+        <script src="csswell/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>       
+        <!--easing plugin for smooth scroll-->
+        <script src="csswell/js/jquery.easing.1.3.min.js" type="text/javascript"></script>
+        <!--sticky header-->
+        <script type="text/javascript" src="csswell/js/jquery.sticky.js"></script>
+        <!--flex slider plugin-->
+        <script src="csswell/js/jquery.flexslider-min.js" type="text/javascript"></script>
+        <!--parallax background plugin-->
+        <script src="csswell/js/jquery.stellar.min.js" type="text/javascript"></script>
+        
+        <script src="csswell/js/jquery.isotope.min.js" type="text/javascript"></script>
+        <!--digit countdown plugin-->
+        <script src="csswell/js/waypoints.min.js"></script>
+        <!--digit countdown plugin-->
+        <script src="csswell/js/jquery.counterup.min.js" type="text/javascript"></script>
+        <!--on scroll animation-->
+        <script src="csswell/js/wow.min.js" type="text/javascript"></script> 
+        <!--owl carousel slider-->
+        <script src="csswell/js/owl.carousel.min.js" type="text/javascript"></script>
+        <!--popup js-->
+        <script src="csswell/js/jquery.magnific-popup.min.js" type="text/javascript"></script>
+        <!--you tube player-->
+        <script src="csswell/js/jquery.mb.YTPlayer.min.js" type="text/javascript"></script>
+        
+        <script src="csswell/js/jquery.imagesloaded.min.js" type="text/javascript"></script>
+        <!--customizable plugin edit according to your needs-->
+        <script src="csswell/js/custom.js" type="text/javascript"></script>
+        <script src="csswell/js/isotope-custom.js" type="text/javascript"></script>
+        <!--revolution slider plugins-->
+        <script src="csswell/rs-plugin/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
+        <script src="csswell/rs-plugin/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
+        <script src="csswell/js/revolution-custom.js" type="text/javascript"></script> 
+
+</body>
+
+<!-- Mirrored from www.bootstraplovers.com/templates/assan-v1.9.1/html/home-boxed.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 15 Oct 2015 09:47:43 GMT -->
+</html> 

@@ -1,0 +1,3333 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 09:44:39
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 09:44:39
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 11:04:33
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 11:04:33
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 11:07:33
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 11:07:33
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 11:29:46
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 11:29:46
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 11:29:46
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 11:29:46
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 11:45:38
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 11:45:38
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 12:32:32
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 12:32:32
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 12:32:35
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 12:32:35
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 12:32:37
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 12:32:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:06:10
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-09 16:06:10
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:06:48
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-09 16:06:48
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:07:12
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-09 16:07:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:08:10
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-09 16:08:10
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:08:45
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-09 16:08:45
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:09:24
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [va_id] => 1
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [loc_cnt] => 
+    [loc_total_cnt] => 
+    [cw_cnt] => 
+    [cw_total_cnt] => 
+    [healcareandwellbeing] => 343
+    [reference_number] => EVE-15
+    [institution_id] => Sahara India
+    [sponsor_id] => Sahara India
+    [event_name] => Sahara Cricket Tournament
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 481
+        )
+
+    [profile_cat_3] => 
+    [fav_cat_3] => 
+    [profile_cat_4] => 
+    [fav_cat_4] => 
+    [profile_cat_5] => 
+    [fav_cat_5] => 
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 89
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 16
+        )
+
+    [city_id] => Array
+        (
+            [0] => Indore
+        )
+
+    [area_id] => Array
+        (
+            [0] => 6734
+        )
+
+    [venue] => Array
+        (
+            [0] => Malhar ashram , kill maidan road
+        )
+
+    [start_date] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [start_time] => Array
+        (
+            [0] => 03:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [end_time] => Array
+        (
+            [0] => 02:15 AM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 03:15 AM
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 04:15 AM
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 11
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => Male
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => test by ample ss
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 20
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 40
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 15
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 22
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 60
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 125
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Female
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => ss ample
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 45455
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Ankita Lokhande
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ankita.lokhnde@hotmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 6004214
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3ESahara%20India%3C/p%3E%3Cp%3ESahara%20Cricket%20Tournament%3Cbr%3E%3C/p%3E
+    [PHPSESSID] => 4e6dc31f0455df7bbb2c8983861360f4
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1599637245.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.201483596.1599637245.1599637245.1599647523.2
+    [__utmt] => 1
+    [__utmb] => 231471641.2.10.1599647523
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => KH-trad-marketplace-banner.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpQxtLI9
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 1091134
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => KH-trad-marketplace-banner.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpMfyUWj
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 1091134
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => e commerce pdf.pdf
+                )
+
+            [type] => Array
+                (
+                    [0] => application/pdf
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpqsbAgu
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 3126408
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-09-09 16:09:24
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:10:02
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 15
+    [reference_number] => EVE-15
+    [event_status] => 1
+    [institution_id] => Sahara India
+    [sponsor_id] => Sahara India
+    [event_name] => Sahara Cricket Tournament
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 481
+        )
+
+    [cert_cnt_0] => 
+    [cert_total_cnt_0] => 
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 09092020160924_e-commerce-pdf.pdf
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 09092020160924_KH-trad-marketplace-banner.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 09092020160924_KH-trad-marketplace-banner.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 89
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 16
+        )
+
+    [city_id] => Array
+        (
+            [0] => Indore
+        )
+
+    [area_id] => Array
+        (
+            [0] => 6521
+        )
+
+    [venue] => Array
+        (
+            [0] => Malhar ashram , kill maidan road
+        )
+
+    [start_date] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [start_time] => Array
+        (
+            [0] => 03:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [end_time] => Array
+        (
+            [0] => 02:15 AM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 03:15 AM
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 04:15 AM
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 11
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => Male
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => test by ample ss
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 20
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 40
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 15
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 22
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 60
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 125
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Female
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => ss ample
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 45455
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Ankita Lokhande
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ankita.lokhnde@hotmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 6004214
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 01-01-1970
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 01-01-1970
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3ESahara%20India%3C/p%3E%3Cp%3ESahara%20Cricket%20Tournament%3Cbr%3E%3C/p%3E
+    [PHPSESSID] => 4e6dc31f0455df7bbb2c8983861360f4
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1599637245.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.201483596.1599637245.1599637245.1599647523.2
+    [__utmt] => 1
+    [__utmb] => 231471641.2.10.1599647523
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-09-09 16:10:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:10:14
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 15
+    [reference_number] => EVE-15
+    [event_status] => 1
+    [institution_id] => Sahara India
+    [sponsor_id] => Sahara India
+    [event_name] => Sahara Cricket Tournament
+    [event_tags] => Array
+        (
+            [0] => Spa
+            [1] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 481
+        )
+
+    [cert_cnt_0] => 
+    [cert_total_cnt_0] => 
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 09092020160924_e-commerce-pdf.pdf
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 09092020160924_KH-trad-marketplace-banner.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 09092020160924_KH-trad-marketplace-banner.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 89
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 16
+        )
+
+    [city_id] => Array
+        (
+            [0] => Indore
+        )
+
+    [area_id] => Array
+        (
+            [0] => 6521
+        )
+
+    [venue] => Array
+        (
+            [0] => Malhar ashram , kill maidan road
+        )
+
+    [start_date] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [start_time] => Array
+        (
+            [0] => 03:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [end_time] => Array
+        (
+            [0] => 02:15 AM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 03:15 AM
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 04:15 AM
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 11
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => Male
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => test by ample ss
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 20
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 40
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 15
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 22
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 60
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 125
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Female
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => ss ample
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 45455
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Ankita Lokhande
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ankita.lokhnde@hotmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 6004214
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 01-01-1970
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 01-01-1970
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3ESahara%20India%3C/p%3E%3Cp%3ESahara%20Cricket%20Tournament%3Cbr%3E%3C/p%3E
+    [PHPSESSID] => 4e6dc31f0455df7bbb2c8983861360f4
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1599637245.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.201483596.1599637245.1599637245.1599647523.2
+    [__utmt] => 1
+    [__utmb] => 231471641.2.10.1599647523
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-09-09 16:10:14
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:18:23
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 15
+    [reference_number] => EVE-15
+    [event_status] => 1
+    [institution_id] => Sahara India
+    [sponsor_id] => Sahara India
+    [event_name] => Sahara Cricket Tournament
+    [event_tags] => Array
+        (
+            [0] => Accupuncture
+            [1] => Ayurveda
+            [2] => Spa
+            [3] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 481
+        )
+
+    [cert_cnt_0] => 
+    [cert_total_cnt_0] => 
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 09092020160924_e-commerce-pdf.pdf
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 09092020160924_KH-trad-marketplace-banner.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 09092020160924_KH-trad-marketplace-banner.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 89
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 16
+        )
+
+    [city_id] => Array
+        (
+            [0] => Indore
+        )
+
+    [area_id] => Array
+        (
+            [0] => 6521
+        )
+
+    [venue] => Array
+        (
+            [0] => Malhar ashram , kill maidan road
+        )
+
+    [start_date] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [start_time] => Array
+        (
+            [0] => 03:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [end_time] => Array
+        (
+            [0] => 02:15 AM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 03:15 AM
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 04:15 AM
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 11
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => Male
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => test by ample ss
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 20
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 40
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 15
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 22
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 60
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 125
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Female
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => ss ample
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 45455
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Ankita Lokhande
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ankita.lokhnde@hotmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 6004214
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 01-01-1970
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 01-01-1970
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3ESahara%20India%3C/p%3E%3Cp%3ESahara%20Cricket%20Tournament%3Cbr%3E%3C/p%3E
+    [PHPSESSID] => 4e6dc31f0455df7bbb2c8983861360f4
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1599637245.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.201483596.1599637245.1599637245.1599647523.2
+    [__utmb] => 231471641.2.10.1599647523
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-09-09 16:18:23
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:18:51
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 16:18:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:20:11
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [loc_cnt] => 0
+    [loc_total_cnt] => 1
+    [cw_cnt] => 0
+    [cw_total_cnt] => 1
+    [hdnevent_id] => 44
+    [registration_type_id] => Array
+        (
+            [0] => 469
+        )
+
+    [reg_currency_id] => Array
+        (
+            [0] => 4
+        )
+
+    [registration_fees] => Array
+        (
+            [0] => 4654
+        )
+
+    [registration_criteria] => Array
+        (
+            [0] => aaaa
+        )
+
+    [registration_show] => Array
+        (
+            [0] => 1
+        )
+
+    [ordering_type_id] => Array
+        (
+            [0] => 470
+        )
+
+    [ticket_name] => Array
+        (
+            [0] => dsd
+        )
+
+    [is_bulk_booking] => Array
+        (
+            [0] => 1
+        )
+
+    [max_order] => Array
+        (
+            [0] => 321
+        )
+
+    [min_order] => Array
+        (
+            [0] => 465
+        )
+
+    [cusine_qty] => Array
+        (
+            [0] => 45
+        )
+
+    [cusine_qty_show] => Array
+        (
+            [0] => 0
+        )
+
+    [sold_qty_show] => Array
+        (
+            [0] => 1
+        )
+
+    [currency_id] => Array
+        (
+            [0] => 4
+        )
+
+    [ticket_price] => Array
+        (
+            [0] => 456
+        )
+
+    [default_price] => Array
+        (
+            [0] => 1
+        )
+
+    [is_offer] => Array
+        (
+            [0] => 
+        )
+
+    [offer_price] => Array
+        (
+            [0] => 
+        )
+
+    [offer_date_type] => Array
+        (
+            [0] => 
+        )
+
+    [offer_days_of_month_str] => Array
+        (
+            [0] => 
+        )
+
+    [offer_days_of_month] => Array
+        (
+            [0] => -1
+        )
+
+    [offer_days_of_week_str] => Array
+        (
+            [0] => 
+        )
+
+    [offer_days_of_week] => Array
+        (
+            [0] => -1
+        )
+
+    [offer_single_date] => Array
+        (
+            [0] => 
+        )
+
+    [offer_start_date] => Array
+        (
+            [0] => 
+        )
+
+    [offer_end_date] => Array
+        (
+            [0] => 
+        )
+
+    [is_discount] => Array
+        (
+            [0] => 
+        )
+
+    [discount_code] => Array
+        (
+            [0] => 
+        )
+
+    [discount_date_type] => Array
+        (
+            [0] => 
+        )
+
+    [discount_days_of_month_str] => Array
+        (
+            [0] => 
+        )
+
+    [discount_days_of_week_str] => Array
+        (
+            [0] => 
+        )
+
+    [discount_single_date] => Array
+        (
+            [0] => 
+        )
+
+    [discount_start_date] => Array
+        (
+            [0] => 
+        )
+
+    [discount_end_date] => Array
+        (
+            [0] => 
+        )
+
+    [cucat_parent_cat_id] => Array
+        (
+            [0] => 
+        )
+
+    [cucat_cat_id] => Array
+        (
+            [0] => 
+        )
+
+    [cucat_show] => Array
+        (
+            [0] => 
+        )
+
+    [publish_date_type] => days_of_week
+    [publish_days_of_month] => -1
+    [publish_days_of_week] => 3
+    [publish_single_date] => 
+    [publish_start_date] => 
+    [publish_end_date] => 
+    [registration_cutoff_time] => 17
+    [registration_time_show] => 1
+    [cancel_cutoff_time] => 18
+    [cancel_cutoff_time_show] => 1
+    [cgst_tax] => 
+    [sgst_tax] => 
+    [cess_tax] => 
+    [gst_tax] => 
+    [cusine_desc_1] => dg
+    [cusine_desc_show_1] => 
+    [cusine_desc_2] => ghfh
+    [cusine_desc_show_2] => 
+    [btnSubmit] => btnSubmit
+    [publish_days_of_month_str] => -1
+    [publish_days_of_week_str] => 1,2,3
+    [PHPSESSID] => 4e6dc31f0455df7bbb2c8983861360f4
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1599637245.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.201483596.1599637245.1599637245.1599647523.2
+    [__utmb] => 231471641.2.10.1599647523
+)
+</pre>, FILES:<pre>Array
+(
+)
+</pre>
+DEBUG_END - time: 2020-09-09 16:20:11
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:20:12
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 16:20:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:21:02
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 15
+    [reference_number] => EVE-15
+    [event_status] => 1
+    [institution_id] => Sahara India
+    [sponsor_id] => Sahara India
+    [event_name] => Sahara Cricket Tournament
+    [event_tags] => Array
+        (
+            [0] => Accupuncture
+            [1] => Spa
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 481
+        )
+
+    [cert_cnt_0] => 
+    [cert_total_cnt_0] => 
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 09092020160924_e-commerce-pdf.pdf
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 09092020160924_KH-trad-marketplace-banner.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 09092020160924_KH-trad-marketplace-banner.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 89
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 16
+        )
+
+    [city_id] => Array
+        (
+            [0] => Indore
+        )
+
+    [area_id] => Array
+        (
+            [0] => 6521
+        )
+
+    [venue] => Array
+        (
+            [0] => Malhar ashram , kill maidan road
+        )
+
+    [start_date] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [start_time] => Array
+        (
+            [0] => 03:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [end_time] => Array
+        (
+            [0] => 02:15 AM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 03:15 AM
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 04:00 AM
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 03:45 AM
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 03:30 AM
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 04:15 AM
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 11
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 5
+        )
+
+    [participants_profile_0] => Array
+        (
+            [0] => 473
+        )
+
+    [participants_title_0] => Array
+        (
+            [0] => Male
+        )
+
+    [parti_remarks_0] => Array
+        (
+            [0] => test by ample ss
+        )
+
+    [from_age_0] => Array
+        (
+            [0] => 20
+        )
+
+    [to_age_0] => Array
+        (
+            [0] => 40
+        )
+
+    [from_height_0] => Array
+        (
+            [0] => 15
+        )
+
+    [to_height_0] => Array
+        (
+            [0] => 22
+        )
+
+    [from_weight_0] => Array
+        (
+            [0] => 60
+        )
+
+    [to_weight_0] => Array
+        (
+            [0] => 125
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Female
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => ss ample
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 419
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 45455
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => sahara india
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 01-09-2020
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 30-09-2020
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Ankita Lokhande
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ankita.lokhnde@hotmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 6004214
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 01-01-1970
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 01-01-1970
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3ESahara%20India%3C/p%3E%3Cp%3ESahara%20Cricket%20Tournament%3Cbr%3E%3C/p%3E
+    [PHPSESSID] => 4e6dc31f0455df7bbb2c8983861360f4
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1599637245.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.201483596.1599637245.1599637245.1599647523.2
+    [__utmb] => 231471641.2.10.1599647523
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-09-09 16:21:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:21:11
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 16:21:11
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:22:33
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 16:22:33
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:27:02
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-09 16:27:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 16:49:18
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 16:49:18
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-09 18:27:53
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-09 18:27:53
+----------------------------------------------------
+

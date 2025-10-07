@@ -1,0 +1,536 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 10:38:04
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 7
+            [2] => 8
+            [3] => 11
+            [4] => 12
+            [5] => 13
+            [6] => 14
+            [7] => 15
+            [8] => 16
+            [9] => 18
+            [10] => 19
+            [11] => 20
+            [12] => 21
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+            [12] => 31
+            [13] => 32
+            [14] => 33
+            [15] => 35
+            [16] => 36
+            [17] => 37
+            [18] => 39
+            [19] => 40
+            [20] => 41
+            [21] => 43
+            [22] => 44
+            [23] => 45
+            [24] => 51
+            [25] => 52
+            [26] => 53
+            [27] => 54
+            [28] => 55
+            [29] => 57
+            [30] => 58
+            [31] => 59
+            [32] => 61
+            [33] => 62
+            [34] => 63
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550560816.1
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+)
+</pre>
+DEBUG_END - time: 2019-02-21 10:38:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 11:24:53
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 7
+            [2] => 8
+            [3] => 11
+            [4] => 12
+            [5] => 13
+            [6] => 16
+            [7] => 18
+            [8] => 20
+            [9] => 21
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+            [12] => 31
+            [13] => 32
+            [14] => 33
+            [15] => 43
+            [16] => 44
+            [17] => 45
+            [18] => 51
+            [19] => 52
+            [20] => 57
+            [21] => 58
+            [22] => 59
+            [23] => 61
+            [24] => 62
+            [25] => 63
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550560816.1
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+)
+</pre>
+DEBUG_END - time: 2019-02-21 11:24:53
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 11:32:43
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 19
+    [am_title] => Invitations from User
+    [am_link] => my_user_invitations.php
+    [am_order] => 17
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550560816.1
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+)
+</pre>
+DEBUG_END - time: 2019-02-21 11:32:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:20:37
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 18
+    [aa_title] => Add User Authorise
+    [aa_link] => my_user_authorise_log.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550560816.1
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:20:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:20:37
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 18
+    [:aa_title] => Add User Authorise
+    [:aa_link] => my_user_authorise_log.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-02-21 15:20:37
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 18
+    [aa_title] => Add User Authorise
+    [aa_link] => my_user_authorise_log.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-02-21 15:20:37
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:20:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:20:50
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 18
+    [aa_title] => Add User Authorise
+    [aa_link] => my_user_authorise_log.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550560816.1
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:20:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:20:50
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 18
+    [:aa_title] => Add User Authorise
+    [:aa_link] => my_user_authorise_log.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-02-21 15:20:50
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 18
+    [aa_title] => Add User Authorise
+    [aa_link] => my_user_authorise_log.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-02-21 15:20:50
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:20:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:21:01
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 18
+    [aa_title] => Add User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550560816.1
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:21:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:21:01
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 18
+    [:aa_title] => Add User Authorisation
+    [:aa_link] => my_user_authorise_log.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-02-21 15:21:01
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 18
+    [aa_title] => Add User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-02-21 15:21:01
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:21:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:21:49
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 18
+    [aa_title] => Add User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550560816.1
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:21:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:21:49
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 18
+    [:aa_title] => Add User Authorisation
+    [:aa_link] => my_user_authorise_log.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-02-21 15:21:49
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 18
+    [aa_title] => Add User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-02-21 15:21:49
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:21:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:22:37
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 18
+    [aa_title] => Add User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550560816.1
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:22:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 15:22:37
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 18
+    [:aa_title] => Add User Authorisation
+    [:aa_link] => my_user_authorise_log.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-02-21 15:22:37
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 18
+    [aa_title] => Add User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-02-21 15:22:37
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-02-21 15:22:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 17:25:54
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 18
+    [aa_title] => Add User Authorisatio
+    [aa_link] => my_user_authorise_log.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550747525.2
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+    [__sharethis_cookie_test__] => 1
+    [__utmb] => 231471641.6.10.1550747525
+    [__utmc] => 231471641
+)
+</pre>
+DEBUG_END - time: 2019-02-21 17:25:54
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 17:25:54
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 18
+    [:aa_title] => Add User Authorisatio
+    [:aa_link] => my_user_authorise_log.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-02-21 17:25:54
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 18
+    [aa_title] => Add User Authorisatio
+    [aa_link] => my_user_authorise_log.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-02-21 17:25:54
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-02-21 17:25:54
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 17:58:43
+[EDIT_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 18
+    [hdnaa_id] => 52
+    [aa_title] => Add User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_vendor_menu] => 1
+    [aa_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550747525.2
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+    [__sharethis_cookie_test__] => 1
+    [__utmc] => 231471641
+)
+</pre>
+DEBUG_END - time: 2019-02-21 17:58:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 18:00:51
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 18
+    [aa_title] => Edit User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utma] => 231471641.610111249.1550560816.1550560816.1550747525.2
+    [__utmz] => 231471641.1550560816.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => afc61545ad1e329b3b6ce2aab140d5c3
+    [__sharethis_cookie_test__] => 1
+    [__utmc] => 231471641
+)
+</pre>
+DEBUG_END - time: 2019-02-21 18:00:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-02-21 18:00:51
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 18
+    [:aa_title] => Edit User Authorisation
+    [:aa_link] => my_user_authorise_log.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2019-02-21 18:00:51
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 18
+    [aa_title] => Edit User Authorisation
+    [aa_link] => my_user_authorise_log.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2019-02-21 18:00:51
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2019-02-21 18:00:51
+----------------------------------------------------
+

@@ -1,0 +1,16 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-02-29 12:37:11
+[chkEmailExists] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_deleted' in 'where clause', sql:SELECT * FROM `tblusers` WHERE `email` = 'kisor.ampleebusiness@gmail.com' AND `user_deleted` = '0' 
+DEBUG_END - time: 2020-02-29 12:37:11
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-02-29 14:11:51
+[chkEmailExists] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_deleted' in 'where clause', sql:SELECT * FROM `tblusers` WHERE `email` = 'consultindia4u@gmail.com' AND `user_deleted` = '0' 
+DEBUG_END - time: 2020-02-29 14:11:51
+----------------------------------------------------
+

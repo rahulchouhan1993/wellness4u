@@ -1,0 +1,16 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-09 09:28:32
+[chkEmailExists] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_deleted' in 'where clause', sql:SELECT * FROM `tblusers` WHERE `email` = 'support@wellnessway4u.com' AND `user_deleted` = '0' 
+DEBUG_END - time: 2019-05-09 09:28:32
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-09 18:14:37
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-05-09 18:14:37
+----------------------------------------------------
+

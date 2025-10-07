@@ -1,0 +1,712 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 00:00:30
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 00:00:30
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 00:32:25
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 00:32:25
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 00:55:58
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 00:55:58
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 00:56:53
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 00:56:53
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 01:26:20
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 01:26:20
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 02:02:35
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 02:02:35
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 02:02:35
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 02:02:35
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 02:28:39
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 02:28:39
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 02:32:28
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 02:32:28
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 03:27:38
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 03:27:38
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 03:49:33
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 03:49:33
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 03:49:36
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 03:49:36
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:50
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:50
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:50
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:13:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:13:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 04:19:15
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 04:19:15
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 06:05:02
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 06:05:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 06:05:04
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 06:05:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 06:05:05
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 06:05:05
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 06:32:11
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 06:32:11
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 06:36:28
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 06:36:28
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 06:39:10
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 06:39:10
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 07:15:10
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 07:15:10
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 07:32:02
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 07:32:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 07:32:02
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 07:32:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 07:39:16
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 07:39:16
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 08:31:36
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 08:31:36
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 08:31:57
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 08:31:57
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 08:35:05
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 08:35:05
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 08:42:43
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 08:42:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 08:49:51
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 08:49:51
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 09:05:32
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 09:05:32
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 09:06:09
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 09:06:09
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 09:06:42
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 09:06:42
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 09:08:25
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 09:08:25
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 09:26:59
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 09:26:59
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 09:28:15
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 09:28:15
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 09:43:02
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 09:43:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 10:00:21
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 10:00:21
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 10:21:33
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 10:21:33
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 10:54:43
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 10:54:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 11:21:21
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 11:21:21
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 11:22:15
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 11:22:15
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 11:54:00
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 11:54:00
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 11:54:00
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 11:54:00
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 11:54:01
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 11:54:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 11:54:02
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 11:54:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 11:55:40
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 11:55:40
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 11:55:40
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 11:55:40
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 12:51:11
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 12:51:11
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 12:51:23
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 12:51:23
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 14:19:49
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 14:19:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 14:19:50
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 14:19:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 16:18:33
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 16:18:33
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 16:18:34
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 16:18:34
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 17:18:41
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 17:18:41
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 17:59:37
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 17:59:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 17:59:38
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 17:59:38
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 18:22:13
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 18:22:13
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 18:40:53
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 18:40:53
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 18:51:27
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 18:51:27
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 19:09:20
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 19:09:20
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 19:17:18
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 19:17:18
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 19:37:39
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 19:37:39
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 19:44:43
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 19:44:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 19:44:43
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 19:44:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 19:44:44
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 19:44:44
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 19:56:12
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 19:56:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 20:08:41
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 20:08:41
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 20:28:03
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 20:28:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 20:32:40
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 20:32:40
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 20:46:40
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 20:46:40
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 20:46:41
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 20:46:41
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 21:14:46
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 21:14:46
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 21:18:15
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 21:18:15
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 22:11:52
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 22:11:52
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 22:39:10
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 22:39:10
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 23:05:57
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 23:05:57
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 23:16:22
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 23:16:22
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 23:39:40
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 23:39:40
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2025-01-14 23:57:27
+[getTopLocationStr] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'TCT.city_name' in 'field list' , sql:SELECT TCT.city_name,TST.state_name,TCN.country_name FROM `tblcities` AS TCT					LEFT JOIN `tblstates` AS TST ON TCT.state_id = TST.state_id 					LEFT JOIN `tblcountry` AS TCN ON TCT.country_id = TCN.country_id 					WHERE TCT.city_id = '8' AND TCT.city_deleted = '0' AND TCT.city_status = '1' AND TST.state_deleted = '0' AND TST.state_status = '1' AND TCN.country_deleted = '0' AND TCN.country_status = '1' ORDER BY TCT.city_name ASC, TST.state_name ASC, TCN.country_name ASC
+DEBUG_END - time: 2025-01-14 23:57:27
+----------------------------------------------------
+

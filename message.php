@@ -1,0 +1,517 @@
+<?php
+
+require_once('classes/config.php');
+
+$obj = new frontclass();
+
+$page_id = '3';
+
+$page_data = $obj->getPageDetails($page_id);
+
+// use this page contents for admin manage message data
+
+//list($page_name,$page_title,$page_contents,$meta_title,$meta_keywords,$meta_description,$menu_title,$menu_link,$link_enable,$parent_menu) = getPageDetails($page_id);
+
+
+
+  //comment by ample 03-06-20
+   // if(isset($_SESSION['adm_vendor_id']) && !empty($_SESSION['adm_vendor_id']))
+   //  {
+   //      $vendor_id=$_SESSION['adm_vendor_id'];
+
+   //  }
+   //  else
+   //  {
+   //       if($obj->isLoggedIn())
+
+   //        {
+   //          $user_id = $_SESSION['user_id'];
+   //          $obj->doUpdateOnline($_SESSION['user_id']);
+
+   //        }
+   //       else
+   //       {
+   //             header("Location: login.php?");
+   //             exit();
+   //       }
+
+   //  }
+
+
+
+
+$msg = '';
+
+
+
+if(isset($_GET['msg']) && $_GET['msg'] != '')
+
+{
+
+	$msg = $_GET['msg'];
+
+}
+
+
+
+  $sess = $_GET['sess'];
+
+  $basedec=base64_decode($sess);
+
+  $site_url=SITE_URL;
+
+// $message = str_ireplace("[[USER_NAME]]", $name, $message);
+
+// $message = str_ireplace("[[USER_EMAIL]]", $email, $message);
+
+// $message = str_ireplace("[[ANCHER_URL_START]]", '<a href="'.$url.'">', $message);
+
+// $message = str_ireplace("[[ANCHER_URL_END]]", '</a>', $message);
+
+// $message = str_ireplace("[[URL]]", $url, $message);
+
+// $message = str_ireplace("[[SESS]]", $sess,);
+
+if($msg!="")
+
+ {
+
+    $message_data= $obj->print_message($msg);
+
+
+
+    if($msg==10 || $msg==12)
+
+    {
+
+     $message = str_ireplace("[[SESS]]",$sess,$message_data);
+
+    }
+
+    else if($msg==11)
+
+    {
+
+      $message =str_ireplace("[[BASEDE_SESS]]",$basedec,$message_data);
+
+    }
+
+    else if($msg==3 || $msg==13)
+
+    {
+
+    $message =str_ireplace("[[SITE_URL]]",$site_url,$message_data);
+
+    }
+
+    elseif($msg==8)
+
+    {
+
+    	 $message =$message_data;
+
+    	 $message = $obj->print_message($msg);
+
+         $ref_num = str_replace("'", "", $_GET['ref_code']);
+
+         $box_title=str_replace("'", "", $_GET['box_title']);
+
+         $sub_cat_id=str_replace("'", "", $_GET['sub_cat_id']);
+
+ 
+
+		 if($obj->UserInputAllowed($ref_num))
+
+		 {
+
+		   
+
+		   $message .="<a  href='user_uploads.php?ref_code=".$ref_num."&box_title=".$box_title."&sub_cat_id=".$sub_cat_id."' class='active' target='_blank' title='We would like to hear your innovative suggestions.'><span style='background: #007fff;color: #fff; border: 2px solid #4e4e4e; border-radius: 15px; height: 50px; padding: 5px;'>Share your inputs</span></a>";                        
+
+		 }
+
+    }
+
+    elseif($msg==1)
+
+    {
+
+       $message= $obj->print_message($msg);
+
+    }
+
+    elseif($msg==2)
+
+    {
+
+       $message= $obj->print_message($msg);
+
+    }
+
+    elseif($msg==5)
+
+    {
+
+      $message= $obj->print_message($msg);
+
+    }
+
+    elseif($msg==23)
+
+    {
+
+      $message= $obj->print_message($msg);
+
+    }
+
+    elseif($msg==24)
+
+    {
+
+      $message= $obj->print_message($msg);
+
+    }
+
+    
+
+ }
+
+ 
+
+ // elseif($msg==13)
+
+ // {
+
+ //   $message =str_ireplace("[[SITE_URL]]",$site_url,$message_data);
+
+ // }
+
+
+
+// if($msg == '1')
+
+
+
+// {
+
+
+
+//      $sess = $_GET['sess'];
+
+// 	$page_title = 'Registration Success';
+
+//     $message = '<p>Thankyou for Registration, Please activate your profile using OTP sent on your registered mobile number using below link .</p>';
+
+//     $message .= '<a href="validate_user.php?sess='.$sess.'">Activate</a>';
+
+        
+
+// }
+
+
+
+// if($msg == '2')
+
+// {
+
+// 	$message = '<span class="Header_brown">Your profile is sucessfully updated!</span> <br /><br />';
+
+// }
+
+
+
+// elseif($msg == '3')
+
+
+
+// {
+
+
+
+// 	$message = '<span class="Header_brown">Thanks for your enquiry! We will get back to you shortly.</span> <br /><br />';
+
+
+
+// }
+
+
+
+// elseif($msg == '10')
+
+
+
+// {
+
+
+
+// 	$sess = $_GET['sess'];
+
+
+
+// 	$message = '<span class="Header_brown">(Please check your junk mail.)</span> <br /><br />
+
+
+
+// 				We have sent an email to your address '. base64_decode($sess).'.<br />
+
+
+
+// 				In the email message from us, click the "Activate Now" link to reset password.';
+
+
+
+// }
+
+
+
+// elseif($msg == '11')
+
+
+
+// {
+
+
+
+// 	$sess = $_GET['sess'];
+
+
+
+// 	$message = '<span class="Header_brown">Your password successfully changed <a href="'.SITE_URL.'/login.php">Click Here To Login </a></span> <br /><br />';
+
+
+
+// }
+
+
+
+// elseif($msg == '12')
+
+
+
+// {
+
+
+
+// 	$message = '<span class="Header_brown">Your referral request has been sent to user!</span> <br /><br />';
+
+
+
+// }
+
+
+
+// elseif($msg == '13')
+
+
+
+// {
+
+
+
+// 	$message = '<span class="Header_brown">Your referral request has been sent to adviser!</span> <br /><br />';
+
+
+
+// }
+
+
+
+elseif($msg!="" && $msg == '14')
+
+{
+
+    $gotopage = $_GET['gotopage'];
+
+    $message = '<span class="Header_green" style="font-size:17px;font-weight:normal;">Congrats !!! Your Inputs has - </span><br /><br /> 
+
+
+
+- Increased<a href="'.SITE_URL.'/my_rewaards.php"> Your REWARD Points </a></span> (View / Redeem) <br />
+
+
+
+- Increased <a href="'.SITE_URL.'/digitaal_personal_wellness_diary.php">Your LIFE Patterns / Performance Metrics </a></span> (Analyse & /Or)<br /><br />
+
+
+
+Would you like to<a href="'.SITE_URL.'/my_adviser_queries.php"> Post your Query /View Guidances at your ONLINE Consultation Forum </a></span> for better analysis of what you should improve, monitor or excel <br />
+
+
+
+OR <br />
+
+
+
+Update next relevant parameter :&nbsp;&nbsp;<select name="gotopage" id="gotopage">'.getGoToPageDropdownOptions('2',$gotopage).'</select>&nbsp;&nbsp;<input type="button" name="btngoto" id="btngoto" value="Go" onclick="proceedToGoPage();"> <br /><br /> 
+
+
+
+<span style="color:#D011D6;">COME ON !! Prizes for ALL who acheive the target as per below<br />
+
+
+
+<a style="font-size: 12px;" href="../pages.php?id=148" target="_blank"><button class="greenbtn" title="Life Ko De Naya Andaaz Challenge - September">Life Ko De Naya Andaaz Challenge - September</button></a> <br /><br /> ';         
+
+
+
+
+
+}
+
+
+
+// elseif($msg == '15')
+
+
+
+// {
+
+
+
+// 	$message = '<span class="Header_brown">Your details successfully saved!</span> <br /><br />';
+
+
+
+// }
+
+
+
+// elseif($msg == '16')
+
+
+
+// {
+
+
+
+// 	$message = '<span class="Header_brown">Your alert successfully saved!</span> <br /><br />';
+
+
+
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+elseif($msg!="" || $msg == '17')
+
+{
+
+ $message = '<span class="Header_brown">Your profile is sucessfully updated!</span> <br /><br /> '
+
+
+
+            . 'Proceed to :&nbsp;&nbsp;<select name="gotopage" id="gotopage">'.getGoToPageDropdownOptions('2',$gotopage).'</select>&nbsp;&nbsp;<input type="button" name="btngoto" id="btngoto" value="Go" onclick="proceedToGoPage();"> <br /><br />'
+
+
+
+            . '<span class="Header_brown" style="font-size:22px;font-weight:normal;">OR</span><br /><br />'
+
+
+
+            . '<span class="Header_brown"><a href="'.SITE_URL.'/my_wellness_solutions.php">Click Here for Wellness Fun, Tips & Guide !</a></span><br /><br />'
+
+
+
+            . '<span class="Header_brown"><a href="'.SITE_URL.'/my_wellness_solutions.php"><img border="0" src="images/mws_msg_img.jpg" ></a></span><br /><br />';
+
+
+
+}
+
+// else if($msg!="" && $msg == '8')
+
+// {
+
+ // $message = '<span class="Header_brown">Your data successfully saved!</span>';
+
+ // $message = $obj->print_message($msg);
+
+ // $ref_num = str_replace("'", "", $_GET['ref_code']);
+
+ // $box_title=str_replace("'", "", $_GET['box_title']);
+
+ // $sub_cat_id=str_replace("'", "", $_GET['sub_cat_id']);
+
+ 
+
+ // if($obj->UserInputAllowed($ref_num))
+
+ // {
+
+   
+
+ //   $message .="<br><br><a  href='user_uploads.php?ref_code=".$ref_num."&box_title=".$box_title."&sub_cat_id=".$sub_cat_id."' class='active' target='_blank' title='We would like to hear your innovative suggestions.'><span style='background: #007fff;color: #fff; border: 2px solid #4e4e4e; border-radius: 15px; height: 50px; padding: 5px;'>Share your inputs</span></a>";                        
+
+  
+
+ // }
+
+ 
+
+// }
+
+else
+
+{
+
+	 $message = $obj->print_message(9);
+
+	// $message = 'Invalid Access!';
+
+}
+
+
+
+?><!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<?php include_once('head.php');?>
+
+</head>
+
+<body>
+
+<?php include_once('header.php');?>
+
+<section id="checkout">
+
+	<div class="container">
+
+		<div class="row">
+
+	     	<div class="col-md-12" style="margin: 7.5px;padding: 7.5px;">
+          <br>
+				<p><?php
+
+				 // echo $message_data;
+
+				 echo $message;
+
+				  ?></p>
+
+			</div>
+
+		</div>                        
+
+	</div>   
+
+</section>
+
+<?php include_once('footer.php');?>
+
+</body>
+
+</html>

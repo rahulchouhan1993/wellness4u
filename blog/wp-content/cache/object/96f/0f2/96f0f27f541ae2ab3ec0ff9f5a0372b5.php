@@ -1,0 +1,2 @@
+k
+âh<?php exit; ?>a:1:{s:7:"content";a:5:{i:0;O:8:"stdClass":2:{s:7:"term_id";i:42;s:9:"object_id";i:401;}i:1;O:8:"stdClass":2:{s:7:"term_id";i:58;s:9:"object_id";i:401;}i:2;O:8:"stdClass":2:{s:7:"term_id";i:66;s:9:"object_id";i:605;}i:3;O:8:"stdClass":2:{s:7:"term_id";i:51;s:9:"object_id";i:605;}i:4;O:8:"stdClass":2:{s:7:"term_id";i:72;s:9:"object_id";i:605;}}}

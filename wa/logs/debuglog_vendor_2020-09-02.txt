@@ -1,0 +1,8 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-02 15:32:14
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-02 15:32:14
+----------------------------------------------------
+

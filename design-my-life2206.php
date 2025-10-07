@@ -1,0 +1,3770 @@
+<?php 
+include('classes/config.php');
+$page_id = '127';
+$obj = new frontclass();
+$obj2 = new frontclass2();
+
+$page_data = $obj->getPageDetails($page_id);
+$ref = base64_encode($page_data['menu_link']);
+
+if($obj->isLoggedIn())
+
+{
+     $user_id = $_SESSION['user_id'];
+     $obj->doUpdateOnline($_SESSION['user_id']);
+}
+ 
+$now = time();
+$today_year = date("Y",$now);
+$today_month = date("m",$now);
+$today_day = date("d",$now); 
+
+$year = $today_year;
+$month = $today_month;
+$day = $today_day;
+$day_month_year = date("Y-m-d");
+
+$header_data = $obj->GetHeaderDatabyPageKR($_GET['ref_num']);
+
+
+if(isset($_GET['ref_num']))
+{
+  $ref_num = $_GET['ref_num'];
+  $call = $_GET['call'];
+  $design_my_life_data = $obj->GetDesignMyLifeDatabyRef($ref_num);
+  
+ // echo '<pre>';
+ // print_r($design_my_life_data);
+ // echo '</pre>';
+//  die();
+
+  //$box_title = $obj->GetTitlenamebyID($design_my_life_data['box_title']);
+  $profile_category = $obj->GetProfilecatname($design_my_life_data['prof_cat_id']);
+  $sub_cat_option = $obj->getSubCatOptions($design_my_life_data['prof_cat_id'],$design_my_life_data['sub_cat_id']);
+  $narration = $design_my_life_data['narration'];
+
+  
+  $data_dropdown =  $obj->GETDATADROPDOWNMYDAYTODAYOPTION($design_my_life_data['data_category'],'127');
+  
+
+
+
+
+  //print_r($data_dropdown);
+  //echo $data_dropdown;
+        
+                                $show_cat = '';
+                                $fetch_cat1 = array();
+                                $fetch_cat2 = array();
+                                $fetch_cat3 = array();
+                                $fetch_cat4 = array();
+                                $fetch_cat5 = array();
+                                $fetch_cat6 = array();
+                                $fetch_cat7 = array();
+                                $fetch_cat8 = array();
+                                $fetch_cat9 = array();
+                                $fetch_cat10 = array();
+                                   
+                                   if($data_dropdown[0]['sub_cat1']!='')
+                                   {
+                                      if($data_dropdown[0]['canv_sub_cat1_show_fetch']==1) 
+                                      {
+                                        $show_cat .= $data_dropdown[0]['sub_cat1'].',';
+                                      }
+                                      else
+                                      {
+                                          $fetch_cat1 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat1_link'],$data_dropdown[0]['sub_cat1']);
+                                      }
+                                   }
+                                   
+                                   if($data_dropdown[0]['sub_cat2']!='')
+                                   {
+                                    if($data_dropdown[0]['canv_sub_cat2_show_fetch']==1) 
+                                    {
+                                        $show_cat .= $data_dropdown[0]['sub_cat2'].',';
+                                    }
+                                    else
+                                      {
+                                          $fetch_cat2 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat2_link'],$data_dropdown[0]['sub_cat2']);
+                                      }
+                                   }
+                                   
+                                   if($data_dropdown[0]['sub_cat3']!='')
+                                   {
+                                     if($data_dropdown[0]['canv_sub_cat3_show_fetch'] == 1) 
+                                     {
+                                        $show_cat .= $data_dropdown[0]['sub_cat3'].',';
+                                     }
+                                     else
+                                      {
+                                          $fetch_cat3 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat3_link'],$data_dropdown[0]['sub_cat3']);
+                                      }
+                                   }
+                                   if($data_dropdown[0]['sub_cat4']!='')
+                                   {
+                                       if($data_dropdown[0]['canv_sub_cat4_show_fetch']==1) 
+                                       {
+                                            $show_cat .= $data_dropdown[0]['sub_cat4'].',';
+                                       }
+                                     else
+                                      {
+                                          $fetch_cat4 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat4_link'],$data_dropdown[0]['sub_cat4']);
+                                      }
+                                   }
+                                   if($data_dropdown[0]['sub_cat5']!='')
+                                   {
+                                       if($data_dropdown[0]['canv_sub_cat5_show_fetch']==1) 
+                                       {
+                                            $show_cat .= $data_dropdown[0]['sub_cat5'].',';
+                                       }
+                                       else
+                                      {
+                                          $fetch_cat5 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat5_link'],$data_dropdown[0]['sub_cat5']);
+                                      }
+                                   }
+                                   if($data_dropdown[0]['sub_cat6']!='')
+                                   {
+                                       if($data_dropdown[0]['canv_sub_cat6_show_fetch']==1) 
+                                       {
+                                            $show_cat .= $data_dropdown[0]['sub_cat6'].',';
+                                       }
+                                       else
+                                      {
+                                          $fetch_cat6 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat6_link'],$data_dropdown[0]['sub_cat6']);
+                                      }
+                                   }
+                                   if($data_dropdown[0]['sub_cat7']!='')
+                                   {
+                                     if($data_dropdown[0]['canv_sub_cat7_show_fetch']==1) 
+                                     {
+                                        $show_cat .= $data_dropdown[0]['sub_cat7'].',';
+                                     }
+                                     else
+                                      {
+                                          $fetch_cat7 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat7_link'],$data_dropdown[0]['sub_cat7']);
+                                      }
+                                   }
+                                   if($data_dropdown[0]['sub_cat8']!='')
+                                   {
+                                       if($data_dropdown[0]['canv_sub_cat8_show_fetch']==1) 
+                                       {
+                                            $show_cat .= $data_dropdown[0]['sub_cat8'].',';
+                                       }
+                                       else
+                                      {
+                                          $fetch_cat8 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat8_link'],$data_dropdown[0]['sub_cat8']);
+                                      }
+                                   }
+                                   if($data_dropdown[0]['sub_cat9']!='')
+                                   {
+                                    if($data_dropdown[0]['canv_sub_cat9_show_fetch']==1) 
+                                    {
+                                        $show_cat .= $data_dropdown[0]['sub_cat9'].',';
+                                    }
+                                    else
+                                      {
+                                          $fetch_cat9 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat9_link'],$data_dropdown[0]['sub_cat9']);
+                                      }
+                                   }
+                                   if($data_dropdown[0]['sub_cat10']!='')
+                                   {
+                                    if($data_dropdown[0]['canv_sub_cat10_show_fetch']==1) 
+                                    {
+                                        $show_cat .= $data_dropdown[0]['sub_cat10'].',';
+                                    }
+                                    else
+                                      {
+                                          $fetch_cat10 = $obj->GetFecthDataDesign($data_dropdown[0]['canv_sub_cat10_link'],$data_dropdown[0]['sub_cat10']);
+                                      }
+                                   }
+                                   
+                                   $show_cat = explode(',', $show_cat);
+                                   $show_cat = array_filter($show_cat);
+                                   $final_array = array_merge($fetch_cat1,$fetch_cat2,$fetch_cat3,$fetch_cat4,$fetch_cat5,$fetch_cat6,$fetch_cat7,$fetch_cat8,$fetch_cat9,$fetch_cat10);                                   
+                                   $final_dropdown = $obj->CreateDesignLifeDropdownEdit($show_cat,$final_array,$design_data['box_title']);
+  
+  
+                                    $tr_days_of_month = 'none';
+                                    $tr_single_date = 'none';
+                                    $tr_date_range = 'none';
+                                    $tr_month_date = 'none';
+                                    $tr_days_of_week = 'none'; 
+
+}
+
+// echo $design_my_life_data['prof_cat_id'];
+// echo $design_my_life_data['sub_cat_id'];
+if(isset($_POST['btn_submit']))
+{
+   if(!$obj->isLoggedIn())
+    {
+    
+           if($design_my_life_data['ref_code']!="")
+           {
+             $ref = base64_encode($page_data['menu_link'].'?ref_num='.$design_my_life_data['ref_code']);
+           }
+           else
+           {
+            $ref = base64_encode($page_data['menu_link']);
+           }
+
+            // $ref = base64_encode($page_data['menu_link'].'?ref_num='.$design_my_life_data['ref_code']);
+            //$obj->doUpdateOnline($_SESSION['user_id']);
+            header("Location: login.php?ref=".$ref);
+            exit();
+
+    }
+    
+    $data = $_POST;
+
+  // echo '<pre>';
+  //  print_r($data);
+  // echo '</pre>';
+  // die();
+
+    $data['user_id'] = $_SESSION['user_id'];
+    if($obj->Post_user_design_data($data))
+    { 
+        header("Location: message.php?msg=8&ref_code='".$data['ref_code']."'&box_title='".$data['title_id']."'&sub_cat_id='".$data['sub_cat_id']."'"); // 18 is old message id
+        exit();
+        
+    }
+    
+    
+    
+}
+
+
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+     <link rel="stylesheet" href="w_css/editor.css">
+    <?php include_once('head.php');?>
+    <link rel="stylesheet" href="w_js/datepicker/css/bootstrap-datepicker.css">
+    <script type="text/javascript" src="w_js/jquery-1.12.4.min.js" charset="UTF-8"></script>
+    <script type="text/javascript" src="w_js/datepicker/js/bootstrap-datepicker.js" charset="UTF-8"></script>
+   
+    <style>
+        .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+            color: #555;
+            cursor: default;
+            background-color: #9EFF98;
+            border: 1px solid #ddd;
+            border-bottom-color: transparent;
+        }
+        
+.btn-light-green {
+    text-decoration: none;
+    border: 0!important;
+    display: block;
+    background-color: #DFF0D8;
+    -webkit-transition: all .2s cubic-bezier(.15,.69,.83,.67);
+    transition: all .2s cubic-bezier(.15,.69,.83,.67);
+    width: 200px;
+    text-align: center;
+    font-family: ProximaNova-Bold,Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #3D763E !important;
+    padding: 5px;
+    margin: 0px 5px 0px 0px;
+    float: left;
+}
+</style>
+<style>
+   
+    
+/*  bhoechie tab */
+div.bhoechie-tab-container{
+  z-index: 10;
+  background-color: #ffffff;
+  padding: 0 !important;
+  border-radius: 4px;
+  -moz-border-radius: 4px;
+  border:1px solid #ddd;
+  margin-top: 20px;
+  //margin-left: 50px;
+  -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  -moz-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+  background-clip: padding-box;
+  opacity: 0.97;
+  filter: alpha(opacity=97);
+}
+div.bhoechie-tab-menu{
+  padding-right: 0;
+  padding-left: 0;
+  padding-bottom: 0;
+}
+div.bhoechie-tab-menu div.list-group{
+  margin-bottom: 0;
+}
+div.bhoechie-tab-menu div.list-group>a{
+  margin-bottom: 0;
+}
+div.bhoechie-tab-menu div.list-group>a .glyphicon,
+div.bhoechie-tab-menu div.list-group>a .fa {
+  color: #5A55A3;
+}
+div.bhoechie-tab-menu div.list-group>a:first-child{
+  border-top-right-radius: 0;
+  -moz-border-top-right-radius: 0;
+}
+div.bhoechie-tab-menu div.list-group>a:last-child{
+  border-bottom-right-radius: 0;
+  -moz-border-bottom-right-radius: 0;
+}
+div.bhoechie-tab-menu div.list-group>a.active,
+div.bhoechie-tab-menu div.list-group>a.active .glyphicon,
+div.bhoechie-tab-menu div.list-group>a.active .fa{
+  background-color: #5A55A3;
+  background-image: #5A55A3;
+  color: #ffffff;
+}
+div.bhoechie-tab-menu div.list-group>a.active:after{
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  margin-top: -13px;
+  border-left: 0;
+  border-bottom: 13px solid transparent;
+  border-top: 13px solid transparent;
+  border-left: 10px solid #5A55A3;
+}
+
+div.bhoechie-tab-content{
+  background-color: #ffffff;
+  /* border: 1px solid #eeeeee; */
+  //padding-left: 20px;
+  padding-top: 10px;
+}
+
+div.bhoechie-tab div.bhoechie-tab-content:not(.active){
+  display: none;
+}
+ 
+.comment-form-container {
+	background: #F0F0F0;
+	border: #e0dfdf 1px solid;
+	padding: 20px;
+	border-radius: 2px;
+}
+
+.input-row {
+	margin-bottom: 20px;
+}
+
+.input-field {
+	width: 100%;
+	border-radius: 2px;
+	padding: 10px;
+	border: #e0dfdf 1px solid;
+}
+
+.btn-submit {
+	padding: 10px 20px;
+	background: #333;
+	border: #1d1d1d 1px solid;
+	color: #f0f0f0;
+	font-size: 0.9em;
+	width: 100px;
+	border-radius: 2px;
+	cursor: pointer;
+}
+
+ul {
+	list-style-type: none;
+}
+
+.comment-row {
+	border-bottom: #e0dfdf 1px solid;
+	margin-bottom: 15px;
+	padding: 15px;
+}
+
+.outer-comment {
+	padding: 10px;
+	border: #dedddd 1px solid;
+	background: #FFF;
+}
+
+span.commet-row-label {
+	font-style: italic;
+}
+
+span.posted-by {
+	color: #09F;
+}
+
+.comment-info {
+	font-size: 0.8em;
+}
+
+.comment-text {
+	margin: 10px 0px;
+}
+
+.btn-reply {
+	font-size: 0.8em;
+	text-decoration: underline;
+	color: #888787;
+	cursor: pointer;
+}
+
+#comment-message {
+	margin-left: 20px;
+	color: #189a18;
+	display: none;
+}
+
+.like-unlike {
+	vertical-align: text-bottom;
+	cursor: pointer;
+}
+
+.post-action {
+	margin-top: 15px;
+    font-size: 0.8em;
+}
+span.posted-at {
+    color: #929292;
+}
+
+
+
+</style>
+<style>
+        #explore .date button:hover, #explore .date .active {
+        background: #e1452b;
+        color: #fff;
+        margin-top: 20px;
+    }
+      button {
+    border: 0px;
+    /* width: 120px; */
+    min-width: 150px;
+    height: 40px;
+    background: #fff;
+    border-radius: 20px;
+    color: #4e4e4e;
+    font-weight: 400px;
+    /* margin-right: 20px; */
+    padding: 0 15px;
+    -webkit-box-shadow: 0px 2px 9px rgba(15, 15, 15, 0.8);
+    -moz-box-shadow: 0px 2px 9px rgba(15, 15, 15, 0.8);
+    -sm-box-shadow: 0px 2px 9px rgba(15, 15, 15, 0.8);
+    -o-box-shadow: 0px 2px 9px rgba(15, 15, 15, 0.8);
+    box-shadow: 0px 2px 9px rgba(15, 15, 15, 0.8);
+    -webkit-transition: all linear 0.3s;
+    -o-transition: all linear 0.3s;
+    -moz-transition: all linear 0.3s;
+    transition: all linear 0.3s;
+}
+button, input, select, textarea {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+.img_back {
+    
+    background-color: lightskyblue;
+}
+    </style>
+</head>
+<body>
+<?php include_once('analyticstracking.php'); ?>
+<?php include_once('analyticstracking_ci.php'); ?>
+<?php include_once('analyticstracking_y.php'); ?>
+<?php include_once('header.php');?>
+
+<div id='changemusic'></div>
+<section id="checkout">
+	<div class="container">
+                <div class="breadcrumb">
+                    <div class="row">
+                    <div class="col-md-8">	
+                      <?php echo $obj->getBreadcrumbCode($page_id);?> 
+                       </div>
+                         <div class="col-md-4">
+                          <?php
+                              if($obj->isLoggedIn())
+                              { 
+                                  echo $obj->getWelcomeUserBoxCode($_SESSION['name'],$_SESSION['user_id']);
+                              }
+                            ?>
+                         </div>
+                       </div>
+                </div>
+		<div class="row">
+                    <span id="error_msg"></span>
+                    <div class="col-md-10" id="bgimage" style="background-repeat:repeat; padding:5px;">
+                        
+                        <div class="col-md-12" id="testdata">
+                        <!--<h2> <span class="Header_brown"><?php //echo $obj->getPageTitle($page_id);?></span></h2>-->
+                        <?php 
+                        echo $obj->getPageContents($page_id);
+
+                        ?>
+                        </div>
+                        <div class='col-md-12' style="margin-bottom:20px;">
+                            <div class="col-md-4">
+                                <span style="font-size:15px; font-weight: bold;" class="Header_brown">Reset your Mood</span>
+                                <select name="theam_id1" id="theam_id" onchange="ChangeTheamMDT()" class="form-control" title="Select Theme">
+                                <option>Select Theme</option>
+                                <?php echo $obj->getTheamOptions($theam_id,$day_month_year); ?>
+                            </select>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                
+                                <span style="font-size:15px; font-weight: bold;" class="Header_brown"><br></span>
+                                <select name="music_id1" id="music_id" onchange="ChangeTheMusic()" class="form-control" title="Select Music">
+                                <option>Select Music</option>
+                                <?php echo $obj2->getAllmusic($music_id,$day); ?>
+                            </select>
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <span style="font-size:15px; font-weight: bold;" class="Header_brown"><br></span>
+                                <select name="avat_id" id="avat_id" onchange="ChangeTheAvatar()" class="form-control" title="Select your today's mascot">
+                                <option>Select your today's mascot</option>
+                                <?php echo $obj2->getAllAvatar($avat_id,$day); ?>
+                            </select>
+                            </div>
+                        </div>
+                        
+                        <div class='col-md-12' style="margin-bottom:20px;">
+                            
+                            <div id='change_avatar' style="float: right;"></div>
+                        </div>
+                        
+                   <!--   <div class='col-md-12' style="margin-bottom:2px;">
+                            <span class="Header_brown"><b>Recommendations/Suggestions/Options for your query on:&nbsp;&nbsp;<?php //echo $_GET['mdt_date']; ?> for Entry Sequence:&nbsp;&nbsp;<?php //echo $_GET['sequence']; ?> </span></b>
+                        </div>-->
+                        <?php if($design_my_life_data['show_to_user'] == 2) { 
+
+                         ?>
+
+                        <div class="col-md-12" style="">
+                            <form name="design_life_data" id="design_life_data" method="post">
+
+                            <div class="col-md-12">
+                           <?php if($narration!='' && $design_my_life_data['narration_show'] == 1) {  
+                            ?>
+                            <span class=""><?php echo $narration; ?></span>
+                           <?php 
+                         }
+                          ?>
+                            <?php 
+                            if($design_my_life_data['show_to_user'] == '1') {
+                            
+                             ?> 
+                             <span>
+                                <input type="text" <?php echo $required; ?> name="title_id" id="title_id" placeholder="Make your choice" list="capitals" class="input-text-box dlist" style="width:600px;" />
+                               <datalist id="capitals" class="dlist" style="">
+                                    <?php echo $final_dropdown; ?>  
+                                </datalist>
+                             </span>
+                            <?php } else { ?>
+                                <p class="box_title" style="font-size: 19px;width: 60%;font-weight: bold; text-align: center;"><?php echo $design_my_life_data['box_title']; ?></p>
+                            <?php } ?>
+                            <!-- <br> -->
+                            <!-- <br> -->
+                            <span class=""><?php echo $design_my_life_data['fav_cat_type_id_header']; ?>
+                           <!--  &nbsp;&nbsp;  -->
+<!--                                <select name="sub_cat" class="form-control">
+                                    <?php //echo $sub_cat_option; 
+                                        
+                                        $icon_image = $obj->getDesignIconByFavCat($design_my_life_data['sub_cat_id']);
+                                    
+                                    ?>
+                                </select> -->
+                                <!-- <br><br> -->
+                                <img src="uploads/<?php echo $icon_image; ?>" title="<?php echo $obj->getFavCategoryNameVivek($design_my_life_data['sub_cat_id']); ?>" style="width:60px; height:60px; cursor: pointer;" >
+
+                            </span>
+                            <br>
+                            <br>
+                            
+                            <?php
+                            
+                            if($design_my_life_data['quick_response_show'] == 1)
+                            {
+                                //echo 'Hiii';
+                                //$count = $design_my_life_data['box_count'];
+                                $cat_cnt = 0;
+                                $cat_total_cnt=1;
+                                $input_box_count = $design_my_life_data['input_box_count'];
+                                $symtum_cat = $design_my_life_data['sub_cat2'];
+                                $sub_cat2_show_fetch=$design_my_life_data['sub_cat2_show_fetch'];
+                                $sub_cat2_link=$design_my_life_data['sub_cat2_link'];
+                                $data_dropdown = $obj->GetDesignMyLifeDrop($symtum_cat,$sub_cat2_show_fetch,$sub_cat2_link);
+                            
+                                //echo $data_dropdown;
+                                // echo "hiiiiiiiiiiiiiii";
+
+                                
+                                ?>
+                            <span><strong><?php echo $design_my_life_data['quick_response_heading']; ?></strong></span>  
+                            <br>
+                            <span>
+                          <input type="hidden" name="sub_cat_id" id="sub_cat_id" value="<?php echo $design_my_life_data['sub_cat_id'];  ?>"/>
+
+                       <input type="hidden" name="fetch_link" id="fetch_link" value="<?php echo $design_my_life_data['sub_cat3_link'];  ?>"/>
+                                <input type="hidden" name="sub_cat3" id="sub_cat3" value="<?php echo $design_my_life_data['sub_cat3'];  ?>"/>
+                                <input type="hidden" name="fetch_link_2" id="fetch_link_2" value="<?php echo $design_my_life_data['sub_cat4_link'];  ?>"/>
+                                <input type="hidden" name="sub_cat4" id="sub_cat4" value="<?php echo $design_my_life_data['sub_cat4'];  ?>"/>
+                                <input type="hidden" name="ref_code" id="ref_code" value="<?php echo $design_my_life_data['ref_code']; ?>"/>
+                                <input type="hidden" name="icon_code" id="icon_code" value="<?php echo $design_my_life_data['quick_tip_icon'];  ?>"/>
+                            </span> 
+
+                             <span id="message" style="color:blue; font-size: 10px;">(Type 4 letters and select keyword option)</span>
+                            <?php 
+                             if($design_my_life_data['quick_response_show'] == 1)
+                            {
+                                // echo 'hiiii';
+                                for($i=0;$i<=$cat_cnt;$i++) {
+                                 
+                                 // echo $cat_cnt;
+
+                                 ?>
+
+
+                            <!-- <div id="row_loc_<?php if($i == 0){ echo 'first';}else{ echo $i;}?>"> -->
+                                <div id="row_loc_<?php if($i == 0){ echo 'first';}else{ echo $i;}?>">
+
+                                 <input type="hidden" name="sub_cat_id" id="sub_cat_id" value="<?php echo $_GET['fav_cat_id'];?>">
+                                <input type="hidden" name="cat_cnt" id="cat_cnt" value="<?php echo $cat_cnt;?>">
+			                         	<input type="hidden" name="cat_total_cnt" id="cat_total_cnt" value="<?php echo $cat_total_cnt;?>">
+                                <span>
+                                   <input type="text" <?php echo $required; ?> name="fav_cat_2[]" id="fav_cat_2_<?php echo $i; ?>" placeholder="Select Your inputs" list="capitals_<?php echo $i; ?>" class="input-text-box dlist" style="width:600px;" onchange="Display_Solution(<?php echo $i; ?>)"/>
+                                   <datalist id="capitals_<?php echo $i; ?>" class="dlist" style="">
+                                        <?php echo $data_dropdown; ?>  
+                                    </datalist>
+                                 </span>
+                                    <span>
+                                        <?php
+                                        if($i == 0)
+                                        { ?>
+                                           <a href="javascript:void(0);" onclick="addMoreRowLocation();" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Add More" data-original-title=""><i class="fa fa-plus"></i></a>
+
+                                           <a href="javascript:void(0);" onclick="erase_input(0);"><i class="fa fa-eraser" id="erase_icon0" aria-hidden="true" style="font-size: 15px;"></i></a>
+
+                                           <br>
+                                           <a href="javascript:void(0);" onclick="Showloop(0);"><i class="fa fa-eye" style="cursor: pointer;" id="eyes0" title="Click here for user action"></i></a>
+
+                                              
+                               <?php
+                              // echo "<pre>";print_r($header_data);echo "</pre>";
+                               // echo count($header_data);
+                              ?>
+                                <?php for($j=0;$j<count($header_data);$j++) { ?>
+                               <!-- <div class="bhoechie-tab-content<?php if($j==0) { echo ' active in'; } ?>" id="sub_cat_<?php echo $k; ?>_<?php echo $j; ?>"> -->
+                          <!-- <form name="frm_<?php echo $k; ?>_<?php echo $j; ?>" id="frm_<?php echo $k; ?>_<?php echo $j; ?>" method="post"> -->
+                              <!-- <input type="hidden" name="maintab" id="maintab" value="<?php echo $user_my_day_today_data[$k]['bms_name']; ?>"> -->
+                              <!-- <input type="hidden" name="subtab" id="subtab" value="<?php echo $header_data[$j]['heading']; ?>"> -->
+                              <!-- <input type="hidden" name="mdt_date" id="sequence" value="<?php echo $_GET['mdt_date']; ?>"> -->
+                              <!-- <input type="hidden" name="sequence" id="sequence" value="<?php echo $_GET['sequence']; ?>"> -->
+
+                            <?php 
+                                   $keyworddata_implode_data = array();
+                                  // $keyword = $user_my_day_today_data[$k]['bms_name'];
+                                  //die();
+                                   // $keyworddata_implode = implode(',',$keyword);
+                                   // $keyworddata_explode = explode(' ',$keyword);
+//                                                            echo '<pre>';
+//                                                            print_r($header_data[$j]);
+//                                                            echo '</pre>';
+                                  
+                                   $exclusion_name = $obj->getExclusionAllName();
+                                   if($header_data[$j]['location_show']!=0)
+                                      {
+                                         $location_show_icon = $obj->getMyDayTodayIcon('location_show'); 
+                                      }
+                                      else {
+                                          $location_show_icon = '';
+                                      }
+
+
+                                       if($header_data[$j]['User_view']!=0)
+                                      {
+                                         $User_view_icon = $obj->getMyDayTodayIcon('User_view'); 
+                                      }
+                                      else {
+                                          $User_view_icon = '';
+                                      }
+
+                                       if($header_data[$j]['User_Interaction']!=0)
+                                      {
+                                         $User_Interaction_icon = $obj->getMyDayTodayIcon('User_Interaction'); 
+                                      }
+                                      else {
+                                          $User_Interaction_icon = '';
+                                      }
+
+                                      if($header_data[$j]['alert_show']!=0)
+                                      {
+                                         $alert_show_icon = $obj->getMyDayTodayIcon('alert_show'); 
+                                      }
+                                      else {
+                                          $alert_show_icon = '';
+                                      }
+
+                                      if($header_data[$j]['comment_show']!=0)
+                                      {
+                                         $comment_show_icon = $obj->getMyDayTodayIcon('comments_show'); 
+                                      }
+                                      else {
+                                          $comment_show_icon = '';
+                                      }
+                                  
+                                      if($header_data[$j]['user_date_show']!=0)
+                                      {
+                                         $user_date_icon = $obj->getMyDayTodayIcon('date_show'); 
+                                      }
+                                      else {
+                                          $user_date_icon = '';
+                                      }
+
+                                  if($header_data[$j]['scale_show']!=0)
+                                    {
+                                       $scale_show_icon = $obj->getMyDayTodayIcon('scale_show'); 
+                                    }
+                                    else {
+                                        $scale_show_icon = '';
+                                    }
+
+                                    if($header_data[$j]['time_show']!=0)
+                                    {
+                                       $time_show_icon = $obj->getMyDayTodayIcon('time_show'); 
+                                    }
+                                    else {
+                                        $time_show_icon = '';
+                                    }
+
+                                     if($header_data[$j]['duration_show']!=0)
+                                    {
+                                       $duration_show_icon = $obj->getMyDayTodayIcon('duration_show'); 
+                                    }
+                                    else {
+                                        $duration_show_icon = '';
+                                    }
+
+                                         // $keyworddata_filter = array_filter($keyworddata_explode);
+                                         // for($i=0;$i<count($keyworddata_filter);$i++)
+                                         // {
+                                         //   if(!in_array(strtolower($keyworddata_filter[$i]),$exclusion_name)) 
+                                         //     {
+                                         //      $keyworddata_implode_data[]= $keyworddata_filter[$i];
+                                         //     }
+                                         // }
+
+                                        if($header_data[$j]['sub_cat2'] !='') 
+                                        {                        
+                                            $fetch_show = $header_data[$j]['sub_cat2_show_fetch'];
+                                           
+                                            // if($fetch_show == 2)
+                                            // {
+                                              // $fetch_data = $obj->GetFecthData($keyworddata_implode_data,$header_data[$j]['canv_sub_cat1_link'],$header_data[$j]['sub_cat1']);                                                                        
+                                              // if(!empty($fetch_data)){
+//                                                                          
+                                                // echo '<div style="border:1px solid #ccc; padding:5px;">';
+                                                // $loop=0;
+                                                // foreach($fetch_data  as $value)
+                                                // {
+                                                    // echo '<span style="float:left;"><i class="fa fa-eye" style="cursor: pointer;" title="Click here for user action" onclick="Showloop(\'_sub_cat1_'.$k.'_'.$j.'_'.$loop.'\');"></i></span>';
+                                                    // echo '&nbsp;&nbsp;<p style="text-align:left;" class="tooltipN">'.$value['activity_name'];
+                                                      
+                                                    if($comment_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $comment_show_icon; ?>"  name="comment_show_icon_0" id="comment_show_icon_0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['comments_heading']; ?>" onclick="ShowComment(0);">
+                                                    <?php } ?>
+
+                                                    <?php if($location_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $location_show_icon; ?>"  name="location_show_icon_0" id="location_show_icon_0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['location_heading']; ?>" onclick="ShowLocation(0);">
+                                                     <?php } ?>
+
+                                                     <?php if($User_view_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_view_icon; ?>"  name="User_view_icon_0" id="User_view_icon_0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['like_dislike_heading']; ?>" onclick="ShowUserview(0);">
+                                                    <?php } ?>
+
+                                                    <?php if($User_Interaction_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_Interaction_icon; ?>"  name="User_Interaction_icon_0" id="User_Interaction_icon_0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['set_goals_heading']; ?>" onclick="ShowUserInteraction(0);">
+                                                      <?php } ?>
+
+                                                     <?php if($alert_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $alert_show_icon; ?>"  name="alert_show_icon_0" id="alert_show_icon_0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['reminder_heading']; ?>" onclick="ShowAlert(0);">
+                                                    <?php } ?>
+
+                                                    <?php if($scale_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $scale_show_icon; ?>" name="scale_show_icon_0" id="scale_show_icon_0" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['scale_heading']; ?>" onclick="ShowScale(0);">
+                                                  <?php }?>
+
+                                                   <?php if($time_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $time_show_icon; ?>" name="time_show_icon_0" id="time_show_icon_0" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['time_heading']; ?>" onclick="Showtime(0);">
+                                                  <?php }?>
+
+                                                   <?php if($duration_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $duration_show_icon; ?>"  name="duration_show_icon_0" id="duration_show_icon_0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['duration_heading']; ?>" onclick="DurationShow(0);">
+                                                    <?php }?>
+                                                 
+                                                     <?php if($user_date_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $user_date_icon; ?>"  name="user_date_show_icon_0" id="user_date_show_icon_0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['user_date_heading']; ?>" onclick="ShowUserDate(0);">
+                                                    <?php }
+
+                                                  echo '</p>';
+                                                
+                                                    ?>
+                                             <div class="md-col-12">
+                                                <input type="hidden" name="sub_cat[]"  value="<?php echo $header_data[$j]['sub_cat2']; ?>">
+
+                                                <input type="hidden" name="prof_cat[]"  value="<?php echo $header_data[$j]['prof_cat2']; ?>">
+
+                                                <input type="hidden" name="canv_show_fetch[]"  value="<?php echo $header_data[$j]['sub_cat2_show_fetch']; ?>">
+
+                                                <input type="hidden" name="canv_sub_cat_link[]"  value="<?php echo $header_data[$j]['sub_cat2_link']; ?>">
+
+                                                <!-- <input type="hidden" name="activity_text[]"  value="<?php echo $value['activity_name']; ?>"> -->
+
+                                                <!-- <input type="hidden" name="activity_id[]"  value="<?php echo $value['activity_id']; ?>"> -->
+                                                
+                                                <input  type="text" name="comment[]" id="comment_0"  placeholder="<?php echo $header_data[$j]['comments_heading']; ?>" title="<?php echo $header_data[$j]['comments_heading']; ?>" class="input-text-box input-quarter-width" style="display:none;">
+              
+                                                <select  class="input-text-box input-quarter-width" name="location[]" id="location_0" style="display:none;" title="<?php echo $header_data[$j]['location_heading']; ?>">
+                                                    <option value=""><?php echo $header_data[$j]['location_heading']; ?></option>
+                                                    <?php echo $obj->getFavCategoryRamakant($header_data[$j]['location_fav_cat'],''); ?>
+                                                </select>
+
+
+<!-- ------- -->
+                                                <select  class="input-text-box input-quarter-width" name="User_view[]" id="User_view_0" style="display:none;" title="<?php echo $header_data[$j]['like_dislike_heading']; ?>">
+                                                    <option value=""><?php echo $header_data[$j]['like_dislike_heading']; ?></option>
+                                                    <?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_response_fav_cat'],''); ?>
+                                                </select>
+
+
+
+                                                <select  class="input-text-box input-quarter-width" name="User_Interaction[]" id="User_Interaction_0" style="display:none;" title="<?php echo $header_data[$j]['set_goals_heading']; ?>">
+                                                    <option value=""><?php echo $header_data[$j]['set_goals_heading']; ?></option>
+                                                    <?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_what_fav_cat'],''); ?>
+                                                </select>
+
+                                                <select class="input-text-box input-quarter-width" name="alert[]" id="alert_0" style="display:none;" title="<?php echo $header_data[$j]['reminder_heading']; ?>">
+                                                    <option value=""><?php echo $header_data[$j]['reminder_heading']; ?></option>
+                                                    <?php echo $obj->getFavCategoryRamakant($header_data[$j]['alerts_fav_cat'],''); ?>
+                                                </select>
+
+                                               <select  class="input-text-box input-quarter-width" name="scale[]" id="scale_0" style="display:none;" title="<?php echo $header_data[$j]['scale_heading']; ?>">
+                                                <option value=""><?php echo $header_data[$j]['scale_heading']; ?></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+
+                                             <select  class="input-text-box input-quarter-width" name="bes_time[]" id="bes_time_0" style="display: none;">
+                                                 <option value=""><?php echo $design_my_life_data['time_heading']; ?></option>
+                                                 <?php echo $obj->getTimeOptionsNew('0','23',$bes_time ); ?>
+                                             </select>
+
+                                              <input type="text" name="duration[]" id="duration_0" onKeyPress="return isNumberKey(event);" placeholder="<?php echo $design_my_life_data['duration_heading']; ?>" class="input-text-box input-quarter-width" autocomplete="false" style="display:none;">
+                                              
+                                          
+                                               <span class="">
+                                                <select name="userdate[]" id="userdate_0" onchange="toggleDateSelectionType_multiple('userdate_',0)" style="width:200px;display:none;" class="input-text-box input-quarter-width">
+                                                    <option value="">Select Date Type</option>
+                                                    <option value="days_of_month" <?php if($listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>
+                                                    <option value="single_date" <?php if($listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>
+                                                    <option value="date_range" <?php if($listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>
+                                                    <option value="month_wise" <?php if($listing_date_type == 'month_wise') { ?> selected="selected" <?php } ?>>Month Wise</option>
+                                                    <option value="days_of_week" <?php if($listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>
+                                                </select>
+                                             </span>
+                                        <span>
+                                          <p>&nbsp;</p>
+                                            <table>
+                                            <tr id="tr_days_of_month_0" style="display:<?php echo $tr_days_of_month;?>">
+                                                    <td align="right" valign="top"><strong>Select days of month</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="days_of_month0" name="days_of_month[0][]" multiple="multiple" style="width:500px;" class="input-text-box input-quarter-width">
+                                                        <?php
+                                                        for($i=1;$i<=31;$i++)
+                                                        { ?>
+                                                            <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_days_of_month)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
+                                                        <?php
+                                                        } ?>  
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr id="tr_single_date_0" style="display:<?php echo $tr_single_date;?>">
+                                                    <td align="right" valign="top"><strong>Select Date</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <input name="single_date[]" id="single_date0" type="text" value="<?php echo $single_date;?>" class="input-text-box" onmouseover="callDatecalender(0)">
+                                                        <!-- <script>$('#single_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script> -->
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_date_range_0" style="display:<?php echo $tr_date_range;?>">
+                                                    <td align="right" valign="top"><strong>Select Date Range</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <input name="start_date[]" id="start_date0" type="text" value="<?php echo $start_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender(0)"/> - <input name="end_date[]" id="end_date0" type="text" value="<?php echo $end_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender(0)"/>
+                                                        <!-- <script>$('#start_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#end_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script> -->
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_days_of_week_0" style="display:<?php echo $tr_days_of_week;?>">
+                                                    <td align="right" valign="top"><strong>Select days of week</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="days_of_week0" name="days_of_week[0][]" multiple="multiple" class="input-text-box">
+                                                        <?php echo $obj->getDayOfWeekOptionsMultiple($arr_days_of_week); ?> 
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_month_date_0" style="display:<?php echo $tr_month_date;?>">
+                                                    <td align="right" valign="top"><strong>Select Month</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="months0" name="months[0][]" multiple="multiple" class="input-text-box">
+                                                        <?php echo $obj->getMonthsOptionsMultiple($arr_month); ?> 
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                        </span>
+                                       <br>
+
+                                        
+                    
+                                            </div>
+                                        <?php
+                                        
+                                        // $loop++;
+                                        // }
+                                 // echo '</div>';
+                                        // }
+                                      // }
+                                    }
+                                  }
+                                ?>
+
+
+<!-- --------------------------------------------------------- -->
+                                        <?php  	
+                                        }
+                                        else
+                                        { ?>
+                                          <a href="javascript:void(0);" onclick="removeRowLocation(<?php echo $i;?>);" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Remove it" data-original-title=""><i class="fa fa-minus"></i></a>
+
+                                           <a href="javascript:void(0);" onclick="erase_input(<?php echo $i; ?>);"><i class="fa fa-eraser" id="erase_icon<?php echo $i; ?>" aria-hidden="true" style="font-size: 15px;"></i></a>
+
+                                            <br>
+                                            <a href="javascript:void(0);" onclick="Showloop(<?php echo $i; ?>);"><i class="fa fa-eye" id="eyes<?php echo $i;?>" style="cursor: pointer;" title="Click here for user action"></i></a>
+
+
+                                           
+                            <?php for($j=0;$j<count($header_data);$j++) { ?>
+                       
+                                 <?php 
+                                   $keyworddata_implode_data = array();
+                                   $exclusion_name = $obj->getExclusionAllName();
+                                   
+                                   if($header_data[$j]['location_show']!=0)
+                                      {
+                                         $location_show_icon = $obj->getMyDayTodayIcon('location_show'); 
+                                      }
+                                      else {
+                                          $location_show_icon = '';
+                                      }
+
+                                       if($header_data[$j]['User_view']!=0)
+                                      {
+                                         $User_view_icon = $obj->getMyDayTodayIcon('User_view'); 
+                                      }
+                                      else {
+                                          $User_view_icon = '';
+                                      }
+
+                                       if($header_data[$j]['User_Interaction']!=0)
+                                      {
+                                         $User_Interaction_icon = $obj->getMyDayTodayIcon('User_Interaction'); 
+                                      }
+                                      else {
+                                          $User_Interaction_icon = '';
+                                      }
+
+                                      if($header_data[$j]['alert_show']!=0)
+                                      {
+                                         $alert_show_icon = $obj->getMyDayTodayIcon('alert_show'); 
+                                      }
+                                      else {
+                                          $alert_show_icon = '';
+                                      }
+
+                                      if($header_data[$j]['comment_show']!=0)
+                                      {
+                                         $comment_show_icon = $obj->getMyDayTodayIcon('comments_show'); 
+                                      }
+                                      else {
+                                          $comment_show_icon = '';
+                                      }
+
+                                    if($header_data[$j]['user_date_show']!=0)
+                                      {
+                                         $user_date_icon = $obj->getMyDayTodayIcon('date_show'); 
+                                      }
+                                      else {
+                                          $user_date_icon = '';
+                                      }
+
+                                      if($header_data[$j]['scale_show']!=0)
+                                      {
+                                         $scale_show_icon = $obj->getMyDayTodayIcon('scale_show'); 
+                                      }
+                                      else {
+                                          $scale_show_icon = '';
+                                      }
+
+
+                                      if($header_data[$j]['time_show']!=0)
+                                      {
+                                         $time_show_icon = $obj->getMyDayTodayIcon('time_show'); 
+                                      }
+                                      else {
+                                          $time_show_icon = '';
+                                      }
+
+                                       if($header_data[$j]['duration_show']!=0)
+                                      {
+                                         $duration_show_icon = $obj->getMyDayTodayIcon('duration_show'); 
+                                      }
+                                      else {
+                                          $duration_show_icon = '';
+                                      }
+
+
+                                      
+
+                                        if($header_data[$j]['sub_cat2'] !='') 
+                                        {                                                              
+                                            $fetch_show = $header_data[$j]['sub_cat2_show_fetch'];
+                                            // if($fetch_show == 2)
+                                            // {
+                                                    if($comment_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $comment_show_icon; ?>"  name="comment_show_icon_<?php echo $i; ?>" id="comment_show_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['comments_heading']; ?>" onclick="ShowComment(<?php echo $i; ?>);">
+                                                    <?php } ?>
+
+                                                    <?php if($location_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $location_show_icon; ?>"  name="location_show_icon_<?php echo $i; ?>" id="location_show_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['location_heading']; ?>" onclick="ShowLocation(<?php echo $i; ?>);">
+                                                     <?php } ?>
+
+                                                     <?php if($User_view_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_view_icon; ?>"  name="User_view_icon_<?php echo $i; ?>" id="User_view_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['like_dislike_heading']; ?>" onclick="ShowUserview(<?php echo $i; ?>);">
+                                                    <?php } ?>
+
+                                                    <?php if($User_Interaction_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_Interaction_icon; ?>"  name="User_Interaction_icon_<?php echo $i; ?>" id="User_Interaction_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['set_goals_heading']; ?>" onclick="ShowUserInteraction(<?php echo $i; ?>);">
+                                                      <?php } ?>
+
+                                                     <?php if($alert_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $alert_show_icon; ?>"  name="alert_show_icon_<?php echo $i; ?>" id="alert_show_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['reminder_heading']; ?>" onclick="ShowAlert(<?php echo $i; ?>);">
+                                                    <?php }?> 
+
+
+                                                       <?php if($scale_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $scale_show_icon; ?>" name="scale_show_icon_<?php echo $i; ?>" id="scale_show_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['scale_heading']; ?>" onclick="ShowScale(<?php echo $i; ?>);">
+                                                  <?php }?>
+                                                     
+                                                       <?php if($time_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $time_show_icon; ?>" name="time_show_icon_<?php echo $i; ?>" id="time_show_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['time_heading']; ?>" onclick="Showtime(<?php echo $i; ?>);">
+                                                  <?php }?>
+
+                                                   <?php if($duration_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $duration_show_icon; ?>"  name="duration_show_icon_<?php echo $i; ?>" id="duration_show_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['duration_heading']; ?>" onclick="DurationShow(<?php echo $i; ?>);">
+                                                    <?php }?>
+
+ 
+
+                                                     <?php if($user_date_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $user_date_icon; ?>"  name="user_date_show_icon_<?php echo $i; ?>" id="user_date_show_icon_<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['user_date_heading']; ?>" onclick="ShowUserDate(<?php echo $i; ?>);">
+                                                    <?php }
+
+                                                  
+                                                    echo '</p>';
+                                                    ?>
+
+
+                                                    <div class="md-col-12">
+                                                <input type="hidden" name="sub_cat[]"  value="<?php echo $header_data[$j]['sub_cat2']; ?>">
+
+                                                <input type="hidden" name="prof_cat[]"  value="<?php echo $header_data[$j]['prof_cat2']; ?>">
+
+                                                <input type="hidden" name="canv_show_fetch[]"  value="<?php echo $header_data[$j]['sub_cat2_show_fetch']; ?>">
+
+                                                <input type="hidden" name="canv_sub_cat_link[]"  value="<?php echo $header_data[$j]['sub_cat2_link']; ?>">
+
+                                                <!-- <input type="hidden" name="activity_text[]"  value="<?php echo $value['activity_name']; ?>"> -->
+
+                                                <!-- <input type="hidden" name="activity_id[]"  value="<?php echo $value['activity_id']; ?>"> -->
+                                                
+                                                <input  type="text" name="comment[]" id="comment_<?php echo $i; ?>"  placeholder="<?php echo $header_data[$j]['comments_heading']; ?>" title="<?php echo $header_data[$j]['comments_heading']; ?>" class="input-text-box input-quarter-width" style="display:none;">
+              
+                                                <select  class="input-text-box input-quarter-width" name="location[]" id="location_<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['location_heading']; ?>">
+                                                    <option value=""><?php echo $header_data[$j]['location_heading']; ?></option>
+                                                    <?php echo $obj->getFavCategoryRamakant($header_data[$j]['location_fav_cat'],''); ?>
+                                                </select>
+
+                                                <select  class="input-text-box input-quarter-width" name="User_view[]" id="User_view_<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['like_dislike_heading']; ?>">
+                                                    <option value=""><?php echo $header_data[$j]['like_dislike_heading']; ?></option>
+                                                    <?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_response_fav_cat'],''); ?>
+                                                </select>
+
+                                                <select  class="input-text-box input-quarter-width" name="User_Interaction[]" id="User_Interaction_<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['set_goals_heading']; ?>">
+                                                    <option value=""><?php echo $header_data[$j]['set_goals_heading']; ?></option>
+                                                    <?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_what_fav_cat'],''); ?>
+                                                </select>
+
+                                                <select class="input-text-box input-quarter-width" name="alert[]" id="alert_<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['reminder_heading']; ?>">
+                                                    <option value=""><?php echo $header_data[$j]['reminder_heading']; ?></option>
+                                                    <?php echo $obj->getFavCategoryRamakant($header_data[$j]['alerts_fav_cat'],''); ?>
+                                                </select>
+
+
+                                                 <select  class="input-text-box input-quarter-width" name="scale[]" id="scale_<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['scale_heading']; ?>">
+                                                <option value=""><?php echo $header_data[$j]['scale_heading']; ?></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+                                              
+
+
+                                            <select  class="input-text-box input-quarter-width" name="bes_time[]" id="bes_time_<?php echo $i; ?>" style="display: none;">
+                                                 <option value=""><?php echo $design_my_life_data['time_heading']; ?></option>
+                                                 <?php echo $obj->getTimeOptionsNew('0','23',$bes_time ); ?>
+                                             </select>
+
+                                              <input type="text" name="duration[]" id="duration_<?php echo $i; ?>" onKeyPress="return isNumberKey(event);" placeholder="<?php echo $design_my_life_data['duration_heading']; ?>" class="input-text-box input-quarter-width" autocomplete="false" style="display:none;">
+                                              
+
+
+                                                <span class="">
+                                                <select name="userdate[]" id="userdate_0" onchange="toggleDateSelectionType_multiple('userdate_',0)" style="width:200px;display:none;" class="input-text-box input-quarter-width">
+                                                    <option value="">Select Date Type</option>
+                                                    <option value="days_of_month" <?php if($listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>
+                                                    <option value="single_date" <?php if($listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>
+                                                    <option value="date_range" <?php if($listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>
+                                                    <option value="month_wise" <?php if($listing_date_type == 'month_wise') { ?> selected="selected" <?php } ?>>Month Wise</option>
+                                                    <option value="days_of_week" <?php if($listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>
+                                                </select>
+                                             </span>
+                                        <span>
+                                          <p>&nbsp;</p>
+                                            <table>
+                                            <tr id="tr_days_of_month_0" style="display:<?php echo $tr_days_of_month;?>">
+                                                    <td align="right" valign="top"><strong>Select days of month</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="days_of_month0" name="days_of_month[0][]" multiple="multiple" style="width:500px;" class="input-text-box input-quarter-width">
+                                                        <?php
+                                                        for($i=1;$i<=31;$i++)
+                                                        { ?>
+                                                            <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_days_of_month)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
+                                                        <?php
+                                                        } ?>  
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr id="tr_single_date_0" style="display:<?php echo $tr_single_date;?>">
+                                                    <td align="right" valign="top"><strong>Select Date</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <input name="single_date[]" id="single_date0" type="text" value="<?php echo $single_date;?>" class="input-text-box" onmouseover="callDatecalender(0)">
+                                                        <!-- <script>$('#single_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script> -->
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_date_range_0" style="display:<?php echo $tr_date_range;?>">
+                                                    <td align="right" valign="top"><strong>Select Date Range</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <input name="start_date[]" id="start_date0" type="text" value="<?php echo $start_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender(0)"/> - <input name="end_date[]" id="end_date0" type="text" value="<?php echo $end_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender(0)"/>
+                                                        <!-- <script>$('#start_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#end_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script> -->
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_days_of_week_0" style="display:<?php echo $tr_days_of_week;?>">
+                                                    <td align="right" valign="top"><strong>Select days of week</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="days_of_week0" name="days_of_week[0][]" multiple="multiple" class="input-text-box">
+                                                        <?php echo $obj->getDayOfWeekOptionsMultiple($arr_days_of_week); ?> 
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_month_date_0" style="display:<?php echo $tr_month_date;?>">
+                                                    <td align="right" valign="top"><strong>Select Month</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="months0" name="months[0][]" multiple="multiple" class="input-text-box">
+                                                        <?php echo $obj->getMonthsOptionsMultiple($arr_month); ?> 
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                        </span>
+                                       <br>
+                                     </div>
+                                  <?php
+                                
+                                //}
+                              }
+                            }
+                         
+                          }
+                          ?>	 
+                            <!-- <br> -->
+                            <span style="margin-left:100px;" id="comment_backend_<?php echo $i; ?>"></span>
+                            <br>
+                                       
+                            </div>
+                                  <?php
+                                }
+                               }
+                              }    
+                            ?>
+                            
+                            <?php 
+                            if($design_my_life_data['input_box_show'] == 1)
+                            {
+                                $box_cnt = 0;
+                                $box_total_cnt=1;
+                                
+                                for($i=0;$i<=$box_cnt;$i++) { ?>
+                                <div id="row_inp_<?php if($i == 0){ echo 'first';}else{ echo $i;}?>">
+                                <input type="hidden" name="box_cnt" id="box_cnt" value="<?php echo $box_cnt;?>">
+			                        	<input type="hidden" name="box_total_cnt" id="box_total_cnt" value="<?php echo $box_total_cnt;?>">
+                                 <span>
+                                     <input type="text" name="user_input[]" id="user_input_<?php echo $i; ?>" placeholder="Type Your inputs" class="input-text-box" style="width:600px;"/>                                   
+                                 </span>
+                                <span>
+
+                                        <?php
+                                        if($i == 0)
+                                        { ?>
+                                                <a href="javascript:void(0);" onclick="addMoreRowLoc();" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Add More" data-original-title=""><i class="fa fa-plus"></i></a>
+                                               <br>
+                                                &nbsp;&nbsp;<a href="javascript:void(0);" onclick="ShowloopLoc(0);"><i class="fa fa-eye" style="cursor: pointer;" id="eyes0" title="Click here for user action"></i></a>
+
+                                               
+                                     <?php
+                                        for($j=0;$j<count($header_data);$j++) {
+                                  
+                                         $keyworddata_implode_data = array();
+                                         $exclusion_name = $obj->getExclusionAllName();
+                                         
+                                         if($header_data[$j]['location_show']!=0)
+                                            {
+                                               $location_show_icon = $obj->getMyDayTodayIcon('location_show'); 
+                                            }
+                                            else {
+                                                $location_show_icon = '';
+                                            }
+
+                                             if($header_data[$j]['User_view']!=0)
+                                            {
+                                               $User_view_icon = $obj->getMyDayTodayIcon('User_view'); 
+                                            }
+                                            else 
+                                            {
+                                                $User_view_icon = '';
+                                            }
+
+                                             if($header_data[$j]['User_Interaction']!=0)
+                                            {
+                                               $User_Interaction_icon = $obj->getMyDayTodayIcon('User_Interaction'); 
+                                            }
+                                            else {
+                                                $User_Interaction_icon = '';
+                                            }
+
+                                            if($header_data[$j]['alert_show']!=0)
+                                            {
+                                               $alert_show_icon = $obj->getMyDayTodayIcon('alert_show'); 
+                                            }
+                                            else {
+                                                $alert_show_icon = '';
+                                            }
+
+                                            if($header_data[$j]['comment_show']!=0)
+                                            {
+                                               $comment_show_icon = $obj->getMyDayTodayIcon('comments_show'); 
+                                            }
+                                            else {
+                                                $comment_show_icon = '';
+                                            }
+
+
+                                             if($header_data[$j]['user_date_show']!=0)
+                                              {
+                                                 $user_date_icon = $obj->getMyDayTodayIcon('date_show'); 
+                                              }
+                                              else {
+                                                  $user_date_icon = '';
+                                              }
+
+                                               if($header_data[$j]['scale_show']!=0)
+                                                {
+                                                   $scale_show_icon = $obj->getMyDayTodayIcon('scale_show'); 
+                                                }
+                                                else {
+                                                    $scale_show_icon = '';
+                                                }
+
+
+                                                 if($header_data[$j]['time_show']!=0)
+                                                {
+                                                   $time_show_icon = $obj->getMyDayTodayIcon('time_show'); 
+                                                }
+                                                else {
+                                                    $time_show_icon = '';
+                                                }
+
+                                                 if($header_data[$j]['duration_show']!=0)
+                                                {
+                                                   $duration_show_icon = $obj->getMyDayTodayIcon('duration_show'); 
+                                                }
+                                                else {
+                                                    $duration_show_icon = '';
+                                                }
+
+
+
+
+                                              if($header_data[$j]['sub_cat2'] !='') 
+                                              {                          
+                                                  $fetch_show = $header_data[$j]['sub_cat2_show_fetch'];
+                                                      
+                                                       if($comment_show_icon!='') {
+                                                          ?>
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $comment_show_icon;?>"  name="comment_show_icon_0" id="comment_show_icon_lo0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['comments_heading'];?>" onclick="ShowComment_Lo(0);">
+                                                          <?php
+                                                          } 
+
+                                                        if($location_show_icon!='') { 
+                                                          ?>
+
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $location_show_icon;?>"  name="location_show_icon_0" id="location_show_icon_lo0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['location_heading'];?>" onclick="ShowLocation_Lo(0);">
+                                                          <?php
+                                                            }
+
+                                                           if($User_view_icon!='') {
+                                                            ?>
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_view_icon;?>"  name="User_view_icon_0" id="User_view_icon_lo0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['like_dislike_heading'];?>" onclick="ShowUserview_Lo(0)">
+                                                          <?php
+                                                          } 
+
+                                                          if($User_Interaction_icon!='') { 
+                                                            ?>
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_Interaction_icon;?>"  name="User_Interaction_icon_0" id="User_Interaction_icon_lo0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['set_goals_heading'];?>" onclick="ShowUserInteraction_Lo(0);">
+                                                          <?php
+                                                            } 
+
+                                                     if($alert_show_icon!='') { ?>
+                                                    &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $alert_show_icon;?>"  name="alert_show_icon_0" id="alert_show_icon_lo0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['reminder_heading'];?>" onclick="ShowAlert_Lo(0);"> <?php }?>
+
+
+                                                     
+                                                      <?php if($scale_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $scale_show_icon; ?>" name="scale_show_icon_lo0" id="scale_show_icon_lo0" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['scale_heading']; ?>" onclick="ShowScale_Lo(0);">
+                                                  <?php }?>
+ 
+
+
+
+                                                 <?php if($time_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $time_show_icon; ?>" name="time_show_icon_lo0" id="time_show_icon_lo0" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['time_heading']; ?>" onclick="Showtime_Lo(0);">
+                                                  <?php }?>
+
+
+                                                 <?php if($duration_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $duration_show_icon; ?>"  name="duration_show_icon_lo0" id="duration_show_icon_lo0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['duration_heading']; ?>" onclick="DurationShow_Lo(0);">
+                                                  <?php }?>
+
+
+                                                 <?php if($user_date_icon!='') { ?>
+                                                &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $user_date_icon; ?>"  name="user_date_show_icon_0" id="user_date_show_icon_lo0" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['user_date_heading']; ?>" onclick="ShowUserDate_Lo(0);">
+                                                <?php } 
+
+                                                    echo '</p>';
+                                                    ?>
+                                                        
+                                                      
+                                                    
+                                                       <div class="md-col-12">
+                                                      <input type="hidden" name="sub_cat_lo[]"  value="<?php echo $header_data[$j]['sub_cat2'];?>">
+
+                                                      <input type="hidden" name="prof_cat_lo[]"  value="<?php echo $header_data[$j]['prof_cat2'];?>">
+
+                                                      <input type="hidden" name="canv_show_fetch_lo[]"  value="<?php echo $header_data[$j]['sub_cat2_show_fetch'];?>">
+
+                                                      <input type="hidden" name="canv_sub_cat_link_lo[]"  value="<?php echo $header_data[$j]['sub_cat2_link'];?>">
+
+                                                      <input  type="text" name="comment_lo[]" id="comment_lo0"  placeholder="<?php echo $header_data[$j]['comments_heading'];?>" title="<?php echo $header_data[$j]['comments_heading'];?>" class="input-text-box input-quarter-width" style="display:none;">
+                    
+                                                    <select  class="input-text-box input-quarter-width" name="location_lo[]" id="location_lo0" style="display:none;" title="<?php echo $header_data[$j]['location_heading'];?>">
+                                                          <option value=""><?php echo $header_data[$j]['location_heading'];?></option>
+                                                          <?php echo $obj->getFavCategoryRamakant($header_data[$j]['location_fav_cat'],'');?>
+                                                      </select>
+
+                                                      <select  class="input-text-box input-quarter-width" name="User_view_lo[]" id="User_view_lo0" style="display:none;" title="<?php echo $header_data[$j]['like_dislike_heading'];?>">
+                                                          <option value=""><?php echo $header_data[$j]['like_dislike_heading'];?></option>
+                                                          <?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_response_fav_cat'],'');?>
+                                                      </select>
+
+                                                      <select  class="input-text-box input-quarter-width" name="User_Interaction_lo[]" id="User_Interaction_lo0" style="display:none;" title="<?php echo $header_data[$j]['set_goals_heading'];?>">
+                                                          <option value=""><?php echo $header_data[$j]['set_goals_heading'];?></option>
+                                                          <?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_what_fav_cat'],'');?>
+                                                      </select>
+
+                                                     <select class="input-text-box input-quarter-width" name="alert_lo[]" id="alert_lo0" style="display:none;" title="<?php echo $header_data[$j]['reminder_heading'];?>">
+                                                          <option value=""><?php echo $header_data[$j]['reminder_heading'];?></option>
+                                                          <?php echo $obj->getFavCategoryRamakant($header_data[$j]['alerts_fav_cat'],'');?>
+                                                      </select>
+
+
+                                            <select  class="input-text-box input-quarter-width" name="scale_lo[]" id="scale_lo0" style="display:none;" title="<?php echo $header_data[$j]['scale_heading']; ?>">
+                                                <option value=""><?php echo $header_data[$j]['scale_heading']; ?></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="10">10</option>
+                                            </select>
+
+
+                                           <select  class="input-text-box input-quarter-width" name="bes_time_lo[]" id="bes_time_lo0" style="display: none;">
+                                                 <option value=""><?php echo $design_my_life_data['time_heading']; ?></option>
+                                                 <?php echo $obj->getTimeOptionsNew('0','23',$bes_time ); ?>
+                                             </select>
+
+                                              <input type="text" name="duration_lo[]" id="duration_lo0" onKeyPress="return isNumberKey(event);" placeholder="<?php echo $design_my_life_data['duration_heading']; ?>" class="input-text-box input-quarter-width" autocomplete="false" style="display:none;">
+                                                    
+
+                                           <span class="">
+                                                <select name="userdate_lo[]" id="userdate_lo0" onchange="toggleDateSelectionType_multiple_lo('userdate_lo',0)" style="width:200px;display:none;" class="input-text-box input-quarter-width">
+                                                    <option value="">Select Date Type</option>
+                                                    <option value="days_of_month" <?php if($listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>
+                                                    <option value="single_date" <?php if($listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>
+                                                    <option value="date_range" <?php if($listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>
+                                                    <option value="month_wise" <?php if($listing_date_type == 'month_wise') { ?> selected="selected" <?php } ?>>Month Wise</option>
+                                                    <option value="days_of_week" <?php if($listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>
+                                                </select>
+                                             </span>
+                                        <span>
+                                          <p>&nbsp;</p>
+                                            <table>
+                                            <tr id="tr_days_of_month_lo0" style="display:<?php echo $tr_days_of_month;?>">
+                                                    <td align="right" valign="top"><strong>Select days of month</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="days_of_month_lo0" name="days_of_month_lo[0][]" multiple="multiple" style="width:500px;" class="input-text-box input-quarter-width">
+                                                        <?php
+                                                        for($i=1;$i<=31;$i++)
+                                                        { ?>
+                                                            <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_days_of_month)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
+                                                        <?php
+                                                        } ?>  
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr id="tr_single_date_lo0" style="display:<?php echo $tr_single_date;?>">
+                                                    <td align="right" valign="top"><strong>Select Date</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <input name="single_date_lo[]" id="single_date_lo0" type="text" value="<?php echo $single_date;?>" class="input-text-box" onmouseover="callDatecalender(0)">
+                                                        <!-- <script>$('#single_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script> -->
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_date_range_lo0" style="display:<?php echo $tr_date_range;?>">
+                                                    <td align="right" valign="top"><strong>Select Date Range</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <input name="start_date_lo[]" id="start_date_lo0" type="text" value="<?php echo $start_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender(0)" /> - <input name="end_date_lo[]" id="end_date_lo0" type="text" value="<?php echo $end_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender(0)" />
+                                                        <!-- <script>$('#start_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#end_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script> -->
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_days_of_week_lo0" style="display:<?php echo $tr_days_of_week;?>">
+                                                    <td align="right" valign="top"><strong>Select days of week</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="days_of_week_lo0" name="days_of_week_lo[0][]" multiple="multiple" class="input-text-box">
+                                                        <?php echo $obj->getDayOfWeekOptionsMultiple($arr_days_of_week); ?> 
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_month_date_lo0" style="display:<?php echo $tr_month_date;?>">
+                                                    <td align="right" valign="top"><strong>Select Month</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="months_lo0" name="months_lo[0][]" multiple="multiple" class="input-text-box">
+                                                        <?php echo $obj->getMonthsOptionsMultiple($arr_month); ?> 
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                        </span>
+                                         <br>
+                                       </div>
+                                      <?php
+                                         }
+                                      }
+                                  
+                                  }
+                                        else
+                                        { ?>
+                                                <a href="javascript:void(0);" onclick="removeRowLoc(<?php echo $i;?>);" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Remove it" data-original-title=""><i class="fa fa-minus"></i></a>
+
+                                                 <br>
+                                                 &nbsp;&nbsp;<a href="javascript:void(0);" onclick="ShowloopLoc(<?php echo $i;?>);"><i class="fa fa-eye" style="cursor: pointer;" id="eyes0" title="Click here for user action"></i></a>
+                                              
+                                               <?php
+                                        for($j=0;$j<count($header_data);$j++) {
+                                  
+                                         $keyworddata_implode_data = array();
+                                         $exclusion_name = $obj->getExclusionAllName();
+                                         
+                                         if($header_data[$j]['location_show']!=0)
+                                            {
+                                               $location_show_icon = $obj->getMyDayTodayIcon('location_show'); 
+                                            }
+                                            else {
+                                                $location_show_icon = '';
+                                            }
+
+                                             if($header_data[$j]['User_view']!=0)
+                                            {
+                                               $User_view_icon = $obj->getMyDayTodayIcon('User_view'); 
+                                            }
+                                            else {
+                                                $User_view_icon = '';
+                                            }
+
+                                             if($header_data[$j]['User_Interaction']!=0)
+                                            {
+                                               $User_Interaction_icon = $obj->getMyDayTodayIcon('User_Interaction'); 
+                                            }
+                                            else {
+                                                $User_Interaction_icon = '';
+                                            }
+
+                                            if($header_data[$j]['alert_show']!=0)
+                                            {
+                                               $alert_show_icon = $obj->getMyDayTodayIcon('alert_show'); 
+                                            }
+                                            else {
+                                                $alert_show_icon = '';
+                                            }
+
+                                            if($header_data[$j]['comment_show']!=0)
+                                            {
+                                               $comment_show_icon = $obj->getMyDayTodayIcon('comments_show'); 
+                                            }
+                                            else {
+                                                $comment_show_icon = '';
+                                            }
+
+                                              if($header_data[$j]['user_date_show']!=0)
+                                              {
+                                                 $user_date_icon = $obj->getMyDayTodayIcon('date_show'); 
+                                              }
+                                              else {
+                                                  $user_date_icon = '';
+                                              }
+
+                                               if($header_data[$j]['scale_show']!=0)
+                                                {
+                                                   $scale_show_icon = $obj->getMyDayTodayIcon('scale_show'); 
+                                                }
+                                                else {
+                                                    $scale_show_icon = '';
+                                                }
+
+
+                                               if($header_data[$j]['time_show']!=0)
+                                                {
+                                                   $time_show_icon = $obj->getMyDayTodayIcon('time_show'); 
+                                                }
+                                                else {
+                                                    $time_show_icon = '';
+                                                }
+
+                                                 if($header_data[$j]['duration_show']!=0)
+                                                {
+                                                   $duration_show_icon = $obj->getMyDayTodayIcon('duration_show'); 
+                                                }
+                                                else {
+                                                    $duration_show_icon = '';
+                                                }
+
+
+                                            
+                                              
+                                              if($header_data[$j]['sub_cat2'] !='') 
+                                              {                          
+                                                  $fetch_show = $header_data[$j]['sub_cat2_show_fetch'];
+                                                      
+                                                       if($comment_show_icon!='') {
+                                                          ?>
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $comment_show_icon;?>"  name="comment_show_icon_<?php echo $i; ?>" id="comment_show_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['comments_heading'];?>" onclick="ShowComment_Lo(<?php echo $i;?>);">
+                                                          <?php
+                                                          } 
+
+                                                        if($location_show_icon!='') { 
+                                                          ?>
+
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $location_show_icon;?>"  name="location_show_icon_<?php echo $i; ?>" id="location_show_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['location_heading'];?>" onclick="ShowLocation_Lo(<?php echo $i;?>);">
+                                                          <?php
+                                                            }
+
+                                                           if($User_view_icon!='') {
+                                                            ?>
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_view_icon;?>"  name="User_view_icon_<?php echo $i; ?>" id="User_view_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['like_dislike_heading'];?>" onclick="ShowUserview_Lo(<?php echo $i;?>)">
+                                                          <?php
+                                                          } 
+
+                                                          if($User_Interaction_icon!='') { 
+                                                            ?>
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_Interaction_icon;?>"  name="User_Interaction_icon_<?php echo $i; ?>" id="User_Interaction_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['set_goals_heading'];?>" onclick="ShowUserInteraction_Lo(<?php echo $i;?>);">
+                                                          <?php } ?>
+
+
+                                                          <?php if($alert_show_icon!='') {  ?>
+                                                          &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $alert_show_icon;?>"  name="alert_show_icon_<?php echo $i; ?>" id="alert_show_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['reminder_heading'];?>" onclick="ShowAlert_Lo(<?php echo $i;?>);">
+                                                           <?php  }?>
+
+                                                      <?php if($scale_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $scale_show_icon; ?>" name="scale_show_icon_lo<?php echo $i; ?>" id="scale_show_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['scale_heading']; ?>" onclick="ShowScale_Lo(<?php echo $i; ?>);">
+                                                  <?php }?>
+
+
+                                                   <?php if($time_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $time_show_icon; ?>" name="time_show_icon_lo<?php echo $i; ?>" id="time_show_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['time_heading']; ?>" onclick="Showtime_Lo(<?php echo $i; ?>);">
+                                                  <?php }?>
+
+
+                                                 <?php if($duration_show_icon!='') { ?>
+                                                  &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $duration_show_icon; ?>"  name="duration_show_icon_lo<?php echo $i; ?>" id="duration_show_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['duration_heading']; ?>" onclick="DurationShow_Lo(<?php echo $i; ?>);">
+                                                  <?php }?>
+
+
+
+                                                <?php if($user_date_icon!='') { ?>
+                                                &nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $user_date_icon; ?>"  name="user_date_show_icon_lo<?php echo $i; ?>" id="user_date_show_icon_lo<?php echo $i; ?>" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['user_date_heading']; ?>" onclick="ShowUserDate_Lo(<?php echo $i; ?>);">
+                                                <?php }
+
+                                                    echo '</p>';
+                                                 ?>
+                                                      
+                                                        
+                                                       <div class="md-col-12">
+                                                      <input type="hidden" name="sub_cat_lo[]"  value="<?php echo $header_data[$j]['sub_cat2'];?>">
+
+                                                      <input type="hidden" name="prof_cat_lo[]"  value="<?php echo $header_data[$j]['prof_cat2'];?>">
+
+                                                      <input type="hidden" name="canv_show_fetch_lo[]"  value="<?php echo $header_data[$j]['sub_cat2_show_fetch'];?>">
+
+                                                      <input type="hidden" name="canv_sub_cat_link_lo[]"  value="<?php echo $header_data[$j]['sub_cat2_link'];?>">
+
+                                                      <input  type="text" name="comment_lo[]" id="comment_lo0"  placeholder="<?php echo $header_data[$j]['comments_heading'];?>" title="<?php echo $header_data[$j]['comments_heading'];?>" class="input-text-box input-quarter-width" style="display:none;">
+                    
+                                                    <select  class="input-text-box input-quarter-width" name="location_lo[]" id="location_lo<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['location_heading'];?>">
+                                                          <option value=""><?php echo $header_data[$j]['location_heading'];?></option>
+                                                          <?php echo $obj->getFavCategoryRamakant($header_data[$j]['location_fav_cat'],'');?>
+                                                      </select>
+
+                                                      <select  class="input-text-box input-quarter-width" name="User_view_lo[]" id="User_view_lo<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['like_dislike_heading'];?>">
+                                                          <option value=""><?php echo $header_data[$j]['like_dislike_heading'];?></option>
+                                                          <?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_response_fav_cat'],'');?>
+                                                      </select>
+
+                                                      <select  class="input-text-box input-quarter-width" name="User_Interaction_lo[]" id="User_Interaction_lo<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['set_goals_heading'];?>">
+                                                          <option value=""><?php echo $header_data[$j]['set_goals_heading'];?></option>
+                                                          <?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_what_fav_cat'],'');?>
+                                                      </select>
+
+                                                     <select class="input-text-box input-quarter-width" name="alert_lo[]" id="alert_lo<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['reminder_heading'];?>">
+                                                          <option value=""><?php echo $header_data[$j]['reminder_heading'];?></option>
+                                                          <?php echo $obj->getFavCategoryRamakant($header_data[$j]['alerts_fav_cat'],'');?>
+                                                      </select>
+                                                     
+
+                                                      <select  class="input-text-box input-quarter-width" name="scale_lo[]" id="scale_lo<?php echo $i; ?>" style="display:none;" title="<?php echo $header_data[$j]['scale_heading']; ?>">
+                                                      <option value=""><?php echo $header_data[$j]['scale_heading']; ?></option>
+                                                      <option value="1">1</option>
+                                                      <option value="2">2</option>
+                                                      <option value="3">3</option>
+                                                      <option value="4">4</option>
+                                                      <option value="5">5</option>
+                                                      <option value="6">6</option>
+                                                      <option value="7">7</option>
+                                                      <option value="8">8</option>
+                                                      <option value="9">9</option>
+                                                      <option value="10">10</option>
+                                                  </select>
+
+
+
+
+                                           <select  class="input-text-box input-quarter-width" name="bes_time_lo[]" id="bes_time_lo<?php echo $i; ?>" style="display: none;">
+                                                <option value=""><?php echo $design_my_life_data['time_heading']; ?></option>
+                                                 <?php echo $obj->getTimeOptionsNew('0','23',$bes_time ); ?>
+                                           </select>
+
+                                              <input type="text" name="duration_lo[]" id="duration_lo0" onKeyPress="return isNumberKey(event);" placeholder="<?php echo $design_my_life_data['duration_heading']; ?>" class="input-text-box input-quarter-width" autocomplete="false" style="display:none;">
+
+
+                                                    
+                                                     <span class="">
+                                                <select name="userdate_lo[]" id="userdate_lo<?php echo $i; ?>" onchange="toggleDateSelectionType_multiple_lo('userdate_lo',0)" style="width:200px;display:none;" class="input-text-box input-quarter-width">
+                                                    <option value="">Select Date Type</option>
+                                                    <option value="days_of_month" <?php if($listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>
+                                                    <option value="single_date" <?php if($listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>
+                                                    <option value="date_range" <?php if($listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>
+                                                    <option value="month_wise" <?php if($listing_date_type == 'month_wise') { ?> selected="selected" <?php } ?>>Month Wise</option>
+                                                    <option value="days_of_week" <?php if($listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>
+                                                </select>
+                                             </span>
+                                        <span>
+                                          <p>&nbsp;</p>
+                                            <table>
+                                            <tr id="tr_days_of_month_lo0" style="display:<?php echo $tr_days_of_month;?>">
+                                                    <td align="right" valign="top"><strong>Select days of month</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="days_of_month" name="days_of_month_lo[0][]" multiple="multiple" style="width:500px;" class="input-text-box input-quarter-width">
+                                                        <?php
+                                                        for($i=1;$i<=31;$i++)
+                                                        { ?>
+                                                            <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_days_of_month)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
+                                                        <?php
+                                                        } ?>  
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+                                                
+                                                <tr id="tr_single_date_lo0" style="display:<?php echo $tr_single_date;?>">
+                                                    <td align="right" valign="top"><strong>Select Date</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <input name="single_date_lo[]" id="single_date_lo" type="text" value="<?php echo $single_date;?>" class="input-text-box">
+                                                        <script>$('#single_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script>
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_date_range_lo0" style="display:<?php echo $tr_date_range;?>">
+                                                    <td align="right" valign="top"><strong>Select Date Range</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <input name="start_date_lo[]" id="start_date_lo" type="text" value="<?php echo $start_date;?>" style="width:200px;" class="input-text-box" /> - <input name="end_date_lo[]" id="end_date_lo" type="text" value="<?php echo $end_date;?>" style="width:200px;" class="input-text-box" />
+                                                        <script>$('#start_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#end_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script>
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_days_of_week_lo0" style="display:<?php echo $tr_days_of_week;?>">
+                                                    <td align="right" valign="top"><strong>Select days of week</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="days_of_week" name="days_of_week_lo[0][]" multiple="multiple" class="input-text-box">
+                                                        <?php echo $obj->getDayOfWeekOptionsMultiple($arr_days_of_week); ?> 
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+
+                                                <tr id="tr_month_date_lo0" style="display:<?php echo $tr_month_date;?>">
+                                                    <td align="right" valign="top"><strong>Select Month</strong></td>
+                                                    <td align="center" valign="top"><strong>:</strong></td>
+                                                    <td align="left">
+                                                        <select id="months" name="months_lo[0][]" multiple="multiple" class="input-text-box">
+                                                        <?php echo $obj->getMonthsOptionsMultiple($arr_month); ?> 
+                                                        </select>&nbsp;*<br>
+                                                        You can choose more than one option by using the ctrl key.
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                        </span>
+                                       <br>
+
+                                           </div>
+                                      <?php
+                                         }
+                                      }
+                                  }
+                                  ?>	
+                                  </span>
+
+                                </div>
+                                  <?php
+                                }
+                            }
+                            
+                            ?>
+                            
+                            
+                            <!-- Order 1 start  -->
+                            
+                            <?php 
+                            
+                            for($l=1;$l<=11;$l++)
+                            {
+                            if($design_my_life_data['image1_order_show'] == $l && $design_my_life_data['image_1_show'] == 1)
+                            {
+                             ?>
+                            <span class="">
+                                <?php if($design_my_life_data['image_type_1'] == 'Image') { ?>
+                                <img src="uploads/<?php echo $design_my_life_data['image_1']; ?>" style="width:200px; height: 200px;">
+                                <?php } ?>
+                                <?php if($design_my_life_data['image_type_1'] == 'Video') { ?>
+                                
+                                <iframe width="200" height="200" src="https://www.youtube.com/embed/<?php echo $design_my_life_data['video_link_1']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="false"></iframe>
+                                
+                               <?php } ?>
+                                <br>
+                                <?php echo $design_my_life_data['image_credit_1']; ?>
+                                <?php echo $design_my_life_data['image_credit_url_1']; ?>
+                            </span>
+                            <br><br>
+                             <?php   
+                            }
+                            if($design_my_life_data['image2_order_show'] == $l && $design_my_life_data['image_2_show'] == 1)
+                            {
+                               ?>
+                            <span class="">
+                               <?php if($design_my_life_data['image_type_2'] == 'Image') { ?>
+                                <img src="uploads/<?php echo $design_my_life_data['image_2']; ?>" style="width:200px; height: 200px;">
+                                <?php } ?>
+                                <?php if($design_my_life_data['image_type_2'] == 'Video') { ?>
+                                
+                                <iframe width="200" height="200" src="https://www.youtube.com/embed/<?php echo $design_my_life_data['video_link_2']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="false"></iframe>
+                                
+                               <?php } ?>
+                                <br>
+                                <?php echo $design_my_life_data['image_credit_2']; ?>
+                               -
+                                <?php echo $design_my_life_data['image_credit_url_2']; ?>
+                            </span>
+                           <br><br>
+                             <?php   
+                            }
+
+                            // if($design_my_life_data['user_date_order_show'] == $l && $design_my_life_data['user_date_show'] == 1)
+                            // {
+                                ?>
+                                 <!-- <span class="">
+                                    <select name="listing_date_type" id="listing_date_type" onchange="toggleDateSelectionType('listing_date_type')" style="width:200px;">
+                                        <option value="">Select Date Type</option>
+                                        <option value="days_of_month" <?php if($listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>
+                                        <option value="single_date" <?php if($listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>
+                                        <option value="date_range" <?php if($listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>
+                                        <option value="month_wise" <?php if($listing_date_type == 'month_wise') { ?> selected="selected" <?php } ?>>Month Wise</option>
+                                        <option value="days_of_week" <?php if($listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>
+
+                                    </select>
+                                 </span>
+                            <span>
+                                <table>
+                                <tr id="tr_days_of_month" style="display:<?php echo $tr_days_of_month;?>">
+                                        <td align="right" valign="top"><strong>Select days of month</strong></td>
+                                        <td align="center" valign="top"><strong>:</strong></td>
+                                        <td align="left">
+                                            <select id="days_of_month" name="days_of_month[]" multiple="multiple" style="width:200px;">
+                                            <?php
+                                            for($i=1;$i<=31;$i++)
+                                            { ?>
+                                                <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_days_of_month)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
+                                            <?php
+                                            } ?>	
+                                            </select>&nbsp;*<br>
+                                            You can choose more than one option by using the ctrl key.
+                                        </td>
+                                    </tr>
+                                    
+                                    <tr id="tr_single_date" style="display:<?php echo $tr_single_date;?>">
+                                        <td align="right" valign="top"><strong>Select Date</strong></td>
+                                        <td align="center" valign="top"><strong>:</strong></td>
+                                        <td align="left">
+                                            <input name="single_date" id="single_date" type="text" value="<?php echo $single_date;?>" style="width:200px;"  />
+                                            <script>$('#single_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script>
+                                        </td>
+                                    </tr>
+
+                                    <tr id="tr_date_range" style="display:<?php echo $tr_date_range;?>">
+                                        <td align="right" valign="top"><strong>Select Date Range</strong></td>
+                                        <td align="center" valign="top"><strong>:</strong></td>
+                                        <td align="left">
+                                            <input name="start_date" id="start_date" type="text" value="<?php echo $start_date;?>" style="width:200px;"  /> - <input name="end_date" id="end_date" type="text" value="<?php echo $end_date;?>" style="width:200px;"  />
+                                            <script>$('#start_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#end_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script>
+                                        </td>
+                                    </tr>
+
+                                    <tr id="tr_days_of_week" style="display:<?php echo $tr_days_of_week;?>">
+                                        <td align="right" valign="top"><strong>Select days of week</strong></td>
+                                        <td align="center" valign="top"><strong>:</strong></td>
+                                        <td align="left">
+                                            <select id="days_of_week" name="days_of_week[]" multiple="multiple" style="width:200px;">
+                                            <?php echo $obj->getDayOfWeekOptionsMultiple($arr_days_of_week); ?>	
+                                            </select>&nbsp;*<br>
+                                            You can choose more than one option by using the ctrl key.
+                                        </td>
+                                    </tr>
+
+                                    <tr id="tr_month_date" style="display:<?php echo $tr_month_date;?>">
+                                        <td align="right" valign="top"><strong>Select Month</strong></td>
+                                        <td align="center" valign="top"><strong>:</strong></td>
+                                        <td align="left">
+                                            <select id="months" name="months[]" multiple="multiple" style="width:200px;">
+                                            <?php echo $obj->getMonthsOptionsMultiple($arr_month); ?>	
+                                            </select>&nbsp;*<br>
+                                            You can choose more than one option by using the ctrl key.
+                                        </td>
+                                    </tr>
+                                    </table>
+                            </span>
+                           <br>
+                            <br> -->
+
+                            <?php
+                            //}
+                            // if($design_my_life_data['time_order_show'] == $l && $design_my_life_data['time_show'] == 1)
+                            // {
+                              ?> 
+                               <!--  <select  class="input-text-box input-quarter-width" name="bes_time" id="bes_time" >
+                                    <option value=""><?php echo $design_my_life_data['time_heading']; ?></option>
+                                    <?php echo $obj->getTimeOptionsNew('0','23',$bes_time ); ?>
+                                </select>
+                               <br>
+                            <br> -->
+                              <?php
+                               
+                            // }
+                            // if($design_my_life_data['duration_order_show'] == $l && $design_my_life_data['duration_show'] == 1)
+                            // {
+                              ?>
+                               <!--  <input type="text" name="duration" id="duration" onKeyPress="return isNumberKey(event);" placeholder="<?php echo $design_my_life_data['duration_heading']; ?>" class="input-text-box input-quarter-width" autocomplete="false">
+                            <br>
+                            <br> -->
+                              <?php  
+                            // }
+                            // if($design_my_life_data['location_order_show'] == $l && $design_my_life_data['location_show'] == 1)
+                            // {
+                             ?>
+                               <!--  <select  class="input-text-box input-quarter-width" name="location" id="location">
+                                    <option value=""><?php echo $design_my_life_data['location_heading']; ?></option>
+                                    <?php echo $obj->getFavCategoryRamakant($design_my_life_data['location_fav_cat'],''); ?>
+                                </select> 
+                               <br>
+                            <br> -->
+                             <?php
+                            // }
+                            // if($design_my_life_data['like_dislike_order_show'] == $l && $design_my_life_data['User_view'] == 1)
+                            // {
+                             ?>
+                           
+                              <!--   <select  class="input-text-box input-quarter-width" name="User_view" id="User_view" >
+                                    <option value=""><?php echo $design_my_life_data['like_dislike_heading']; ?></option>
+                                    <?php echo $obj->getFavCategoryRamakant($design_my_life_data['user_response_fav_cat'],''); ?>
+                                </select>
+                                <br><br> -->
+                             <?php
+                            //}
+                            // if($design_my_life_data['set_goals_order_show'] == $l && $design_my_life_data['User_Interaction'] == 1)
+                            // {
+                                ?>
+                                
+                                  <!--   <select  class="input-text-box input-quarter-width" name="User_Interaction" id="User_Interaction" >
+                                        <option value=""><?php echo $design_my_life_data['set_goals_heading']; ?></option>
+                                        <?php echo $obj->getFavCategoryRamakant($design_my_life_data['user_what_fav_cat'],''); ?>
+                                    </select>
+                                    <br><br> -->
+                                <?php
+                            // }
+
+                            // if($design_my_life_data['scale_order_show'] == $l && $design_my_life_data['scale_show'] == 1)
+                            // {
+                                ?>
+
+                                   <!--  <select  class="input-text-box input-quarter-width" name="scale" id="scale" >
+                                        <option value=""><?php echo $design_my_life_data['scale_heading']; ?></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    <br><br> -->
+                                <?php
+                            //}
+
+                            // if($design_my_life_data['reminder_order_show'] == $l && $design_my_life_data['alert_show'] == 1)
+                            // {
+                               ?>
+                                   <!--  <select class="input-text-box input-half-width" name="alert" id="alert">
+                                        <option value=""><?php echo $design_my_life_data['reminder_heading']; ?></option>
+                                        <?php echo $obj->getFavCategoryRamakant($design_my_life_data['alerts_fav_cat'],''); ?>
+                                    </select>
+                                    <br><br> -->
+                               <?php
+                            // }
+                            // if($design_my_life_data['comment_order_show'] == $l && $design_my_life_data['comment_show'] == 1)
+                            // {
+                               ?>
+                                    <!-- <b><?php echo $design_my_life_data['comments_heading']; ?></b> 
+                                    <textarea name="comment" id="comment" class="input-text-box input-half-width" autocomplete="false" ></textarea>
+                                    <br><br> -->
+                               <?php
+                            // }
+                            }
+                            ?>
+                            <!-- Order 1 End  -->
+                            <?php if($design_my_life_data['user_upload_show'] == 1)
+                            { ?>
+                          <!--   <a  href="user_uploads.php?ref_code=<?php //echo $design_my_life_data['ref_code']; ?>&box_title=<?php// echo $design_my_life_data['box_title']; ?>&sub_cat_id=<?php //echo $design_my_life_data['sub_cat_id']; ?>" class="active" target="_blank" title="We would like to hear your innovative suggestions."><span style="background: #007fff;color: #fff; border: 2px solid #4e4e4e; border-radius: 15px; height: 50px; padding: 5px;">Share your inputs</span></a>                         
+                              <br><br> -->
+                            <?php } ?>
+                                <div style="text-align:center;">
+                                <button type="submit" name="btn_submit" class="active" style="background-color:orange;">Save</button>
+                                </div>
+                               </div>
+                            </form>
+                        </div>
+                        
+                        <?php } elseif($call=='external')
+                            {
+                                ?>
+                                 <div class="col-md-12" style="">
+                            <form name="design_life_data" id="design_life_data" method="post">
+                            <div class="col-md-12">
+                           <?php if($narration!='' && $design_my_life_data['narration_show'] == 1) {  ?>
+                            <span class=""><?php echo $narration; ?></span>
+                           <?php } ?>
+                            <?php if($design_my_life_data['show_to_user'] == '1') { ?> 
+                             <span>
+                                <input type="text" <?php echo $required; ?> name="title_id" id="title_id" placeholder="Make your choice" list="capitals" class="input-text-box dlist" style="width:600px;" />
+                               <datalist id="capitals" class="dlist" style="">
+                                    <?php echo $final_dropdown; ?>  
+                                </datalist>
+                             </span>
+                            <?php } else { ?>
+                                <span class=""><?php echo $design_my_life_data['box_title']; ?></span>
+                            <?php } ?>
+                            <br>
+                            <br>
+                            <span class=""><?php echo $design_my_life_data['fav_cat_type_id_header']; ?>&nbsp;&nbsp; 
+<!--                                <select name="sub_cat" class="form-control">
+                                    <?php //echo $sub_cat_option; 
+                                        
+                                        $icon_image = $obj->getDesignIconByFavCat($design_my_life_data['sub_cat_id']);
+                                    
+                                    ?>
+                                </select> -->
+                                <br><br>
+                                <img src="uploads/<?php echo $icon_image; ?>" title="<?php echo $obj->getFavCategoryNameVivek($design_my_life_data['sub_cat_id']); ?>" style="width:60px; height:60px; cursor: pointer;" >
+                            </span>
+                            <br>
+                            <br>
+                            
+                            <?php
+                            
+                            if($design_my_life_data['quick_response_show'] == 1)
+                            {
+                            
+                                $cat_cnt = 0;
+                                $cat_total_cnt=1;
+                                
+                                $input_box_count = $design_my_life_data['input_box_count'];
+                                $symtum_cat = $design_my_life_data['sub_cat2'];
+                                $sub_cat2_show_fetch=$design_my_life_data['sub_cat2_show_fetch'];
+                                $sub_cat2_link=$design_my_life_data['sub_cat2_link'];
+                                
+                                $data_dropdown = $obj->GetDesignMyLifeDrop($symtum_cat,$sub_cat2_show_fetch,$sub_cat2_link);
+                            
+                                //echo $data_dropdown;
+                                
+                                ?>
+                            <span><strong><?php echo $design_my_life_data['quick_response_heading']; ?></strong></span>  
+                            <br>
+                            <span>
+                                <input type="hidden" name="fetch_link" id="fetch_link" value="<?php echo $design_my_life_data['sub_cat3_link'];  ?>"/>
+                                <input type="hidden" name="sub_cat3" id="sub_cat3" value="<?php echo $design_my_life_data['sub_cat3'];  ?>"/>
+                                
+                                <input type="hidden" name="fetch_link_2" id="fetch_link_2" value="<?php echo $design_my_life_data['sub_cat4_link'];  ?>"/>
+                                <input type="hidden" name="sub_cat4" id="sub_cat4" value="<?php echo $design_my_life_data['sub_cat4'];  ?>"/>
+                                <input type="hidden" name="ref_code" id="ref_code" value="<?php echo $design_my_life_data['ref_code']; ?>"/>
+                                <input type="hidden" name="icon_code" id="icon_code" value="<?php echo $design_my_life_data['quick_tip_icon'];  ?>"/>
+                            </span> 
+                            <?php 
+                             if($design_my_life_data['quick_response_show'] == 1)
+                            {
+                                for($i=0;$i<=$cat_cnt;$i++) { ?>
+                            <div id="row_loc_<?php if($i == 0){ echo 'first';}else{ echo $i;}?>">
+                           
+
+                                <input type="hidden" name="cat_cnt" id="cat_cnt" value="<?php echo $cat_cnt;?>">
+			                        	<input type="hidden" name="cat_total_cnt" id="cat_total_cnt" value="<?php echo $cat_total_cnt;?>">
+                                <span>
+                                   <input type="text" <?php echo $required; ?> name="fav_cat_2[]" id="fav_cat_2_<?php echo $i; ?>" placeholder="Select Your inputs" list="capitals_<?php echo $i; ?>" class="input-text-box dlist" style="width:600px;" onchange="Display_Solution(<?php echo $i; ?>)"/>
+                                   <datalist id="capitals_<?php echo $i; ?>" class="dlist" style="">
+                                        <?php echo $data_dropdown; ?>  
+                                    </datalist>
+                                 </span>
+                                    <span>
+                                        <?php
+                                        if($i == 0)
+                                        { ?>
+                                                <a href="javascript:void(0);" onclick="addMoreRowLocation();" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Add More" data-original-title=""><i class="fa fa-plus"></i></a>
+                                        <?php  	
+                                        }
+                                        else
+                                        { ?>
+                                                <a href="javascript:void(0);" onclick="removeRowLocation(<?php echo $i;?>);" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Remove it" data-original-title=""><i class="fa fa-minus"></i></a>
+                                        <?php	
+                                        }
+                                        ?>	
+                                        </span>
+                                    <br><br>
+                                    <span style="margin-left:100px;" id="comment_backend_<?php echo $i; ?>"></span>
+                                    <br>
+                                    
+                                        
+                                    
+                            </div>
+                                  <?php
+
+                                }
+                            }
+                            
+                            
+                            }    
+                            ?>
+                            
+                            <?php 
+                            if($design_my_life_data['input_box_show'] == 1)
+                            {
+
+
+                                $box_cnt = 0;
+                                $box_total_cnt=1;
+                                
+                                for($i=0;$i<=$box_cnt;$i++) { ?>
+                                <div id="row_inp_<?php if($i == 0){ echo 'first';}else{ echo $i;}?>">
+
+                                  <input type="hidden" name="box_cnt" id="box_cnt" value="<?php echo $box_cnt;?>">
+				                          <input type="hidden" name="box_total_cnt" id="box_total_cnt" value="<?php echo $box_total_cnt;?>">
+
+                                <span>
+                                   <input type="text" name="user_input[]" id="user_input_<?php echo $i; ?>" placeholder="Type Your inputs" class="input-text-box" style="width:600px;"/>                            
+                                </span>
+                                <span>
+                                        <?php
+                                        if($i == 0)
+                                        { ?>
+                                                <a href="javascript:void(0);" onclick="addMoreRowLoc();" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Add More" data-original-title=""><i class="fa fa-plus"></i></a>
+
+
+                                        <?php  	
+                                        }
+                                        else
+                                        { ?>
+                                                <a href="javascript:void(0);" onclick="removeRowLoc(<?php echo $i;?>);" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Remove it" data-original-title=""><i class="fa fa-minus"></i></a>
+                                        <?php	
+                                        }
+                                        ?>	
+                                        </span>
+                                <br><br>
+                                </div>
+                                  <?php
+                                }
+                            }
+                            
+                            ?>
+                            
+                            
+                            <!-- Order 1 start  -->
+                            
+                            <?php 
+                            
+                            for($l=1;$l<=11;$l++)
+                            {
+                            if($design_my_life_data['image1_order_show'] == $l && $design_my_life_data['image_1_show'] == 1)
+                            {
+                             ?>
+                            <span class="">
+                                <?php if($design_my_life_data['image_type_1'] == 'Image') { ?>
+                                <img src="uploads/<?php echo $design_my_life_data['image_1']; ?>" style="width:200px; height: 200px;">
+                                <?php } ?>
+                                <?php if($design_my_life_data['image_type_1'] == 'Video') { ?>
+                                
+                                <iframe width="200" height="200" src="https://www.youtube.com/embed/<?php echo $design_my_life_data['video_link_1']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="false"></iframe>
+                                
+                               <?php } ?>
+                                <br>
+                                <?php echo $design_my_life_data['image_credit_1']; ?>
+                                -
+                                <?php echo $design_my_life_data['image_credit_url_1']; ?>
+                            </span>
+                            <br><br>
+                             <?php   
+                            }
+                            if($design_my_life_data['image2_order_show'] == $l && $design_my_life_data['image_2_show'] == 1)
+                            {
+                               ?>
+                            <span class="">
+                               <?php if($design_my_life_data['image_type_2'] == 'Image') { ?>
+                                <img src="uploads/<?php echo $design_my_life_data['image_2']; ?>" style="width:200px; height: 200px;">
+                                <?php } ?>
+                                <?php if($design_my_life_data['image_type_2'] == 'Video') { ?>
+                                
+                                <iframe width="200" height="200" src="https://www.youtube.com/embed/<?php echo $design_my_life_data['video_link_2']; ?>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="false"></iframe>
+                                
+                               <?php } ?>
+                                <br>
+                                <?php echo $design_my_life_data['image_credit_2']; ?>
+                               -
+                                <?php echo $design_my_life_data['image_credit_url_2']; ?>
+                            </span>
+                           <br><br>
+                             <?php   
+                            }
+                            // if($design_my_life_data['user_date_order_show'] == $l && $design_my_life_data['user_date_show'] == 1)
+                            // {
+
+                                ?>
+                                <!--  <span class="">
+                                  
+                                    <select name="listing_date_type" id="listing_date_type" onchange="toggleDateSelectionType('listing_date_type')" style="width:200px;">
+                                        <option value="">Select Date Type</option>
+                                        <option value="days_of_month" <?php if($listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>
+                                        <option value="single_date" <?php if($listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>
+                                        <option value="date_range" <?php if($listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>
+                                        <option value="month_wise" <?php if($listing_date_type == 'month_wise') { ?> selected="selected" <?php } ?>>Month Wise</option>
+                                        <option value="days_of_week" <?php if($listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>
+
+                                    </select>
+                                 </span>
+                            <span>
+                                <table>
+                                    
+                                <tr id="tr_days_of_month" style="display:<?php echo $tr_days_of_month;?>">
+                                    
+                                        <td align="right" valign="top"><strong>Select days of month</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td align="left">
+
+                                            <select id="days_of_month" name="days_of_month[]" multiple="multiple" style="width:200px;">
+
+                                            <?php
+
+                                            for($i=1;$i<=31;$i++)
+
+                                            { ?>
+
+                                                <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_days_of_month)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
+
+                                            <?php
+
+                                            } ?>	
+
+                                            </select>&nbsp;*<br>
+
+                                            You can choose more than one option by using the ctrl key.
+
+                                        </td>
+
+                                    </tr>
+                                    
+                                    <tr id="tr_single_date" style="display:<?php echo $tr_single_date;?>">
+                                         
+                                        <td align="right" valign="top"><strong>Select Date</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td align="left">
+
+                                            <input name="single_date" id="single_date" type="text" value="<?php echo $single_date;?>" style="width:200px;"  />
+
+                                            <script>$('#single_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr id="tr_date_range" style="display:<?php echo $tr_date_range;?>">
+                                        
+                                        <td align="right" valign="top"><strong>Select Date Range</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td align="left">
+
+                                            <input name="start_date" id="start_date" type="text" value="<?php echo $start_date;?>" style="width:200px;"  /> - <input name="end_date" id="end_date" type="text" value="<?php echo $end_date;?>" style="width:200px;"  />
+
+                                            <script>$('#start_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#end_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr id="tr_days_of_week" style="display:<?php echo $tr_days_of_week;?>">
+                                         
+                                        <td align="right" valign="top"><strong>Select days of week</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td align="left">
+
+                                            <select id="days_of_week" name="days_of_week[]" multiple="multiple" style="width:200px;">
+
+                                            <?php echo $obj->getDayOfWeekOptionsMultiple($arr_days_of_week); ?>	
+
+                                            </select>&nbsp;*<br>
+
+                                            You can choose more than one option by using the ctrl key.
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr id="tr_month_date" style="display:<?php echo $tr_month_date;?>">
+                                         
+                                        <td align="right" valign="top"><strong>Select Month</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td align="left">
+
+                                            <select id="months" name="months[]" multiple="multiple" style="width:200px;">
+
+                                            <?php echo $obj->getMonthsOptionsMultiple($arr_month); ?>	
+
+                                            </select>&nbsp;*<br>
+
+                                            You can choose more than one option by using the ctrl key.
+
+                                        </td>
+
+                                    </tr>
+                                    </table>
+                            </span>
+                           <br>
+                            <br> -->
+                                <?php
+                            //}
+                            // if($design_my_life_data['time_order_show'] == $l && $design_my_life_data['time_show'] == 1)
+                            // {
+
+                              ?> 
+                               <!--  <select  class="input-text-box input-quarter-width" name="bes_time" id="bes_time" >
+                                    <option value=""><?php echo $design_my_life_data['time_heading']; ?></option>
+                                    <?php echo $obj->getTimeOptionsNew('0','23',$bes_time ); ?>
+                                </select>
+                               <br>
+                            <br> -->
+                              <?php
+                               
+                            // }
+                            // if($design_my_life_data['duration_order_show'] == $l && $design_my_life_data['duration_show'] == 1)
+                            // {
+                              ?>
+                         
+                               <!--  <input type="text" name="duration" id="duration" onKeyPress="return isNumberKey(event);" placeholder="<?php echo $design_my_life_data['duration_heading']; ?>" class="input-text-box input-quarter-width" autocomplete="false">
+                            <br>
+                            <br> -->
+                              <?php  
+                            // }
+                            // if($design_my_life_data['location_order_show'] == $l && $design_my_life_data['location_show'] == 1)
+                            // {
+                               
+                             ?>
+                              <!--   <select  class="input-text-box input-quarter-width" name="location" id="location">
+                                    <option value=""><?php echo $design_my_life_data['location_heading']; ?></option>
+                                    <?php echo $obj->getFavCategoryRamakant($design_my_life_data['location_fav_cat'],''); ?>
+                                </select> 
+                               <br>
+                            <br> -->
+                             <?php
+                            // }
+                            // if($design_my_life_data['like_dislike_order_show'] == $l && $design_my_life_data['User_view'] == 1)
+                            // {
+                             ?>
+                               <!--  <select  class="input-text-box input-quarter-width" name="User_view" id="User_view" >
+                                    <option value=""><?php echo $design_my_life_data['like_dislike_heading']; ?></option>
+                                    <?php echo $obj->getFavCategoryRamakant($design_my_life_data['user_response_fav_cat'],''); ?>
+                                </select>
+                                <br><br> -->
+                             <?php
+                            // }
+                            // if($design_my_life_data['set_goals_order_show'] == $l && $design_my_life_data['User_Interaction'] == 1)
+                            // {
+                                ?>
+                                   <!--  <select  class="input-text-box input-quarter-width" name="User_Interaction" id="User_Interaction" >
+                                        <option value=""><?php echo $design_my_life_data['set_goals_heading']; ?></option>
+                                        <?php echo $obj->getFavCategoryRamakant($design_my_life_data['user_what_fav_cat'],''); ?>
+                                    </select>
+                                    <br><br> -->
+                                <?php
+                            // }
+                            // if($design_my_life_data['scale_order_show'] == $l && $design_my_life_data['scale_show'] == 1)
+                            // {
+                                ?>
+                                   <!--  <select  class="input-text-box input-quarter-width" name="scale" id="scale" >
+                                        <option value=""><?php echo $design_my_life_data['scale_heading']; ?></option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                    </select>
+                                    <br><br> -->
+                                <?php
+                           // }
+                            // if($design_my_life_data['reminder_order_show'] == $l && $design_my_life_data['alert_show'] == 1)
+                            // {
+                               ?>
+                                   <!--  <select class="input-text-box input-half-width" name="alert" id="alert">
+                                        <option value=""><?php echo $design_my_life_data['reminder_heading']; ?></option>
+                                        <?php echo $obj->getFavCategoryRamakant($design_my_life_data['alerts_fav_cat'],''); ?>
+                                    </select>
+                                    <br><br> -->
+                               <?php
+                            // }
+                            // if($design_my_life_data['comment_order_show'] == $l && $design_my_life_data['comment_show'] == 1)
+                            // {
+                               ?>
+                                   <!--  <b><?php echo $design_my_life_data['comments_heading']; ?></b> 
+                                    <textarea name="comment" id="comment" class="input-text-box input-half-width" autocomplete="false" ></textarea>
+                                    <br><br> -->
+                               <?php
+                            // }
+                            }
+                            ?>
+                            <!-- Order 1 End  -->
+                            <?php if($design_my_life_data['user_upload_show'] == 1)
+                            { ?>
+                            <!-- <a  href="user_uploads.php?ref_code=<?php //echo $design_my_life_data['ref_code']; ?>&box_title=<?php //echo $design_my_life_data['box_title']; ?>&sub_cat_id=<?php //echo $design_my_life_data['sub_cat_id']; ?>" class="active" target="_blank" title="We would like to hear your innovative suggestions."><span style="background: #007fff;color: #fff; border: 2px solid #4e4e4e; border-radius: 15px; height: 50px; padding: 5px;">Share your inputs</span></a>                         
+                              <br><br> -->
+
+                            <?php } ?>
+                                <div style="text-align:center;">
+                                 <button type="submit" name="btn_submit" class="active" style="background-color:orange;">Save</button>
+                                </div>
+                               </div>
+                            </form>
+                        </div>
+                          <?php
+                            }
+                            else
+                            {
+                           ?>
+                            
+                            <div class="col-md-12" style="">
+                                <div class="col-md-12">
+                                   <?php 
+                                        // $icon_data = $obj->getDesignIconByProfCat($_GET['favcattyid'],$_GET['favid'],$day_month_year);
+                                     $icon_data = $obj->getDesignIconByProfCatKR($day_month_year);
+                                     // echo "<pre>";print_r($icon_data);echo "</pre>";
+                                     if(count($icon_data)>1)
+                                      {
+
+                                        for($i=0;$i<count($icon_data);$i++)
+                                        {
+                                            echo '<span><img src="uploads/'.$icon_data[$i]['image'].'" id="img_'.$icon_data[$i]['fav_cat_id'].'" style="width:60px; height:60px; padding:5px; cursor: pointer;" onclick="GetDesignMyLife('.$icon_data[$i]['fav_cat_id'].')" title="'.$obj->getFavCategoryNameVivek($icon_data[$i]['fav_cat_id']).'">&nbsp;&nbsp;&nbsp;</span>';  
+
+                                            // echo '<input type="text" id="ref_c'.$i.'" >';
+                                        }
+                                      }
+                                      else
+                                      {
+
+                                         echo '<span><img src="uploads/'.$icon_data[0]['image'].'" id="img_'.$icon_data[0]['fav_cat_id'].'" style="width:60px; height:60px; padding:5px; cursor: pointer;" title="'.$obj->getFavCategoryNameVivek($icon_data[0]['fav_cat_id']).'">&nbsp;&nbsp;&nbsp;</span>';
+
+                                         echo '<script type="text/javascript">
+                                         $("document").ready(function(){
+                                          GetDesignMyLife('.$icon_data[0]['fav_cat_id'].');
+                                          });
+                                        </script>';
+
+                                     }
+                                   ?> 
+
+                                </div>
+                                
+                                <div class="col-md-12" id="mydesignlifedata">    
+                                
+                                </div>
+                        </div>
+                               
+                        <?php } ?>
+
+                    </div>
+
+		<div class="col-md-2"><?php include_once('right_sidebar.php'); ?></div>
+			
+		</div>
+	</div>
+</section>
+
+<div id="confirm" class="modal hide fade">
+  <div class="modal-body">
+    Are you sure?
+  </div>
+  <div class="modal-footer">
+    <button type="button" data-dismiss="modal" class="btn btn-primary" id="delete">Delete</button>
+    <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+  </div>
+</div>
+
+<?php include_once('footer.php');?>	
+<script src="w_css/editor.js"></script>
+<script>
+         $(document).ready(function() {
+             $("#comment").Editor();
+             $('#start_date').attr('autocomplete', 'off');
+             $('#end_date').attr('autocomplete', 'off');
+             $('#single_date').attr('autocomplete', 'off');
+             
+            $("ul.nav-tabs a").click(function (e) {
+               e.preventDefault();  
+                 $(this).tab('show');
+             });
+
+           });
+    </script>
+ <script>
+
+function GetDesignMyLife(idval)
+{
+    // alert('hi');
+    var dataString ='sub_cat_id='+idval +'&action=getmydesignlifedata';
+    $('img').removeClass('img_back');
+    $("#img_"+idval).addClass("img_back");
+    
+    $.ajax({
+            type: "POST",
+            url: 'remote2.php', 
+            data: dataString,
+            cache: false,
+            success: function(result)
+                 {
+                   //alert(result);
+                   $('#mydesignlifedata').html(result);
+                 }
+           });
+}
+
+
+function getcurrentactivetab(id)
+    {
+    //alert('hhh');
+    var formData = new FormData($('#frm_'+id)[0]); 
+    formData.append("submit",'submit');
+    jQuery.ajax({
+    url:'mycanvas.php',
+    type: "POST",
+    data:formData,
+    processData: false,
+    contentType: false,
+    //beforeSend: function(){ $("#loader").show();$("#hidebtn").hide();},
+    success: function(result)
+        {
+        //alert(result);
+        var JSONObject = JSON.parse(result);
+        var rslt = JSONObject['error_code'];
+        if(rslt==1)
+            {
+              $("#proceeddml_"+id).show();
+              $("#moreoptions_"+id).show();
+            }
+           
+        else
+            {
+                //$('#error_msg').html(JSONObject['er_msg']);  
+            }       
+        }
+    });
+}
+
+function proceeddmlpage(id)
+{
+  window.location.href="design-my-life.php";  
+}
+
+function moreoptionstab(id)
+{
+   $("#proceeddml_"+id).hide();
+   $("#moreoptions_"+id).hide(); 
+}
+
+function ChangeTheamMDT()
+{
+    var theam_id = $("#theam_id").val();
+    var dataString ='theam_id='+theam_id +'&action=changtheammdt';
+    $.ajax({
+            type: "POST",
+            url: 'remote2.php', 
+            data: dataString,
+            cache: false,
+            success: function(result)
+                 {
+                  var JSONObject = JSON.parse(result);
+                 //$('#bgimage').html(JSONObject[0]['image']);
+                 $('#bgimage').css("background-image", "url("+JSONObject[0]['image']+")");
+                 $('#color_code').css("background-color", JSONObject[0]['color_code']);
+                }
+           });
+}
+
+function ChangeTheAvatar()
+{
+    var avat_id = $("#avat_id").val();
+    var dataString ='avat_id='+avat_id +'&action=ChangeTheAvatar';
+    $.ajax({
+            type: "POST",
+            url: 'remote2.php', 
+            data: dataString,
+            cache: false,
+            success: function(result)
+                 {
+                    // alert(result);
+                 $('#change_avatar').html(result);
+                }
+           });
+}
+
+function ChangeTheMusic()
+{
+    var music_id1 = $("#music_id").val();
+    var dataString ='music_id1='+music_id1 +'&action=ChangeTheMusic';
+    $.ajax({
+            type: "POST",
+            url: 'remote2.php', 
+            data: dataString,
+            cache: false,
+            success: function(result)
+                 {
+                 $('#changemusic').html(result);
+                }
+           });
+}
+    function ShowTime(id)
+    {
+      //alert(id);
+      $('#bes_time_'+id).show();  
+    }
+    
+    function ShowDuration(id)
+    {
+      //alert("hiiii");
+      $('#duration_'+id).show();  
+    }
+    
+     function ShowScale(id)
+    {
+      //alert("hiiii");
+      $('#scale_'+id).show();  
+    }
+    
+    function ShowLocation(id)
+    {
+      // alert("hiiii");
+      $('#location_'+id).show();  
+    }
+    
+    function ShowAlert(id)
+    {
+      //alert("hiiii");
+      $('#alert_'+id).show();  
+    }
+
+    function ShowUserInteraction(id)
+    {
+      //alert("hiiii");
+      $('#User_Interaction_'+id).show();  
+    }
+    
+    function ShowUserview(id)
+    {
+      //alert("hiiii");
+      $('#User_view_'+id).show();  
+    }
+    
+    function ShowComment(id)
+    {
+      // alert(id);
+      $('#comment_'+id).show();  
+    }
+
+    function ShowUserDate(id)
+    {
+      $('#userdate_'+id).show();   
+    }
+
+    function Showtime(id)
+    {
+      $('#bes_time_'+id).show();  
+    }
+
+    function DurationShow(id)
+    {
+      $('#duration_'+id).show();  
+    }
+
+    // 
+
+
+    
+    
+    function Display_Solution(idval)
+    {
+        var bms_name = $("#fav_cat_2_"+idval).val();
+        var table = $("#fetch_link").val();
+        var sub_cat3 = $("#sub_cat3").val();
+        var icon_code = $("#icon_code").val();
+        
+        var table2 = $("#fetch_link_2").val();
+        var sub_cat4 = $("#sub_cat4").val();
+        
+        
+        //return false;
+        
+        $('.dlist').show();  
+        var dataString ='fetch_link='+table +'&bms_name='+bms_name+'&sub_cat3='+sub_cat3+'&fetch_link_2='+table2+'&sub_cat4='+sub_cat4+'&action=getbescomment';
+        $.ajax({
+            type: "POST",
+            url: 'remote2.php', 
+            data: dataString,
+            cache: false,
+            success: function(result)
+                 {
+                    //alert(result);
+                    $('#comment_backend_'+idval).html(result);
+                }
+           });
+    }
+    
+    
+    function isNumberKey(evt){  <!--Function to accept only numeric values-->
+    //var e = evt || window.event;
+	var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode != 46 && charCode > 31 
+	&& (charCode < 48 || charCode > 57))
+        return false;
+        return true;
+	}
+     
+</script>
+<script>
+ function toggleDateSelectionType(id_val)
+
+{
+// alert(id_val);
+// console.log(id_val);
+    var sc_listing_date_type = document.getElementById(id_val).value;
+    if (sc_listing_date_type == "days_of_month") 
+    { 	
+        document.getElementById('tr_days_of_month').style.display = '';
+        document.getElementById('tr_single_date').style.display = 'none';
+        document.getElementById('tr_date_range').style.display = 'none';
+        document.getElementById('tr_days_of_week').style.display = 'none';
+        document.getElementById('tr_month_date').style.display = 'none';
+    }
+
+    else if (sc_listing_date_type == "single_date") 
+    { 	
+        document.getElementById('tr_days_of_month').style.display = 'none';
+        document.getElementById('tr_single_date').style.display = '';
+        document.getElementById('tr_date_range').style.display = 'none';
+        document.getElementById('tr_days_of_week').style.display = 'none';
+        document.getElementById('tr_month_date').style.display = 'none';
+    }
+    else if (sc_listing_date_type == "date_range") 
+    { 	
+        document.getElementById('tr_days_of_month').style.display = 'none';
+        document.getElementById('tr_single_date').style.display = 'none';
+        document.getElementById('tr_date_range').style.display = '';
+        document.getElementById('tr_days_of_week').style.display = 'none';
+        document.getElementById('tr_month_date').style.display = 'none';
+    }
+    else if (sc_listing_date_type == "days_of_week") 
+    { 	
+        document.getElementById('tr_days_of_month').style.display = 'none';
+        document.getElementById('tr_single_date').style.display = 'none';
+        document.getElementById('tr_date_range').style.display = 'none';
+        document.getElementById('tr_days_of_week').style.display = '';
+        document.getElementById('tr_month_date').style.display = 'none';
+    }
+
+    else if (sc_listing_date_type == "month_wise") 
+    { 	
+        document.getElementById('tr_days_of_month').style.display = 'none';
+        document.getElementById('tr_single_date').style.display = 'none';
+        document.getElementById('tr_date_range').style.display = 'none';
+        document.getElementById('tr_days_of_week').style.display = 'none';
+        document.getElementById('tr_month_date').style.display = '';
+    }
+    else
+    { 	
+
+        document.getElementById('tr_days_of_month').style.display = 'none';
+        document.getElementById('tr_single_date').style.display = 'none';
+        document.getElementById('tr_date_range').style.display = 'none';
+        document.getElementById('tr_days_of_week').style.display = 'none';
+        document.getElementById('tr_month_date').style.display = 'none';
+    }
+
+}
+
+
+ function toggleDateSelectionType_multiple(id_val,num)
+
+{
+// alert(id_val);
+// console.log(id_val+'_'+num);
+    var sc_listing_date_type = document.getElementById(id_val+num).value;
+
+    $('.tab_show'+num).show();
+    if (sc_listing_date_type == "days_of_month") 
+    {   
+        document.getElementById('tr_days_of_month_'+num).style.display = '';
+        document.getElementById('tr_single_date_'+num).style.display = 'none';
+        document.getElementById('tr_date_range_'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_'+num).style.display = 'none';
+        document.getElementById('tr_month_date_'+num).style.display = 'none';
+    }
+
+    else if (sc_listing_date_type == "single_date") 
+    {   
+        document.getElementById('tr_days_of_month_'+num).style.display = 'none';
+        document.getElementById('tr_single_date_'+num).style.display = '';
+        document.getElementById('tr_date_range_'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_'+num).style.display = 'none';
+        document.getElementById('tr_month_date_'+num).style.display = 'none';
+    }
+    else if (sc_listing_date_type == "date_range") 
+    {   
+        document.getElementById('tr_days_of_month_'+num).style.display = 'none';
+        document.getElementById('tr_single_date_'+num).style.display = 'none';
+        document.getElementById('tr_date_range_'+num).style.display = '';
+        document.getElementById('tr_days_of_week_'+num).style.display = 'none';
+        document.getElementById('tr_month_date_'+num).style.display = 'none';
+    }
+    else if (sc_listing_date_type == "days_of_week") 
+    {   
+        document.getElementById('tr_days_of_month_'+num).style.display = 'none';
+        document.getElementById('tr_single_date_'+num).style.display = 'none';
+        document.getElementById('tr_date_range_'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_'+num).style.display = '';
+        document.getElementById('tr_month_date_'+num).style.display = 'none';
+    }
+
+    else if (sc_listing_date_type == "month_wise") 
+    {   
+        document.getElementById('tr_days_of_month_'+num).style.display = 'none';
+        document.getElementById('tr_single_date_'+num).style.display = 'none';
+        document.getElementById('tr_date_range_'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_'+num).style.display = 'none';
+        document.getElementById('tr_month_date_'+num).style.display = '';
+    }
+    else
+    {   
+
+        document.getElementById('tr_days_of_month_'+num).style.display = 'none';
+        document.getElementById('tr_single_date_'+num).style.display = 'none';
+        document.getElementById('tr_date_range_'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_'+num).style.display = 'none';
+        document.getElementById('tr_month_date_'+num).style.display = 'none';
+    }
+
+}
+
+
+
+function toggleDateSelectionType_multiple_lo(id_val,num)
+
+{
+// alert(num);
+// console.log(id_val+'_'+num);
+    var sc_listing_date_type = document.getElementById(id_val+num).value;
+$('.tab_show'+num).show();
+    if (sc_listing_date_type == "days_of_month") 
+    {   
+        document.getElementById('tr_days_of_month_lo'+num).style.display = '';
+        document.getElementById('tr_single_date_lo'+num).style.display = 'none';
+        document.getElementById('tr_date_range_lo'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_lo'+num).style.display = 'none';
+        document.getElementById('tr_month_date_lo'+num).style.display = 'none';
+    }
+
+    else if (sc_listing_date_type == "single_date") 
+    {   
+        document.getElementById('tr_days_of_month_lo'+num).style.display = 'none';
+        document.getElementById('tr_single_date_lo'+num).style.display = '';
+        document.getElementById('tr_date_range_lo'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_lo'+num).style.display = 'none';
+        document.getElementById('tr_month_date_lo'+num).style.display = 'none';
+    }
+    else if (sc_listing_date_type == "date_range") 
+    {   
+        document.getElementById('tr_days_of_month_lo'+num).style.display = 'none';
+        document.getElementById('tr_single_date_lo'+num).style.display = 'none';
+        document.getElementById('tr_date_range_lo'+num).style.display = '';
+        document.getElementById('tr_days_of_week_lo'+num).style.display = 'none';
+        document.getElementById('tr_month_date_lo'+num).style.display = 'none';
+    }
+    else if (sc_listing_date_type == "days_of_week") 
+    {   
+        document.getElementById('tr_days_of_month_lo'+num).style.display = 'none';
+        document.getElementById('tr_single_date_lo'+num).style.display = 'none';
+        document.getElementById('tr_date_range_lo'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_lo'+num).style.display = '';
+        document.getElementById('tr_month_date_lo'+num).style.display = 'none';
+    }
+
+    else if (sc_listing_date_type == "month_wise") 
+    {   
+        document.getElementById('tr_days_of_month_lo'+num).style.display = 'none';
+        document.getElementById('tr_single_date_lo'+num).style.display = 'none';
+        document.getElementById('tr_date_range_lo'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_lo'+num).style.display = 'none';
+        document.getElementById('tr_month_date_lo'+num).style.display = '';
+    }
+    else
+    {   
+
+        document.getElementById('tr_days_of_month_lo'+num).style.display = 'none';
+        document.getElementById('tr_single_date_lo'+num).style.display = 'none';
+        document.getElementById('tr_date_range_lo'+num).style.display = 'none';
+        document.getElementById('tr_days_of_week_lo'+num).style.display = 'none';
+        document.getElementById('tr_month_date_lo'+num).style.display = 'none';
+    }
+
+}
+
+
+
+
+function addMoreRowLocation()
+	{
+            
+	  var sub_cat_id = $("#sub_cat_id").val();
+     var cat_cnt = parseInt($("#cat_cnt").val());
+     // var ref_code=$("#ref_c").val();
+     // alert(ref_code);
+		cat_cnt = cat_cnt + 1;
+     
+    // alert(sub_cat_id);
+                
+                var dataString ='sub_cat_id='+sub_cat_id +'&action=getdatadropdown';
+                $.ajax({
+                        type: "POST",
+                        url: 'remote2.php', 
+                        data: dataString,
+                        cache: false,
+                        success: function(result)
+                             {
+                               // alert(result);
+                               $('#capitals_'+cat_cnt).html(result);
+                            }
+                       });
+                
+                
+		
+	            	     var new_row = 	'<div id="row_loc_'+cat_cnt+'">'+
+						       	'<span>'+
+                              '<input type="text" name="fav_cat_2[]" id="fav_cat_2_'+cat_cnt+'" placeholder="Select Your inputs" list="capitals_'+cat_cnt+'" class="input-text-box dlist" style="width:600px;" onchange="Display_Solution('+cat_cnt+')"/>'+
+                              '<datalist id="capitals_'+cat_cnt+'" class="dlist" style="">'+
+                                   '<?php echo $data_dropdown; ?>'+ 
+                               '</datalist>'+
+                            '</span>'+
+                               '<span>'+
+                                  
+                             '&nbsp;<a href="javascript:void(0);" onclick="removeRowLocation('+cat_cnt+');" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Remove it" data-original-title=""><i class="fa fa-minus"></i></a>'+
+                                  
+                                 '</span>'+
+                               '<a href="javascript:void(0);" onclick="erase_input('+cat_cnt+');"><i class="fa fa-eraser" id="erase_icon'+cat_cnt+'" aria-hidden="true" style="font-size: 15px;"></i></a><br>'+
+                                  
+                                 '&nbsp;<a href="javascript:void(0);" onclick="Showloop('+cat_cnt+');"><i class="fa fa-eye" id="eyes'+cat_cnt+'" style="cursor: pointer;" title="Click here for user action"></i></a>'+
+
+                          
+                                '<?php 
+                                 
+                                  if($_GET['ref_num']=="")
+                                  {
+                                     $ff =$_SESSION['ref_cde']; 
+                                    $header_data = $obj->GetHeaderDatabyPageKR($ff);
+                                  }
+                                for($j=0;$j<count($header_data);$j++)
+                                {
+                                   $keyworddata_implode_data = array();
+                                   $exclusion_name = $obj->getExclusionAllName();
+                                   if($header_data[$j]['location_show']!=0)
+                                      {
+                                         $location_show_icon = $obj->getMyDayTodayIcon('location_show'); 
+                                      }
+                                      else {
+                                          $location_show_icon = '';
+                                      }
+
+                                       if($header_data[$j]['User_view']!=0)
+                                      {
+                                         $User_view_icon = $obj->getMyDayTodayIcon('User_view'); 
+                                      }
+                                      else {
+                                          $User_view_icon = '';
+                                      }
+
+                                       if($header_data[$j]['User_Interaction']!=0)
+                                      {
+                                         $User_Interaction_icon = $obj->getMyDayTodayIcon('User_Interaction'); 
+                                      }
+                                      else {
+                                          $User_Interaction_icon = '';
+                                      }
+
+                                      if($header_data[$j]['alert_show']!=0)
+                                      {
+                                         $alert_show_icon = $obj->getMyDayTodayIcon('alert_show'); 
+                                      }
+                                      else {
+                                          $alert_show_icon = '';
+                                      }
+
+                                      if($header_data[$j]['comment_show']!=0)
+                                      {
+                                         $comment_show_icon = $obj->getMyDayTodayIcon('comments_show'); 
+                                      }
+                                      else {
+                                          $comment_show_icon = '';
+                                      }
+
+
+                                      if($header_data[$j]['user_date_show']!=0)
+                                      {
+                                         $user_date_icon = $obj->getMyDayTodayIcon('date_show'); 
+                                      }
+                                      else {
+                                          $user_date_icon = '';
+                                      }
+
+                                    if($header_data[$j]['scale_show']!=0)
+                                      {
+                                         $scale_show_icon = $obj->getMyDayTodayIcon('scale_show'); 
+                                      }
+                                      else {
+                                          $scale_show_icon = '';
+                                      }
+
+                                   if($header_data[$j]['time_show']!=0)
+                                    {
+                                       $time_show_icon = $obj->getMyDayTodayIcon('time_show'); 
+                                    }
+                                    else {
+                                        $time_show_icon = '';
+                                    }
+
+                                     if($header_data[$j]['duration_show']!=0)
+                                    {
+                                       $duration_show_icon = $obj->getMyDayTodayIcon('duration_show'); 
+                                    }
+                                    else {
+                                        $duration_show_icon = '';
+                                    }
+
+
+
+
+                                        if($header_data[$j]['sub_cat2'] !='') 
+                                        {                       
+                                            $fetch_show = $header_data[$j]['sub_cat2_show_fetch'];
+                                            // if($fetch_show == 2)
+                                            // {
+                                             
+                                                    if($comment_show_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $comment_show_icon; ?>"  name="comment_show_icon_'+cat_cnt+'" id="comment_show_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['comments_heading']; ?>" onclick="ShowComment('+cat_cnt+');">'+
+                                                    '<?php } ?>'+
+
+                                                    '<?php if($location_show_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $location_show_icon; ?>"  name="location_show_icon_'+cat_cnt+'" id="location_show_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['location_heading']; ?>" onclick="ShowLocation('+cat_cnt+');">'+
+                                                     '<?php } ?>'+
+
+                                                     '<?php if($User_view_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_view_icon; ?>"  name="User_view_icon_'+cat_cnt+'" id="User_view_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['like_dislike_heading']; ?>" onclick="ShowUserview('+cat_cnt+');">'+
+                                                    '<?php } ?>'+
+
+                                                    '<?php if($User_Interaction_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_Interaction_icon; ?>"  name="User_Interaction_icon_'+cat_cnt+'" id="User_Interaction_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['set_goals_heading']; ?>" onclick="ShowUserInteraction('+cat_cnt+');">'+
+                                                      '<?php } ?>'+
+
+                                                     '<?php if($alert_show_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $alert_show_icon; ?>"  name="alert_show_icon_'+cat_cnt+'" id="alert_show_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['reminder_heading']; ?>" onclick="ShowAlert('+cat_cnt+');">'+
+                                                    '<?php } ?>'+
+                                                      
+
+                                                     '<?php if($scale_show_icon!='') { ?>'+
+                                                  '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $scale_show_icon; ?>" name="scale_show_icon_'+cat_cnt+'" id="scale_show_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['scale_heading']; ?>" onclick="ShowScale('+cat_cnt+');">'+
+                                                  '<?php }?>'+
+
+
+                                                    '<?php if($time_show_icon!='') { ?>'+
+                                                  '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $time_show_icon; ?>" name="time_show_icon_'+cat_cnt+'" id="time_show_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['time_heading']; ?>" onclick="Showtime('+cat_cnt+');">'+
+                                                  '<?php }?>'+
+
+                                                   '<?php if($duration_show_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $duration_show_icon; ?>"  name="duration_show_icon_'+cat_cnt+'" id="duration_show_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['duration_heading']; ?>" onclick="DurationShow('+cat_cnt+');">'+
+                                                    '<?php }?>'+
+
+
+                                                     '<?php if($user_date_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $user_date_icon; ?>"  name="user_date_show_icon_'+cat_cnt+'" id="user_date_show_icon_'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['user_date_heading']; ?>" onclick="ShowUserDate('+cat_cnt+');">'+
+                                                    '<?php } ?>'+
+
+                                                     
+
+
+                                                '<div class="md-col-12">'+
+                                                '<input type="hidden" name="sub_cat[]"  value="<?php echo $header_data[$j]['sub_cat2']; ?>">'+
+
+                                                '<input type="hidden" name="prof_cat[]"  value="<?php echo $header_data[$j]['prof_cat2']; ?>">'+
+
+                                                '<input type="hidden" name="canv_show_fetch[]"  value="<?php echo $header_data[$j]['sub_cat2_show_fetch']; ?>">'+
+
+                                                '<input type="hidden" name="canv_sub_cat_link[]"  value="<?php echo $header_data[$j]['sub_cat2_link']; ?>">'+
+
+                                               
+                                                
+                                                '<input  type="text" name="comment[]" id="comment_'+cat_cnt+'"  placeholder="<?php echo $header_data[$j]['comments_heading']; ?>" title="<?php echo $header_data[$j]['comments_heading']; ?>" class="input-text-box input-quarter-width" style="display:none;">'+
+              
+                                                '<select  class="input-text-box input-quarter-width" name="location[]" id="location_'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['location_heading']; ?>">'+
+                                                    '<option value=""><?php echo $header_data[$j]['location_heading']; ?></option>'+
+                                                    '<?php echo $obj->getFavCategoryRamakant($header_data[$j]['location_fav_cat'],''); ?>'+
+                                                '</select>'+
+
+                                                '<select  class="input-text-box input-quarter-width" name="User_view[]" id="User_view_'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['like_dislike_heading']; ?>">'+
+                                                    '<option value=""><?php echo $header_data[$j]['like_dislike_heading']; ?></option>'+
+                                                    '<?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_response_fav_cat'],''); ?>'+
+                                                '</select>'+
+
+                                                '<select  class="input-text-box input-quarter-width" name="User_Interaction[]" id="User_Interaction_'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['set_goals_heading']; ?>">'+
+                                                    '<option value=""><?php echo $header_data[$j]['set_goals_heading']; ?></option>'+
+                                                    '<?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_what_fav_cat'],''); ?>'+
+                                                '</select>'+
+
+                                                '<select class="input-text-box input-quarter-width" name="alert[]" id="alert_'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['reminder_heading']; ?>">'+
+                                                    '<option value=""><?php echo $header_data[$j]['reminder_heading']; ?></option>'+
+                                                    '<?php echo $obj->getFavCategoryRamakant($header_data[$j]['alerts_fav_cat'],''); ?>'+
+                                                '</select>'+
+
+                                                '<select  class="input-text-box input-quarter-width" name="scale[]" id="scale_'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['scale_heading']; ?>">'+
+                                                '<option value=""><?php echo $header_data[$j]['scale_heading']; ?></option>'+
+                                                '<option value="1">1</option>'+
+                                                '<option value="2">2</option>'+
+                                                '<option value="3">3</option>'+
+                                                '<option value="4">4</option>'+
+                                                '<option value="5">5</option>'+
+                                                '<option value="6">6</option>'+
+                                                '<option value="7">7</option>'+
+                                                '<option value="8">8</option>'+
+                                                '<option value="9">9</option>'+
+                                                '<option value="10">10</option>'+
+                                            '</select>'+
+
+                                            
+                                             '<select  class="input-text-box input-quarter-width" name="bes_time[]" id="bes_time_'+cat_cnt+'" style="display: none;">'+
+                                                 '<option value=""><?php echo $design_my_life_data['time_heading']; ?></option>'+
+                                                 '<?php echo $obj->getTimeOptionsNew('0','23',$bes_time ); ?>'+
+                                             '</select>'+
+
+                                              '<input type="text" name="duration[]" id="duration_'+cat_cnt+'" onKeyPress="return isNumberKey(event);" placeholder="<?php echo $design_my_life_data['duration_heading']; ?>" class="input-text-box input-quarter-width" autocomplete="false" style="display:none;">'+
+
+
+                                              '<span class="" class="date_shows'+cat_cnt+'">'+
+                                                '<select name="userdate[]" id="userdate_'+cat_cnt+'" onchange="toggleDateSelectionType_multiple(\'userdate_\','+cat_cnt+')" style="width:200px;display:none;" class="input-text-box input-quarter-width">'+
+                                                    '<option value="">Select Date Type</option>'+
+                                                    '<option value="days_of_month" <?php if($listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>'+
+                                                    '<option value="single_date" <?php if($listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>'+
+                                                    '<option value="date_range" <?php if($listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>'+
+                                                    '<option value="month_wise" <?php if($listing_date_type == 'month_wise') { ?> selected="selected" <?php } ?>>Month Wise</option>'+
+                                                    '<option value="days_of_week" <?php if($listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>'+
+                                                '</select>'+
+                                             '</span>'+
+                                        '<span>'+
+                                          '<p>&nbsp;</p>'+
+                                            '<table  style="display:none;" class="tab_show'+cat_cnt+'">'+
+                                            '<tr id="tr_days_of_month_'+cat_cnt+'" style="display:<?php echo $tr_days_of_month;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select days of month</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<select id="days_of_month'+cat_cnt+'" name="days_of_month['+cat_cnt+'][]" multiple="multiple" style="width:500px;" class="input-text-box input-quarter-width">'+
+                                                        '<?php for($i=1;$i<=31;$i++)
+                                                        { ?>'+
+                                                            '<option value="<?php echo $i;?>"<?php if (in_array($i, $arr_days_of_month)) {?> selected="selected"<?php } ?>><?php echo $i;?></option>'+
+                                                       '<?php
+                                                        } ?>'+ 
+                                                        '</select>&nbsp;*<br>'+
+                                                        'You can choose more than one option by using the ctrl key.'+
+                                                    '</td>'+
+                                                '</tr>'+
+                                                
+                                                '<tr id="tr_single_date_'+cat_cnt+'" style="display:<?php echo $tr_single_date;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select Date</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<input name="single_date[]" id="single_date'+cat_cnt+'" type="text" value="<?php echo $single_date;?>" class="input-text-box" onmouseover="callDatecalender('+cat_cnt+')">'+
+                                                           // $('#single_date'+cat_cnt).datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});
+                                                         '</td>'+
+                                                '</tr>'+
+
+                                                '<tr id="tr_date_range_'+cat_cnt+'" style="display:<?php echo $tr_date_range;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select Date Range</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<input name="start_date[]" id="start_date'+cat_cnt+'" type="text" value="<?php echo $start_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender('+cat_cnt+')"/> - <input name="end_date[]" id="end_date'+cat_cnt+'" type="text" value="<?php echo $end_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender('+cat_cnt+')"/>'+
+                                                       // $('#start_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#end_date').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});
+                                                    '</td>'+
+                                                '</tr>'+
+
+                                            '<tr id="tr_days_of_week_'+cat_cnt+'" style="display:<?php echo $tr_days_of_week;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select days of week</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<select id="days_of_week'+cat_cnt+'" name="days_of_week['+cat_cnt+'][]" multiple="multiple" class="input-text-box">'+
+                                                        '<?php echo $obj->getDayOfWeekOptionsMultiple($arr_days_of_week); ?>'+ 
+                                                        '</select>&nbsp;*<br>'+
+                                                        'You can choose more than one option by using the ctrl key.'+
+                                                    '</td>'+
+                                                '</tr>'+
+
+                                                '<tr id="tr_month_date_'+cat_cnt+'" style="display:<?php echo $tr_month_date;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select Month</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<select id="months'+cat_cnt+'" name="months['+cat_cnt+'][]" multiple="multiple" class="input-text-box">'+
+                                                        '<?php echo $obj->getMonthsOptionsMultiple($arr_month); ?>'+
+                                                        '</select>&nbsp;*<br>'+
+                                                        'You can choose more than one option by using the ctrl key.'+
+                                                    '</td>'+
+                                                '</tr>'+
+                                                '</table>'+
+                                        '</span>'+
+                                        // '</div>'+
+                                       '<br>'+
+                                    '</div>'+
+                                  '<?php
+                                     
+                                    }
+                                  }
+                                ?>'+
+
+                               '<br><br>'+
+                               '<span style="margin-left:100px;" id="comment_backend_'+cat_cnt+'"></span>'+
+                               '<br>'+
+                          '</div>';
+                            
+
+
+		// $("#row_loc_first").after(new_row);
+    $("#row_loc_first").append(new_row);
+		$("#cat_cnt").val(cat_cnt);
+		
+		var cat_total_cnt = parseInt($("#cat_total_cnt").val());
+		cat_total_cnt = cat_total_cnt + 1;
+		$("#cat_total_cnt").val(cat_total_cnt);
+	}
+
+  function callDatecalender(num)
+  {
+    // alert(num);
+     $('#single_date'+num).datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});
+     $('#start_date'+num).datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});
+     $('#end_date'+num).datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});
+
+    $('#single_date_lo'+num).datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});
+
+    $('#start_date_lo'+num).datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});
+    $('#end_date_lo'+num).datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); 
+  }
+
+function removeRowLocation(idval)
+	{
+		$("#row_loc_"+idval).remove();
+
+		var cat_total_cnt = parseInt($("#cat_total_cnt").val());
+		cat_total_cnt = cat_total_cnt - 1;
+		$("#cat_total_cnt").val(cat_total_cnt);
+		
+	}
+        
+        
+function addMoreRowLoc()
+	{
+		
+		var cat_cnt = parseInt($("#box_cnt").val());
+		cat_cnt = cat_cnt + 1;
+		var new_row ='<div id="row_inp_'+cat_cnt+'">'+
+							'<span>'+
+                      '<input type="text" name="user_input[]" id="user_input_'+cat_cnt+'" placeholder="Type Your inputs" class="input-text-box" style="width:600px;"/>'+                                  
+                    '</span>'+
+                       '<span>'+
+                          
+                         '&nbsp;<a href="javascript:void(0);" onclick="removeRowLoc('+cat_cnt+');" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="Remove it" data-original-title=""><i class="fa fa-minus"></i></a><br>'+
+
+                          '&nbsp;<a href="javascript:void(0);" onclick="ShowloopLoc('+cat_cnt+');"><i class="fa fa-eye" id="eyes'+cat_cnt+'" style="cursor: pointer;" title="Click here for user action"></i></a>'+
+                         '</span>'+
+
+                            
+                             '<?php 
+                                 
+                                  if($_GET['ref_num']=="")
+                                  {
+                                     $ff =$_SESSION['ref_cde']; 
+                                    $header_data = $obj->GetHeaderDatabyPageKR($ff);
+                                  }
+                                for($j=0;$j<count($header_data);$j++)
+                                {
+                                   $keyworddata_implode_data = array();
+                                   $exclusion_name = $obj->getExclusionAllName();
+                                   if($header_data[$j]['location_show']!=0)
+                                      {
+                                         $location_show_icon = $obj->getMyDayTodayIcon('location_show'); 
+                                      }
+                                      else {
+                                          $location_show_icon = '';
+                                      }
+
+                                       if($header_data[$j]['User_view']!=0)
+                                      {
+                                         $User_view_icon = $obj->getMyDayTodayIcon('User_view'); 
+                                      }
+                                      else {
+                                          $User_view_icon = '';
+                                      }
+
+                                       if($header_data[$j]['User_Interaction']!=0)
+                                      {
+                                         $User_Interaction_icon = $obj->getMyDayTodayIcon('User_Interaction'); 
+                                      }
+                                      else {
+                                          $User_Interaction_icon = '';
+                                      }
+
+                                      if($header_data[$j]['alert_show']!=0)
+                                      {
+                                         $alert_show_icon = $obj->getMyDayTodayIcon('alert_show'); 
+                                      }
+                                      else {
+                                          $alert_show_icon = '';
+                                      }
+
+                                      if($header_data[$j]['comment_show']!=0)
+                                      {
+                                         $comment_show_icon = $obj->getMyDayTodayIcon('comments_show'); 
+                                      }
+                                      else {
+                                          $comment_show_icon = '';
+                                      }
+
+                                       if($header_data[$j]['user_date_show']!=0)
+                                        {
+                                           $user_date_icon = $obj->getMyDayTodayIcon('date_show'); 
+                                        }
+                                        else {
+                                            $user_date_icon = '';
+                                        }
+
+                                          if($header_data[$j]['scale_show']!=0)
+                                          {
+                                             $scale_show_icon = $obj->getMyDayTodayIcon('scale_show'); 
+                                          }
+                                          else {
+                                              $scale_show_icon = '';
+                                          }
+
+                                          if($header_data[$j]['time_show']!=0)
+                                            {
+                                               $time_show_icon = $obj->getMyDayTodayIcon('time_show'); 
+                                            }
+                                            else {
+                                                $time_show_icon = '';
+                                            }
+
+                                             if($header_data[$j]['duration_show']!=0)
+                                            {
+                                               $duration_show_icon = $obj->getMyDayTodayIcon('duration_show'); 
+                                            }
+                                            else {
+                                                $duration_show_icon = '';
+                                            }
+
+
+
+                                        if($header_data[$j]['sub_cat2'] !='') 
+                                        {                       
+                                            $fetch_show = $header_data[$j]['sub_cat2_show_fetch'];
+                                            // if($fetch_show == 2)
+                                            // {
+                                             
+                                                    if($comment_show_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $comment_show_icon; ?>"  name="comment_show_icon_'+cat_cnt+'" id="comment_show_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['comments_heading']; ?>" onclick="ShowComment_Lo('+cat_cnt+');">'+
+                                                    '<?php } ?>'+
+
+                                                    '<?php if($location_show_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $location_show_icon; ?>"  name="location_show_icon_'+cat_cnt+'" id="location_show_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['location_heading']; ?>" onclick="ShowLocation_Lo('+cat_cnt+');">'+
+                                                     '<?php } ?>'+
+
+                                                     '<?php if($User_view_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_view_icon; ?>"  name="User_view_icon_'+cat_cnt+'" id="User_view_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['like_dislike_heading']; ?>" onclick="ShowUserview_Lo('+cat_cnt+');">'+
+                                                    '<?php } ?>'+
+
+                                                    '<?php if($User_Interaction_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $User_Interaction_icon; ?>"  name="User_Interaction_icon_'+cat_cnt+'" id="User_Interaction_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['set_goals_heading']; ?>" onclick="ShowUserInteraction_Lo('+cat_cnt+');">'+
+                                                      '<?php } ?>'+
+
+                                                     '<?php if($alert_show_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $alert_show_icon; ?>"  name="alert_show_icon_'+cat_cnt+'" id="alert_show_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['reminder_heading']; ?>" onclick="ShowAlert_Lo('+cat_cnt+');">'+
+                                                    '<?php } ?>'+
+
+                                                      '<?php if($scale_show_icon!='') { ?>'+
+                                                  '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $scale_show_icon; ?>" name="scale_show_icon_'+cat_cnt+'" id="scale_show_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['scale_heading']; ?>" onclick="ShowScale_Lo('+cat_cnt+');">'+
+                                                  '<?php }?>'+
+
+
+
+                                                  '<?php if($time_show_icon!='') { ?>'+
+                                                  '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $time_show_icon; ?>" name="time_show_icon_lo'+cat_cnt+'" id="time_show_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="Select <?php echo $header_data[$j]['time_heading']; ?>" onclick="Showtime_Lo('+cat_cnt+');">'+
+                                                  '<?php }?>'+
+
+
+                                                 '<?php if($duration_show_icon!='') { ?>'+
+                                                  '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $duration_show_icon; ?>"  name="duration_show_icon_lo'+cat_cnt+'" id="duration_show_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['duration_heading']; ?>" onclick="DurationShow_Lo('+cat_cnt+');">'+
+                                                  '<?php }?>'+
+
+
+
+                                               '<?php if($user_date_icon!='') { ?>'+
+                                                    '&nbsp;&nbsp;&nbsp;<img src="uploads/<?php echo $user_date_icon; ?>"  name="user_date_show_icon_'+cat_cnt+'" id="user_date_show_icon_lo'+cat_cnt+'" style="width:25px; height: 25px; display:none;" title="<?php echo $header_data[$j]['user_date_heading']; ?>" onclick="ShowUserDate_Lo('+cat_cnt+');">'+
+                                                    '<?php }
+                                                         echo '</p>';
+                                                    ?>'+
+
+
+                                                    '<div class="md-col-12">'+
+                                                '<input type="hidden" name="sub_cat_lo[]"  value="<?php echo $header_data[$j]['sub_cat2']; ?>">'+
+
+                                                '<input type="hidden" name="prof_cat_lo[]"  value="<?php echo $header_data[$j]['prof_cat2']; ?>">'+
+
+                                                '<input type="hidden" name="canv_show_fetch_lo[]"  value="<?php echo $header_data[$j]['sub_cat2_show_fetch']; ?>">'+
+
+                                                '<input type="hidden" name="canv_sub_cat_link_lo[]"  value="<?php echo $header_data[$j]['sub_cat2_link']; ?>">'+
+
+                                               
+                                                
+                                                '<input  type="text" name="comment_lo[]" id="comment_lo'+cat_cnt+'"  placeholder="<?php echo $header_data[$j]['comments_heading']; ?>" title="<?php echo $header_data[$j]['comments_heading']; ?>" class="input-text-box input-quarter-width" style="display:none;">'+
+              
+                                                '<select  class="input-text-box input-quarter-width" name="location_lo[]" id="location_lo'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['location_heading']; ?>">'+
+                                                    '<option value=""><?php echo $header_data[$j]['location_heading']; ?></option>'+
+                                                    '<?php echo $obj->getFavCategoryRamakant($header_data[$j]['location_fav_cat'],''); ?>'+
+                                                '</select>'+
+
+                                                '<select  class="input-text-box input-quarter-width" name="User_view_lo[]" id="User_view_lo'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['like_dislike_heading']; ?>">'+
+                                                    '<option value=""><?php echo $header_data[$j]['like_dislike_heading']; ?></option>'+
+                                                    '<?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_response_fav_cat'],''); ?>'+
+                                                '</select>'+
+
+                                                '<select  class="input-text-box input-quarter-width" name="User_Interaction_lo[]" id="User_Interaction_lo'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['set_goals_heading']; ?>">'+
+                                                    '<option value=""><?php echo $header_data[$j]['set_goals_heading']; ?></option>'+
+                                                    '<?php echo $obj->getFavCategoryRamakant($header_data[$j]['user_what_fav_cat'],''); ?>'+
+                                                '</select>'+
+
+                                                '<select class="input-text-box input-quarter-width" name="alert_lo[]" id="alert_lo'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['reminder_heading']; ?>">'+
+                                                    '<option value=""><?php echo $header_data[$j]['reminder_heading']; ?></option>'+
+                                                    '<?php echo $obj->getFavCategoryRamakant($header_data[$j]['alerts_fav_cat'],''); ?>'+
+                                                '</select>'+
+
+                                                 '<select  class="input-text-box input-quarter-width" name="scale_lo[]" id="scale_lo'+cat_cnt+'" style="display:none;" title="<?php echo $header_data[$j]['scale_heading']; ?>">'+
+                                                '<option value=""><?php echo $header_data[$j]['scale_heading']; ?></option>'+
+                                                '<option value="1">1</option>'+
+                                                '<option value="2">2</option>'+
+                                                '<option value="3">3</option>'+
+                                                '<option value="4">4</option>'+
+                                                '<option value="5">5</option>'+
+                                                '<option value="6">6</option>'+
+                                                '<option value="7">7</option>'+
+                                                '<option value="8">8</option>'+
+                                                '<option value="9">9</option>'+
+                                                '<option value="10">10</option>'+
+                                            '</select>'+
+
+
+                                             '<select  class="input-text-box input-quarter-width" name="bes_time_lo[]" id="bes_time_lo'+cat_cnt+'" style="display: none;">'+
+                                                 '<option value=""><?php echo $design_my_life_data['time_heading']; ?></option>'+
+                                                 '<?php echo $obj->getTimeOptionsNew('0','23',$bes_time ); ?>
+                                             </select>'+
+
+                                              '<input type="text" name="duration_lo[]" id="duration_lo'+cat_cnt+'" onKeyPress="return isNumberKey(event);" placeholder="<?php echo $design_my_life_data['duration_heading']; ?>" class="input-text-box input-quarter-width" autocomplete="false" style="display:none;">'+
+
+                                              '<span class="">'+
+                                                '<select name="userdate_lo[]" id="userdate_lo'+cat_cnt+'" onchange="toggleDateSelectionType_multiple_lo(\'userdate_lo\','+cat_cnt+')" style="width:200px;display:none;" class="input-text-box input-quarter-width">'+
+                                                    '<option value="">Select Date Type</option>'+
+                                                    '<option value="days_of_month" <?php if($listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>'+
+                                                    '<option value="single_date" <?php if($listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>'+
+                                                    '<option value="date_range" <?php if($listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>'+
+                                                    '<option value="month_wise" <?php if($listing_date_type == 'month_wise') { ?> selected="selected" <?php } ?>>Month Wise</option>'+
+                                                    '<option value="days_of_week" <?php if($listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>'+
+                                                '</select>'+
+                                             '</span>'+
+                                        '<span>'+
+                                          '<p>&nbsp;</p>'+
+                                            '<table style="display:none;" class="tab_show'+cat_cnt+'">'+
+                                            '<tr id="tr_days_of_month_lo'+cat_cnt+'" style="display:<?php echo $tr_days_of_month;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select days of month</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<select id="days_of_month_lo'+cat_cnt+'" name="days_of_month_lo['+cat_cnt+'][]" multiple="multiple" style="width:500px;" class="input-text-box input-quarter-width">'+
+                                                        '<?php
+                                                        for($i=1;$i<=31;$i++)
+                                                        { ?>'+
+                                                            '<option value="<?php echo $i;?>" <?php if (in_array($i, $arr_days_of_month)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>'+
+                                                        '<?php
+                                                        } ?>'+
+                                                        '</select>&nbsp;*<br>'+
+                                                        'You can choose more than one option by using the ctrl key.'+
+                                                    '</td>'+
+                                                '</tr>'+
+                                                
+                                              '<tr id="tr_single_date_lo'+cat_cnt+'" style="display:<?php echo $tr_single_date;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select Date</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<input name="single_date_lo[]" id="single_date_lo'+cat_cnt+'" type="text" value="<?php echo $single_date;?>" class="input-text-box" onmouseover="callDatecalender('+cat_cnt+')">'+
+                                                        // $('#single_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});
+                                                    '</td>'+
+                                                '</tr>'+
+
+                                                '<tr id="tr_date_range_lo'+cat_cnt+'" style="display:<?php echo $tr_date_range;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select Date Range</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<input name="start_date_lo[]" id="start_date_lo'+cat_cnt+'" type="text" value="<?php echo $start_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender('+cat_cnt+')"/> - <input name="end_date_lo[]" id="end_date_lo'+cat_cnt+'" type="text" value="<?php echo $end_date;?>" style="width:200px;" class="input-text-box" onmouseover="callDatecalender('+cat_cnt+')"/>'+
+                                                        // $('#start_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#end_date_lo').datepicker({ minDate: 0 , dateFormat : 'dd-mm-yy'}); 
+                                                    '</td>'+
+                                                '</tr>'+
+
+                                                '<tr id="tr_days_of_week_lo'+cat_cnt+'" style="display:<?php echo $tr_days_of_week;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select days of week</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<select id="days_of_week_lo'+cat_cnt+'" name="days_of_week_lo['+cat_cnt+'][]" multiple="multiple" class="input-text-box">'+
+                                                        '<?php echo $obj->getDayOfWeekOptionsMultiple($arr_days_of_week); ?>'+
+                                                        '</select>&nbsp;*<br>'+
+                                                        'You can choose more than one option by using the ctrl key.'+
+                                                    '</td>'+
+                                                '</tr>'+
+
+                                                '<tr id="tr_month_date_lo'+cat_cnt+'" style="display:<?php echo $tr_month_date;?>">'+
+                                                    '<td align="right" valign="top"><strong>Select Month</strong></td>'+
+                                                    '<td align="center" valign="top"><strong>:</strong></td>'+
+                                                    '<td align="left">'+
+                                                        '<select id="months_lo'+cat_cnt+'" name="months_lo['+cat_cnt+'][]" multiple="multiple" class="input-text-box">'+
+                                                        '<?php echo $obj->getMonthsOptionsMultiple($arr_month); ?>'+ 
+                                                        '</select>&nbsp;*<br>'+
+                                                        'You can choose more than one option by using the ctrl key.'+
+                                                    '</td>'+
+                                                '</tr>'+
+                                                '</table>'+
+                                        '</span>'+
+                                       '<br>'+
+                                      '</div>'+
+                                      '<?php
+                                 
+                                    }
+                                  }
+                                ?>'+
+                       '<br><br>'+
+             '</div>';
+
+
+		// $("#row_inp_first").after(new_row);
+    $("#row_inp_first").append(new_row);
+		$("#box_cnt").val(cat_cnt);
+		
+		var cat_total_cnt = parseInt($("#box_total_cnt").val());
+		cat_total_cnt = cat_total_cnt + 1;
+		$("#box_total_cnt").val(cat_total_cnt);
+	}
+
+function removeRowLoc(idval)
+	{
+		$("#row_inp_"+idval).remove();
+
+		var cat_total_cnt = parseInt($("#box_total_cnt").val());
+		cat_total_cnt = cat_total_cnt - 1;
+		$("#box_total_cnt").val(cat_total_cnt);
+		
+	}   
+
+  function Showloop(id)
+{
+// alert(id);
+$("#comment_show_icon_"+id).show(); 
+$("#location_show_icon_"+id).show(); 
+$("#User_view_icon_"+id).show(); 
+$("#User_Interaction_icon_"+id).show(); 
+$("#alert_show_icon_"+id).show(); 
+$("#user_date_show_icon_"+id).show();
+$("#scale_show_icon_"+id).show();
+$("#time_show_icon_"+id).show();
+$("#duration_show_icon_"+id).show();
+
+
+
+}
+
+function ShowloopLoc(id)
+{
+// alert(id);
+$("#comment_show_icon_lo"+id).show(); 
+$("#location_show_icon_lo"+id).show(); 
+$("#User_view_icon_lo"+id).show(); 
+$("#User_Interaction_icon_lo"+id).show(); 
+$("#alert_show_icon_lo"+id).show(); 
+$("#user_date_show_icon_lo"+id).show();
+$("#scale_show_icon_lo"+id).show();
+$("#time_show_icon_lo"+id).show();
+$("#duration_show_icon_lo"+id).show();
+}
+
+// function ShowComment(id)
+// {
+// $('#comment_'+id).show();  
+// }
+
+
+  function ShowComment_Lo(id)
+    {
+      // alert(id);
+      $('#comment_lo'+id).show();  
+    }
+
+
+ function ShowLocation_Lo(id)
+    {
+      // alert("hiiii");
+      $('#location_lo'+id).show();  
+    }
+
+      function ShowUserview_Lo(id)
+    {
+      //alert("hiiii");
+      $('#User_view_lo'+id).show();  
+    }
+
+    function ShowUserInteraction_Lo(id)
+    {
+      //alert("hiiii");
+      $('#User_Interaction_lo'+id).show();  
+    }
+
+  function ShowAlert_Lo(id)
+    {
+      //alert("hiiii");
+      $('#alert_lo'+id).show();  
+    }
+
+    function ShowUserDate_Lo(id)
+    {
+      //alert("hiiii");
+      $('#userdate_lo'+id).show();  
+    }
+
+
+   function ShowScale_Lo(id)
+    {
+      // alert("hiiii");
+      $('#scale_lo'+id).show();  
+    }
+
+    
+  function Showtime_Lo(id)
+    {
+      // alert(id);
+      $('#bes_time_lo'+id).show();  
+    }
+    
+    function DurationShow_Lo(id)
+    {
+      //alert("hiiii");
+      $('#duration_lo'+id).show();  
+    }
+
+
+    function erase_input(id)
+     {
+       $("#fav_cat_2_"+id).val('');
+     }     
+</script>
+</body>
+</html>

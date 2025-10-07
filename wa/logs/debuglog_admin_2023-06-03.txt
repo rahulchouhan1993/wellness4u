@@ -1,0 +1,56 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2023-06-03 13:24:32
+[chkValidAdminLogin] Catch Error:SQLSTATE[HY000] [1045] Access denied for user 'dbuser'@'localhost' (using password: YES) , sql:SELECT * FROM `tbl_wa_admin` WHERE `username` = 'sukanya@wellnessway4u.com' AND `password` = '6e14d8ae0d138b4b44fd1c5a8f299e52' AND `status` = '1' AND `deleted` = '0' 
+DEBUG_END - time: 2023-06-03 13:24:32
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2023-06-03 13:27:36
+[chkValidAdminLogin] Catch Error:SQLSTATE[HY000] [1045] Access denied for user 'dbuser'@'localhost' (using password: YES) , sql:SELECT * FROM `tbl_wa_admin` WHERE `username` = 'pavan@wellnessway4u.com' AND `password` = '07ea7962d05ae9d11d31332bb574d91d' AND `status` = '1' AND `deleted` = '0' 
+DEBUG_END - time: 2023-06-03 13:27:36
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2023-06-03 19:20:23
+[getServingTypeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'zy9e01v60pjb6ujb_wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_type_id, cat_name as serving_type FROM `tblcategories` WHERE `parent_cat_id` = '61' AND `cat_deleted` = '0' ORDER BY serving_type ASC
+DEBUG_END - time: 2023-06-03 19:20:23
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2023-06-03 19:20:23
+[getServingSizeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'zy9e01v60pjb6ujb_wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_size_id, cat_name as serving_size FROM `tblcategories` WHERE `parent_cat_id` = '76' AND `cat_deleted` = '0' ORDER BY serving_size ASC
+DEBUG_END - time: 2023-06-03 19:20:23
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2023-06-03 19:20:23
+[getServingTypeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'zy9e01v60pjb6ujb_wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_type_id, cat_name as serving_type FROM `tblcategories` WHERE `parent_cat_id` = '61' AND `cat_deleted` = '0' ORDER BY serving_type ASC
+DEBUG_END - time: 2023-06-03 19:20:23
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2023-06-03 19:20:23
+[getServingSizeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'zy9e01v60pjb6ujb_wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_size_id, cat_name as serving_size FROM `tblcategories` WHERE `parent_cat_id` = '76' AND `cat_deleted` = '0' ORDER BY serving_size ASC
+DEBUG_END - time: 2023-06-03 19:20:23
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2023-06-03 19:21:17
+[getUsersOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'first_name' in 'field list' , sql:SELECT user_id,first_name,last_name FROM `tblusers` WHERE `user_deleted` = '0' ORDER BY first_name ASC, last_name ASC
+DEBUG_END - time: 2023-06-03 19:21:17
+----------------------------------------------------
+

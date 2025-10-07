@@ -1,0 +1,1 @@
+céÜh<?php exit; ?>a:1:{s:7:"content";a:10:{s:28:"health-check-allowed-plugins";b:1;s:26:"health-check-default-theme";b:1;s:26:"health-check-current-theme";b:1;s:18:"aal_filterpriority";b:1;s:15:"aal_showexcerpt";b:1;s:15:"aal_showcatdesc";b:1;s:14:"aal_showwidget";b:1;s:22:"as_has_wp_comment_logs";b:1;s:26:"classic-editor-allow-users";b:1;s:20:"recommending_actions";b:1;}}

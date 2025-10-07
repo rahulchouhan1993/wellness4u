@@ -1,0 +1,2221 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 10:23:03
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-07-16 10:23:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 10:30:32
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-07-16 10:30:32
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 14:02:30
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 8
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 342
+    [vendor_name] => Aarti Ranadive
+    [vendor_username] => aartiranadive@gmail.com
+    [vendor_password] => Aarti@1304
+    [vendor_email] => neha9pradhan@gmail.com
+    [vendor_mobile] => 8422062885
+    [cert_cnt_0] => 1
+    [cert_total_cnt_0] => 2
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 99
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14363
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Aarti Ranadive
+        )
+
+    [contact_email] => Array
+        (
+            [0] => aartiranadive@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9820636405
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 347
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Bach Foundation Registered Practitioner
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 724
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+            [1] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+            [1] => 419
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Bach Foundation Registered Practitioner , U.K
+            [1] => Licensed Level 1 teacher 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => NDP-2015-0401R
+            [1] => 
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => The  Dr.Edward Bach Centre , U.K
+            [1] => The  Dr.Edward Bach Centre , U.K
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 15-04-2015
+            [1] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 01-05-2022
+            [1] => 
+        )
+
+    [hdnvc_cert_scan_file_0_1] => 
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => f71bb99cae8a21e6f59de078df734c16
+    [__utma] => 231471641.2091507719.1594886806.1594886806.1594886806.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594886806.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmb] => 231471641.2.10.1594886806
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                    [1] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 14:02:30
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 14:02:48
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 8
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 342
+    [vendor_name] => Aarti Ranadive
+    [vendor_username] => aartiranadive@gmail.com
+    [vendor_password] => Aarti@1304
+    [vendor_email] => neha9pradhan@gmail.com
+    [vendor_mobile] => 8422062885
+    [cert_cnt_0] => 1
+    [cert_total_cnt_0] => 2
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 99
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14363
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Aarti Ranadive
+        )
+
+    [contact_email] => Array
+        (
+            [0] => aartiranadive@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9820636405
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 347
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Bach Foundation Registered Practitioner
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 724
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+            [1] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+            [1] => 419
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Bach Foundation Registered Practitioner , U.K
+            [1] => Licensed Level 1 teacher 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => NDP-2015-0401R
+            [1] => NDP-2015-0401R
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => The  Dr.Edward Bach Centre , U.K
+            [1] => The  Dr.Edward Bach Centre , U.K
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 15-04-2015
+            [1] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 01-05-2022
+            [1] => 
+        )
+
+    [hdnvc_cert_scan_file_0_1] => 
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => f71bb99cae8a21e6f59de078df734c16
+    [__utma] => 231471641.2091507719.1594886806.1594886806.1594886806.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594886806.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmb] => 231471641.2.10.1594886806
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                    [1] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 14:02:48
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 14:03:12
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 8
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 342
+    [vendor_name] => Aarti Ranadive
+    [vendor_username] => aartiranadive@gmail.com
+    [vendor_password] => Aarti@1304
+    [vendor_email] => neha9pradhan@gmail.com
+    [vendor_mobile] => 8422062885
+    [cert_cnt_0] => 1
+    [cert_total_cnt_0] => 2
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 99
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14363
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Aarti Ranadive
+        )
+
+    [contact_email] => Array
+        (
+            [0] => aartiranadive@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9820636405
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 347
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Bach Foundation Registered Practitioner
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 724
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+            [1] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+            [1] => 419
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Bach Foundation Registered Practitioner , U.K
+            [1] => Licensed Level 1 teacher 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => NDP-2015-0401R
+            [1] => NDP-2015-0401R
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => The  Dr.Edward Bach Centre , U.K
+            [1] => The  Dr.Edward Bach Centre , U.K
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 15-04-2015
+            [1] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 01-05-2022
+            [1] => 16-09-2022
+        )
+
+    [hdnvc_cert_scan_file_0_1] => 
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => f71bb99cae8a21e6f59de078df734c16
+    [__utma] => 231471641.2091507719.1594886806.1594886806.1594886806.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594886806.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmb] => 231471641.2.10.1594886806
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                    [1] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                    [1] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                    [1] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 14:03:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 16:09:21
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 2
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 339
+    [vendor_name] => Smile Media
+    [vendor_username] => Happy
+    [vendor_password] => Maruti$900crore
+    [vendor_email] => pawanks0304@gmail.com
+    [vendor_mobile] => 9322839291
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 98
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 11
+        )
+
+    [city_id] => Array
+        (
+            [0] => Panaji
+        )
+
+    [area_id] => Array
+        (
+            [0] => 736
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => asd
+        )
+
+    [contact_email] => Array
+        (
+            [0] => xyz@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 903990900
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => nice
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 54
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => xxxcc
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 88899
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Rahul
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 01-06-2020
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 13-08-2020
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.512042791.1594895606.1594895606.1594895606.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594895606.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmt] => 1
+    [__utmb] => 231471641.2.10.1594895606
+    [PHPSESSID] => c830000b33fd17626ab7a1f127fda6f2
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 5.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpYJXg6s
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 7384
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 1.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpm5r8WB
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 2034
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 4.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpgfrqOK
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 6510
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 16:09:21
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 16:49:21
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 2
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 339
+    [vendor_name] => Smile Media
+    [vendor_username] => Happy
+    [vendor_password] => Maruti$900crore
+    [vendor_email] => pawanks0304@gmail.com
+    [vendor_mobile] => 9322839291
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 99
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 11
+        )
+
+    [city_id] => Array
+        (
+            [0] => Goa South District
+        )
+
+    [area_id] => Array
+        (
+            [0] => 725
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => abc
+        )
+
+    [contact_email] => Array
+        (
+            [0] => xyz@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 3455555555
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 489
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => nice
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 54
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => reeer
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 445543
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Rahul
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 01-04-2020
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-07-2020
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594895606.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => c830000b33fd17626ab7a1f127fda6f2
+    [__utma] => 231471641.512042791.1594895606.1594895606.1594897821.2
+    [__utmt] => 1
+    [__utmb] => 231471641.2.10.1594897821
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 3.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpGpC6RH
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 5533
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 4.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpoccSsi
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 6510
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 1.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phph9A33S
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 2034
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 16:49:21
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 17:00:42
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 2
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 339
+    [vendor_name] => Smile Media
+    [vendor_username] => Happy
+    [vendor_password] => Maruti$900crore
+    [vendor_email] => pawanks0304@gmail.com
+    [vendor_mobile] => 9594347394
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 99
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 13
+        )
+
+    [city_id] => Array
+        (
+            [0] => Hassan
+        )
+
+    [area_id] => Array
+        (
+            [0] => 1975
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => wee
+        )
+
+    [contact_email] => Array
+        (
+            [0] => yui@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 980978654
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => good
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 54
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Star smile
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 9891564589
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Rahul
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 01-07-2020
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-07-2020
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594895606.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => c830000b33fd17626ab7a1f127fda6f2
+    [__utma] => 231471641.512042791.1594895606.1594895606.1594897821.2
+    [__utmt] => 1
+    [__utmb] => 231471641.4.10.1594897821
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 1.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpo5jKEI
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 2034
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 4.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpgRVgry
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 6510
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 17:00:42
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 17:01:00
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 2
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 339
+    [vendor_name] => Smile Media
+    [vendor_username] => Happy
+    [vendor_password] => Maruti$900crore
+    [vendor_email] => pawanks0304@gmail.com
+    [vendor_mobile] => 9594347394
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 99
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 13
+        )
+
+    [city_id] => Array
+        (
+            [0] => Hassan
+        )
+
+    [area_id] => Array
+        (
+            [0] => 1975
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => wee
+        )
+
+    [contact_email] => Array
+        (
+            [0] => yui@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 980978654
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => good
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 54
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Star smile
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 9891564589
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Rahul
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 01-07-2020
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-07-2020
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594895606.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => c830000b33fd17626ab7a1f127fda6f2
+    [__utma] => 231471641.512042791.1594895606.1594895606.1594897821.2
+    [__utmt] => 1
+    [__utmb] => 231471641.4.10.1594897821
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 1.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/php4jlXlV
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 2034
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 4.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpyNnhw2
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 6510
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 17:01:00
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 17:01:37
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 2
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 339
+    [vendor_name] => Smile Media
+    [vendor_username] => Happy
+    [vendor_password] => Maruti$900crore
+    [vendor_email] => shettigarv@wellnessway4u.com
+    [vendor_mobile] => 9594347394
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 99
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 13
+        )
+
+    [city_id] => Array
+        (
+            [0] => Hassan
+        )
+
+    [area_id] => Array
+        (
+            [0] => 1975
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => wee
+        )
+
+    [contact_email] => Array
+        (
+            [0] => yui@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 980978654
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => good
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 54
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Star smile
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 9891564589
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Rahul
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 01-07-2020
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-07-2020
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594895606.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => c830000b33fd17626ab7a1f127fda6f2
+    [__utma] => 231471641.512042791.1594895606.1594895606.1594897821.2
+    [__utmt] => 1
+    [__utmb] => 231471641.4.10.1594897821
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 1.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpn2c83G
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 2034
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 4.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpJ1z2mA
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 6510
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 17:01:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-07-16 17:02:09
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 2
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 339
+    [vendor_name] => aff
+    [vendor_username] => 444
+    [vendor_password] => Maruti$900crore
+    [vendor_email] => shettigarv@wellnessway4u.com
+    [vendor_mobile] => 9594347394
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 99
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 13
+        )
+
+    [city_id] => Array
+        (
+            [0] => Hassan
+        )
+
+    [area_id] => Array
+        (
+            [0] => 1975
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Male
+        )
+
+    [contact_person] => Array
+        (
+            [0] => wee
+        )
+
+    [contact_email] => Array
+        (
+            [0] => yui@yahoo.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 980978654
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => good
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 54
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 422
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => uuuu
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 9891564589
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Rahul
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 01-07-2020
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-07-2020
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1594895606.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => c830000b33fd17626ab7a1f127fda6f2
+    [__utma] => 231471641.512042791.1594895606.1594895606.1594897821.2
+    [__utmt] => 1
+    [__utmb] => 231471641.4.10.1594897821
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 1.png
+                )
+
+            [type] => Array
+                (
+                    [0] => image/png
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpNXdjJB
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 2034
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => LightHouse 4.jpg
+                )
+
+            [type] => Array
+                (
+                    [0] => image/jpeg
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => /tmp/phpxq2J8C
+                )
+
+            [error] => Array
+                (
+                    [0] => 0
+                )
+
+            [size] => Array
+                (
+                    [0] => 6510
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-07-16 17:02:09
+----------------------------------------------------
+

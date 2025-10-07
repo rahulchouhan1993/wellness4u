@@ -1,0 +1,110 @@
+						<table width="960" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                            </tr>
+                        </table>
+                    </td>
+					<td width="10" background="images/right_body_back.jpg">&nbsp;</td>
+				</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td align="center" valign="top"><table width="1000" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td align="left" valign="top"><table width="1000" border="0" cellspacing="0" cellpadding="0">
+                                  <tr>
+                                    <td width="10" background="images/left_body_back.jpg">&nbsp;</td>
+                                    <td width="980" align="center" valign="top" style="background-repeat: repeat-x;" bgcolor="#DBDBDB"><table width="960" border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                          <td height="50" align="center" valign="middle"><img src="images/spacer.gif" width="1" height="1" />
+                                            <table width="900" border="0" cellspacing="0" cellpadding="0">
+                                              <tr>
+                                                <td width="300" height="30" align="left" valign="middle" class="footer">&copy; 2011 Chaitanya Wellness Research Institute, all rights reserved.</td>
+                                                <td width="425" height="30" align="right" valign="middle"><span class="footer" id="footer_pages"> <a  href="index.php" class="footer_link">Home</a> | <a  href="about_us.php" class="footer_link">About Us</a> | <a  href="contact_us.php" class="footer_link">Contact Us</a> | <a  href="resources.php" class="footer_link">Resources</a> | <a onclick="NewWindow(this.href,'name','530','290','yes');return false" href="disclaimer.php" class="footer_link">Disclaimer</a> | <a onclick="NewWindow(this.href,'name','530','290','yes');return false" href="terms_and_conditions.php" class="footer_link">Terms &amp; Conditions</a> | <a onclick="NewWindow(this.href,'name','530','290','yes');return false" href="privacy_policy.php" class="footer_link">Privacy Policy</a> </span> </td>
+                                                <td width="175" align="right" valign="middle"><table width="175" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                               <td width="20" height="19" border="0" /></a></td>
+                                                    </tr>    
+                                                </table></td>
+                                              </tr>
+                                            </table></td>
+                                      </tr>
+                                    </table></td>
+                                    <td width="10" background="images/right_body_back.jpg">&nbsp;</td>
+                                  </tr>
+                                </table></td>
+					</tr>
+						</table>
+						</td>
+			  </tr>
+			</table>
+            <div class="feedback"><img src="images/feedback_button.png" width="35" height="127" /></div>
+            <div class="QTPopup">
+                <div class="popupGrayBg"></div>
+                <div class="QTPopupCntnr">
+                    <div class="gpBdrRight">
+                        <div class="caption">
+                            <div id="caption_text">Feedback and Suggestions</div>
+                        </div>
+                        <a href="#" class="closeBtn" title="Close"></a>
+                        <div id="prwcontent">
+                       		<br />
+                             <form id="frm_feedback" name="frm_feedback" method="post" action="#" enctype="multipart/form-data">
+                             <input type="hidden" name="main_page_id" id="main_page_id" value="<?php echo $main_page_id; ?>" />
+                              <input type="hidden" name="hdn_p_id" id="hdn_p_id" value="" />
+                              
+                             <?php 
+							 	
+								$temp_page_id = getTemppageId($page_id);
+							 
+							  ?>
+                            	<table cellpadding="0" cellspacing="0" width="75%" align="center" border="0">
+									<tr>
+                                        <td width="60%" height="40" align="left" valign="top">Subject:</td>
+                                        <td width="40%" height="40" align="left" valign="top">
+                                            <select id="temp_page_id" name="temp_page_id">
+                                                <?php echo getFeeadBackPages($temp_page_id); ?>
+                                            </select>
+                                        </td>
+                                  </tr>
+								  <?php 
+                                    if(isLoggedIn())
+                                    {
+                                        $user_id = $_SESSION['user_id'];
+                                        $name = getUserFullNameById($user_id);
+                                        $email = getUserEmailById($user_id);
+                                        $readonly = ' readonly ';
+                                    }
+                                    else
+                                    {
+                                        $readonly = '';
+                                    }
+                                    ?>
+                                        <tr>
+                                         	<td width="60%" height="40" align="left" valign="top">Name:</td>
+                                        	<td width="40%" height="40" align="left" valign="top">
+                                        		 <input type="text" id="name" name="name" <?php  echo $readonly; ?> value="<?php echo $name; ?>"/>
+                                         	</td>
+                                        </tr>
+                                        <tr>
+                                      		 <td width="60%" height="40" align="left" valign="top">Email:</td>
+                                     		 <td width="40%" height="40" align="left" valign="top">
+                                       			<input type="text" id="email" name="email" <?php  echo $readonly; ?> value="<?php echo $email; ?>"/>                                             </td>
+                                        </tr>
+                                    	<tr>
+                                       		 <td width="60%" height="110" align="left" valign="top">Feedback and Suggestions:</td>
+                                        	 <td width="40%" height="110" align="left" valign="top">
+                                            	 <textarea  cols="30" rows="5" type="text" id="feedback" name="feedback"><?php echo $textarea;?></textarea>                                             </td>
+                                   		</tr>
+                                    	<tr>
+                                     		<td width="60%" height="40" align="left" valign="middle">&nbsp;</td>
+                                     		<td width="40%" height="40" align="left" valign="middle">
+                                            	<input name="submit" type="button" class="button" id="submit" value="Submit"  onclick="GetFeedback()"/>
+                                            </td>
+                                         </tr>   
+                                 </table>
+                          </form>
+                        </div>
+                    </div>
+                </div>
+            </div>

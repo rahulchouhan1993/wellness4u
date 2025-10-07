@@ -1,0 +1,32 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-11-28 12:22:43
+[getMainProfileOption] sql:SELECT * FROM `tblprofilecustomcategories` WHERE `prct_cat_status` = '1'  AND  `prct_cat_deleted` = '0' ORDER BY `prct_cat` ASC
+DEBUG_END - time: 2018-11-28 12:22:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-11-28 12:22:49
+[getMainProfileOption] sql:SELECT * FROM `tblprofilecustomcategories` WHERE `prct_cat_status` = '1'  AND  `prct_cat_deleted` = '0' ORDER BY `prct_cat` ASC
+DEBUG_END - time: 2018-11-28 12:22:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-11-28 12:22:50
+[getServingTypeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_type_id, cat_name as serving_type FROM `tblcategories` WHERE `parent_cat_id` = '61' AND `cat_deleted` = '0' ORDER BY serving_type ASC
+DEBUG_END - time: 2018-11-28 12:22:50
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-11-28 12:22:50
+[getServingSizeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as serving_size_id, cat_name as serving_size FROM `tblcategories` WHERE `parent_cat_id` = '76' AND `cat_deleted` = '0' ORDER BY serving_size ASC
+DEBUG_END - time: 2018-11-28 12:22:50
+----------------------------------------------------
+

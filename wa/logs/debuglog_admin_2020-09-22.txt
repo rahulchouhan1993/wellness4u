@@ -1,0 +1,355 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-22 12:34:56
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 13
+    [hdn_va_cat_id] => 42
+    [hdn_va_sub_cat_id] => 725
+    [va_name] => Reflex-Biofeedback
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 11
+            [1] => 12
+            [2] => 13
+            [3] => 16
+            [4] => 18
+            [5] => 20
+            [6] => 23
+            [7] => 28
+            [8] => 30
+            [9] => 32
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 21
+            [1] => 22
+            [2] => 25
+            [3] => 27
+            [4] => 28
+            [5] => 29
+            [6] => 31
+            [7] => 32
+            [8] => 33
+            [9] => 43
+            [10] => 44
+            [11] => 45
+            [12] => 51
+            [13] => 52
+            [14] => 57
+            [15] => 58
+            [16] => 59
+            [17] => 69
+            [18] => 101
+            [19] => 110
+            [20] => 111
+            [21] => 112
+            [22] => 118
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1600063899.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.110825816.1600063899.1600672163.1600754697.33
+    [__utmc] => 231471641
+    [__utmt] => 1
+    [PHPSESSID] => 0520e9fd7afaa5dbbe9e6b0cd6b4fb96
+    [__utmb] => 231471641.24.10.1600754697
+)
+</pre>
+DEBUG_END - time: 2020-09-22 12:34:56
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-22 13:42:01
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 10
+    [hdnvaf_id] => 13
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 64
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 462
+        )
+
+    [vafm_id] => 2
+    [vaf_status] => 1
+    [reference_number_show] => 1
+    [wellbeing_id_show] => 1
+    [organiser_id_show] => 1
+    [institution_id_show] => 1
+    [sponsor_id_show] => 1
+    [event_name_show] => 1
+    [event_contents_show] => 1
+    [prof_cat_id_1_show] => 1
+    [fav_cat_id_1_show] => 1
+    [prof_cat_id_2_show] => 1
+    [fav_cat_id_2_show] => 1
+    [prof_cat_id_3_show] => 1
+    [fav_cat_id_3_show] => 1
+    [prof_cat_id_4_show] => 1
+    [fav_cat_id_4_show] => 1
+    [prof_cat_id_5_show] => 0
+    [fav_cat_id_5_show] => 0
+    [location_category_show] => 1
+    [location_category] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [location_sub_category_show] => 1
+    [location_sub_category] => Array
+        (
+            [0] => 95
+            [1] => 100
+            [2] => 89
+            [3] => 92
+            [4] => 94
+            [5] => 94
+            [6] => 97
+            [7] => 99
+            [8] => 91
+            [9] => 101
+            [10] => 93
+            [11] => 96
+            [12] => 345
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [venue_details_show] => 1
+    [start_date_show] => 1
+    [start_time_show] => 1
+    [end_date_show] => 1
+    [end_time_show] => 1
+    [time_zone_id_show] => 1
+    [venue_image_show] => 1
+    [event_image_show] => 1
+    [no_of_groups_show] => 1
+    [no_of_teams_show] => 1
+    [no_of_participants_show] => 1
+    [no_of_judges_show] => 1
+    [rules_regulation_pdf_show] => 1
+    [institution_profile_pdf_show] => 1
+    [participants_gender_show] => 1
+    [participants_special_remark_show] => 1
+    [participants_from_age_group_show] => 1
+    [participants_to_age_group_show] => 1
+    [participants_from_height_show] => 1
+    [participants_to_height_show] => 1
+    [participants_from_weight_show] => 1
+    [participants_to_weight_show] => 1
+    [vc_certificate_type_show] => 1
+    [vc_certificate_name_show] => 1
+    [vc_certificate_number_show] => 1
+    [vc_certificate_issue_by_show] => 1
+    [vc_certificate_issue_date_show] => 1
+    [vc_certificate_validity_date_show] => 1
+    [vc_certificate_scan_copy_show] => 1
+    [judge_gender_show] => 1
+    [judge_special_remark_show] => 1
+    [judge_certificate_type_show] => 1
+    [judge_certificate_name_show] => 1
+    [judge_certificate_number_show] => 1
+    [judge_certificate_issue_by_show] => 1
+    [judge_certificate_issue_date_show] => 1
+    [judge_certificate_validity_date_show] => 1
+    [judge_certificate_scan_copy_show] => 1
+    [organiser_facebook_page_show] => 1
+    [organiser_twitter_page_show] => 1
+    [organiser_instagram_page_show] => 1
+    [organiser_youtube_channel_show] => 1
+    [organiser_gender_show] => 1
+    [organiser_contact_person_show] => 1
+    [organiser_email_show] => 1
+    [organiser_contact_number_show] => 1
+    [organiser_designation_show] => 1
+    [organiser_remarks_show] => 1
+    [org_certificate_type_show] => 1
+    [org_certificate_name_show] => 1
+    [org_certificate_number_show] => 1
+    [org_certificate_issue_by_show] => 1
+    [org_certificate_issue_date_show] => 1
+    [org_certificate_validity_date_show] => 1
+    [org_certificate_scan_copy_show] => 1
+    [btnSubmit] => btnSubmit
+    [__utmz] => 231471641.1600063899.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.110825816.1600063899.1600672163.1600754697.33
+    [__utmc] => 231471641
+    [PHPSESSID] => 0520e9fd7afaa5dbbe9e6b0cd6b4fb96
+)
+</pre>
+DEBUG_END - time: 2020-09-22 13:42:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-22 13:43:12
+[ADD_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 10
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 64
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 462
+        )
+
+    [vafm_id] => 2
+    [btnSubmit] => btnSubmit
+    [__utmz] => 231471641.1600063899.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.110825816.1600063899.1600672163.1600754697.33
+    [__utmc] => 231471641
+    [PHPSESSID] => 0520e9fd7afaa5dbbe9e6b0cd6b4fb96
+)
+</pre>
+DEBUG_END - time: 2020-09-22 13:43:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-22 14:20:56
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 10
+    [hdnvaf_id] => 13
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 64
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 462
+        )
+
+    [vafm_id] => 2
+    [vaf_status] => 1
+    [reference_number_show] => 1
+    [wellbeing_id_show] => 1
+    [organiser_id_show] => 1
+    [institution_id_show] => 1
+    [sponsor_id_show] => 1
+    [event_name_show] => 1
+    [event_contents_show] => 1
+    [prof_cat_id_1_show] => 1
+    [fav_cat_id_1_show] => 1
+    [prof_cat_id_2_show] => 1
+    [fav_cat_id_2_show] => 1
+    [prof_cat_id_3_show] => 1
+    [fav_cat_id_3_show] => 1
+    [prof_cat_id_4_show] => 1
+    [fav_cat_id_4_show] => 1
+    [prof_cat_id_5_show] => 0
+    [fav_cat_id_5_show] => 0
+    [location_category_show] => 1
+    [location_category] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [location_sub_category_show] => 1
+    [location_sub_category] => Array
+        (
+            [0] => 95
+            [1] => 100
+            [2] => 89
+            [3] => 92
+            [4] => 94
+            [5] => 94
+            [6] => 97
+            [7] => 99
+            [8] => 91
+            [9] => 101
+            [10] => 93
+            [11] => 96
+            [12] => 345
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [venue_details_show] => 1
+    [start_date_show] => 1
+    [start_time_show] => 1
+    [end_date_show] => 1
+    [end_time_show] => 1
+    [time_zone_id_show] => 1
+    [venue_image_show] => 1
+    [event_image_show] => 1
+    [no_of_groups_show] => 1
+    [no_of_teams_show] => 1
+    [no_of_participants_show] => 1
+    [no_of_judges_show] => 1
+    [rules_regulation_pdf_show] => 1
+    [institution_profile_pdf_show] => 1
+    [participants_gender_show] => 1
+    [participants_special_remark_show] => 1
+    [participants_from_age_group_show] => 1
+    [participants_to_age_group_show] => 1
+    [participants_from_height_show] => 1
+    [participants_to_height_show] => 1
+    [participants_from_weight_show] => 1
+    [participants_to_weight_show] => 1
+    [vc_certificate_type_show] => 1
+    [vc_certificate_name_show] => 1
+    [vc_certificate_number_show] => 1
+    [vc_certificate_issue_by_show] => 1
+    [vc_certificate_issue_date_show] => 1
+    [vc_certificate_validity_date_show] => 1
+    [vc_certificate_scan_copy_show] => 1
+    [judge_gender_show] => 1
+    [judge_special_remark_show] => 1
+    [judge_certificate_type_show] => 1
+    [judge_certificate_name_show] => 1
+    [judge_certificate_number_show] => 1
+    [judge_certificate_issue_by_show] => 1
+    [judge_certificate_issue_date_show] => 1
+    [judge_certificate_validity_date_show] => 1
+    [judge_certificate_scan_copy_show] => 1
+    [organiser_facebook_page_show] => 1
+    [organiser_twitter_page_show] => 1
+    [organiser_instagram_page_show] => 1
+    [organiser_youtube_channel_show] => 1
+    [organiser_gender_show] => 1
+    [organiser_contact_person_show] => 1
+    [organiser_email_show] => 1
+    [organiser_contact_number_show] => 1
+    [organiser_designation_show] => 1
+    [organiser_remarks_show] => 1
+    [org_certificate_type_show] => 1
+    [org_certificate_name_show] => 1
+    [org_certificate_number_show] => 1
+    [org_certificate_issue_by_show] => 1
+    [org_certificate_issue_date_show] => 1
+    [org_certificate_validity_date_show] => 1
+    [org_certificate_scan_copy_show] => 1
+    [btnSubmit] => btnSubmit
+    [__utmz] => 231471641.1600063899.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.110825816.1600063899.1600672163.1600754697.33
+    [__utmc] => 231471641
+    [PHPSESSID] => 0520e9fd7afaa5dbbe9e6b0cd6b4fb96
+)
+</pre>
+DEBUG_END - time: 2020-09-22 14:20:56
+----------------------------------------------------
+

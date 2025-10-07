@@ -1,0 +1,216 @@
+@media(min-width:768px) and (max-width:991px){
+    
+    header .logo img{
+        width: 100px;
+    }
+    header ul li img {
+        width: 14px;
+        margin-right: 5px;
+    }
+    header ul li{
+        font-size: 10px;
+    }
+    header ul li a{
+        font-size: 10px;
+    }
+    header ul {
+        padding-top: 2px;
+    }
+    #banner {
+        height: 190px;
+    }
+    #booking .Order a img{
+        width: 25px;
+        margin-right: 20px;
+    }
+    #booking .Order a{
+        font-size: 12px;
+    }
+    #booking .date button{
+        width: 100px;
+        margin-right: 9px;
+        /*height: 30px;*/
+        height: 40px;
+        font-size: 12px;
+    }
+    #menu ul {
+        padding: 0px;
+    }
+    #menu ul li{
+        padding: 0 25px;
+    }
+    #menu ul li a{
+        font-size: 13px;
+    }
+    .slick-prev{
+        left: -10px;
+    }
+    .slick-next{
+        right: -10px;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}
+
+/*=========================================================================
+===========================================================================
+                        M O B I L E    D E V I C E
+============================================================================
+===========================================================================*/
+@media(min-width:320px) and (max-width:767px){
+    
+     .navbar-toggle{
+        border-color: #e1452b;
+         border: 2px solid #e1452b;
+    }
+    .navbar-toggle:hover{
+        background: none;
+    }
+    .navbar-toggle .icon-bar{
+        background: #e1452b
+    }
+    .navbar-toggle:hover .icon-bar{
+        background: #fc004e;
+    }
+    .navbar-toggle:focus, .navbar-toggle:hover{
+        border-color: #fc004e;
+    }
+    header ul{
+        padding: 0px;
+        margin: 0px
+    }
+    header ul li{
+        float: none;
+        margin: 10px 0px;
+        font-size: 12px;
+    }
+    header ul li a{
+        font-size: 12px;
+    }
+
+    #banner {
+        height: 138px;
+    }
+    .indicators-line > .carousel-indicators {
+        right: 37%;
+    }
+    .slide-text h1{
+        font-size: 13px !important;
+    }
+    .slide-text > p{
+        
+        font-size: 11px !important;
+        line-height: 0px; 
+    }
+    .slide-text > a.btn-default, .slide-text > a.btn-primary{
+        line-height: 0;
+        font-size: 8px;
+        padding: 6px 15px;
+    }
+    #booking .Order a img{
+        margin-right: 20px;
+    }
+    #booking .date button {
+        width: 268px;
+        /*height: 29px;*/
+        height: 40px;
+        margin: 5px 0; 
+    }
+    #menu ul{
+        margin: 0px;
+        padding: 0px;
+    }
+    #menu ul li{
+        float: none;
+        width: 100%;
+        text-align: center;
+    }
+    #menu ul li a{
+        
+    }
+    #menu ul li span{
+        display: none;
+    }
+    #dishes .dish img{
+        width: 38px;
+    }
+    #dishes .dish h2{
+        font-size:16px;
+        padding-left: 50px;
+        /*line-height: 70px;*/
+		line-height:16px;
+		padding-top:10px;
+    }
+    
+    .slick-prev{
+        left: 36px;
+        top: 35%;
+    }
+    .slick-next{
+        right: 36px;
+        top: 35%;
+    }
+    .slick-prev i , .slick-next i{
+        border: 0px solid #231f20;
+        font-size: 20px;
+        width: 25px;
+        height: 25px;
+        line-height: 25px;
+        text-align: center;
+        color: #fff;
+        cursor: pointer;
+        -webkit-box-shadow:  0px 0px 20px rgba(255, 255, 255, 0.6) ;
+        -moz-box-shadow:  0px 0px 20px rgba(255, 255, 255, 0.6) ;
+        -sm-box-shadow:  0px 0px 20px rgba(255, 255, 255, 0.6) ;
+        -o-box-shadow:  0px 0px 20px rgba(255, 255, 255, 0.6);
+        box-shadow:  0px 30x 220x rgba(255, 255, 255, 0.6); 
+    }
+    #dishes .my_silick .silick .img h3,#dishes .my_silick .silick .img h4{
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}

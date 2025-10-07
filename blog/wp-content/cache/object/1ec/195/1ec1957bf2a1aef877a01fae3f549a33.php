@@ -1,0 +1,1 @@
+y×Üh<?php exit; ?>a:1:{s:7:"content";a:4:{i:0;O:8:"stdClass":2:{s:7:"term_id";i:70;s:9:"object_id";i:509;}i:1;O:8:"stdClass":2:{s:7:"term_id";i:50;s:9:"object_id";i:509;}i:2;O:8:"stdClass":2:{s:7:"term_id";i:76;s:9:"object_id";i:509;}i:3;O:8:"stdClass":2:{s:7:"term_id";i:72;s:9:"object_id";i:509;}}}

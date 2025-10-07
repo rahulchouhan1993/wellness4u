@@ -1,0 +1,3538 @@
+<?php
+
+include('config.php');
+require_once('admin/config/class.mysql.php');
+require_once('admin/classes/class.scrollingwindows.php');
+$obj = new Scrolling_Windows();
+
+require_once('admin/classes/class.bodyparts.php');
+$obj1 = new BodyParts();
+
+
+$issue_bothering_data = $obj1->getKeywordIdformBodymainsymtopTableVivek();
+
+$all_trigger_data = $obj1->getKeywordIdformBodymainsymtopTableWithIdVivek();
+
+//$food_data = $obj1->getKeywordNameformBodySymptomVivek();
+
+//print_r($issue_bothering_data);die();
+//$food_data='"'.implode('","',$data).'"';
+
+
+
+$page_id = '1';
+
+
+list($page_name,$page_title,$page_contents,$meta_title,$meta_keywords,$meta_description,$menu_title,$menu_link,$link_enable,$parent_menu,$page_contents2) = getPageDetails($page_id);
+
+list($image) = getparsonalitiesDetails();
+$icondata=getAllIconsDetailsVivek();
+$display_data=getAllIconsDisplayTypeDetailsVivek();
+
+
+$theme_data = getThemeImageByImageIdVivek($_GET['theme_id']);
+$icon_image = getIconImageByImageIdVivek($_GET['icons_id']);
+
+//echo '<pre>';
+//print_r($icondata);
+//echo '</pre>';die();
+$ref = base64_encode($menu_link);
+
+//if(!isLoggedIn())
+//
+//{
+//
+//    header("Location: login.php?ref=".$ref);
+//
+//    exit(0);
+//
+//}
+//
+//else
+//
+//{
+//
+//     $user_id = $_SESSION['user_id'];
+
+    $user_id=0;
+
+//    doUpdateOnline($_SESSION['user_id']);
+     doUpdateOnline($user_id);
+//
+//}
+
+
+
+$now = time();
+
+$today_year = date("Y",$now);
+
+$today_month = date("m",$now);
+
+$today_day = date("d",$now); 
+
+$bes_date = $today_year.'-'.$today_month.'-'.$today_day;
+
+
+
+$yesterday = $now - 86400;
+
+$yesterday_year = date("Y",$yesterday);
+
+$yesterday_month = date("m",$yesterday);
+
+$yesterday_day = date("d",$yesterday); 
+
+
+
+$divaddformmdt = '';
+
+$diveditformmdt = 'none';
+
+
+
+$error = false;
+
+$tr_err_bes_date = 'none';
+
+$tr_err_bes = array();
+
+$err_bes_date = '';
+
+$err_bes = array();
+
+
+
+$tr_response_img = array();
+
+$tr_response_slider = array();
+
+$tr_response_img_t = array();
+
+$tr_response_slider_t = array();
+
+$bes_prefill_arr = array();
+
+$bms_id_arr = array();
+
+$bms_type_arr = array();
+
+$trigger_id_arr = array();
+
+$trigger_type_arr = array();
+
+$trigger_prefill_arr = array();
+
+$remarks_t_arr = array();
+
+$scale_arr = array();
+
+$scale_t_arr = array();
+
+
+
+$cnt_edit_arr = array();
+
+$totalRow_edit_arr = array();
+
+$cnt_t_edit_arr = array();
+
+$totalRow_t_edit_arr = array();
+
+$tr_response_img_edit = array();
+
+$tr_response_slider_edit = array();
+
+$tr_response_img_t_edit = array();
+
+$tr_response_slider_t_edit = array();
+
+$bes_time_edit_arr = array();
+
+$bes_duration_edit_arr = array();
+
+$bes_prefill_edit_arr = array();
+
+$bms_id_edit_arr = array();
+
+$bms_type_edit_arr = array();
+
+$trigger_prefill_edit_arr = array();
+
+$trigger_id_edit_arr = array();
+
+$trigger_type_edit_arr = array();
+
+$remarks_t_edit_arr = array();
+
+$scale_edit_arr = array();
+
+$scale_t_edit_arr = array();
+
+
+
+$div_trigger = 'none';
+
+$display_goto = '';
+
+$display_submit = 'none';
+
+
+
+$theam_id = $_SESSION['mdttheam_id'];
+
+
+
+
+
+if(isset($_POST['btnSubmit']))	
+
+{
+
+    $day = trim($_POST['day']);
+
+    $month = trim($_POST['month']);
+
+    $year = trim($_POST['year']);
+
+    $totalRow = trim($_POST['totalRow']);
+
+    $cnt = $totalRow;
+
+    
+
+    $totalRow_t = trim($_POST['totalRow_t']);
+
+    $cnt_t = $totalRow_t;
+
+    
+
+    $bes_time = trim($_POST['bes_time']);
+
+    $bes_duration = trim($_POST['bes_duration']);
+
+    
+
+    $display_goto = 'none';
+
+    $display_submit = '';
+
+    $div_trigger = '';
+
+
+
+    list($scale,$scale_add,$scale_rest,$scale_cnt,$scale_arr_rest,$scale_arr) = getMultipleFieldsValueByComma('scale');
+
+    list($scale_t,$scale_t_add,$scale_t_rest,$scale_t_cnt,$scale_t_arr_rest,$scale_t_arr) = getMultipleFieldsValueByComma('scale_t');
+
+    list($remarks_t,$remarks_t_add,$remarks_t_rest,$remarks_t_cnt,$remarks_t_arr_rest,$remarks_t_arr) = getMultipleFieldsValueByComma('remarks_t');
+
+    
+
+    if( ($day == '') || ($month == '') || ($year == '') )
+
+    {
+
+        $error = true;
+
+        $tr_err_bes_date = '';
+
+        $err_bes_date = 'Please select date!';
+
+    }
+
+    elseif(!checkdate($month,$day,$year))
+
+    {
+
+        $error = true;
+
+        $tr_err_bes_date = '';
+
+        $err_bes_date = 'Please select valid date!';
+
+    }
+
+    elseif(mktime(0,0,0,$month,$day,$year) > $now)
+
+    {
+
+        $error = true;
+
+        $tr_err_bes_date = '';
+
+        $err_bes_date = 'Please select today or previous date!';
+
+    }
+
+    else
+
+    {
+
+        $bes_date = $year.'-'.$month.'-'.$day;
+
+    }
+
+        
+
+    //echo'<br><pre>';
+
+    //print_r($_POST);
+
+    //echo'<br></pre>';
+
+    
+
+    $empty_selected_bms_id_arr = true;
+
+    for($i=0;$i<$totalRow;$i++)
+
+    {
+
+        if(isset($_POST['as_values_bes_id_'.$i]))
+
+        {
+
+            $selected_bes_id = strip_tags(trim($_POST['as_values_bes_id_'.$i]));
+
+            //echo '<br>bes_id = '.$selected_bes_id;
+
+            if($selected_bes_id != '')
+
+            {
+
+                $empty_selected_bms_id_arr = false;
+
+                $tr_response_img[$i] = 'none';
+
+                $tr_response_slider[$i] = '';
+
+                
+
+                $bms_id = strip_tags(trim($_POST['as_values_bes_id_'.$i]));
+
+
+
+                $bms_id = str_replace(",", "", $bms_id);
+
+                $temp_arr_bmst = explode('_',$bms_id);
+
+                
+
+                
+
+                //$bmst_id = getBobyMainSymptomType($bms_id);
+
+                $bmst_id = $temp_arr_bmst[0];
+
+                $bms_id = $temp_arr_bmst[1];
+
+                
+
+                array_push($bms_id_arr,$bms_id);
+
+                array_push($bms_type_arr,$bmst_id);
+
+                
+
+                if($bms_id == '') 
+
+                {
+
+                    array_push($bes_prefill_arr ,'{}');
+
+                }
+
+                else
+
+                { 
+
+                    /*
+
+                    $json = array();
+
+                    $json['value'] = $bms_id;
+
+                    $json['name'] = getBobyMainSymptomName($bms_id);
+
+                    array_push($bes_prefill_arr ,json_encode($json));
+
+                    */
+
+                    
+
+                    
+
+                    $json = array();
+
+                    $json['value'] = $bms_id;
+
+                    if($temp_arr_bmst[0] == 'adct')
+
+                    {
+
+                        $json['name'] = getADCTSituation($temp_arr_bmst[1]);
+
+                    }
+
+                    elseif($temp_arr_bmst[0] == 'sleep')
+
+                    {
+
+                        $json['name'] = getSleepSituation($temp_arr_bmst[1]);
+
+                    }
+
+                    elseif($temp_arr_bmst[0] == 'gs')
+
+                    {
+
+                        $json['name'] = getGSSituation($temp_arr_bmst[1]);
+
+                    }
+
+                    elseif($temp_arr_bmst[0] == 'wae')
+
+                    {
+
+                        $json['name'] = getWAESituation($temp_arr_bmst[1]);
+
+                    }
+
+                    elseif($temp_arr_bmst[0] == 'mc')
+
+                    {
+
+                        $json['name'] = getMCSituation($temp_arr_bmst[1]);
+
+                    }
+
+                    elseif($temp_arr_bmst[0] == 'mr')
+
+                    {
+
+                        $json['name'] = getMRSituation($temp_arr_bmst[1]);
+
+                    }
+
+                    elseif($temp_arr_bmst[0] == 'mle')
+
+                    {
+
+                        $json['name'] = getMLESituation($temp_arr_bmst[1]);
+
+                    }
+
+                    else 
+
+                    {
+
+                        $json['name'] = getBobyMainSymptomName($temp_arr_bmst[1]);    
+
+                    }
+
+
+
+
+
+                    array_push($bes_prefill_arr ,json_encode($json));
+
+                }	
+
+
+
+                $temp_err = '';
+
+                $temp_tr_err = 'none';
+
+
+
+
+
+                if( ($bms_id == '') )
+
+                {
+
+                    //$error = true;
+
+                    //$temp_tr_err = '';
+
+                    //$temp_err = 'Please enter your emotional state item!';
+
+                }
+
+                elseif(!chkBMSExists($bms_id,$temp_arr_bmst[0]))
+
+                {
+
+                    $error = true;
+
+                    $temp_tr_err = '';
+
+                    $temp_err = 'Sorry this situation is not available.Please select item from auto suggest list!';
+
+                    $err_msg .= '<br>'.$temp_err; 
+
+                }
+
+
+
+                if($temp_err != '')
+
+                {
+
+                    $temp_err = '<div class="err_msg_box"><span class="blink_me">'.$temp_err.'</span></div>';
+
+                }
+
+
+
+                array_push($tr_err_bes , $temp_tr_err);
+
+                array_push($err_bes , $temp_err);
+
+            }
+
+            else
+
+            {
+
+                $tr_response_img[$i] = '';
+
+                $tr_response_slider[$i] = 'none';
+
+                array_push($bes_prefill_arr ,'{}');
+
+                array_push($bms_id_arr,'');
+
+                array_push($bms_type_arr,'');
+
+            }
+
+        }
+
+        else
+
+        {
+
+            $tr_response_img[$i] = '';
+
+            $tr_response_slider[$i] = 'none';
+
+            array_push($bes_prefill_arr ,'{}');
+
+            array_push($bms_id_arr,'');
+
+            array_push($bms_type_arr,'');
+
+        }
+
+    }
+
+        
+
+    if($empty_selected_bms_id_arr)
+
+    {
+
+        $error = true;
+
+        $err_msg = 'Please enter atleast one current situation!';
+
+    }
+
+     
+
+    
+
+    
+
+    $empty_selected_trigger_id_arr = true;
+
+    for($i=0;$i<$totalRow_t;$i++)
+
+    {
+
+        if(isset($_POST['as_values_trigger_id_'.$i]))
+
+        {
+
+            $selected_trigger_id = strip_tags(trim($_POST['as_values_trigger_id_'.$i]));
+
+            if($selected_trigger_id != '')
+
+            {
+
+                $empty_selected_trigger_id_arr = false;
+
+                $tr_response_img_t[$i] = 'none';
+
+                $tr_response_slider_t[$i] = '';
+
+                
+
+                $trigger_id = strip_tags(trim($_POST['as_values_trigger_id_'.$i]));
+
+
+
+                $trigger_id = str_replace(",", "", $trigger_id);
+
+
+
+                $temp_arr_tri = explode('_',$trigger_id);
+
+
+
+                array_push($trigger_id_arr,$temp_arr_tri[1]);
+
+                array_push($trigger_type_arr,$temp_arr_tri[0]);
+
+
+
+                if($trigger_id == '') 
+
+                {
+
+                    array_push($trigger_prefill_arr ,'{}');
+
+                }
+
+                else
+
+                { 
+
+                    $json = array();
+
+                    $json['value'] = $trigger_id;
+
+                    if($temp_arr_tri[0] == 'adct')
+
+                    {
+
+                        $json['name'] = getADCTSituation($temp_arr_tri[1]);
+
+                    }
+
+                    elseif($temp_arr_tri[0] == 'sleep')
+
+                    {
+
+                        $json['name'] = getSleepSituation($temp_arr_tri[1]);
+
+                    }
+
+                    elseif($temp_arr_tri[0] == 'gs')
+
+                    {
+
+                        $json['name'] = getGSSituation($temp_arr_tri[1]);
+
+                    }
+
+                    elseif($temp_arr_tri[0] == 'wae')
+
+                    {
+
+                        $json['name'] = getWAESituation($temp_arr_tri[1]);
+
+                    }
+
+                    elseif($temp_arr_tri[0] == 'mc')
+
+                    {
+
+                        $json['name'] = getMCSituation($temp_arr_tri[1]);
+
+                    }
+
+                    elseif($temp_arr_tri[0] == 'mr')
+
+                    {
+
+                        $json['name'] = getMRSituation($temp_arr_tri[1]);
+
+                    }
+
+                    elseif($temp_arr_tri[0] == 'mle')
+
+                    {
+
+                        $json['name'] = getMLESituation($temp_arr_tri[1]);
+
+                    }
+
+                    else 
+
+                    {
+
+                        $json['name'] = getBobyMainSymptomName($temp_arr_tri[1]);    
+
+                    }
+
+
+
+
+
+                    array_push($trigger_prefill_arr ,json_encode($json));
+
+                }	
+
+
+
+                $temp_err = '';
+
+                $temp_tr_err = 'none';
+
+
+
+
+
+                if( ($trigger_id == '') )
+
+                {
+
+                    //$error = true;
+
+                    //$temp_tr_err = '';
+
+                    //$temp_err = 'Please enter your emotional state item!';
+
+                }
+
+                elseif(!chkBMSExists($bms_id))
+
+                {
+
+                    //$error = true;
+
+                    //$temp_tr_err = '';
+
+                    //$temp_err = 'Sorry this situation is not available.Please select item from auto suggest list!';
+
+                    //$err_msg .= '<br>'.$temp_err; 
+
+                }
+
+
+
+                if($temp_err != '')
+
+                {
+
+                    $temp_err = '<div class="err_msg_box"><span class="blink_me">'.$temp_err.'</span></div>';
+
+                }
+
+
+
+                array_push($tr_err_bes , $temp_tr_err);
+
+                array_push($err_bes , $temp_err);
+
+            }
+
+            else
+
+            {
+
+                $tr_response_img_t[$i] = '';
+
+                $tr_response_slider_t[$i] = 'none';
+
+                array_push($trigger_prefill_arr ,'{}');
+
+                array_push($trigger_id_arr,'');
+
+                array_push($trigger_type_arr,'');
+
+            }
+
+        }
+
+        else 
+
+        {
+
+            $tr_response_img_t[$i] = '';
+
+            $tr_response_slider_t[$i] = 'none';
+
+            array_push($trigger_prefill_arr ,'{}');
+
+            array_push($trigger_id_arr,'');
+
+            array_push($trigger_type_arr,'');
+
+        }
+
+        
+
+    }
+
+        
+
+    if($empty_selected_trigger_id_arr)
+
+    {
+
+        $error = true;
+
+        $err_msg .= '<br>Please enter atleast one current trigger!';
+
+    }
+
+    
+
+    if($bes_time == '')
+
+    {
+
+        $error = true;
+
+        $err_msg .= '<br>Please select time!';
+
+    }
+
+    
+
+    if($bes_duration == '')
+
+    {
+
+        //$error = true;
+
+        //$err_msg .= '<br>Please enter duration in mins!';
+
+    }
+
+    
+
+        
+
+    if(!$error)
+
+    {
+
+        $addUsersMDT = addUsersMDT($user_id,$bes_date,$bms_id_arr,$bms_type_arr,$scale_arr,$bes_time,$bes_duration,$trigger_id_arr,$trigger_type_arr,$scale_t_arr,$remarks_t_arr);
+
+        if($addUsersMDT)
+
+        {
+
+             header("Location: my_wellness_solutions.php");	
+
+/*
+
+//header("Location: message.php?msg=14&gotopage=".$page_id); 
+
+            header("Location: my_wellness_solutions.php?mid=".$page_id."&date=".$bes_date); 
+
+            exit(0);
+
+*/
+
+        }
+
+        else
+
+        {
+
+            $error = true;
+
+            $err_msg = 'There is some problem right now!Please try again later';
+
+        }
+
+    }
+
+    
+
+    if($err_msg != '')
+
+    {
+
+        $err_msg = '<div class="err_msg_box"><span class="blink_me">'.$err_msg.'</span></div>';
+
+    }
+
+}
+
+elseif(isset($_POST['btnUpdate']))	
+
+{
+
+    $divaddformmdt = 'none';
+
+    $diveditformmdt = '';
+
+    
+
+    $day = trim($_POST['day']);
+
+    $month = trim($_POST['month']);
+
+    $year = trim($_POST['year']);
+
+    
+
+    $cnt_main = trim($_POST['cnt_main']);
+
+    
+
+    
+
+    if( ($day == '') || ($month == '') || ($year == '') )
+
+    {
+
+        $error = true;
+
+        $tr_err_bes_date = '';
+
+        $err_bes_date = 'Please select date!';
+
+    }
+
+    elseif(!checkdate($month,$day,$year))
+
+    {
+
+        $error = true;
+
+        $tr_err_bes_date = '';
+
+        $err_bes_date = 'Please select valid date!';
+
+    }
+
+    elseif(mktime(0,0,0,$month,$day,$year) > $now)
+
+    {
+
+        $error = true;
+
+        $tr_err_bes_date = '';
+
+        $err_bes_date = 'Please select today or previous date!';
+
+    }
+
+    else
+
+    {
+
+        $bes_date = $year.'-'.$month.'-'.$day;
+
+    }
+
+        
+
+    //echo'<br><pre>';
+
+    //print_r($_POST);
+
+    //echo'<br></pre>';
+
+    
+
+    list($bes_time_edit,$bes_time_edit_add,$bes_time_edit_rest,$bes_time_edit_cnt,$bes_time_edit_arr_rest,$bes_time_edit_arr) = getMultipleFieldsValueByComma('bes_time_edit');
+
+    list($bes_duration_edit,$bes_duration_edit_add,$bes_duration_edit_rest,$bes_duration_edit_cnt,$bes_duration_edit_arr_rest,$bes_duration_edit_arr) = getMultipleFieldsValueByComma('bes_duration_edit');
+
+        
+
+    for($i=0;$i<count($bes_time_edit_arr);$i++)
+
+    {
+
+        if($bes_time_edit_arr[$i] == '')
+
+        {
+
+            $error = true;
+
+            $err_msg .= '<br>Please select time!';
+
+            break;
+
+        }
+
+    }
+
+    
+
+    foreach ($_POST['cnt_edit'] as $key => $value) 
+
+    {
+
+        array_push($cnt_edit_arr, $value);
+
+    }
+
+    
+
+    foreach ($_POST['totalRow_edit'] as $key => $value) 
+
+    {
+
+        array_push($totalRow_edit_arr, $value);
+
+    }
+
+    
+
+    foreach ($_POST['cnt_t_edit'] as $key => $value) 
+
+    {
+
+        array_push($cnt_t_edit_arr, $value);
+
+    }
+
+    
+
+    foreach ($_POST['totalRow_t_edit'] as $key => $value) 
+
+    {
+
+        array_push($totalRow_t_edit_arr, $value);
+
+    }
+
+    
+
+    for($i=0;$i<$cnt_main;$i++)
+
+    {
+
+        if($bes_time_edit_arr[$i] == '')
+
+        {
+
+            $error = true;
+
+            $err_msg .= '<br>Please select time!';
+
+            break;
+
+        }
+
+    }
+
+    
+
+    $empty_selected_bms_id_arr = true;
+
+    $empty_selected_trigger_id_arr = true;
+
+    for($i=0;$i<$cnt_main;$i++)
+
+    {
+
+        for($j=0;$j<$totalRow_edit_arr[$i];$j++)
+
+        {
+
+            if(isset($_POST['scale_edit_'.$i.'_'.$j]))
+
+            {
+
+                $scale_edit_arr[$i][$j] = trim($_POST['scale_edit_'.$i.'_'.$j]);
+
+            }
+
+            else
+
+            {
+
+                $scale_edit_arr[$i][$j] = '0';
+
+            }
+
+            
+
+            if(isset($_POST['as_values_bes_id_edit_'.$i.'_'.$j]))
+
+            {
+
+                $selected_bes_id = strip_tags(trim($_POST['as_values_bes_id_edit_'.$i.'_'.$j]));
+
+                if($selected_bes_id != '')
+
+                {
+
+                    $empty_selected_bms_id_arr = false;
+
+                    $tr_response_img_edit[$i][$j] = 'none';
+
+                    $tr_response_slider_edit[$i][$j] = '';
+
+
+
+                    $bms_id = strip_tags(trim($_POST['as_values_bes_id_edit_'.$i.'_'.$j]));
+
+
+
+                    /*
+
+                    $bms_id = str_replace(",", "", $bms_id);
+
+                    $bmst_id = getBobyMainSymptomType($bms_id);
+
+                    
+
+                    $bms_id_edit_arr[$i][$j] = $bms_id;
+
+                    $bms_type_edit_arr[$i][$j] = $bmst_id;
+
+                    
+
+                    if($bms_id == '') 
+
+                    {
+
+                        $bes_prefill_edit_arr[$i][$j] = '{}';
+
+                    }
+
+                    else
+
+                    { 
+
+                        $json = array();
+
+                        $json['value'] = $bms_id;
+
+                        $json['name'] = getBobyMainSymptomName($bms_id);
+
+                        $bes_prefill_edit_arr[$i][$j] = json_encode($json);
+
+                    }	
+
+
+
+                    $temp_err = '';
+
+                    $temp_tr_err = 'none';
+
+
+
+
+
+                    if( ($bms_id == '') )
+
+                    {
+
+                        //$error = true;
+
+                        //$temp_tr_err = '';
+
+                        //$temp_err = 'Please enter your emotional state item!';
+
+                    }
+
+                    elseif(!chkBMSExists($bms_id))
+
+                    {
+
+                        $error = true;
+
+                        $temp_tr_err = '';
+
+                        $temp_err = 'Sorry this situation is not available.Please select item from auto suggest list!';
+
+                        $err_msg .= '<br>'.$temp_err; 
+
+                    }
+
+                     * 
+
+                     */
+
+                    
+
+                    $bms_id = str_replace(",", "", $bms_id);
+
+                    $temp_arr_bmst = explode('_',$bms_id);
+
+
+
+
+
+                    //$bmst_id = getBobyMainSymptomType($bms_id);
+
+                    $bmst_id = $temp_arr_bmst[0];
+
+                    $bms_id = $temp_arr_bmst[1];
+
+                    
+
+                    $bms_id_edit_arr[$i][$j] = $bms_id;
+
+                    $bms_type_edit_arr[$i][$j] = $bmst_id;
+
+
+
+                    
+
+                    if($bms_id == '') 
+
+                    {
+
+                        $bes_prefill_edit_arr[$i][$j] = '{}';
+
+                    }
+
+                    else
+
+                    { 
+
+                        /*
+
+                        $json = array();
+
+                        $json['value'] = $bms_id;
+
+                        $json['name'] = getBobyMainSymptomName($bms_id);
+
+                        array_push($bes_prefill_arr ,json_encode($json));
+
+                        */
+
+
+
+
+
+                        $json = array();
+
+                        $json['value'] = $bms_id;
+
+                        if($temp_arr_bmst[0] == 'adct')
+
+                        {
+
+                            $json['name'] = getADCTSituation($temp_arr_bmst[1]);
+
+                        }
+
+                        elseif($temp_arr_bmst[0] == 'sleep')
+
+                        {
+
+                            $json['name'] = getSleepSituation($temp_arr_bmst[1]);
+
+                        }
+
+                        elseif($temp_arr_bmst[0] == 'gs')
+
+                        {
+
+                            $json['name'] = getGSSituation($temp_arr_bmst[1]);
+
+                        }
+
+                        elseif($temp_arr_bmst[0] == 'wae')
+
+                        {
+
+                            $json['name'] = getWAESituation($temp_arr_bmst[1]);
+
+                        }
+
+                        elseif($temp_arr_bmst[0] == 'mc')
+
+                        {
+
+                            $json['name'] = getMCSituation($temp_arr_bmst[1]);
+
+                        }
+
+                        elseif($temp_arr_bmst[0] == 'mr')
+
+                        {
+
+                            $json['name'] = getMRSituation($temp_arr_bmst[1]);
+
+                        }
+
+                        elseif($temp_arr_bmst[0] == 'mle')
+
+                        {
+
+                            $json['name'] = getMLESituation($temp_arr_bmst[1]);
+
+                        }
+
+                        else 
+
+                        {
+
+                            $json['name'] = getBobyMainSymptomName($temp_arr_bmst[1]);    
+
+                        }
+
+
+
+
+
+                        $bes_prefill_edit_arr[$i][$j] = json_encode($json);
+
+                    }	
+
+
+
+                    $temp_err = '';
+
+                    $temp_tr_err = 'none';
+
+
+
+
+
+                    if( ($bms_id == '') )
+
+                    {
+
+                        //$error = true;
+
+                        //$temp_tr_err = '';
+
+                        //$temp_err = 'Please enter your emotional state item!';
+
+                    }
+
+                    elseif(!chkBMSExists($bms_id,$temp_arr_bmst[0]))
+
+                    {
+
+                        $error = true;
+
+                        $temp_tr_err = '';
+
+                        $temp_err = 'Sorry this situation is not available.Please select item from auto suggest list!';
+
+                        $err_msg .= '<br>'.$temp_err; 
+
+                    }
+
+
+
+                    if($temp_err != '')
+
+                    {
+
+                        $temp_err = '<div class="err_msg_box"><span class="blink_me">'.$temp_err.'</span></div>';
+
+                    }
+
+
+
+                    array_push($tr_err_bes , $temp_tr_err);
+
+                    array_push($err_bes , $temp_err);
+
+                    
+
+                    if($temp_err != '')
+
+                    {
+
+                        $temp_err = '<div class="err_msg_box"><span class="blink_me">'.$temp_err.'</span></div>';
+
+                    }
+
+                }
+
+                else
+
+                {
+
+                    $tr_response_img_edit[$i][$j] = '';
+
+                    $tr_response_slider_edit[$i][$j] = 'none';
+
+                    $bes_prefill_edit_arr[$i][$j] = '{}';
+
+                    $bms_id_edit_arr[$i][$j] = '';
+
+                    $bms_type_edit_arr[$i][$j] = '';
+
+                }
+
+            }
+
+            else
+
+            {
+
+                $tr_response_img_edit[$i][$j] = '';
+
+                $tr_response_slider_edit[$i][$j] = 'none';
+
+                $bes_prefill_edit_arr[$i][$j] = '{}';
+
+                $bms_id_edit_arr[$i][$j] = '';
+
+                $bms_type_edit_arr[$i][$j] = '';
+
+            }
+
+        } 
+
+        
+
+        for($j=0;$j<$totalRow_t_edit_arr[$i];$j++)
+
+        {
+
+            if(isset($_POST['scale_t_edit_'.$i.'_'.$j]))
+
+            {
+
+                $scale_t_edit_arr[$i][$j] = trim($_POST['scale_t_edit_'.$i.'_'.$j]);
+
+            }
+
+            else
+
+            {
+
+                $scale_t_edit_arr[$i][$j] = '0';
+
+            }
+
+            
+
+            if(isset($_POST['remarks_t_edit_'.$i.'_'.$j]))
+
+            {
+
+                $remarks_t_edit_arr[$i][$j] = urldecode(trim($_POST['remarks_t_edit_'.$i.'_'.$j]));
+
+            }
+
+            else
+
+            {
+
+                $remarks_t_edit_arr[$i][$j] = '';
+
+            }
+
+            
+
+            //echo'<br>11111111111 as_values_trigger_id_edit_'.$i.'_'.$j;
+
+            if(isset($_POST['as_values_trigger_id_edit_'.$i.'_'.$j]))
+
+            {
+
+                
+
+                $selected_trigger_id = strip_tags(trim($_POST['as_values_trigger_id_edit_'.$i.'_'.$j]));
+
+                if($selected_trigger_id != '')
+
+                {
+
+                    $empty_selected_trigger_id_arr = false;
+
+                    $tr_response_img_t_edit[$i][$j] = 'none';
+
+                    $tr_response_slider_t_edit[$i][$j] = '';
+
+
+
+                    $trigger_id = strip_tags(trim($_POST['as_values_trigger_id_edit_'.$i.'_'.$j]));
+
+
+
+                    $trigger_id = str_replace(",", "", $trigger_id);
+
+                    
+
+                    $temp_arr_tri = explode('_',$trigger_id);
+
+
+
+                    $trigger_id_edit_arr[$i][$j] = $temp_arr_tri[1];
+
+                    $trigger_type_edit_arr[$i][$j] = $temp_arr_tri[0];
+
+                    
+
+                    if($trigger_id == '') 
+
+                    {
+
+                        $trigger_prefill_edit_arr[$i][$j] = '{}';
+
+                    }
+
+                    else
+
+                    { 
+
+                        $json = array();
+
+                        $json['value'] = $trigger_id;
+
+                        if($temp_arr_tri[0] == 'adct')
+
+                        {
+
+                            $json['name'] = getADCTSituation($temp_arr_tri[1]);
+
+                        }
+
+                        elseif($temp_arr_tri[0] == 'sleep')
+
+                        {
+
+                            $json['name'] = getSleepSituation($temp_arr_tri[1]);
+
+                        }
+
+                        elseif($temp_arr_tri[0] == 'gs')
+
+                        {
+
+                            $json['name'] = getGSSituation($temp_arr_tri[1]);
+
+                        }
+
+                        elseif($temp_arr_tri[0] == 'wae')
+
+                        {
+
+                            $json['name'] = getWAESituation($temp_arr_tri[1]);
+
+                        }
+
+                        elseif($temp_arr_tri[0] == 'mc')
+
+                        {
+
+                            $json['name'] = getMCSituation($temp_arr_tri[1]);
+
+                        }
+
+                        elseif($temp_arr_tri[0] == 'mr')
+
+                        {
+
+                            $json['name'] = getMRSituation($temp_arr_tri[1]);
+
+                        }
+
+                        elseif($temp_arr_tri[0] == 'mle')
+
+                        {
+
+                            $json['name'] = getMLESituation($temp_arr_tri[1]);
+
+                        }
+
+                        else 
+
+                        {
+
+                            $json['name'] = getBobyMainSymptomName($temp_arr_tri[1]);    
+
+                        }
+
+
+
+                        $trigger_prefill_edit_arr[$i][$j] = json_encode($json);
+
+                    }
+
+                }
+
+                else
+
+                {
+
+                    $tr_response_img_t_edit[$i][$j] = '';
+
+                    $tr_response_slider_t_edit[$i][$j] = 'none';
+
+                    $trigger_prefill_edit_arr[$i][$j] = '{}';
+
+                    $trigger_id_edit_arr[$i][$j] = '';
+
+                    $trigger_type_edit_arr[$i][$j] = '';
+
+                }
+
+            }
+
+            else
+
+            {
+
+                $tr_response_img_t_edit[$i][$j] = '';
+
+                $tr_response_slider_t_edit[$i][$j] = 'none';
+
+                $trigger_prefill_edit_arr[$i][$j] = '{}';
+
+                $trigger_id_edit_arr[$i][$j] = '';
+
+                $trigger_type_edit_arr[$i][$j] = '';
+
+            }
+
+        } 
+
+    }
+
+        
+
+    if($empty_selected_bms_id_arr)
+
+    {
+
+        $error = true;
+
+        $err_msg .= '<br>Please enter atleast one current situation!';
+
+    }
+
+        
+
+    if($empty_selected_trigger_id_arr)
+
+    {
+
+        $error = true;
+
+        $err_msg .= '<br>Please enter atleast one current trigger!';
+
+    }
+
+    
+
+        
+
+    if(!$error)
+
+    {
+
+        $arr_bms_id = array();
+
+        $arr_bms_type = array();
+
+        $arr_bms_entry_type = array();
+
+        $arr_scale = array();
+
+        $arr_remarks = array();
+
+        $arr_mdt_time = array();
+
+        $arr_mdt_duration = array();
+
+        for($i=0;$i<$cnt_main;$i++)
+
+        {
+
+            for($j=0;$j<$totalRow_edit_arr[$i];$j++)
+
+            {
+
+                array_push($arr_bms_id , $bms_id_edit_arr[$i][$j]);
+
+                array_push($arr_bms_type , $bms_type_edit_arr[$i][$j]);
+
+                array_push($arr_bms_entry_type , 'situation');
+
+                array_push($arr_scale , $scale_edit_arr[$i][$j]);
+
+                array_push($arr_remarks , '');
+
+                array_push($arr_mdt_time , $bes_time_edit_arr[$i]);
+
+                array_push($arr_mdt_duration , $bes_duration_edit_arr[$i]);
+
+            }
+
+            
+
+            for($j=0;$j<$totalRow_t_edit_arr[$i];$j++)
+
+            {
+
+                array_push($arr_bms_id , $trigger_id_edit_arr[$i][$j]);
+
+                array_push($arr_bms_type , $trigger_type_edit_arr[$i][$j]);
+
+                array_push($arr_bms_entry_type , 'trigger');
+
+                array_push($arr_scale , $scale_t_edit_arr[$i][$j]);
+
+                array_push($arr_remarks , $remarks_t_edit_arr[$i][$j]);
+
+                array_push($arr_mdt_time , $bes_time_edit_arr[$i]);
+
+                array_push($arr_mdt_duration , $bes_duration_edit_arr[$i]);
+
+            }
+
+        }
+
+        
+
+        
+
+        $addUsersMDT = updateUsersMDT($user_id,$bes_date,$arr_bms_id,$arr_bms_type,$arr_bms_entry_type,$arr_scale,$arr_remarks,$arr_mdt_time,$arr_mdt_duration);
+
+        if($addUsersMDT)
+
+        {
+
+            header("Location: my_wellness_solutions.php");
+
+/*
+
+            //header("Location: message.php?msg=14&gotopage=".$page_id); 
+
+            header("Location: my_wellness_solutions.php?mid=".$page_id."&date=".$bes_date); 
+
+            exit(0);
+
+*/
+
+        }
+
+        else
+
+        {
+
+            $error = true;
+
+            $err_msg = 'There is some problem right now!Please try again later';
+
+        }
+
+    }
+
+    
+
+    if($err_msg != '')
+
+    {
+
+        $err_msg = '<div class="err_msg_box"><span class="blink_me">'.$err_msg.'</span></div>';
+
+    }
+
+    
+
+    $cnt = '1';
+
+    $totalRow = '1';
+
+    $cnt_t = '1';
+
+    $totalRow_t = '1';
+
+    $tr_err_bes[0] = 'none';
+
+    $err_bes[0] = '';
+
+    array_push($bes_prefill_arr ,'{}');
+
+    $tr_response_img[0] = '';
+
+    $tr_response_slider[0] = 'none';
+
+    array_push($trigger_prefill_arr ,'{}');
+
+    $tr_response_img_t[0] = '';
+
+    $tr_response_slider_t[0] = 'none';
+
+    $scale_arr[0] = '';
+
+    $scale_t_arr[0] = '';
+
+}
+
+elseif(isset($_POST['btnEditPostedData']))	
+
+{
+
+    $divaddformmdt = 'none';
+
+    $diveditformmdt = '';
+
+
+
+    $day = trim($_POST['day']);
+
+    $month = trim($_POST['month']);
+
+    $year = trim($_POST['year']);
+
+    
+
+    $bes_date = $year.'-'.$month.'-'.$day;
+
+    
+
+    $arr_records = getUsersMDTDetails($user_id,$bes_date);
+
+    //echo'<br><pre>';
+
+    //print_r($arr_records);
+
+    //echo'<br></pre>';
+
+    
+
+    
+
+    
+
+    if(count($arr_records)> 0)
+
+    {
+
+        for($i=0;$i<count($arr_records);$i++)
+
+        {
+
+            foreach ($arr_records[$i] as $key => $value) 
+
+            {
+
+                $temp_time_arr = explode('_',$key);
+
+                array_push($bes_time_edit_arr , $temp_time_arr[0]);
+
+                array_push($bes_duration_edit_arr , $temp_time_arr[1]);
+
+                
+
+                $cnt_edit = 0;
+
+                $cnt_t_edit = 0;
+
+                for($j=0;$j<count($value);$j++)
+
+                {
+
+                    //echo'<br>['.$i.']['.$j.']<pre>';
+
+                    //print_r($value[$j]);
+
+                    //echo'<br></pre>';
+
+                    if($value[$j]['bms_entry_type'] == 'trigger')
+
+                    {
+
+                        $tr_response_img_t_edit[$i][$cnt_t_edit] = 'none';
+
+                        $tr_response_slider_t_edit[$i][$cnt_t_edit] = '';
+
+
+
+                        $json = array();
+
+                        $json['value'] = $value[$j]['bms_type'].'_'.$value[$j]['bms_id'];
+
+                        
+
+                        if($value[$j]['bms_type'] == 'adct')
+
+                        {
+
+                            $json['name'] = getADCTSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'sleep')
+
+                        {
+
+                            $json['name'] = getSleepSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'gs')
+
+                        {
+
+                            $json['name'] = getGSSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'wae')
+
+                        {
+
+                            $json['name'] = getWAESituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'mc')
+
+                        {
+
+                            $json['name'] = getMCSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'mr')
+
+                        {
+
+                            $json['name'] = getMRSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'mle')
+
+                        {
+
+                            $json['name'] = getMLESituation($value[$j]['bms_id']);
+
+                        }
+
+                        else 
+
+                        {
+
+                            $json['name'] = getBobyMainSymptomName($value[$j]['bms_id']);    
+
+                        }
+
+                        
+
+                        
+
+                        $trigger_prefill_edit_arr[$i][$cnt_t_edit] = json_encode($json);
+
+                        $trigger_id_edit_arr[$i][$cnt_t_edit] = $value[$j]['bms_id'];
+
+                        $trigger_type_edit_arr[$i][$cnt_t_edit] = $value[$j]['bms_type'];
+
+                        $remarks_t_edit_arr[$i][$cnt_t_edit] = $value[$j]['remarks'];
+
+                        $scale_t_edit_arr[$i][$cnt_t_edit] = $value[$j]['scale'];
+
+                        
+
+                        $cnt_t_edit++;
+
+                    }
+
+                    else 
+
+                    {
+
+                        $tr_response_img_edit[$i][$cnt_edit] = 'none';
+
+                        $tr_response_slider_edit[$i][$cnt_edit] = '';
+
+                        
+
+                        ///$json = array();
+
+                        //$json['value'] = $value[$j]['bms_id'];
+
+                        //$json['name'] = getBobyMainSymptomName($value[$j]['bms_id']);
+
+                        
+
+                        $json = array();
+
+                        $json['value'] = $value[$j]['bms_type'].'_'.$value[$j]['bms_id'];
+
+                        
+
+                        if($value[$j]['bms_type'] == 'adct')
+
+                        {
+
+                            $json['name'] = getADCTSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'sleep')
+
+                        {
+
+                            $json['name'] = getSleepSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'gs')
+
+                        {
+
+                            $json['name'] = getGSSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'wae')
+
+                        {
+
+                            $json['name'] = getWAESituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'mc')
+
+                        {
+
+                            $json['name'] = getMCSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'mr')
+
+                        {
+
+                            $json['name'] = getMRSituation($value[$j]['bms_id']);
+
+                        }
+
+                        elseif($value[$j]['bms_type'] == 'mle')
+
+                        {
+
+                            $json['name'] = getMLESituation($value[$j]['bms_id']);
+
+                        }
+
+                        else 
+
+                        {
+
+                            $json['name'] = getBobyMainSymptomName($value[$j]['bms_id']);    
+
+                        }
+
+                        
+
+                                               
+
+                        
+
+                        $bes_prefill_edit_arr[$i][$cnt_edit] = json_encode($json);
+
+                        $bms_id_edit_arr[$i][$cnt_edit] = $value[$j]['bms_id'];
+
+                        $bms_type_edit_arr[$i][$cnt_edit] = $value[$j]['bms_type'];
+
+                        $scale_edit_arr[$i][$cnt_edit] = $value[$j]['scale'];
+
+                        
+
+                        $cnt_edit++;
+
+                    }
+
+                }
+
+                
+
+                $cnt_edit_arr[$i] = $cnt_edit;
+
+                $totalRow_edit_arr[$i] = $cnt_edit;
+
+                
+
+                $cnt_t_edit_arr[$i] = $cnt_t_edit;
+
+                $totalRow_t_edit_arr[$i] = $cnt_t_edit;
+
+            }
+
+        }
+
+        
+
+        $cnt_main = count($arr_records);
+
+        $totalRow_main = count($arr_records);
+
+    }
+
+    else
+
+    {
+
+        $divaddformmdt = '';
+
+        $diveditformmdt = 'none';
+
+    
+
+        $cnt_main = '1';
+
+        $totalRow_main = '1';
+
+        
+
+        $cnt_edit_arr[0] = '1';
+
+        $totalRow_edit_arr[0] = '1';
+
+
+
+        $cnt_t_edit_arr[0] = '1';
+
+        $totalRow_t_edit_arr[0] = '1';
+
+        
+
+        $bes_time_edit_arr[0] = '';
+
+        $bes_duration_edit_arr[0] = '';
+
+        
+
+        $tr_response_img_edit[0][0] = '';
+
+        $tr_response_slider_edit[0][0] = 'none';
+
+        
+
+        $bes_prefill_edit_arr[0][0] = '{}';
+
+        $bms_id_edit_arr[0][0] = '';
+
+        $bms_type_edit_arr[0][0] = '';
+
+        
+
+        $tr_response_img_t_edit[0][0] = 'none';
+
+        $tr_response_slider_t_edit[0][0] = '';
+
+        
+
+        $trigger_prefill_edit_arr[0][0] = '{}';
+
+        $trigger_id_edit_arr[0][0] = '';
+
+        $trigger_type_edit_arr[0][0] = '';
+
+        $remarks_t_edit_arr[0][0] = '';
+
+        
+
+        $scale_edit_arr[0][0] = '';
+
+        $scale_t_edit_arr[0][0] = '';
+
+    }
+
+    
+
+    //echo '<br><pre>';
+
+    //print_r($bes_prefill_edit_arr);
+
+    //echo '<br></pre>';
+
+    
+
+    $cnt = '1';
+
+    $totalRow = '1';
+
+    $cnt_t = '1';
+
+    $totalRow_t = '1';
+
+    $tr_err_bes[0] = 'none';
+
+    $err_bes[0] = '';
+
+    array_push($bes_prefill_arr ,'{}');
+
+    $tr_response_img[0] = '';
+
+    $tr_response_slider[0] = 'none';
+
+    array_push($trigger_prefill_arr ,'{}');
+
+    $tr_response_img_t[0] = '';
+
+    $tr_response_slider_t[0] = 'none';
+
+    $scale_arr[0] = '';
+
+    $scale_t_arr[0] = '';
+
+}    
+
+else
+
+{
+
+    $year = $today_year;
+
+    $month = $today_month;
+
+    $day = $today_day;
+
+
+
+    $bes_date = $year.'-'.$month.'-'.$day;
+
+    
+
+    $cnt = '1';
+
+    $totalRow = '1';
+
+    $cnt_t = '1';
+
+    $totalRow_t = '1';
+
+    $tr_err_bes[0] = 'none';
+
+    $err_bes[0] = '';
+
+    array_push($bes_prefill_arr ,'{}');
+
+    $tr_response_img[0] = '';
+
+    $tr_response_slider[0] = 'none';
+
+    array_push($trigger_prefill_arr ,'{}');
+
+    $tr_response_img_t[0] = '';
+
+    $tr_response_slider_t[0] = 'none';
+
+    $scale_arr[0] = '';
+
+    $scale_t_arr[0] = '';
+
+
+
+    
+
+    $cnt_main = '1';
+
+    $totalRow_main = '1';
+
+}
+
+list($music,$music_id,$credit,$credit_url) = getStressBusterBoxBKMusic(1,$day);
+
+?><!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <meta name="description" content="<?php echo $meta_description;?>" />
+
+    <meta name="keywords" content="<?php echo $meta_keywords;?>" />
+
+    <meta name="title" content="<?php echo $meta_title;?>" />
+
+    <title><?php echo $meta_title;?></title>
+   
+    
+
+    <link href="cwri.css" rel="stylesheet" type="text/css" />
+
+     <link href="csswell/bootstrap/css/bootstrap.min.css" rel="stylesheet">       <link href="csswell/bootstrap/css/ww4ustyle.css" rel="stylesheet" type="text/css" />
+
+    <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
+
+    <script type="text/JavaScript" src="js/jquery-1.4.2.min.js"></script>
+
+    
+
+    <script type="text/javascript" src="js/jquery.bxSlider.js"></script>
+
+    
+
+    <script type="text/JavaScript" src="js/jquery.autoSuggestMDT.js"></script>
+
+    <link href="css/autoSuggest.css" rel="stylesheet" type="text/css" />
+
+        
+
+    <script type="text/javascript" src="js/jquery-ui-1.7.1.custom.min.js"></script>
+
+    <script type="text/javascript" src="js/selectToUISlider.jQuery.js"></script>
+
+    <link rel="stylesheet" href="css/redmond/jquery-ui-1.7.1.custom.css" type="text/css" />
+
+    <link rel="Stylesheet" href="css/ui.slider.extras.css" type="text/css" />
+
+         
+
+    <style type="text/css">@import "css/jquery.datepick.css";</style> 
+
+    <script type="text/javascript" src="js/jquery.datepick.js"></script>
+
+    
+
+    <link href="css/ticker-style.css" rel="stylesheet" type="text/css" />
+
+    <script src="js/jquery.ticker.js" type="text/javascript"></script>
+
+    
+
+    <script type="text/JavaScript" src="js/commonfn.js"></script>
+
+    
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+		
+
+            $('#js-news').ticker({
+
+                controls: true,        // Whether or not to show the jQuery News Ticker controls
+
+                htmlFeed: true, 
+
+                titleText: '',   // To remove the title set this to an empty String
+
+                displayType: 'reveal', // Animation type - current options are 'reveal' or 'fade'
+
+                direction: 'ltr'       // Ticker direction - current options are 'ltr' or 'rtl'
+
+            });
+
+
+
+            $('#slider1').bxSlider();
+
+            $('#slider2').bxSlider();
+
+            $('#slider3').bxSlider();
+
+            $('#slider4').bxSlider();
+
+            $('#slider5').bxSlider();
+
+            $('#slider6').bxSlider();
+
+
+
+            $('#slider_main1').bxSlider();
+
+            $('#slider_main2').bxSlider();
+
+            $('#slider_main3').bxSlider();
+
+            $('#slider_main4').bxSlider();
+
+            $('#slider_main5').bxSlider();
+
+            $('#slider_main6').bxSlider();
+
+
+
+            $(".QTPopup").css('display','none')
+
+
+
+            $(".feedback").click(function(){
+
+                $(".QTPopup").animate({width: 'show'}, 'slow');
+
+            });	
+
+
+
+            $("#feedback_reply").click(function(){
+
+                $(".QTPopup").animate({width: 'show'}, 'slow');
+
+            });	
+
+
+
+            $(".closeBtn").click(function(){
+
+                $(".QTPopup").css('display', 'none');
+
+            });
+
+
+
+            $(".mins").live("blur",function (event) {
+
+                $(this).val( $(this).val().replace(/[^0-9\']/g,'') ); 
+
+            });
+
+
+
+            $(".mins").live("keyup",function (event) {
+
+                $(this).val( $(this).val().replace(/[^0-9\']/g,'') ); 
+
+            });
+
+                        
+
+            var totalRow = parseInt($('#totalRow').val());
+
+            var abc = new Array(totalRow);
+
+            for(var i=0; i < totalRow; i++)
+
+            {
+
+                abc[i] = $('#scale_'+i).selectToUISlider().next();
+
+            }
+
+                        
+
+            var totalRow_t = parseInt($('#totalRow_t').val());
+
+            var abc_t = new Array(totalRow_t);
+
+            for(var i=0; i < totalRow_t; i++)
+
+            {
+
+                abc_t[i] = $('#scale_t_'+i).selectToUISlider().next();
+
+            }
+
+            
+
+            //var data = {items:<?php //echo getAllBMSAutoList(); ?>};
+
+            var data = {items:<?php echo getAllBMSTriggersAutoList(); ?>};
+
+            var data_t = {items:<?php echo getAllBMSTriggersAutoList(); ?>};
+
+
+
+
+
+            var bes_prefill_arr = new Array(<?php echo count($bes_prefill_arr);?>);
+
+            var trigger_prefill_arr = new Array(<?php echo count($trigger_prefill_arr);?>);
+
+            <?php 
+
+            for($m=0;$m<count($bes_prefill_arr);$m++)
+
+            { ?>
+
+                bes_prefill_arr[<?php echo $m;?>] = <?php echo getPreFillList($bes_prefill_arr[$m]) ; ?>;
+
+            <?php
+
+            } ?>    
+
+
+
+            <?php 
+
+            for($n=0;$n<count($trigger_prefill_arr);$n++)
+
+            { ?>
+
+                trigger_prefill_arr[<?php echo $n;?>] = <?php echo getPreFillList($trigger_prefill_arr[$n]) ; ?>;
+
+            <?php
+
+            } ?>        
+
+			
+
+            for(var i=0; i < totalRow; i++)
+
+            {
+
+                $("#bes_id_"+i).autoSuggest(data.items, {asHtmlID:"bes_id_"+i, preFill: bes_prefill_arr[i], selectedItemProp: "name", searchObjProps: "name", selectedValuesProp: "value", extraParams: "bes_id_"+i });
+
+            }
+
+
+
+            for(var j=0; j < totalRow_t; j++)
+
+            {
+
+                $("#trigger_id_"+j).autoSuggest(data_t.items, {asHtmlID:"trigger_id_"+j, preFill: trigger_prefill_arr[j], selectedItemProp: "name", searchObjProps: "name", selectedValuesProp: "value", extraParams: "trigger_id_"+j });
+
+            } 
+
+            
+
+            var cnt_main = parseInt($('#cnt_main').val());
+
+            var totalRow_edit = 1;
+
+            var totalRow_t_edit = 1;
+
+            var count_edit_situations = 0;
+
+            var count_edit_triggers = 0;
+
+            for(var i=0; i < cnt_main; i++)
+
+            {
+
+                totalRow_edit = parseInt($('#totalRow_edit_'+i).val());
+
+                for(var j=0; j < totalRow_edit; j++)
+
+                {
+
+                    count_edit_situations++;
+
+                }
+
+                
+
+                totalRow_t_edit = parseInt($('#totalRow_t_edit_'+i).val());
+
+                for(var j=0; j < totalRow_t_edit; j++)
+
+                {
+
+                    count_edit_triggers++;
+
+                }
+
+            }
+
+            
+
+            var bes_prefill_edit_arr = new Array(<?php echo $cnt_main;?>);
+
+            var trigger_prefill_edit_arr = new Array(<?php echo $cnt_main;?>);
+
+            <?php
+
+            for($m=0;$m<$cnt_main;$m++)
+
+            { ?>
+
+                bes_prefill_edit_arr[<?php echo $m;?>] = new Array(<?php echo $totalRow_edit_arr[$m];?>);
+
+                <?php
+
+                for($n=0;$n<$totalRow_edit_arr[$m];$n++)
+
+                { ?>
+
+                    bes_prefill_edit_arr[<?php echo $m;?>][<?php echo $n;?>] = <?php echo getPreFillList($bes_prefill_edit_arr[$m][$n]) ; ?>;
+
+                <?php
+
+                } ?>
+
+                        
+
+                trigger_prefill_edit_arr[<?php echo $m;?>] = new Array(<?php echo $totalRow_t_edit_arr[$m];?>);    
+
+                <?php    
+
+                for($n=0;$n<$totalRow_t_edit_arr[$m];$n++)
+
+                { ?>
+
+                trigger_prefill_edit_arr[<?php echo $m;?>][<?php echo $n;?>] = <?php echo getPreFillList($trigger_prefill_edit_arr[$m][$n]) ; ?>;
+
+                <?php
+
+                }        
+
+                        
+
+            } ?>    
+
+
+
+            var abcd = new Array(count_edit_situations);
+
+            var efgh = new Array(count_edit_triggers);
+
+            var k =0;
+
+            var l =0;
+
+            
+
+            for(var i=0; i < cnt_main; i++)
+
+            {
+
+                totalRow_edit = parseInt($('#totalRow_edit_'+i).val());
+
+                for(var j=0; j < totalRow_edit; j++)
+
+                {
+
+                    abcd[k] = $('#scale_edit_'+i+'_'+j).selectToUISlider().next();
+
+                    $("#bes_id_edit_"+i+'_'+j).autoSuggest(data.items, {asHtmlID:"bes_id_edit_"+i+"_"+j, preFill: bes_prefill_edit_arr[i][j], selectedItemProp: "name", searchObjProps: "name", selectedValuesProp: "value", extraParams: "bes_id_edit_"+i+"_"+j });
+
+                    k++;
+
+                }
+
+                
+
+                totalRow_t_edit = parseInt($('#totalRow_t_edit_'+i).val());
+
+                for(var j=0; j < totalRow_t_edit; j++)
+
+                {
+
+                    efgh[l] = $('#scale_t_edit_'+i+'_'+j).selectToUISlider().next();
+
+                    $("#trigger_id_edit_"+i+'_'+j).autoSuggest(data_t.items, {asHtmlID:"trigger_id_edit_"+i+"_"+j, preFill: trigger_prefill_edit_arr[i][j], selectedItemProp: "name", searchObjProps: "name", selectedValuesProp: "value", extraParams: "trigger_id_edit_"+i+"_"+j });
+
+                    l++;
+
+                }
+
+            }
+
+            
+
+                        
+
+            $('#btnGotoTrigger').click(function() {
+
+                $('#div_trigger').show();
+
+                $('#btnGotoTrigger').hide();
+
+                $('#btnSubmit').show();
+
+            });
+
+            
+
+
+
+            $('#addMoreBES').click(function() {
+
+                var cnt = parseInt($('#cnt').val());
+
+                var totalRow = parseInt($('#totalRow').val());
+
+
+
+                //alert(cnt);
+
+                link='remote.php?action=getaddmorebesnew&cnt='+cnt;
+
+                var linkComp = link.split( "?");
+
+                var result;
+
+                var obj = new ajaxObject(linkComp[0], fin);
+
+                obj.update(linkComp[1],"POST");
+
+                obj.callback = function (responseTxt, responseStat) {
+
+                    // we'll do something to process the data here.
+
+                    result2 = responseTxt;
+
+                    //alert(result2);
+
+                    $('#tblbes tr[id="add_before_this_bes"]').before(result2);
+
+                    $("#bes_id_"+cnt).autoSuggest(data.items, {asHtmlID:"bes_id_"+cnt, preFill: {}, selectedItemProp: "name", searchObjProps: "name"  , selectedValuesProp: "value", extraParams: "bes_id_"+cnt});
+
+
+
+                    bcd = $('#scale_'+cnt).selectToUISlider().next();
+
+
+
+                    cnt = cnt + 1;       
+
+                    $('#cnt').val(cnt);
+
+                    //alert($('#cnt').val())
+
+                    totalRow = totalRow + 1;       
+
+                    $('#totalRow').val(totalRow);
+
+                }
+
+            });
+
+                        
+
+            $('#addMoreTrigger').click(function() {
+
+                var cnt_t = parseInt($('#cnt_t').val());
+
+                var totalRow_t = parseInt($('#totalRow_t').val());
+
+
+
+                //alert(cnt);
+
+                link='remote.php?action=addmoretrigger&cnt='+cnt_t;
+
+                var linkComp = link.split( "?");
+
+                var result;
+
+                var obj = new ajaxObject(linkComp[0], fin);
+
+                obj.update(linkComp[1],"POST");
+
+                obj.callback = function (responseTxt, responseStat) {
+
+                    // we'll do something to process the data here.
+
+                    result2 = responseTxt;
+
+                    //alert(result2);
+
+                    $('#tbltrigger tr[id="add_before_this_trigger"]').before(result2);
+
+                    $("#trigger_id_"+cnt_t).autoSuggest(data_t.items, {asHtmlID:"trigger_id_"+cnt_t, preFill: {}, selectedItemProp: "name", searchObjProps: "name"  , selectedValuesProp: "value", extraParams: "trigger_id_"+cnt_t});
+
+
+
+                    xyz = $('#scale_t_'+cnt_t).selectToUISlider().next();
+
+
+
+                    cnt_t = cnt_t + 1;       
+
+                    $('#cnt_t').val(cnt_t);
+
+                    //alert($('#cnt').val())
+
+                    totalRow_t = totalRow_t + 1;       
+
+                    $('#totalRow_t').val(totalRow_t);
+
+
+
+                }
+
+            });
+
+            
+
+            $('.addMoreBES').click(function() {
+
+                
+
+                var tempid = $(this).attr('id');
+
+                var tempidarr = tempid.split("_");
+
+                var idval = 'edit_'+tempidarr[2];
+
+                var cnt_edit_temp = parseInt($('#cnt_'+idval).val());
+
+                var totalRow_edit_temp = parseInt($('#totalRow_'+idval).val());
+
+                var rowtype = 'situation';
+
+                
+
+                link='remote.php?action=addmorerowsautosuggest&cnt='+cnt_edit_temp+'&idval='+idval+'&rowtype='+rowtype;
+
+                var linkComp = link.split( "?");
+
+                var result;
+
+                var obj = new ajaxObject(linkComp[0], fin);
+
+                obj.update(linkComp[1],"POST");
+
+                obj.callback = function (responseTxt, responseStat) {
+
+                    // we'll do something to process the data here.
+
+                    result2 = responseTxt;
+
+                    //alert(result2);
+
+                    $('#tblbes_'+idval+' tr[id="add_before_this_bes_'+idval+'"]').before(result2);
+
+                    $("#bes_id_"+idval+'_'+cnt_edit_temp).autoSuggest(data.items, {asHtmlID:"bes_id_"+idval+"_"+cnt_edit_temp, preFill: {}, selectedItemProp: "name", searchObjProps: "name", selectedValuesProp: "value", extraParams: "bes_id_"+idval+"_"+cnt_edit_temp });
+
+                    bcd = $('#scale_'+idval+'_'+cnt_edit_temp).selectToUISlider().next();
+
+
+
+                    cnt_edit_temp = cnt_edit_temp + 1;       
+
+                    $('#cnt_'+idval).val(cnt_edit_temp);
+
+                    totalRow_edit_temp = totalRow_edit_temp + 1;       
+
+                    $('#totalRow_'+idval).val(totalRow_edit_temp);
+
+                }
+
+                
+
+            });
+
+            
+
+            $('.addMoreTrigger').click(function() {
+
+                
+
+                var tempid = $(this).attr('id');
+
+                var tempidarr = tempid.split("_");
+
+                var idval = 'edit_'+tempidarr[2];
+
+                var cnt_edit_temp = parseInt($('#cnt_t_'+idval).val());
+
+                var totalRow_edit_temp = parseInt($('#totalRow_t_'+idval).val());
+
+                var rowtype = 'trigger';
+
+                
+
+                link='remote.php?action=addmorerowsautosuggest&cnt='+cnt_edit_temp+'&idval='+idval+'&rowtype='+rowtype;
+
+                var linkComp = link.split( "?");
+
+                var result;
+
+                var obj = new ajaxObject(linkComp[0], fin);
+
+                obj.update(linkComp[1],"POST");
+
+                obj.callback = function (responseTxt, responseStat) {
+
+                    // we'll do something to process the data here.
+
+                    result2 = responseTxt;
+
+                    //alert(result2);
+
+                    $('#tbltrigger_'+idval+' tr[id="add_before_this_trigger_'+idval+'"]').before(result2);
+
+                    $("#trigger_id_"+idval+'_'+cnt_edit_temp).autoSuggest(data_t.items, {asHtmlID:"trigger_id_"+idval+"_"+cnt_edit_temp, preFill: {}, selectedItemProp: "name", searchObjProps: "name", selectedValuesProp: "value", extraParams: "trigger_id_"+idval+"_"+cnt_edit_temp });
+
+                    xfr = $('#scale_t_'+idval+'_'+cnt_edit_temp).selectToUISlider().next();
+
+
+
+                    cnt_edit_temp = cnt_edit_temp + 1;       
+
+                    $('#cnt_t_'+idval).val(cnt_edit_temp);
+
+                    totalRow_edit_temp = totalRow_edit_temp + 1;       
+
+                    $('#totalRow_t_'+idval).val(totalRow_edit_temp);
+
+                }
+
+                
+
+            });
+
+            
+
+        });
+
+    </script>
+
+    <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+
+    <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+
+    <script type="text/javascript">
+
+        ddsmoothmenu.init({
+
+            mainmenuid: "smoothmenu1", //menu DIV id 
+
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+
+            //customtheme: ["#1c5a80", "#18374a"],
+
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+
+        })
+
+    </script>
+
+</head>
+
+<body id="fullbgimage" >
+
+<?php include_once('analyticstracking.php'); ?>
+
+<?php include_once('analyticstracking_ci.php'); ?>
+
+<?php include_once('analyticstracking_y.php'); ?>
+
+
+
+<!--header-->
+
+<header style="background-color:white;">
+
+ <?php include 'topbar.php'; ?>
+
+<?php include_once('header.php');?>
+
+</header>
+
+<!--header End --> 			
+
+<!--breadcrumb--> 
+
+  
+
+ <div class="container"  style="background-color:white; width:-100px;"> 
+
+    <div class="breadcrumb">
+
+               
+
+                    <div class="row">
+
+                    <div class="col-md-8">	
+
+                      <?php echo getBreadcrumbCode($page_id);?> 
+
+                       </div>
+
+                         <div class="col-md-4">
+
+                         <?php
+
+                                    if(isLoggedIn())
+
+                                    { 
+
+                                        echo getWelcomeUserBoxCode($_SESSION['name'],$_SESSION['user_id']);
+
+                                    }
+
+                                    ?>
+
+                         </div>
+
+                       </div>
+
+                </div>
+
+            </div>
+
+<!--breadcrumb end --> 
+
+<!--container-->              
+
+<div class="container" style="background-color:white;" id="bgimage">
+
+<div class="row">	
+
+<div class="col-md-8" >	
+
+<!--<h2> <span class="Header_brown"><?php echo getPageTitle($page_id);?></span></h2><br/>-->
+    <?php echo getPageContents($page_id);?>
+                                   
+<div  class="container" >
+    <!--<p style="color:blue;"><b>Relax - To get into a positive frame suggest:-</b></p>-->
+          
+<div id='btndetaildisable' class="col-lg-2">
+          <!--<input type="submit" name="btndetail" id="btndetail" value="Khulja Sim Sim" class="form-control" style="width:120px" onclick="getThemeText();return false;" />-->
+                 
+</div> </div>
+
+<div  class="container" >
+      <div class="form-group">
+          <div class="col-lg-2">
+          <!--<a href="icon_page.php">-->
+          
+                                            <?php // if(isset($_GET['icons_id'])!=''){?>   
+          
+          
+<!--          <img src="uploads/<?php // echo $icon_image; ?>" title="Click to Change Icon" style="height: 100px; width: 100px;" onclick="getPageLinkWithText();">
+                                            <input type="hidden" name="icons_id" id="icons_id" value="<?php // echo $_GET['icons_id'];?>"  class="form-control">
+                                            <?php // } else { ?>
+                                            
+                                            <input type="submit" name="icons_button" id="icons_button" value="Select Icons"  class="form-control" onclick="getPageLinkWithText();">-->
+          
+                                            
+                                            <?php // }?>
+                                            <!--</a>-->
+          </div>
+          <div class="col-lg-2">
+           <input type="hidden" name="theam_id" id="theam_id" value="<?php echo $_GET['theme_id'];?>"  class="form-control">
+                                                       <?php // if(isset($_GET['theme_id'])=='') {?>
+                                                       <!--<a href="select_theme.php?icons_id=<?php echo $_GET['icons_id'];?>">-->
+                                                           <!--<img src="uploads/1327993213_christmas_88.jpg" style="height: 100px; width: 100px;" onclick="getPageThemeLinkWithText();">-->
+          <?php // if(isset($_GET['theme_id'])!=''){?>   
+<!--           <input type="submit" name="theme_button" value="Click to Change Theme" id="theme_button" style="width: 130px;" onclick="getPageThemeLinkWithText();">
+           <?php // } else { ?>  
+           <input type="submit" name="theme_button" value="Select Theme" id="theme_button" style="width: 100px;" onclick="getPageThemeLinkWithText();">-->
+           <?php // }?>
+           <!--</a>-->
+                                                       <?php // }
+//                                                       else {?>
+                                                        <!--<a href="select_theme.php?icons_id=<?php echo $_GET['icons_id'];?>">-->
+                                                             <!-- for theme color
+                                                             <img src="uploads/<?php echo $theme_data; ?>" onload="ChangeTheamMDT()" style="height: 100px; width: 100px;" onclick="getPageThemeLinkWithText();">-->
+                                                       
+                                                            <!--<img src="uploads/<?php echo $theme_data; ?>"  style="height: 100px; width: 100px;" onclick="getPageThemeLinkWithText();">-->
+                                                       <!--</a>-->
+                                                       <?php // } ?>
+          </div>
+     
+      <div class="form-group">
+          <label style="color:red;font-size:18px; margin: 20px;" class="col-lg-3 control-label">
+              
+          </label>
+          </div>      
+     
+      
+ </div> 
+</div>                                          
+       
+ <!--<div id="display_type_id">-->
+                                            <br>   
+ <?php  foreach($display_data as $rec)  {?>                                   
+<div  class="container" >
+   <p style="color:red;font-size:14px;">
+    <b>
+       <?php echo $obj1->getFavCategoryNameRamakant($rec['fav_cat_id']);?>
+    </b>
+   </p>
+      <div class="form-group">
+         
+          <label style="color:red;font-size:10px; " class="col-lg-2 control-label">
+              <a href="<?php echo $rec['link'];?>?ref_num=<?php echo $rec['wellbgn_ref_num'];?>&display_name=<?php echo $rec['display_name'];?>&fav_cat_id=<?php echo $rec['fav_cat_id'];?>&comment=<?php echo $rec['comment'];?>" target="_blank"><img src="uploads/<?php echo $rec['image']; ?>" title="<?php echo $rec['display_name'];?>"  style="height: 90px; width: 90px;" >
+                  <div style="position: absolute; top: 8px; left: 30px;"></div>
+                                            </a>
+              
+              
+          </label>
+          
+          
+          </div>
+      <div class="col-lg-6"style="font-size:13px; margin-left: -50px;">
+              <h5><b>
+              <?php echo $rec['display_name'];?>
+                 </b> </h5>
+           <?php echo $rec['comment'];?>
+     </div>
+    
+<!--     <div class="form-group">
+         
+          <label style="color:red;font-size:20px; margin-left: 80px;" class="col-lg-2 control-label">
+              <a href="<?php echo $rec['link'];?>?fav_cat_id=<?php echo $rec['fav_cat_id'];?>" target="_blank"><img src="uploads/<?php echo $rec['image']; ?>" title="<?php echo $rec['display_name'];?>"  style="height: 100px; width: 100px;" >
+                  <div style="position: absolute; top: 8px; left: 30px;"></div>
+                                            </a>
+              
+          </label>
+          
+          
+          </div>
+          <div class="col-lg-3">
+              <h4><b>
+              <?php echo $rec['display_name'];?>
+                 </b> </h4>
+           <?php echo $rec['comment'];?>
+          </div>-->
+     
+      <div class="form-group">
+          <label style="color:red;font-size:18px; margin: 20px;" class="col-lg-1 control-label">
+              
+          </label>
+          </div>
+    
+     <br>
+      
+     
+      
+ </div>                         
+                                            <hr style="width: 400px; margin-left: 20px;">
+<?php }?>
+
+
+                                            
+                                       
+                                         
+                                        <!--</div>-->
+      
+
+
+
+                                            
+                                            <!--start-->
+                                            
+<!--                                            <table style="width: 800px;"> 
+                                                <tr id="tr_user_upload_form" style="display:<?php echo $tr_user_upload_form;?>;">
+
+                                                    <td colspan="2" align="left" valign="top" >
+
+                                                        <table align="center" width="100%" border="0" cellpadding="0" cellspacing="0">
+
+                                                            <tr>
+
+                                                                <td height="40" colspan="2" align="left" valign="middle" bgcolor="#FFF2C1" style="padding-left:15px;"><strong><?php echo $user_area_box_title1; ?></strong></td>
+
+                                                            </tr>
+
+                                                            <tr>
+
+                                                                <td height="30" colspan="2" align="left" valign="top" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">
+
+                                                                    <?php echo $user_area_box_desc1; ?> 
+
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+
+                                                                <td align="left" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;"><strong>Title: </strong></td>
+
+                                                                <td>
+
+                                                                      <input type="text" class="form-control" name="user_title1" id="user_title1" value="<?php echo $user_title1; ?>" />
+
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr>
+
+                                                                <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+                                                            <tr> 
+
+                                                            <tr>
+
+                                                                <td width="32%" align="left" bgcolor="#FFF2C1" style="padding-left:15px;">
+
+                                                                    <strong>Upload File Type:</strong>
+
+                                                                    <select name="user_banner_type1" id="user_banner_type1" onchange="BannerBox1('1')">
+
+                                                                        <option value="Image" <?php if($user_banner_type1 == 'Image'){ ?> selected <?php } ?>>Image</option>
+
+                                                                        <option value="Flash" <?php if($user_banner_type1 == 'Flash'){ ?> selected <?php } ?>>Flash</option>
+
+                                                                        <option value="Audio" <?php if($user_banner_type1 == 'Audio'){ ?> selected <?php } ?>>Audio</option>
+
+                                                                        <option value="Video" <?php if($user_banner_type1 == 'Video'){ ?> selected <?php } ?>>Video</option>
+
+                                                                        <option value="PDF"   <?php if($user_banner_type1 == 'PDF'){ ?> selected <?php } ?>>PDF</option>
+
+                                                                    </select>
+
+                                                                </td>
+
+                                                                <td width="68%" align="left" bgcolor="#FFF2C1" >
+
+                                                                    <div id="user_trfile1" style="display:<?php echo $user_display_trfile1;?>">
+
+                                                                        <input type="file" name="user_banner1" id="user_banner1" />&nbsp;<span id="user_file_type_msg1" class="footer"><?php echo $user_file_type_msg1;?></span>
+
+                                                                    </div>   
+
+                                                                    <div id="user_trtext1" style="display:<?php echo $user_display_trtext1;?>">  
+
+                                                                        <input type="text" name="user_video_banner1" id="user_video_banner1" value="<?php echo $user_banner1;?>" />
+
+                                                                        &nbsp;<span class="footer">Please Enter Youtube Video URL.</span>
+
+                                                                    </div>
+
+                                                                </td>
+
+                                                            </tr>
+
+                                                            <tr id="tr_err_user_banner_type1"  style="display:<?php echo $tr_err_user_banner_type1;?>;">
+
+                                                                <td align="left" colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;" class="err_msg" id="user_err_banner_type1"><?php echo $err_user_banner_type1;?></td>
+
+                                                            </tr>
+
+                                                            <tr>
+
+                                                                <td colspan="2" bgcolor="#FFF2C1" style="padding-left:15px; padding-right:15px;">&nbsp;</td>
+
+                                                            </tr>
+
+                                                        </table>
+
+                                                    </td>
+
+                                                </tr>
+                                            <tr>
+
+                                                    <td colspan="2" height="30"  align="left" valign="bottom">
+
+                                                        
+
+                                                        <span id="btn_show_user_upload_form" style="display:<?php echo $btn_show_user_upload_form;?>">
+
+                                                            <input class="btn btn-primary" name="btnShowUpload" type="button"  id="btnShowUpload" value="Show User Upload Area" />
+
+                                                        </span>
+
+                                                        <span id="btn_user_upload" style="display:<?php echo $btn_user_upload;?>">
+
+                                                            <input name="btnUpload1" type="submit" class="btn btn-primary" id="btnUpload1" value="Upload"  />
+
+                                                        </span>
+
+                                                    </td>
+
+                                                </tr>
+                                                 </table>-->
+                                              
+                                            <!--end-->
+                                            
+                                          
+
+
+                         <table width="100%" id="color_code"  align="center" border="0" cellpadding="0" cellspacing="1" bgcolor="#339900">
+                             
+
+                                        <tr>
+
+                                            <td  width="100%" align="left" valign="top" bgcolor="#FFFFFF" style="background-repeat:repeat; padding:5px;">
+
+                                                <form action="#" id="frmdaily_meal" method="post" name="frmdaily_meal">
+
+                                                    <input type="hidden" name="cnt_main" id="cnt_main" value="<?php echo $cnt_main;?>" />
+
+                                                    <input type="hidden" name="cnt" id="cnt" value="<?php echo $cnt;?>" />
+
+                                                    <input type="hidden" name="totalRow" id="totalRow" value="<?php echo $totalRow;?>" />
+
+                                                    <input type="hidden" name="cnt_t" id="cnt_t" value="<?php echo $cnt_t;?>" />
+
+                                                    <input type="hidden" name="totalRow_t" id="totalRow_t" value="<?php echo $totalRow_t;?>" />
+
+
+<!--                                                        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+                            <tr>
+
+                                <td align="left" valign="top">
+
+                                    <?php echo getScrollingWindowsCodeMainContent($page_id);?>
+
+                                    <?php echo getPageContents2($page_id);?>
+
+                                </td>
+
+                            </tr>
+
+                        </table>-->
+
+		<script type="text/javascript">
+			
+                        
+    $(document).ready(function(){
+
+                $("#tr_user_upload_form").hide();
+
+                $("#btn_show_user_upload_form").show();
+
+                $("#btn_user_upload").hide();
+                
+         $("#btnShowUpload").click(function(){			
+
+                $("#tr_user_upload_form").show();
+
+                $("#btn_show_user_upload_form").hide();
+
+                $("#btn_user_upload").show();
+
+            });
+
+           
+
+        });
+
+		</script>
+               
+
+<!--html end-->
+                                                    </div>
+
+                                                </form>
+
+                                            </td>
+
+                                        </tr>
+
+                                    </table>
+
+                       
+
+                        <table width="100%" border="0" align="center" cellpadding="0" cellspacing="0">
+
+                            <tr>
+
+                                <td align="left" valign="top">
+
+                                    <?php echo getScrollingWindowsCodeMainContent($page_id);?>
+
+                                    <?php echo getPageContents2($page_id);?>
+
+                                </td>
+
+                            </tr>
+
+                        </table>
+
+                    
+
+     </div> 
+
+                    <!-- ad left_sidebar-->
+
+
+
+                <div class="col-md-2">	
+
+               <?php include_once('left_sidebar.php'); ?>
+
+              </div>
+
+               <!-- ad left_sidebar end -->
+
+                <!-- ad right_sidebar-->
+
+               <div class="col-md-2">	
+
+                <?php include_once('right_sidebar.php'); ?></div>
+
+  
+
+ <!-- ad right_sidebar end -->
+
+                   
+
+   </div>	
+
+</div>
+
+<!--container-->                 
+
+            
+
+           <!--  Footer-->
+
+  <footer> 
+
+   <div class="container">
+
+   <div class="row">
+
+   <div class="col-md-12">	
+
+   <?php include_once('footer.php');?>            
+
+  </div>
+
+  </div>
+
+  </div>
+
+  </footer>
+
+  <!--  Footer-->
+
+
+
+<?php
+
+$music = '';
+
+if($music !='') 
+
+{ ?>
+
+    <div class="floatdiv">
+
+        <embed src="<?php echo SITE_URL.'uploads/'. $music;?>" autostart="true" loop="true" width="50" height="30" type="<?php echo $type; ?>"></embed>
+
+        <br><span class="footer">(Toggle BG Music)</span><br>
+
+        <a href="<?php echo $credit_url; ?>" target="_blank"><span class="footer"><?php echo $credit; ?></span></a>
+
+    </div>
+
+<?php 
+
+} ?>  
+
+
+
+<!-- Bootstrap Core JavaScript -->
+
+
+
+ <!--default footer end here-->
+
+       <!--scripts and plugins -->
+
+        <!--must need plugin jquery-->
+
+       <!-- <script src="csswell/js/jquery.min.js"></script>-->        
+
+        <!--bootstrap js plugin-->
+<!--<script src="csswell/js/jquery.min.js"></script>-->   
+        <script src="csswell/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
+        <!--<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">-->
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+  <!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+  <script>
+
+function getToTheoOtherPageLink(id)
+{
+  var trigger = $('#trigger').val();
+  var txtdetail = $('#txtdetail').val();
+  var fav_cat_id = $('#fav_cat_id_'+id).val();
+  var link = $('#link_'+id).val();
+  
+  window.location = link+'?txtdetail=' + txtdetail +'&fav_cat_id='+fav_cat_id+'&trigger='+trigger;
+}
+
+function getPageLinkWithText()
+{
+  var txtdetail = $('#txtdetail').val();
+  var theme_id = $('#theam_id').val();
+//  alert(theme_id);
+  window.location = 'icon_page.php?theme_id='+theme_id;
+}
+
+function getPageThemeLinkWithText()
+{
+    
+  var txtdetail = $('#txtdetail').val();
+  var icons_id = $('#icons_id').val();
+//  alert(txtdetail);
+  window.location = 'select_theme.php?icons_id='+icons_id;
+}
+
+function suggestionsearch() {
+//    alert(num);
+    var availableTags = [
+        <?php echo $food_tdata; ?>
+    ];
+
+
+    $( "#txtdetail").autocomplete({
+      source: availableTags
+    });
+//    $( "#interpretaion_"+num).val()
+  
+  }
+       
+          
+  $( document ).ready(function() {
+  
+     
+    var theam_id = document.getElementById('theam_id').value;
+     
+//   alert(theam_id);
+    link='remote.php?action=changtheammdt&theam_id='+theam_id;
+    var linkComp = link.split( "?");
+    var result;
+    var obj = new ajaxObject(linkComp[0], fin);
+    obj.update(linkComp[1],"GET");
+    obj.callback = function (responseTxt, responseStat) {
+        // we'll do something to process the data here.
+        result = responseTxt.split("::");
+        $('#bgimage').css("background-image", "url("+result[0]+")");
+        $('#color_code').css("background-color", result[1]); 
+    }
+     }) 
+            
+            $( document ).ready(function(){
+                
+                $('#swrefdisplayornotid').hide();
+                $('#display_type_id').hide();
+ 
+                
+            }); 
+            function getThemeText()
+            {
+                     $('#swrefdisplayornotid').show();
+                     $('#display_type_id').show();
+               
+            }
+             function getReferenceToolDisableOrNot()
+            {
+               var txtdetail = $('#txtdetail').val();
+                if(txtdetail!='')
+                {
+                     $('#theme_container_id').show();
+                     $('#swrefdisplayornotid').show();
+                }
+                else
+                {
+                   
+//                     $('#share_type_display').hide();
+                     $('#swrefdisplayornotid').hide();
+                     $('#theme_container_id').hide();
+                }
+                     
+            }
+             function getButtonDisableOrNot()
+            {
+
+                var txtdetail = $('#txtdetail').val();
+                if(txtdetail!='')
+                {
+
+                    $('#btndetaildisable').show();
+                }
+                else
+                {
+
+                      $('#btndetaildisable').hide();
+                      $('#swrefdisplayornotid').hide();
+                     $('#theme_container_id').hide();
+                }
+                
+ 
+
+    }
+
+
+        </script>
+       
+</body>
+</html>
+

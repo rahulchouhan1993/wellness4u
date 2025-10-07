@@ -1,0 +1,40 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-24 09:34:43
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-06-24 09:34:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-24 10:31:57
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-06-24 10:31:57
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-24 10:57:42
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-06-24 10:57:42
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-24 11:00:22
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-06-24 11:00:22
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-06-24 11:51:47
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-06-24 11:51:47
+----------------------------------------------------
+

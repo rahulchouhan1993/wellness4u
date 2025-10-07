@@ -1,0 +1,103 @@
+<?php
+require_once('config/class.mysql.php');
+require_once('classes/class.mindjumble.php');  
+$obj = new Mindjumble();
+
+$view_action_id = '93';
+
+if(!$obj->isAdminLoggedIn())
+{
+	header("Location: index.php?mode=login");
+	exit(0);
+}
+
+if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
+{	
+	header("Location: index.php?mode=invalid");
+	exit(0);
+}
+?>
+<div id="central_part_contents">
+	<div id="notification_contents"><!--notification_contents--></div>	  
+	<table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+	<tbody>
+		<tr>
+			<td>
+				<table border="0" width="100%" cellpadding="0" cellspacing="0">
+				<tbody>
+					<tr>
+						<td style="background-image: url(images/mainbox_title_left.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>
+						<td style="background-image: url(images/mainbox_title_bg.gif);" valign="middle" width="21"><img src="images/mainbox_title_icon.gif" alt="" border="0" width="21" height="5"></td>
+						<td style="background-image: url(images/mainbox_title_bg.gif);" class="mainbox-title" width="100%">Manage User Uploads</td>
+						<td style="background-image: url(images/mainbox_title_right.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>
+					</tr>
+				</tbody>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table class="mainbox-border" border="0" width="100%" cellpadding="10" cellspacing="1">
+				<tbody>
+					<tr>
+						<td class="mainbox-body">
+							<p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
+							<div id="pagination_contents" align="center"> 
+								<p>
+                                 <form action="#" method="post" name="frm_useruploads" id="frm_useruploads" enctype="multipart/form-data" >
+                                  
+                                 </form>
+                                </p>
+								<table border="1" width="100%" cellpadding="1" cellspacing="1">
+								<tbody>
+									<tr class="manage-header">
+                                                                            <td class="manage-header" align="center" width="5%" nowrap="nowrap" >S.No.</td>
+                                                                            <td width="5%" align="center" nowrap="nowrap" class="manage-header">Edit</td>
+									    <td width="5%" align="center" nowrap="nowrap" class="manage-header">Delete</td>
+                                                                            <td class="manage-header" align="center" width="10%">Admin Notes</td>
+                                                                             <td class="manage-header" align="center" width="10%">User tags</td>
+                                                                              <td class="manage-header" align="center" width="10%">Admin tags</td>
+
+                                                                            <td class="manage-header" align="center" width="10%">Show Where</td>
+                                                                            <td class="manage-header" align="center" width="10%">user Show</td>
+                                                                            <td class="manage-header" align="center" width="20%">User Name</td>
+                                                                            <td class="manage-header" align="center" width="20%">User ID</td>
+									    <td class="manage-header" align="center" width="20%">Box Title</td>
+                                                                            <td class="manage-header" align="center" width="10%">Fav Cat</td>
+                                                                            <td class="manage-header" align="center" width="15%">Ref Code</td>
+                                                                            <td class="manage-header" align="center" width="25%">From Page</td>
+                                                                            <td class="manage-header" align="center" width="25%">banner_type</td>
+                                                                            <td class="manage-header" align="center" width="25%">RSS text</td>
+                                                                            <td class="manage-header" align="center" width="25%">Image</td>
+                                                                            <td class="manage-header" align="center" width="25%">Video url</td>
+                                                                            <td class="manage-header" align="center" width="25%">Credit Line</td>
+                                                                            <td class="manage-header" align="center" width="25%">Credit Url</td>
+                                                                            <td class="manage-header" align="center" width="25%">Documents </td>
+                                                                            <td class="manage-header" align="center" width="25%">Credit Line</td>
+                                                                            <td class="manage-header" align="center" width="25%">Credit Url</td>
+                                                                            <td class="manage-header" align="center" width="5%">Status</td>
+                                                                            <td class="manage-header" align="center" width="10%">Date</td>
+                                                                            
+                                                                            <td class="manage-header" align="center" width="10%">Approved by</td>
+                                                                            <td class="manage-header" align="center" width="10%">Approved date</td>
+                                                                            
+									</tr>
+									<?php
+									echo $obj->GetAllMindJumbleUserUploads();
+									?>
+								</tbody>
+								</table>
+								<!-- <p></p> -->
+							<!--pagination_contents-->
+							</div>
+							<p></p>
+						</td>
+					</tr>
+				</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+	</table>
+	<br>
+</div>

@@ -1,0 +1,1286 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 09:54:55
+[getCertficationTypeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as vc_cert_type_id, cat_name as vc_cert_type FROM `tblcategories` WHERE `parent_cat_id` = '71' AND `cat_deleted` = '0' ORDER BY vc_cert_type ASC
+DEBUG_END - time: 2018-12-12 09:54:55
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 11:25:37
+[getMainCategoryOption] Catch Error:SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')  and tblfavcategory.fav_cat_status = 1 and tblfavcategory.fav_cat_deleted = 0 ' at line 1 , sql:SELECT * FROM `tblcustomfavcategory` LEFT JOIN tblfavcategory ON tblcustomfavcategory.favcat_id = tblfavcategory.fav_cat_id WHERE  tblcustomfavcategory.fav_cat_type_id IN ()  and tblfavcategory.fav_cat_status = 1 and tblfavcategory.fav_cat_deleted = 0 and tblcustomfavcategory.cat_deleted=0 and tblcustomfavcategory.cat_status = 1 ORDER BY tblfavcategory.fav_cat ASC
+DEBUG_END - time: 2018-12-12 11:25:37
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 11:26:36
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 10
+    [hdnvaf_id] => 9
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 64
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 462
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 1
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 0
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 95
+            [1] => 92
+            [2] => 96
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 1
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 12dc4c584966e45aac746128baaa7048
+)
+</pre>
+DEBUG_END - time: 2018-12-12 11:26:36
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 13:15:08
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 10
+    [hdnvaf_id] => 9
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 64
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 462
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 1
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 0
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+            [1] => 91
+            [2] => 101
+            [3] => 93
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 1
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 12dc4c584966e45aac746128baaa7048
+)
+</pre>
+DEBUG_END - time: 2018-12-12 13:15:08
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 13:30:12
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 2
+    [hdnvaf_id] => 7
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 339
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 1
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+            [1] => 94
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 12dc4c584966e45aac746128baaa7048
+)
+</pre>
+DEBUG_END - time: 2018-12-12 13:30:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 13:30:12
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 2
+    [hdnvaf_id] => 7
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 339
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 1
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+            [1] => 94
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 12dc4c584966e45aac746128baaa7048
+)
+</pre>
+DEBUG_END - time: 2018-12-12 13:30:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 17:32:42
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 10
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 19
+            [1] => 20
+            [2] => 23
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 17:32:42
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 17:36:11
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 10
+            [1] => 4
+            [2] => 8
+            [3] => 11
+            [4] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 19
+            [1] => 20
+            [2] => 23
+            [3] => 9
+            [4] => 10
+            [5] => 11
+            [6] => 84
+            [7] => 85
+            [8] => 86
+            [9] => 21
+            [10] => 22
+            [11] => 25
+            [12] => 27
+            [13] => 28
+            [14] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 17:36:11
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 17:41:17
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdnvaf_id] => 10
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 64
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 461
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 1
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 95
+            [1] => 94
+            [2] => 94
+            [3] => 345
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 17:41:17
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:12:24
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:12:24
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:13:45
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 8
+            [1] => 11
+            [2] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 84
+            [1] => 85
+            [2] => 86
+            [3] => 21
+            [4] => 22
+            [5] => 25
+            [6] => 27
+            [7] => 28
+            [8] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:13:45
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:15:16
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:15:16
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:16:21
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:16:21
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:21:28
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:21:28
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:24:15
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 10
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 19
+            [1] => 20
+            [2] => 23
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:24:15
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:25:22
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:25:22
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:27:01
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:27:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:30:34
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:30:34
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:31:04
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 8
+            [1] => 11
+            [2] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 84
+            [1] => 85
+            [2] => 86
+            [3] => 21
+            [4] => 22
+            [5] => 25
+            [6] => 27
+            [7] => 28
+            [8] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:31:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:36:01
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:36:01
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:37:59
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 10
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 19
+            [1] => 20
+            [2] => 23
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:37:59
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 18:42:02
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 18:42:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:10:48
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:10:48
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:12:39
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:12:39
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:13:23
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:13:23
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:21:47
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 8
+    [am_title] => Discount Coupons
+    [am_link] => manage_discount_coupons.php
+    [am_order] => 8
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:21:47
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:26:09
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:26:09
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:31:05
+[EDIT_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 8
+    [hdnaa_id] => 84
+    [aa_title] => View Discount Coupons
+    [aa_link] => view_discount_coupons.php
+    [aa_vendor_menu] => 1
+    [aa_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:31:05
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:33:54
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 8
+    [am_title] => Discount Coupons
+    [am_link] => manage_discount_coupons.php
+    [am_order] => 8
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:33:54
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:35:20
+[EDIT_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 8
+    [hdnaa_id] => 84
+    [aa_title] => View Discount Coupons
+    [aa_link] => view_discount_coupons.php
+    [aa_vendor_menu] => 0
+    [aa_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:35:20
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:36:53
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:36:53
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:37:44
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 11
+            [2] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 21
+            [4] => 22
+            [5] => 25
+            [6] => 27
+            [7] => 28
+            [8] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:37:44
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 19:38:48
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 19:38:48
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 20:11:29
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 20:11:29
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 20:15:36
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 11
+            [2] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 21
+            [4] => 22
+            [5] => 25
+            [6] => 27
+            [7] => 28
+            [8] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 20:15:36
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-12 20:19:09
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 05c32dae09a68b9eb9f0f46e13292ec1
+)
+</pre>
+DEBUG_END - time: 2018-12-12 20:19:09
+----------------------------------------------------
+

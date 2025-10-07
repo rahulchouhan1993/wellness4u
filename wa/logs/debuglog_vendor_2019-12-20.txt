@@ -1,0 +1,1327 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-12-20 13:29:11
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2019-12-20 13:29:11
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-12-20 13:34:56
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 12
+    [reference_number] => EVE-12
+    [event_status] => 1
+    [institution_id] => rrr
+    [sponsor_id] => ddd
+    [event_name] => zumba dance
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 444
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 478
+            [3] => 481
+        )
+
+    [profile_cat_3] => 21
+    [fav_cat_3] => Array
+        (
+            [0] => 89
+        )
+
+    [profile_cat_4] => 
+    [fav_cat_4] => 
+    [profile_cat_5] => 
+    [fav_cat_5] => 
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 24102019182024_amazing.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 24102019182024_Dock.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 24102019182024_zumba-venue.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 24102019182024_d-k-dance-and-fitness-studio-mulund-west-mumbai-dance-classes-wsbdvdosiu.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Mulund zumba classes , mulund west
+        )
+
+    [start_date] => Array
+        (
+            [0] => 25-10-2019
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 21-11-2019
+        )
+
+    [end_time] => Array
+        (
+            [0] => 14:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 11:15 AM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 13:15 PM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 11:15 AM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 10:45 AM
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 11:15 AM
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 12:15 PM
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 14:00 PM
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 11:15 AM
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 4
+        )
+
+    [participants_title] => Array
+        (
+            [0] => Female
+        )
+
+    [parti_remarks] => Array
+        (
+            [0] => good
+        )
+
+    [from_age] => Array
+        (
+            [0] => 18
+        )
+
+    [to_age] => Array
+        (
+            [0] => 59
+        )
+
+    [from_height] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height] => Array
+        (
+            [0] => 6
+        )
+
+    [from_weight] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight] => Array
+        (
+            [0] => 65
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Female
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => nice
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => a
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Siyara
+        )
+
+    [contact_email] => Array
+        (
+            [0] => siyara@yahoo.in
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 44545455
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Good
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => Siyara
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 76543324565
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => ddddedd
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 25-10-2019
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 08-11-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EMulund%20west%3C/p%3E
+    [__utmz] => 231471641.1576556559.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.1345008155.1576556559.1576757608.1576825173.17
+    [__utmc] => 231471641
+    [PHPSESSID] => 213f392f870e3283d2d16ebde1a9979a
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-12-20 13:34:56
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-12-20 13:35:10
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-12-20 13:35:10
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-12-20 13:36:25
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 12
+    [reference_number] => EVE-12
+    [event_status] => 1
+    [institution_id] => rrr
+    [sponsor_id] => ddd
+    [event_name] => zumba dance
+    [event_tags] => Array
+        (
+            [0] => Sports
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 444
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 479
+            [2] => 478
+            [3] => 481
+        )
+
+    [profile_cat_3] => 21
+    [fav_cat_3] => Array
+        (
+            [0] => 94
+            [1] => 98
+        )
+
+    [profile_cat_4] => 
+    [fav_cat_4] => 
+    [profile_cat_5] => 
+    [fav_cat_5] => 
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 24102019182024_Dock.jpg
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 24102019182024_amazing.jpg
+        )
+
+    [hdnvenue_image_file] => Array
+        (
+            [0] => 24102019182024_zumba-venue.jpg
+        )
+
+    [hdnevent_image_file] => Array
+        (
+            [0] => 24102019182024_d-k-dance-and-fitness-studio-mulund-west-mumbai-dance-classes-wsbdvdosiu.jpg
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [event_format] => Array
+        (
+            [0] => 505
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 13952
+        )
+
+    [venue] => Array
+        (
+            [0] => Mulund zumba classes , mulund west
+        )
+
+    [start_date] => Array
+        (
+            [0] => 25-10-2019
+        )
+
+    [start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [end_date] => Array
+        (
+            [0] => 21-11-2019
+        )
+
+    [end_time] => Array
+        (
+            [0] => 14:00 PM
+        )
+
+    [time_zone] => Array
+        (
+            [0] => 440
+        )
+
+    [slot1_start_time] => Array
+        (
+            [0] => 10:00 AM
+        )
+
+    [slot1_end_time] => Array
+        (
+            [0] => 11:15 AM
+        )
+
+    [slot2_start_time] => Array
+        (
+            [0] => 13:15 PM
+        )
+
+    [slot2_end_time] => Array
+        (
+            [0] => 11:15 AM
+        )
+
+    [slot3_start_time] => Array
+        (
+            [0] => 10:45 AM
+        )
+
+    [slot3_end_time] => Array
+        (
+            [0] => 11:15 AM
+        )
+
+    [slot4_start_time] => Array
+        (
+            [0] => 12:15 PM
+        )
+
+    [slot4_end_time] => Array
+        (
+            [0] => 14:00 PM
+        )
+
+    [slot5_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot5_end_time] => Array
+        (
+            [0] => 11:15 AM
+        )
+
+    [slot6_start_time] => Array
+        (
+            [0] => 
+        )
+
+    [slot6_end_time] => Array
+        (
+            [0] => 
+        )
+
+    [no_of_groups] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_teams] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_participants] => Array
+        (
+            [0] => 5
+        )
+
+    [no_of_judges] => Array
+        (
+            [0] => 4
+        )
+
+    [participants_title] => Array
+        (
+            [0] => Female
+        )
+
+    [parti_remarks] => Array
+        (
+            [0] => good
+        )
+
+    [from_age] => Array
+        (
+            [0] => 18
+        )
+
+    [to_age] => Array
+        (
+            [0] => 59
+        )
+
+    [from_height] => Array
+        (
+            [0] => 6
+        )
+
+    [to_height] => Array
+        (
+            [0] => 6
+        )
+
+    [from_weight] => Array
+        (
+            [0] => 45
+        )
+
+    [to_weight] => Array
+        (
+            [0] => 65
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_title] => Array
+        (
+            [0] => Female
+        )
+
+    [judge_remarks] => Array
+        (
+            [0] => nice
+        )
+
+    [judge_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnjudge_cert_scan_file_0_0] => 
+    [judge_cert_type_id_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_name_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_no_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_issued_by_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_reg_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [judge_cert_validity_date_0] => Array
+        (
+            [0] => 
+        )
+
+    [facebook_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [twitter_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [instagram_page_link] => Array
+        (
+            [0] => 
+        )
+
+    [youtube_page_link] => Array
+        (
+            [0] => a
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Siyara
+        )
+
+    [contact_email] => Array
+        (
+            [0] => siyara@yahoo.in
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 44545455
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 487
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => Good
+        )
+
+    [org_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnorg_cert_scan_file_0_0] => 
+    [org_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [org_cert_name_0] => Array
+        (
+            [0] => Siyara
+        )
+
+    [org_cert_no_0] => Array
+        (
+            [0] => 76543324565
+        )
+
+    [org_cert_issued_by_0] => Array
+        (
+            [0] => ddddedd
+        )
+
+    [org_cert_reg_date_0] => Array
+        (
+            [0] => 25-10-2019
+        )
+
+    [org_cert_validity_date_0] => Array
+        (
+            [0] => 08-11-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EMulund%20west%3C/p%3E
+    [__utmz] => 231471641.1576556559.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.1345008155.1576556559.1576757608.1576825173.17
+    [__utmc] => 231471641
+    [PHPSESSID] => 213f392f870e3283d2d16ebde1a9979a
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+    [venue_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [event_image_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [judge_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [org_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-12-20 13:36:25
+----------------------------------------------------
+

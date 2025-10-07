@@ -1,0 +1,24 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-03-12 12:20:14
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/tmp/mysql.sock' (96) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '14' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2020-03-12 12:20:14
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-03-12 18:01:30
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/tmp/mysql.sock' (96) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '12' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2020-03-12 18:01:30
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-03-12 18:02:53
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2002] Can't connect to local MySQL server through socket '/tmp/mysql.sock' (96) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '12' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2020-03-12 18:02:53
+----------------------------------------------------
+

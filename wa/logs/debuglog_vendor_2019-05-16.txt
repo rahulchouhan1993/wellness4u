@@ -1,0 +1,3140 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 14:47:31
+[getStateOption] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT state_id,state FROM `tblstates` WHERE `state_deleted` = '0'  AND country_id = '100'  ORDER BY state ASC
+DEBUG_END - time: 2019-05-16 14:47:31
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 14:47:44
+[getCityOption] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT city_id,city FROM `tblcities` WHERE `city_deleted` = '0'  AND country_id = '1'   AND state_id = '1'  ORDER BY city ASC
+DEBUG_END - time: 2019-05-16 14:47:44
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 14:50:45
+[getStateOption] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT state_id,state FROM `tblstates` WHERE `state_deleted` = '0'  AND country_id = '99'  ORDER BY state ASC
+DEBUG_END - time: 2019-05-16 14:50:45
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:08:07
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => aakankshadfw.com$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:08:07
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:11:39
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => aakankshadfw.com$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:11:39
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:11:39
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => aakankshadfw.com$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:11:39
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:11:48
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => aakankshadfw.com$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:11:48
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:11:57
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => aakankshadfw.com$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:11:57
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:13:21
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => BH$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:13:21
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:13:59
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => Bh$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:13:59
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:15:52
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => Bh$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:15:52
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:17:40
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => Akans$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:17:40
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:21:41
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => Akans$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:21:41
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:21:44
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => Akans$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:21:44
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 15:21:45
+[REGISTER] REQUEST:<pre>Array
+(
+    [va_id] => 4
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [vendor_parent_cat_id] => 42
+    [vendor_cat_id] => 455
+    [vendor_name] => https://aakankshadfw.com/
+    [vendor_username] => Bhavani Swaminathan
+    [vendor_password] => Akans$75
+    [vendor_email] => ombhavaniom@gmail.com
+    [vendor_mobile] => 9699627942
+    [cert_cnt_0] => 0
+    [cert_total_cnt_0] => 1
+    [cert_loop_cnt] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvloc_doc_file] => Array
+        (
+            [0] => 
+        )
+
+    [hdnvloc_menu_file] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_id] => Array
+        (
+            [0] => 0
+        )
+
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 45
+        )
+
+    [vloc_cat_id] => Array
+        (
+            [0] => 94
+        )
+
+    [country_id] => Array
+        (
+            [0] => 1
+        )
+
+    [state_id] => Array
+        (
+            [0] => 1
+        )
+
+    [city_id] => Array
+        (
+            [0] => Mumbai
+        )
+
+    [area_id] => Array
+        (
+            [0] => 14174
+        )
+
+    [contact_person_title] => Array
+        (
+            [0] => Female
+        )
+
+    [contact_person] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [contact_email] => Array
+        (
+            [0] => ombhavaniom@gmail.com
+        )
+
+    [contact_number] => Array
+        (
+            [0] => 9699627942
+        )
+
+    [contact_designation] => Array
+        (
+            [0] => 509
+        )
+
+    [contact_remark] => Array
+        (
+            [0] => 
+        )
+
+    [vloc_speciality_offered_0] => Array
+        (
+            [0] => 455
+        )
+
+    [vc_cert_id_0] => Array
+        (
+            [0] => 0
+        )
+
+    [hdnvc_cert_scan_file_0_0] => 
+    [vc_cert_type_id_0] => Array
+        (
+            [0] => 420
+        )
+
+    [vc_cert_name_0] => Array
+        (
+            [0] => Dietician/Nutritionist
+        )
+
+    [vc_cert_no_0] => Array
+        (
+            [0] => 123
+        )
+
+    [vc_cert_issued_by_0] => Array
+        (
+            [0] => Bhavani Swaminathan
+        )
+
+    [vc_cert_reg_date_0] => Array
+        (
+            [0] => 16-05-2019
+        )
+
+    [vc_cert_validity_date_0] => Array
+        (
+            [0] => 31-05-2019
+        )
+
+    [btnSubmit] => btnSubmit
+    [__utma] => 231471641.1472330493.1557997645.1557997645.1557997645.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1557997645.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [PHPSESSID] => 38b3fcdd748fd8195d4e3816469a5395
+)
+</pre>, FILES:<pre>Array
+(
+    [vloc_menu_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vloc_doc_file] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+    [vc_cert_scan_file_0] => Array
+        (
+            [name] => Array
+                (
+                    [0] => 
+                )
+
+            [type] => Array
+                (
+                    [0] => 
+                )
+
+            [tmp_name] => Array
+                (
+                    [0] => 
+                )
+
+            [error] => Array
+                (
+                    [0] => 4
+                )
+
+            [size] => Array
+                (
+                    [0] => 0
+                )
+
+        )
+
+)
+</pre>
+DEBUG_END - time: 2019-05-16 15:21:45
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:10:35
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2019-05-16 16:10:35
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:11:29
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:11:29
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:12:31
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:12:31
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:12:42
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:12:42
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:12:52
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:12:52
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:13:02
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:13:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:13:54
+[chkValidVendorLogin] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_username` = 'ombhavaniom@gmail.com' AND `vendor_password` = '31d9e99d863b4999c0d3535d736a7fe2' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:13:54
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:19:30
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:19:30
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:19:39
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:19:39
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:21:16
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:21:16
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:22:04
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:22:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:22:14
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:22:14
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:22:22
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2019-05-16 16:22:22
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:22:24
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:22:24
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:22:57
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:22:57
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:23:07
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:23:07
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:23:20
+[chkValidVendorLogin] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_username` = 'ombhavaniom@gmail.com' AND `vendor_password` = '31d9e99d863b4999c0d3535d736a7fe2' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:23:20
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:24:21
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-05-16 16:24:21
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:24:49
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:24:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:25:09
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:25:09
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:25:18
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:25:18
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:28:26
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2019-05-16 16:28:26
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:30:25
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:30:25
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:30:35
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:30:35
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:30:45
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:30:45
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:30:55
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:30:55
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:31:05
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:31:05
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:31:15
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:31:15
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:31:24
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:31:24
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:33:08
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2019-05-16 16:33:08
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-05-16 16:43:23
+[chkValidVendor] Catch Error:SQLSTATE[HY000] [2003] Can't connect to MySQL server on 'mysql' (9) , sql:SELECT * FROM `tblvendors` WHERE `vendor_id` = '8' AND `vendor_status` = '1' AND `vendor_deleted` = '0' 
+DEBUG_END - time: 2019-05-16 16:43:23
+----------------------------------------------------
+

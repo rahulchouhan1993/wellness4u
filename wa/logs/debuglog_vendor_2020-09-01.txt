@@ -1,0 +1,383 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 15:00:13
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-01 15:00:13
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 15:12:29
+[ADD_CUISINE] REQUEST:<pre>Array
+(
+    [cat_cnt] => 1
+    [cat_total_cnt] => 2
+    [loc_cnt] => 1
+    [loc_total_cnt] => 2
+    [cw_cnt] => 0
+    [cw_total_cnt] => 1
+    [hdnevent_id] => 36
+    [registration_type_id] => Array
+        (
+            [0] => 469
+            [1] => 467
+        )
+
+    [reg_currency_id] => Array
+        (
+            [0] => 1
+            [1] => 1
+        )
+
+    [registration_fees] => Array
+        (
+            [0] => 0
+            [1] => 1000
+        )
+
+    [registration_criteria] => Array
+        (
+            [0] => Should Register
+            [1] => Should Register
+        )
+
+    [registration_show] => Array
+        (
+            [0] => 1
+            [1] => 1
+        )
+
+    [ordering_type_id] => Array
+        (
+            [0] => 470
+            [1] => 465
+        )
+
+    [ticket_name] => Array
+        (
+            [0] => Light Star
+            [1] => Golden Ticket
+        )
+
+    [is_bulk_booking] => Array
+        (
+            [0] => 1
+            [1] => 1
+        )
+
+    [max_order] => Array
+        (
+            [0] => 100
+            [1] => 200
+        )
+
+    [min_order] => Array
+        (
+            [0] => 50
+            [1] => 100
+        )
+
+    [cusine_qty] => Array
+        (
+            [0] => 150
+            [1] => 300
+        )
+
+    [cusine_qty_show] => Array
+        (
+            [0] => 1
+            [1] => 1
+        )
+
+    [sold_qty_show] => Array
+        (
+            [0] => 1
+            [1] => 1
+        )
+
+    [currency_id] => Array
+        (
+            [0] => 2
+            [1] => 1
+        )
+
+    [ticket_price] => Array
+        (
+            [0] => 0
+            [1] => 1000
+        )
+
+    [default_price] => Array
+        (
+            [0] => 0
+            [1] => 1
+        )
+
+    [is_offer] => Array
+        (
+            [0] => 0
+            [1] => 1
+        )
+
+    [offer_price] => Array
+        (
+            [0] => 
+            [1] => 995
+        )
+
+    [offer_date_type] => Array
+        (
+            [0] => 
+            [1] => days_of_week
+        )
+
+    [offer_days_of_month_str] => Array
+        (
+            [0] => 
+            [1] => -1
+        )
+
+    [offer_days_of_month] => Array
+        (
+            [0] => -1
+            [1] => -1
+        )
+
+    [offer_days_of_week_str] => Array
+        (
+            [0] => 
+            [1] => -1,1,2,3,4,5,6,7
+        )
+
+    [offer_days_of_week] => Array
+        (
+            [0] => -1
+            [1] => -1
+            [2] => 1
+            [3] => 2
+            [4] => 3
+            [5] => 4
+            [6] => 5
+            [7] => 6
+            [8] => 7
+        )
+
+    [offer_single_date] => Array
+        (
+            [0] => 
+            [1] => 
+        )
+
+    [offer_start_date] => Array
+        (
+            [0] => 
+            [1] => 
+        )
+
+    [offer_end_date] => Array
+        (
+            [0] => 
+            [1] => 
+        )
+
+    [is_discount] => Array
+        (
+            [0] => 0
+            [1] => 1
+        )
+
+    [discount_code] => Array
+        (
+            [0] => 
+            [1] => 3
+        )
+
+    [discount_date_type] => Array
+        (
+            [0] => 
+            [1] => days_of_month
+        )
+
+    [discount_days_of_month_str] => Array
+        (
+            [0] => 
+            [1] => 
+        )
+
+    [discount_days_of_week_str] => Array
+        (
+            [0] => 
+            [1] => 
+        )
+
+    [discount_single_date] => Array
+        (
+            [0] => 
+            [1] => 
+        )
+
+    [discount_start_date] => Array
+        (
+            [0] => 
+            [1] => 
+        )
+
+    [discount_end_date] => Array
+        (
+            [0] => 
+            [1] => 
+        )
+
+    [discount_days_of_month] => Array
+        (
+            [0] => -1
+            [1] => 1
+            [2] => 2
+            [3] => 3
+            [4] => 4
+            [5] => 5
+            [6] => 6
+            [7] => 7
+            [8] => 8
+            [9] => 9
+            [10] => 10
+            [11] => 11
+            [12] => 12
+            [13] => 13
+            [14] => 14
+            [15] => 15
+            [16] => 16
+            [17] => 17
+            [18] => 18
+            [19] => 19
+            [20] => 20
+            [21] => 21
+            [22] => 22
+            [23] => 23
+            [24] => 24
+            [25] => 25
+            [26] => 26
+            [27] => 27
+            [28] => 28
+            [29] => 29
+            [30] => 30
+            [31] => 31
+        )
+
+    [discount_days_of_week] => Array
+        (
+            [0] => -1
+        )
+
+    [cucat_parent_cat_id] => Array
+        (
+            [0] => 40
+            [1] => 34
+        )
+
+    [cucat_cat_id] => Array
+        (
+            [0] => 326
+            [1] => 273
+        )
+
+    [cucat_show] => Array
+        (
+            [0] => 1
+            [1] => 1
+        )
+
+    [publish_date_type] => date_range
+    [publish_days_of_month] => -1
+    [publish_days_of_week] => -1
+    [publish_single_date] => 
+    [publish_start_date] => 23-08-2019
+    [publish_end_date] => 31-12-2020
+    [registration_cutoff_time] => 3
+    [registration_time_show] => 1
+    [cancel_cutoff_time] => 14
+    [cancel_cutoff_time_show] => 1
+    [cgst_tax] => 14
+    [sgst_tax] => 18
+    [cess_tax] => 
+    [gst_tax] => 9
+    [cusine_desc_1] => Test Event 010920
+    [cusine_desc_show_1] => 1
+    [cusine_desc_2] => 
+Test Event 010920
+
+    [cusine_desc_show_2] => 1
+    [btnSubmit] => btnSubmit
+    [publish_days_of_month_str] => -1
+    [publish_days_of_week_str] => -1
+    [__utma] => 231471641.1333311473.1598951456.1598951456.1598951456.1
+    [__utmc] => 231471641
+    [__utmz] => 231471641.1598951456.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmb] => 231471641.4.10.1598951456
+    [PHPSESSID] => 145a98683a630575a964b8626421f287
+)
+</pre>, FILES:<pre>Array
+(
+)
+</pre>
+DEBUG_END - time: 2020-09-01 15:12:29
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 15:12:30
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-01 15:12:30
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 15:16:26
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-01 15:16:26
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 15:29:12
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-01 15:29:12
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 16:08:28
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-09-01 16:08:28
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 16:11:02
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-01 16:11:02
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 16:15:32
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-01 16:15:32
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-09-01 16:21:40
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2020-09-01 16:21:40
+----------------------------------------------------
+

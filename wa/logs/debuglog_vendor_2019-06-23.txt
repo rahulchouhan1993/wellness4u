@@ -1,0 +1,8 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-06-23 12:35:29
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2019-06-23 12:35:29
+----------------------------------------------------
+

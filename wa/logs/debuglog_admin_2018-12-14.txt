@@ -1,0 +1,569 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 10:38:32
+[getCertficationTypeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as vc_cert_type_id, cat_name as vc_cert_type FROM `tblcategories` WHERE `parent_cat_id` = '71' AND `cat_deleted` = '0' ORDER BY vc_cert_type ASC
+DEBUG_END - time: 2018-12-14 10:38:32
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 10:38:33
+[getContactDesignationOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as contact_designation, cat_name as contact_designation_name FROM `tblcategories` WHERE `parent_cat_id` = '8' AND `cat_deleted` = '0' ORDER BY contact_designation_name ASC
+DEBUG_END - time: 2018-12-14 10:38:33
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 21:54:55
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 21:54:55
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 21:58:38
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [hdn_va_cat_id] => 64
+    [hdn_va_sub_cat_id] => 461
+    [va_name] => Events Services 2
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 7
+            [2] => 8
+            [3] => 11
+            [4] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 21:58:38
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 21:59:56
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 3
+    [hdn_va_cat_id] => 42
+    [hdn_va_sub_cat_id] => 423
+    [va_name] => COMMON
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 11
+            [2] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 21
+            [4] => 22
+            [5] => 25
+            [6] => 27
+            [7] => 28
+            [8] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 21:59:56
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:00:47
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:00:47
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:01:14
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 0
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:01:14
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:14:18
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 4
+    [am_title] => Business Associates
+    [am_link] => manage_vendors.php
+    [am_order] => 4
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:14:18
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:15:04
+[EDIT_VENDORS_ACCESS] REQUEST:<pre>Array
+(
+    [hdnva_id] => 1
+    [hdn_va_cat_id] => 42
+    [hdn_va_sub_cat_id] => 343
+    [va_name] => Accupuncture
+    [va_status] => 1
+    [am_id] => Array
+        (
+            [0] => 4
+            [1] => 8
+            [2] => 11
+            [3] => 12
+        )
+
+    [aa_id] => Array
+        (
+            [0] => 9
+            [1] => 10
+            [2] => 11
+            [3] => 84
+            [4] => 85
+            [5] => 86
+            [6] => 21
+            [7] => 22
+            [8] => 25
+            [9] => 27
+            [10] => 28
+            [11] => 29
+        )
+
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:15:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:17:05
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 1
+    [hdnvaf_id] => 8
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 343
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 0
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 17
+            [1] => 21
+            [2] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 95
+            [1] => 321
+            [2] => 89
+            [3] => 92
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:17:05
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:24:08
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 1
+    [hdnvaf_id] => 8
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 343
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 0
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 95
+            [1] => 92
+            [2] => 93
+            [3] => 345
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:24:08
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:32:20
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 2
+    [hdnvaf_id] => 7
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 339
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 1
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 64
+            [2] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 95
+            [1] => 461
+            [2] => 100
+            [3] => 98
+            [4] => 99
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:32:20
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:46:53
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 2
+    [hdnvaf_id] => 7
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 339
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 1
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 64
+            [2] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 95
+            [1] => 461
+            [2] => 100
+            [3] => 98
+            [4] => 99
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:46:53
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-12-14 22:50:22
+[EDIT_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 2
+    [hdnvaf_id] => 7
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 42
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 339
+        )
+
+    [vafm_id] => 1
+    [vaf_status] => 1
+    [vendor_parent_cat_id_show] => 0
+    [vendor_cat_id_show] => 1
+    [vendor_name_show] => 1
+    [vendor_username_show] => 1
+    [vendor_password_show] => 1
+    [vloc_parent_cat_id_show] => 1
+    [vloc_parent_cat_id] => Array
+        (
+            [0] => 21
+            [1] => 64
+            [2] => 45
+        )
+
+    [vloc_cat_id_show] => 1
+    [vloc_cat_id] => Array
+        (
+            [0] => 95
+            [1] => 461
+            [2] => 100
+            [3] => 98
+            [4] => 99
+        )
+
+    [country_id_show] => 1
+    [state_id_show] => 1
+    [city_id_show] => 1
+    [area_id_show] => 1
+    [contact_person_title_show] => 1
+    [contact_person_show] => 1
+    [contact_email_show] => 1
+    [contact_number_show] => 1
+    [contact_designation_show] => 1
+    [contact_remark_show] => 1
+    [vloc_speciality_offered_show] => 0
+    [vloc_menu_file_show] => 1
+    [vloc_doc_file_show] => 1
+    [vc_cert_type_id_show] => 1
+    [vc_cert_name_show] => 1
+    [vc_cert_no_show] => 1
+    [vc_cert_issued_by_show] => 1
+    [vc_cert_reg_date_show] => 1
+    [vc_cert_validity_date_show] => 1
+    [vc_cert_scan_file_show] => 1
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 292856a0f4090039dfdcae6747322a6c
+)
+</pre>
+DEBUG_END - time: 2018-12-14 22:50:22
+----------------------------------------------------
+

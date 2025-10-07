@@ -1,0 +1,1 @@
+€âh<?php exit; ?>a:1:{s:7:"content";s:148:"a:5:{s:19:"recommended_version";s:3:"8.3";s:15:"minimum_version";s:6:"7.2.24";s:12:"is_supported";b:0;s:9:"is_secure";b:1;s:13:"is_acceptable";b:1;}";}

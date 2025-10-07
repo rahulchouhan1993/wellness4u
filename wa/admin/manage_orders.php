@@ -1,0 +1,439 @@
+<?php
+require_once('../classes/config.php');
+require_once('../classes/admin.php');
+$admin_main_menu_id = '23';
+$view_action_id = '51';
+$edit_action_id = '101';
+
+$obj = new Admin();
+if(!$obj->isAdminLoggedIn())
+{
+	header("Location: login.php");
+	exit(0);
+}
+else
+{
+	$admin_id = $_SESSION['admin_id'];
+}
+
+if(!$obj->chkIfAccessOfMenu($admin_id,$admin_main_menu_id))
+{
+	header("Location: invalid.php");
+	exit(0);
+}
+
+if(isset($_GET['msg']) && $_GET['msg'] != '')
+{
+	$msg = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert">&times;</button><strong>'.urldecode($_GET['msg']).'</strong></div>';
+}
+else
+{
+	$msg = '';
+}
+
+$txtsearch = '';
+$item_id = '';
+$vendor_id = '';
+$customer_id = '';
+$country_id = '';
+$state_id = '';
+$city_id = '';
+$area_id = '';
+
+$status = '';
+$payment_status = '';
+$added_date_type = '';
+$added_days_of_month = '';
+$added_days_of_week = '';
+$added_single_date = '';
+$added_start_date = '';
+$added_end_date = '';
+
+$delivery_date_type = '';
+$delivery_days_of_month = '';
+$delivery_days_of_week = '';
+$delivery_single_date = '';
+$delivery_start_date = '';
+$delivery_end_date = '';
+
+$added_show_days_of_month = 'none';
+$added_show_days_of_week = 'none';
+$added_show_single_date = 'none';
+$added_show_start_date = 'none';
+$added_show_end_date = 'none';
+
+$delivery_show_days_of_month = 'none';
+$delivery_show_days_of_week = 'none';
+$delivery_show_single_date = 'none';
+$delivery_show_start_date = 'none';
+$delivery_show_end_date = 'none';
+
+
+?><!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title><?php echo SITE_NAME;?> - Admin</title>
+	<?php require_once 'head.php'; ?>
+	<link href="assets/css/tokenize2.css" rel="stylesheet" />
+</head>
+<body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout">
+<?php include_once('header.php');?>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="panel">
+				<header class="panel-heading">
+					<h2 class="panel-title"><?php echo $obj->getAdminMenuName($admin_main_menu_id);?></h2>
+				</header>
+				<div class="pull-right tooltip-show">
+				<?php
+				/*if($obj->chkIfAccessOfMenuAction($admin_id,$add_action_id))
+				{ ?>
+					<a href="<?php echo $obj->getAdminActionLink($add_action_id);?>" class="btn btn-default btn-sm" data-toggle="tooltip" data-placement="top" title="<?php echo $obj->getAdminActionName($add_action_id);?>" data-original-title=""><i class="fa fa-plus"></i></a>
+				<?php
+				}*/ ?>	
+				</div>
+				<div class="space-30"></div>
+				<?php
+				if($obj->chkIfAccessOfMenuAction($admin_id,$view_action_id))
+				{ ?>
+				<div class="search-panel">
+					<div class="row" >
+						<div class="col-sm-3"><strong>Search:</strong>&nbsp;<br>
+							<input type="text" id="txtsearch" name="txtsearch" value="<?php echo $txtsearch;?>" class="form-control"  >
+						</div>
+						<div class="col-lg-3">
+							<strong>Item:</strong>&nbsp;<br>
+							<select name="item_id" id="item_id" class="form-control">
+								<?php echo $obj->getItemOption($item_id,2); ?>
+							</select>
+						</div>
+						<div class="col-lg-3">
+							<strong>Vendor:</strong>&nbsp;<br>
+							<select name="vendor_id" id="vendor_id" class="form-control" >
+								<?php echo $obj->getVendorOption($vendor_id,2); ?>
+							</select>
+						</div>
+						<div class="col-lg-3">
+							<strong>User:</strong>&nbsp;<br>
+							<select name="customer_id" id="customer_id" class="form-control">
+								<?php echo $obj->getUsersOption($customer_id,2); ?>
+							</select>
+						</div>
+					</div>
+					<div class="row" >
+						<div class="col-sm-3"><strong>Country:</strong>&nbsp;<br>
+							<select name="country_id" id="country_id" class="form-control" onchange="getStateOptionCommon('2','2');">
+								<?php echo $obj->getCountryOption($country_id,'2'); ?>
+							</select>
+						</div>
+						<div class="col-sm-3"><strong>State:</strong>&nbsp;<br>
+							<select name="state_id" id="state_id" class="form-control"  onchange="getCityOptionCommon('2','2');">
+								<?php echo $obj->getStateOption($country_id,$state_id,'2'); ?>
+							</select>
+						</div>
+						<div class="col-sm-3"><strong>City:</strong>&nbsp;<br>
+							<select name="city_id" id="city_id" class="form-control"  onchange="getAreaOptionCommon('2','2');">
+								<?php echo $obj->getCityOption($country_id,$state_id,$city_id,'2'); ?>
+							</select>
+						</div>
+						<div class="col-sm-3"><strong>Area:</strong>&nbsp;<br>
+							<select name="area_id" id="area_id" class="form-control">
+								<?php echo $obj->getAreaOption($country_id,$state_id,$city_id,$area_id,'2'); ?>
+							</select>
+						</div>
+					</div>	
+					<div class="row">
+						<div class="col-sm-3"><strong>Order Status:</strong>&nbsp;<br>
+							<select name="status" id="status" class="form-control">
+								<?php echo $obj->getOrderStatusOption($status,2); ?>
+							</select>
+						</div>
+						<div class="col-lg-3">
+							<strong>Order Date Type:</strong>&nbsp;<br>
+							<select name="added_date_type" id="added_date_type" onchange="showHideDateDropdowns('added')" class="form-control" required>
+								<?php echo $obj->getDateTypeOption($added_date_type); ?>
+							</select>
+						</div>
+						<div class="col-lg-3">
+							<div id="added_show_days_of_month" style="display:<?php echo $added_show_days_of_month;?>">
+								<strong>Days of Month:</strong>&nbsp;<br>
+								<select name="added_days_of_month" id="added_days_of_month" class="form-control">
+									<?php echo $obj->getDaysOfMonthOption($added_days_of_month,'2'); ?>
+								</select>
+							</div>	
+							<div id="added_show_days_of_week" style="display:<?php echo $added_show_days_of_week;?>">
+								<strong>Days of Week:</strong>&nbsp;<br>
+								<select name="added_days_of_week" id="added_days_of_week" class="form-control">
+									<?php echo $obj->getDaysOfWeekOption($added_days_of_week,'2'); ?>
+								</select>
+							</div>	
+							<div id="added_show_single_date" style="display:<?php echo $added_show_single_date;?>">
+								<strong>Single Date:</strong>&nbsp;<br>
+								<input type="text" name="added_single_date" id="added_single_date" placeholder="Select Date" class="form-control" required >
+							</div>	
+							<div id="added_show_start_date" style="display:<?php echo $added_show_start_date;?>">
+								<strong>Start Date:</strong>&nbsp;<br>
+								<input type="text" name="added_start_date" id="added_start_date" placeholder="Select Start Date" class="form-control" required >  
+							</div>	
+						</div>
+						<div class="col-lg-3">
+							<div id="added_show_end_date" style="display:<?php echo $added_show_end_date;?>">
+								<strong>End Date:</strong>&nbsp;<br>
+								<input type="text" name="added_end_date" id="added_end_date" placeholder="Select End Date" class="form-control" required > 
+							</div>	
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-3"><strong>Payment Status:</strong>&nbsp;<br>
+							<select name="payment_status" id="payment_status" class="form-control">
+								<?php echo $obj->getPaymentStatusOption($payment_status,2); ?>
+							</select>
+						</div>
+						<div class="col-lg-3">
+							<strong>Delivery Date Type:</strong>&nbsp;<br>
+							<select name="delivery_date_type" id="delivery_date_type" onchange="showHideDateDropdowns('delivery')" class="form-control" required>
+								<?php echo $obj->getDateTypeOption($delivery_date_type); ?>
+							</select>
+						</div>
+						<div class="col-lg-3">
+							<div id="delivery_show_days_of_month" style="display:<?php echo $delivery_show_days_of_month;?>">
+								<strong>Days of Month:</strong>&nbsp;<br>
+								<select name="delivery_days_of_month" id="delivery_days_of_month" class="form-control">
+									<?php echo $obj->getDaysOfMonthOption($delivery_days_of_month,'2'); ?>
+								</select>
+							</div>	
+							<div id="delivery_show_days_of_week" style="display:<?php echo $delivery_show_days_of_week;?>">
+								<strong>Days of Week:</strong>&nbsp;<br>
+								<select name="delivery_days_of_week" id="delivery_days_of_week" class="form-control">
+									<?php echo $obj->getDaysOfWeekOption($delivery_days_of_week,'2'); ?>
+								</select>
+							</div>	
+							<div id="delivery_show_single_date" style="display:<?php echo $delivery_show_single_date;?>">
+								<strong>Single Date:</strong>&nbsp;<br>
+								<input type="text" name="delivery_single_date" id="delivery_single_date" placeholder="Select Date" class="form-control" required >
+							</div>	
+							<div id="delivery_show_start_date" style="display:<?php echo $delivery_show_start_date;?>">
+								<strong>Start Date:</strong>&nbsp;<br>
+								<input type="text" name="delivery_start_date" id="delivery_start_date" placeholder="Select Start Date" class="form-control" required >  
+							</div>	
+						</div>
+						<div class="col-lg-3">
+							<div id="delivery_show_end_date" style="display:<?php echo $delivery_show_end_date;?>">
+								<strong>End Date:</strong>&nbsp;<br>
+								<input type="text" name="delivery_end_date" id="delivery_end_date" placeholder="Select End Date" class="form-control" required > 
+							</div>	
+						</div>
+					</div>	
+					<div class="row" >	
+						<div class="col-sm-3">
+							<input type="button" id="btnsearch" name="btnsearch" value="Search" class="btn btn-primary btn-search" onclick="refineSearch();">
+						</div>
+					</div>
+				</div>
+				<?php
+				} ?> 
+				<div class="panel-body">
+					<div class="se-pre-con"></div>
+					<?php
+					if($msg != '')
+					{ ?>
+						<?php echo $msg;?>
+					<?php
+					} ?>  
+					
+					<?php
+					if($obj->chkIfAccessOfMenuAction($admin_id,$view_action_id))
+					{ ?>
+					<div id="orderslist"></div>
+					<?php
+					} ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php include_once('footer.php');?>
+<!--Common plugins-->
+<?php require_once('script.php'); ?>
+<script src="js/tokenize2.js"></script>
+<script>
+
+	
+$(document).ready(function()
+{ 
+	$('#added_single_date').datepicker();
+	$('#added_start_date').datepicker();
+	$('#added_end_date').datepicker();
+	
+	$('#delivery_single_date').datepicker();
+	$('#delivery_start_date').datepicker();
+	$('#delivery_end_date').datepicker();
+	<?php
+	if($obj->chkIfAccessOfMenuAction($admin_id,$view_action_id))
+	{ ?>
+    var dataString ='action=orderslist';
+	$.ajax({
+		type: "POST",
+		url: "ajax/remote.php",
+		data: dataString,
+		cache: false,
+		success: function(result)
+		{
+			//alert(result);
+			$("#orderslist").html(result);
+		}
+	});
+	<?php
+	} ?>
+}); 
+	
+<?php
+if($obj->chkIfAccessOfMenuAction($admin_id,$view_action_id))
+{ ?>
+function change_page(page_id)  
+{
+	var txtsearch = $("#txtsearch").val();
+	var status = $("#status").val();
+	var payment_status = $("#payment_status").val();
+	var item_id = $("#item_id").val();
+	var vendor_id = $("#vendor_id").val();
+	var customer_id = $("#customer_id").val();
+	var country_id = $("#country_id").val();
+	var state_id = $("#state_id").val();
+	var city_id = $("#city_id").val();
+	var area_id = $("#area_id").val();
+	var added_date_type = $("#added_date_type").val();
+	var added_days_of_month = $("#added_days_of_month").val();
+	var added_days_of_week = $("#added_days_of_week").val();
+	var added_single_date = $("#added_single_date").val();
+	var added_start_date = $("#added_start_date").val();
+	var added_end_date = $("#added_end_date").val();
+	var delivery_date_type = $("#delivery_date_type").val();
+	var delivery_days_of_month = $("#delivery_days_of_month").val();
+	var delivery_days_of_week = $("#delivery_days_of_week").val();
+	var delivery_single_date = $("#delivery_single_date").val();
+	var delivery_start_date = $("#delivery_start_date").val();
+	var delivery_end_date = $("#delivery_end_date").val();
+	
+	var dataString ='page_id='+page_id +'&txtsearch='+escape(txtsearch)+'&status='+status+'&payment_status='+payment_status+'&item_id='+item_id+'&vendor_id='+vendor_id+'&customer_id='+customer_id+'&country_id='+country_id+'&state_id='+state_id+'&city_id='+city_id+'&area_id='+area_id+'&added_date_type='+escape(added_date_type)+'&added_days_of_month='+escape(added_days_of_month)+'&added_days_of_week='+escape(added_days_of_week)+'&added_single_date='+escape(added_single_date)+'&added_start_date='+escape(added_start_date)+'&added_end_date='+escape(added_end_date)+'&delivery_date_type='+escape(delivery_date_type)+'&delivery_days_of_month='+escape(delivery_days_of_month)+'&delivery_days_of_week='+escape(delivery_days_of_week)+'&delivery_single_date='+escape(delivery_single_date)+'&delivery_start_date='+escape(delivery_start_date)+'&delivery_end_date='+escape(delivery_end_date)+'&action=orderslist';
+	$.ajax({
+		type: "POST",
+		url: "ajax/remote.php",
+		data: dataString,
+		cache: false,
+		success: function(result)
+		{
+			$(".se-pre-con ").hide();
+			$("#orderslist").html(result);
+		}
+	});
+} 
+
+function refineSearch()  
+{
+	var txtsearch = $("#txtsearch").val();
+	var status = $("#status").val();
+	var payment_status = $("#payment_status").val();
+	var item_id = $("#item_id").val();
+	var vendor_id = $("#vendor_id").val();
+	var customer_id = $("#customer_id").val();
+	var country_id = $("#country_id").val();
+	var state_id = $("#state_id").val();
+	var city_id = $("#city_id").val();
+	var area_id = $("#area_id").val();
+	var added_date_type = $("#added_date_type").val();
+	var added_days_of_month = $("#added_days_of_month").val();
+	var added_days_of_week = $("#added_days_of_week").val();
+	var added_single_date = $("#added_single_date").val();
+	var added_start_date = $("#added_start_date").val();
+	var added_end_date = $("#added_end_date").val();
+	var delivery_date_type = $("#delivery_date_type").val();
+	var delivery_days_of_month = $("#delivery_days_of_month").val();
+	var delivery_days_of_week = $("#delivery_days_of_week").val();
+	var delivery_single_date = $("#delivery_single_date").val();
+	var delivery_start_date = $("#delivery_start_date").val();
+	var delivery_end_date = $("#delivery_end_date").val();
+	
+	var dataString = 'txtsearch='+escape(txtsearch)+'&status='+status+'&payment_status='+payment_status+'&item_id='+item_id+'&vendor_id='+vendor_id+'&customer_id='+customer_id+'&country_id='+country_id+'&state_id='+state_id+'&city_id='+city_id+'&area_id='+area_id+'&added_date_type='+escape(added_date_type)+'&added_days_of_month='+escape(added_days_of_month)+'&added_days_of_week='+escape(added_days_of_week)+'&added_single_date='+escape(added_single_date)+'&added_start_date='+escape(added_start_date)+'&added_end_date='+escape(added_end_date)+'&delivery_date_type='+escape(delivery_date_type)+'&delivery_days_of_month='+escape(delivery_days_of_month)+'&delivery_days_of_week='+escape(delivery_days_of_week)+'&delivery_single_date='+escape(delivery_single_date)+'&delivery_start_date='+escape(delivery_start_date)+'&delivery_end_date='+escape(delivery_end_date)+'&action=orderslist';
+	$.ajax({
+		type: "POST",
+		url: "ajax/remote.php",
+		data: dataString,
+		cache: false,
+		success: function(result)
+		{
+			$(".se-pre-con ").hide();
+			$("#orderslist").html(result);
+		}
+	});
+} 
+<?php
+} ?>
+
+<?php
+/*
+if($obj->chkIfAccessOfMenuAction($admin_id,$delete_action_id))
+{ ?>	
+function deletemultipleorders()
+{
+	
+	var favorite = [];
+	var chkbox_records = "";
+	$.each($("input[name='chkbox_records[]']:checked"), function(){            
+		favorite.push($(this).val());
+	});
+	chkbox_records = favorite.join(",");
+	if(chkbox_records == "")
+	{
+		BootstrapDialog.show({
+			title: 'Error' +" "+" "+'Response',
+			message:"Please select any record"
+		}); 
+	}
+	else
+	{
+		var r = confirm("Are you sure to delete this record?");
+		if (r == true) 
+		{
+			var dataString ='chkbox_records='+chkbox_records+'&action=deletemultiplebannersliders';
+			
+			$.ajax({
+				type: "POST",
+				url: "ajax/remote.php",
+				data: dataString,
+				cache: false,     
+				
+				success: function(result)
+				{
+					//alert(result);		
+					var JSONObject = JSON.parse(result);
+					var rslt=JSONObject[0]['status'];
+						
+					if(rslt==1)
+					{
+						window.location.href="manage_banner_sliders.php";  
+					}
+					else
+					{
+						BootstrapDialog.show({
+							title: 'Error' +" "+" "+'Response',
+							message:JSONObject[0]['msg']
+						}); 
+					}
+				}
+			});  
+		}		
+	}
+	
+}
+
+<?php
+} */ ?>
+</script>
+</body>
+</html>

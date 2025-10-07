@@ -1,0 +1,3432 @@
+<?php
+ini_set("memory_limit","200M");
+if (ini_get("pcre.backtrack_limit") < 1000000) { ini_set("pcre.backtrack_limit",1000000); };
+@set_time_limit(1000000);
+include('config.php');
+$page_id = '38';
+list($page_name,$page_title,$page_contents,$meta_title,$meta_keywords,$meta_description,$menu_title,$menu_link,$link_enable,$parent_menu) = getPageDetails($page_id);
+$ref = base64_encode('digital_personal_wellness_diary.php');
+if(!isLoggedIn())
+{
+    header("Location: login.php?ref=".$ref);
+    exit(0);
+}
+else
+{
+    $user_id = $_SESSION['user_id'];
+    doUpdateOnline($_SESSION['user_id']);
+}
+
+list($food_chart,$each_meal_per_day_chart,$my_activity_calories_chart,$my_activity_calories_pi_chart,$activity_analysis_chart,$meal_chart,$dpwd_chart,$mwt_report,$datewise_emotions_report,$statementwise_emotions_report,$statementwise_emotions_pi_report,$angervent_intensity_report,$stressbuster_intensity_report)= get_user_reports_permissions($user_id);  
+
+if(chkUserPlanFeaturePermission($user_id,'6'))
+{
+    $dpwd_chart = 1;
+}
+else
+{
+    $dpwd_chart = 0;
+}
+
+$return = false;
+$error = false;
+$tr_err_date = 'none';
+$err_date = '';
+
+$tbldaterange = '';
+$tblsingledate = 'none';
+$tblmonthdate = 'none';
+$div_start_scale_value = 'none';
+$div_end_scale_value = 'none';
+$div_start_criteria_scale_value = 'none';
+$div_end_criteria_scale_value = 'none';
+$div_module_key = 'none';
+$idscaleshow = 'none';
+$idcriteriascaleshow = 'none';
+$spntriggercriteria = 'none';
+
+$show_pdf_button = false;
+
+if(isset($_POST['btnSubmit']))	
+{
+    $date_type = strip_tags(trim($_POST['date_type']));
+    $start_date = strip_tags(trim($_POST['start_date']));
+    $end_date = strip_tags(trim($_POST['end_date']));
+    $single_date = strip_tags(trim($_POST['single_date']));
+    $start_month = strip_tags(trim($_POST['start_month']));
+    $start_year = strip_tags(trim($_POST['start_year']));
+
+    $report_module = trim($_POST['report_module']);
+    $pro_user_id = trim($_POST['pro_user_id']);
+    $module_keyword = trim($_POST['module_keyword']);
+    $module_criteria = trim($_POST['module_criteria']);
+        
+    $scale_range = trim($_POST['scale_range']);
+    $start_scale_value= trim($_POST['start_scale_value']);
+    $end_scale_value= trim($_POST['end_scale_value']);
+    
+    $criteria_scale_range = trim($_POST['criteria_scale_range']);
+    $start_criteria_scale_value = trim($_POST['start_criteria_scale_value']);
+    $end_criteria_scale_value = trim($_POST['end_criteria_scale_value']);
+    
+    if($module_criteria == '9')
+    {
+        $trigger_criteria = trim($_POST['trigger_criteria']);
+    }
+    else
+    {
+       $trigger_criteria = ''; 
+    }
+    
+    
+    if($date_type == 'date_range')
+    {
+        $tbldaterange = '';
+        $tblsingledate = 'none';
+        $tblmonthdate = 'none';
+        
+        if($start_date == '')
+        {
+            $error = true;
+            $tr_err_date = '';
+            $err_date = 'Please select start date';
+        }
+
+        if($end_date == '')
+        {
+            $error = true;
+            if($tr_err_date == 'none')
+            {
+                $tr_err_date = '';
+                $err_date = 'Please select end date';
+            }
+            else
+            {
+                $err_date .= '<br>Please select end date';
+            }	
+        }
+    }
+    elseif($date_type == 'single_date')
+    {
+        $tbldaterange = 'none';
+        $tblsingledate = '';
+        $tblmonthdate = 'none';
+        
+        $start_date = $single_date;
+        $end_date = $single_date;
+        
+        if($single_date == '')
+        {
+            $error = true;
+            $tr_err_date = '';
+            $err_date = 'Please select date';
+        }
+    }
+    elseif($date_type == 'month_wise')
+    {
+        $tbldaterange = 'none';
+        $tblsingledate = 'none';
+        $tblmonthdate = '';
+        
+        $start_date = $start_year.'-'.$start_month.'-01';
+
+        $end_month = $start_month;	
+        $end_year = $start_year;
+        $end_day = date('t',strtotime($start_date));	
+
+        $end_date = $end_year.'-'.$end_month.'-'.$end_day;
+    }
+    
+    if($scale_range == '')
+    {
+        $div_start_scale_value = 'none';
+        $div_end_scale_value = 'none';
+        $start_scale_value = '';
+        $end_scale_value = '';
+    }
+    elseif($scale_range == '6')
+    {
+        $div_start_scale_value = '';
+        $div_end_scale_value = '';
+    }
+    else
+    {
+        $div_start_scale_value = '';
+        $div_end_scale_value = 'none';
+        $end_scale_value = '';
+    }
+    
+    if($criteria_scale_range == '')
+    {
+        $div_start_criteria_scale_value = 'none';
+        $div_end_criteria_scale_value = 'none';
+        $start_criteria_scale_value = '';
+        $end_criteria_scale_value = '';
+    }
+    elseif($criteria_scale_range == '6')
+    {
+        $div_start_criteria_scale_value = '';
+        $div_end_criteria_scale_value = '';
+    }
+    else
+    {
+        $div_start_criteria_scale_value = '';
+        $div_end_criteria_scale_value = 'none';
+        $end_criteria_scale_value = '';
+    }
+    
+    if($report_module == '' || $report_module == 'food_report' || $report_module == 'activity_report' || $report_module == 'bps_report'|| $report_module == 'activity_analysis_report' || $report_module == 'meal_time_report' )
+    {
+        $idscaleshow = 'none'; 
+    }
+    else
+    {
+        $idscaleshow = ''; 
+    }
+    
+    if($module_criteria == '')
+    {
+        $idcriteriascaleshow = 'none'; 
+    }
+    else
+    {
+        $idcriteriascaleshow = ''; 
+        
+        if($module_criteria == '9')
+        {
+            $spntriggercriteria = '';
+        }
+    }
+    
+
+    if(!$error)
+    {
+        if($pro_user_id == '')
+        {
+            $temp_permission_type = '';
+            $temp_pro_user_id = '';
+        }
+        elseif($pro_user_id == '0')
+        {
+            $temp_permission_type = '0';
+            $temp_pro_user_id = '0';
+        }
+        else
+        {
+            $temp_permission_type = '1';
+            $temp_pro_user_id = $pro_user_id;
+        }
+        
+        $start_date = date('Y-m-d',strtotime($start_date));
+        $end_date = date('Y-m-d',strtotime($end_date));	
+        list($food_return,$arr_meal_date,$arr_food_records,$activity_return,$arr_activity_date,$arr_activity_records,$wae_return,$arr_wae_date,$arr_wae_records,$gs_return,$arr_gs_date,$arr_gs_records,$sleep_return,$arr_sleep_date,$arr_sleep_records,$mc_return,$arr_mc_date,$arr_mc_records,$mr_return,$arr_mr_date,$arr_mr_records,$mle_return,$arr_mle_date,$arr_mle_records,$adct_return,$arr_adct_date,$arr_adct_records,$bps_return,$arr_bps_date,$arr_bps_records,$bes_return,$arr_bes_date,$arr_bes_records,$aa_return,$arr_aa_records,$mt_return,$arr_mt_records,$mdt_return,$arr_mdt_date,$arr_mdt_records) = getDigitalPersonalWellnessDiary($user_id,$start_date,$end_date,$temp_permission_type,$temp_pro_user_id,$scale_range,$start_scale_value,$end_scale_value,$report_module,$module_keyword,$module_criteria,$criteria_scale_range,$start_criteria_scale_value,$end_criteria_scale_value,$trigger_criteria);
+        
+        //echo'<br><pre>';
+        //print_r($arr_mdt_records);
+        //echo'<br></pre>';
+
+        if( $food_return || $activity_return || $wae_return || $gs_return || $sleep_return || $mc_return || $mr_return || $mle_return || $adct_return || $bps_return || $bes_return || $aa_return || $mt_return || $mdt_return) 
+        {
+            $show_pdf_button = true;
+        }
+
+        if( (!$food_return) && (!$activity_return) && (!$wae_return) && (!$gs_return) && (!$sleep_return) && (!$mc_return) && (!$mr_return) && (!$mle_return) && (!$adct_return) && (!$bps_return) && (!$bes_return)  && (!$aa_return) && (!$mt_return) && (!$mdt_return) )
+        {
+            $error = true;
+            $tr_err_date = '';
+            $err_date = 'NO Data Posted by you for your above selected Query';	
+        }
+
+        $start_date = date('d-m-Y',strtotime($start_date));
+        $end_date = date('d-m-Y',strtotime($end_date));
+    }
+    
+    if($err_date != '')
+    {
+        $err_date = '<div class="err_msg_box"><span class="blink_me">'.$err_date.'</span></div>';
+    }
+}
+elseif(isset($_POST['btnPdfReport']))	
+{
+    $date_type = strip_tags(trim($_POST['hdndate_type']));
+    $start_date = strip_tags(trim($_POST['hdnstart_date']));
+    $end_date = strip_tags(trim($_POST['hdnend_date']));
+    $single_date = strip_tags(trim($_POST['hdnsingle_date']));
+    $start_month = strip_tags(trim($_POST['hdnstart_month']));
+    $start_year = strip_tags(trim($_POST['hdnstart_year']));
+    
+    $report_module = trim($_POST['hdnreport_module']);
+    $pro_user_id = trim($_POST['hdnpro_user_id']);
+    $scale_range = trim($_POST['hdnscale_range']);
+    $start_scale_value= trim($_POST['hdnstart_scale_value']);
+    $end_scale_value= trim($_POST['hdnend_scale_value']);
+    
+    $module_keyword = trim($_POST['hdnmodule_keyword']);
+    $module_criteria = trim($_POST['hdnmodule_criteria']);
+    
+    $criteria_scale_range = trim($_POST['hdncriteria_scale_range']);
+    $start_criteria_scale_value= trim($_POST['hdnstart_criteria_scale_value']);
+    $end_criteria_scale_value= trim($_POST['hdnend_criteria_scale_value']);
+    
+    if($module_criteria == '9')
+    {
+        $trigger_criteria = trim($_POST['hdntrigger_criteria']);
+    }
+    else
+    {
+       $trigger_criteria = ''; 
+    }
+    
+    if($date_type == 'date_range')
+    {
+        $tbldaterange = '';
+        $tblsingledate = 'none';
+        $tblmonthdate = 'none';
+        
+        if($start_date == '')
+        {
+            $error = true;
+            $tr_err_date = '';
+            $err_date = 'Please select start date';
+        }
+
+        if($end_date == '')
+        {
+            $error = true;
+            if($tr_err_date == 'none')
+            {
+                $tr_err_date = '';
+                $err_date = 'Please select end date';
+            }
+            else
+            {
+                $err_date .= '<br>Please select end date';
+            }	
+        }
+    }
+    elseif($date_type == 'single_date')
+    {
+        $tbldaterange = 'none';
+        $tblsingledate = '';
+        $tblmonthdate = 'none';
+        
+        $start_date = $single_date;
+        $end_date = $single_date;
+        
+        if($single_date == '')
+        {
+            $error = true;
+            $tr_err_date = '';
+            $err_date = 'Please select date';
+        }
+    }
+    elseif($date_type == 'month_wise')
+    {
+        $tbldaterange = 'none';
+        $tblsingledate = 'none';
+        $tblmonthdate = '';
+        
+        $start_date = $start_year.'-'.$start_month.'-01';
+
+        $end_month = $start_month;	
+        $end_year = $start_year;
+        $end_day = date('t',strtotime($start_date));	
+
+        $end_date = $end_year.'-'.$end_month.'-'.$end_day;
+    }
+    
+    if($scale_range == '')
+    {
+        $div_start_scale_value = 'none';
+        $div_end_scale_value = 'none';
+        $start_scale_value = '';
+        $end_scale_value = '';
+    }
+    elseif($scale_range == '6')
+    {
+        $div_start_scale_value = '';
+        $div_end_scale_value = '';
+    }
+    else
+    {
+        $div_start_scale_value = '';
+        $div_end_scale_value = 'none';
+        $end_scale_value = '';
+    }
+    
+    if($criteria_scale_range == '')
+    {
+        $div_start_criteria_scale_value = 'none';
+        $div_end_criteria_scale_value = 'none';
+        $start_criteria_scale_value = '';
+        $end_criteria_scale_value = '';
+    }
+    elseif($criteria_scale_range == '6')
+    {
+        $div_start_criteria_scale_value = '';
+        $div_end_criteria_scale_value = '';
+    }
+    else
+    {
+        $div_start_criteria_scale_value = '';
+        $div_end_criteria_scale_value = 'none';
+        $end_criteria_scale_value = '';
+    }
+    
+    if($report_module == '' || $report_module == 'food_report' || $report_module == 'activity_report' || $report_module == 'bps_report'|| $report_module == 'activity_analysis_report' || $report_module == 'meal_time_report')
+    {
+        $idscaleshow = 'none'; 
+    }
+    else
+    {
+        $idscaleshow = ''; 
+    }
+    
+    if($module_criteria == '')
+    {
+        $idcriteriascaleshow = 'none'; 
+    }
+    else
+    {
+        $idcriteriascaleshow = ''; 
+        if($module_criteria == '9')
+        {
+            $spntriggercriteria = '';
+        }
+    }
+
+    if(!$error)
+    {
+        if($pro_user_id == '')
+        {
+            $temp_permission_type = '0';
+            $temp_pro_user_id = '';
+        }
+        elseif($pro_user_id == '0')
+        {
+            $temp_permission_type = '0';
+            $temp_pro_user_id = '0';
+        }
+        else
+        {
+            $temp_permission_type = '1';
+            $temp_pro_user_id = $pro_user_id;
+        }
+        
+
+        $start_date = date('Y-m-d',strtotime($start_date));
+        $end_date = date('Y-m-d',strtotime($end_date));
+
+        $report_title = 'Digital Personal Wellness Diary';
+        $output = getDigitalPersonalWellnessDiaryHTML($user_id,$start_date,$end_date,$food_report,$activity_report,$wae_report,$gs_report,$sleep_report,$mc_report,$mr_report,$mle_report,$adct_report,$report_title,$temp_permission_type,$temp_pro_user_id);	
+        $filename ="digital_personal_wellness_diary_".time().".xls";
+        convert_to_excel($filename,$output);
+        exit(0);
+
+        list($food_return,$arr_meal_date,$arr_food_records,$activity_return,$arr_activity_date,$arr_activity_records,$wae_return,$arr_wae_date,$arr_wae_records,$gs_return,$arr_gs_date,$arr_gs_records,$sleep_return,$arr_sleep_date,$arr_sleep_records,$mc_return,$arr_mc_date,$arr_mc_records,$mr_return,$arr_mr_date,$arr_mr_records,$mle_return,$arr_mle_date,$arr_mle_records,$adct_return,$arr_adct_date,$arr_adct_records,$bps_return,$arr_bps_date,$arr_bps_records,$bes_return,$arr_bes_date,$arr_bes_records,$aa_return,$arr_aa_records,$mt_return,$arr_mt_records,$mdt_return,$arr_mdt_date,$arr_mdt_records) = getDigitalPersonalWellnessDiary($user_id,$start_date,$end_date,$temp_permission_type,$temp_pro_user_id,$scale_range,$start_scale_value,$end_scale_value,$report_module,$module_keyword,$module_criteria,$criteria_scale_range,$start_criteria_scale_value,$end_criteria_scale_value,$trigger_criteria);
+        if( (!$food_return) && (!$activity_return) && (!$wae_return) && (!$gs_return) && (!$sleep_return) && (!$mc_return) && (!$mr_return) && (!$mle_return) && (!$adct_return) && (!$bps_return) && (!$bes_return)  && (!$aa_return) && (!$mt_return) && (!$mdt_return) )
+        {
+            $error = true;
+            $tr_err_date = '';
+            $err_date = 'NO Data Posted by you for your above selected Query';	
+        }
+
+        $start_date = date('d-m-Y',strtotime($start_date));
+        $end_date = date('d-m-Y',strtotime($end_date));
+    }
+    
+    if($err_date != '')
+    {
+        $err_date = '<div class="err_msg_box"><span class="blink_me">'.$err_date.'</span></div>';
+    }
+}
+else
+{
+    $now = time();
+    $end_date = date('d-m-Y');
+    $error = true;
+    $date_type = 'date_range';
+    $start_month = date('m');
+    $start_year = date('Y');
+    $report_module = '';
+    $pro_user_id = '';
+    $module_keyword = '';
+    $module_criteria = '';
+    $scale_range = '';
+    $start_scale_value = '';
+    $end_scale_value = '';
+    $criteria_scale_range = '';
+    $start_criteria_scale_value = '';
+    $end_criteria_scale_value = '';
+    $trigger_criteria = '';
+}
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="<?php echo $meta_description;?>" />
+    <meta name="keywords" content="<?php echo $meta_keywords;?>" />
+    <meta name="title" content="<?php echo $meta_title;?>" />
+    <title><?php echo $meta_title;?></title>
+    <link href="cwri.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
+    <script type="text/JavaScript" src="js/jquery-1.4.2.min.js"></script>
+    <script type="text/JavaScript" src="js/commonfn.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/ddsmoothmenu.css" />
+    <script type="text/javascript" src="js/ddsmoothmenu.js"></script>
+    <link href="css/ticker-style.css" rel="stylesheet" type="text/css" />
+    <script src="js/jquery.ticker.js" type="text/javascript"></script>	
+    <style type="text/css">@import "css/jquery.datepick.css";</style> 
+    <script type="text/javascript" src="js/jquery.datepick.js"></script>	
+
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+        mainmenuid: "smoothmenu1", //menu DIV id
+        orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+        classname: 'ddsmoothmenu', //class added to menu's outer DIV
+        //customtheme: ["#1c5a80", "#18374a"],
+        contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+
+        $(document).ready(function() {
+            $('#js-news').ticker({
+                controls: true,        // Whether or not to show the jQuery News Ticker controls
+                htmlFeed: true, 
+                titleText: '',   // To remove the title set this to an empty String
+                displayType: 'reveal', // Animation type - current options are 'reveal' or 'fade'
+                direction: 'ltr'       // Ticker direction - current options are 'ltr' or 'rtl'
+            });
+
+            $(".QTPopup").css('display','none');
+
+            $(".feedback").click(function(){
+                    $(".QTPopup").animate({width: 'show'}, 'slow');
+            });	
+
+            $(".closeBtn").click(function(){			
+                    $(".QTPopup").css('display', 'none');
+            });
+        });	
+    </script>
+</head>
+<body>
+<?php include_once('analyticstracking.php'); ?>
+<?php include_once('analyticstracking_ci.php'); ?>
+<?php include_once('analyticstracking_y.php'); ?>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+        <td align="center" valign="top">
+            <?php include_once('header.php'); ?>
+            <table width="940" align="center" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td height="40" align="left" valign="top" class="breadcrumb">
+                        <?php echo getBreadcrumbCode($page_id);?>
+                    </td>
+                </tr>
+            </table>
+            <table width="940" border="0" align="center" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td align="left" valign="top"><?php echo getPageContents($page_id);?></td>
+                </tr>
+            </table>
+            <table width="940" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td align="left" valign="top">
+                        <table width="940" border="0" cellpadding="0" cellspacing="1" bgcolor="#339900">
+                            <tr>
+                                <td align="center" valign="top" bgcolor="#FFFFFF">
+                                    <table width="940" border="0" cellspacing="0" cellpadding="0" id="my_tbl">
+                                        <tr>
+                                            <td height="200" align="center" valign="top" class="mainnav">
+                                        <?php 
+                                        if($dpwd_chart == 1 ) 
+                                        { ?>
+                                                <form action="#" id="frmreports" method="post" name="frmreports">
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td width="150" height="45" align="left" valign="top" class="Header_brown">Date Selection Type:</td>
+                                                            <td width="250" align="left" valign="top">
+                                                                <select name="date_type" id="date_type" onchange="toggleDateSelectionTypeUser('date_type')">
+                                                                    <option value="date_range" <?php if($date_type == 'date_range'){?> selected <?php } ?> >Date Range</option>
+                                                                    <option value="single_date" <?php if($date_type == 'single_date'){?> selected <?php } ?>>Single Date</option>
+                                                                    <option value="month_wise" <?php if($date_type == 'month_wise'){?> selected <?php } ?>>Month wise</option>
+                                                                </select>
+                                                            </td>
+                                                            <td width="520" height="45" align="left" valign="top"></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0" id="tbldaterange" style="display:<?php echo $tbldaterange;?>">
+                                                        <tr>
+                                                            <td width="150" height="45" align="left" valign="top" class="Header_brown">Start Date:</td>
+                                                            <td width="250" align="left" valign="top">
+                                                                <input name="start_date" id="start_date" type="text" value="<?php echo $start_date;?>" style="width:100px;" />
+                                                                <script>$('#start_date').datepick({ dateFormat : 'dd-mm-yy'}); </script>
+                                                            </td>
+                                                            <td width="150" height="45" align="left" valign="top" class="Header_brown">End Date:</td>
+                                                            <td width="250" align="left" valign="top">
+                                                                <input name="end_date" id="end_date" type="text" value="<?php echo $end_date;?>" style="width:100px;" />
+                                                                <script>$('#end_date').datepick({ dateFormat : 'dd-mm-yy'}); </script>
+                                                            </td>
+                                                            <td width="120" height="45" align="left" valign="top"></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0" id="tblsingledate" style="display:<?php echo $tblsingledate;?>">
+                                                        <tr>
+                                                            <td width="150" height="45" align="left" valign="top" class="Header_brown">Date:</td>
+                                                            <td width="250" align="left" valign="top">
+                                                                <input name="single_date" id="single_date" type="text" value="<?php echo $single_date;?>" style="width:100px;" />
+                                                                <script>$('#single_date').datepick({ dateFormat : 'dd-mm-yy'}); </script>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0" id="tblmonthdate" style="display:<?php echo $tblmonthdate;?>">
+                                                        <tr>
+                                                            <td width="150" height="45" align="left" valign="top" class="Header_brown">Month:</td>
+                                                            <td width="250" align="left" valign="top">
+                                                                <select name="start_month" id="start_month">
+                                                                    <?php echo getMonthOptions($start_month); ?>
+                                                                </select>
+                                                                <select name="start_year" id="start_year">
+                                                                <?php
+                                                                for($i=2011;$i<=intval(date("Y"));$i++)
+                                                                { ?>
+                                                                    <option value="<?php echo $i;?>" <?php if($start_year == $i) { ?> selected="selected" <?php } ?>><?php echo $i;?></option>
+                                                                <?php
+                                                                } ?>	
+                                                                </select>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0" >
+                                                        <tr>
+                                                            <td width="150" height="45" align="left" valign="top" class="Header_brown">Module:</td>
+                                                            <td width="250" align="left" valign="top">
+                                                                <select name="report_module" id="report_module" onchange="toggleScaleShow(); getModuleWiseKeywordsOptions(); getModuleWiseCriteriaOptions();resetReportForm(); ">
+                                                                    <option value="">All Patterns</option>
+                                                                    <option value="activity_report" <?php if($report_module == 'activity_report') {?> selected <?php } ?> >My Activity Patterns</option>
+                                                                    <option value="activity_analysis_report" <?php if($report_module == 'activity_analysis_report') {?> selected <?php } ?> >My Activity Analysis Patterns</option>
+                                                                    <option value="adct_report" <?php if($report_module == 'adct_report') {?> selected <?php } ?> >My Addictions Patterns</option>
+                                                                    <option value="mc_report" <?php if($report_module == 'mc_report') {?> selected <?php } ?> >My Communication Patterns</option>
+                                                                    <option value="mdt_report" <?php if($report_module == 'mdt_report') {?> selected <?php } ?> >My Daily Situation Patterns</option>
+                                                                    <option value="food_report" <?php if($report_module == 'food_report') {?> selected <?php } ?> >My Food Patterns</option>
+                                                                    <option value="gs_report" <?php if($report_module == 'gs_report') {?> selected <?php } ?> >My General Stressors Patterns</option>
+                                                                    <option value="meal_time_report" <?php if($report_module == 'meal_time_report') {?> selected <?php } ?> >My Meal Time Patterns</option>
+                                                                    <option value="bps_report" <?php if($report_module == 'bps_report') {?> selected <?php } ?> >My Physical State Patterns</option>
+                                                                    <option value="mr_report" <?php if($report_module == 'mr_report') {?> selected <?php } ?> >My Relations Patterns</option>
+                                                                    <option value="sleep_report" <?php if($report_module == 'sleep_report') {?> selected <?php } ?> >My Sleep Patterns</option>
+                                                                    <option value="wae_report" <?php if($report_module == 'wae_report') {?> selected <?php } ?> >My Work Place Patterns</option>
+                                                                    <?php /*
+                                                                     * <option value="bes_report" <?php if($report_module == 'bes_report') {?> selected <?php } ?> >My Emotional State Patterns</option>
+                                                                     * <option value="mle_report" <?php if($report_module == 'mle_report') {?> selected <?php } ?> >My Major Life Events Patterns</option>
+                                                                     */ ?>
+                                                                    
+                                                                </select>
+                                                            </td>
+                                                            <td width="150" height="45" align="left" valign="top" class="Header_brown">Set:</td>
+                                                            <td width="250" align="left" valign="top">
+                                                                <select name="pro_user_id" id="pro_user_id" style="width:120px;" onchange="getModuleWiseKeywordsOptions(); getModuleWiseCriteriaOptions();">
+                                                                    <option value="" <?php if($pro_user_id == '') {?> selected="selected" <?php } ?>>All</option>
+                                                                    <option value="0" <?php if($pro_user_id == '0') {?> selected="selected" <?php } ?>>Standard Set</option>
+                                                                    <?php echo getUsersAdviserOptions($user_id,$pro_user_id); ?>
+                                                                </select>  
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="30" align="left" valign="top" class="Header_brown">Keyword:</td>
+                                                            <td align="left" valign="top" id="tdkeywordresult">
+                                                                <select name="module_keyword" id="module_keyword" style="width:200px;">
+                                                                    <option value="" <?php if($module_keyword == '') {?> selected="selected" <?php } ?>>All</option>
+                                                                    <?php echo getModuleWiseKeywordsOptions($user_id,$report_module,$pro_user_id,$module_keyword)?>
+                                                                </select>
+                                                                <br><span style="font-size:11px;color:#0000FF;">(Options displayed are only of Data Posted by User)</span>
+                                                            </td>
+                                                            <td height="30" align="left" valign="top" class="Header_brown"></td>
+                                                            <td align="left" valign="top"></td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr id="idscaleshow" style="display:<?php echo $idscaleshow;?>">
+                                                            <td height="45" align="left" valign="top" class="Header_brown">Keyword Scale:</td>
+                                                            <td align="left" valign="top">
+                                                                <select name="scale_range" id="scale_range" onchange="toggleScaleRangeType('scale_range','div_start_scale_value','div_end_scale_value')">
+                                                                    <option value="">All</option>
+                                                                    <option value="1" <?php if($scale_range == '1') {?> selected <?php } ?> ><(Less Than)</option>
+                                                                    <option value="2" <?php if($scale_range == '2') {?> selected <?php } ?> >>(Greater Than)</option>
+                                                                    <option value="3" <?php if($scale_range == '3') {?> selected <?php } ?> > &le; (Less than or Equal to)</option>
+                                                                    <option value="4" <?php if($scale_range == '4') {?> selected <?php } ?> > &ge; (Greater than or Equal to)</option>
+                                                                    <option value="5" <?php if($scale_range == '5') {?> selected <?php } ?> >=(Equal)</option>
+                                                                    <option value="6" <?php if($scale_range == '6') {?> selected <?php } ?> >Range</option>
+                                                                </select>
+                                                            </td>
+                                                            <td height="45" align="left" valign="top" class="Header_brown">Scale value:</td>
+                                                            <td align="left" valign="top">
+                                                                <span id="div_start_scale_value" style="display:<?php echo $div_start_scale_value;?>">
+                                                                <select name="start_scale_value" id="start_scale_value">
+                                                                    <?php
+                                                                    for($i=1;$i<=10;$i++)
+                                                                    { ?>
+                                                                    <option value="<?php echo $i;?>" <?php if($start_scale_value == $i) {?> selected <?php } ?> ><?php echo $i;?></option>
+                                                                    <?php
+                                                                    } ?>
+                                                                </select>
+                                                                </span>
+                                                                <span id="div_end_scale_value" style="display:<?php echo $div_end_scale_value;?>">
+                                                                    &nbsp; - &nbsp;
+                                                                    <select name="end_scale_value" id="end_scale_value">
+                                                                    <?php
+                                                                    for($i=1;$i<=10;$i++)
+                                                                    { ?>
+                                                                    <option value="<?php echo $i;?>" <?php if($end_scale_value == $i) {?> selected <?php } ?> ><?php echo $i;?></option>
+                                                                    <?php
+                                                                    } ?>
+                                                                </select>
+                                                                </span>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td height="30" align="left" valign="top" class="Header_brown">Criteria:</td>
+                                                            <td align="left" valign="top" id="tdcriteriaresult">
+                                                                <select name="module_criteria" id="module_criteria" style="width:200px;" onchange="getModuleWiseCriteriaScaleOptions();getModuleWiseCriteriaScaleValues();toggleCriteriaScaleShow();">
+                                                                    <option value="" <?php if($module_criteria == '') {?> selected="selected" <?php } ?>>All</option>
+                                                                    <?php echo getModuleWiseCriteriaOptions($user_id,$report_module,$pro_user_id,$module_criteria)?>
+                                                                </select>
+                                                            </td>
+                                                            <td height="30" align="left" valign="top" class="Header_brown">
+                                                                <span class="spntriggercriteria" style="display:<?php echo $spntriggercriteria;?>">Triggers:</span>
+                                                            </td>
+                                                            <td align="left" valign="top">
+                                                                <span id="idtriggercriteria" class="spntriggercriteria" style="display:<?php echo $spntriggercriteria;?>">
+                                                                    <select name="trigger_criteria" id="trigger_criteria" style="width:200px;">
+                                                                        <option value="" <?php if($trigger_criteria == '') {?> selected="selected" <?php } ?>>All</option>
+                                                                        <?php echo getTriggerCriteriaOptions($user_id,$trigger_criteria);?>
+                                                                    </select>
+                                                                    <br><span style="font-size:11px;color:#0000FF;">(Options displayed are only of Data Posted by User)</span>
+                                                                </span>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr id="idcriteriascaleshow" style="display:<?php echo $idcriteriascaleshow;?>">
+                                                            <td height="45" align="left" valign="top" class="Header_brown">Criteria Scale:</td>
+                                                            <td align="left" valign="top" id="tdcriteriascalerange">
+                                                                <select name="criteria_scale_range" id="criteria_scale_range" style="width:200px;" onchange="getModuleWiseCriteriaScaleValues();toggleScaleRangeType('criteria_scale_range','div_start_criteria_scale_value','div_end_criteria_scale_value');">
+                                                                    <option value="">All</option>
+                                                                    <?php echo getModuleWiseCriteriaScaleOptions($user_id,$report_module,$pro_user_id,$module_criteria,$criteria_scale_range);?>
+                                                                </select>
+                                                            </td>
+                                                            <td colspan="2" align="left" valign="top" id="idcriteriascalevalues">
+                                                                <?php echo getModuleWiseCriteriaScaleValues($user_id,$report_module,$pro_user_id,$module_criteria,$criteria_scale_range,$start_criteria_scale_value,$end_criteria_scale_value);?>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="45" align="left" valign="middle"><input type="submit" name="btnSubmit" id="btnSubmit" value="View Diary" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr id="tr_err_date" style="display:<?php echo $tr_err_date;?>;" valign="top">
+                                                            <td align="left" class="err_msg" id="err_date" valign="top"><?php echo $err_date;?></td>
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                                
+                                                <div id="divreportresults">
+                                            <?php
+                                            if(!$error)
+                                            {?>
+                                                
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0" class="report">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="15%" height="30" align="left" valign="middle"><strong>For the period from </strong></td>
+                                                        <td width="2%" height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td width="20%" height="30" align="left" valign="middle"><?php echo date("d M Y",strtotime($start_date));?></td>
+                                                        <td width="15%" height="30" align="left" valign="middle"><strong>to </strong></td>
+                                                        <td width="2%" height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td width="19%" height="30" align="left" valign="middle"><?php echo date("d M Y",strtotime($end_date));?></td>
+                                                        <td width="11%" height="30" align="left" valign="middle"><strong>&nbsp;</strong></td>
+                                                        <td width="2%" height="30" align="left" valign="middle"><strong>&nbsp;</strong></td>
+                                                        <td width="14%" height="30" align="left" valign="middle"><strong>&nbsp;</strong></td>
+                                                    </tr>
+                                                    <tr>	
+                                                        <td height="30" align="left" valign="middle"><strong>Name</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle"><?php echo getUserFullNameById($user_id);?></td>
+                                                        <td height="30" align="left" valign="middle"><strong>CWRI Regn No</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle"><?php echo getUserUniqueId($user_id);?></td>
+                                                        <td height="30" align="left" valign="middle"><strong>&nbsp;</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>&nbsp;</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>&nbsp;</strong></td>
+                                                    </tr>
+                                                    <tr>	
+                                                        <td height="30" align="left" valign="middle"><strong>Age</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle"><?php echo getAgeOfUser($user_id);?></td>
+                                                        <td height="30" align="left" valign="middle"><strong>Height</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle">
+                                                            <?php echo getHeightOfUser($user_id). ' cms';?>
+                                                        </td>
+                                                        <td height="30" align="left" valign="middle"><strong>Weight</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle">
+                                                            <?php echo getWeightOfUser($user_id). ' Kgs';?>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>	
+                                                        <td height="30" align="left" valign="middle"><strong>BMI</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle"><?php echo getBMIOfUser($user_id);?></td>
+                                                        <td height="30" align="left" valign="middle"><strong>BMI Observations</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" colspan="4" align="left" valign="middle"><?php echo getBMRObservationOfUser($user_id);?></td>
+                                                    </tr>   
+                                                <?php
+                                                if($report_module != '')
+                                                {
+                                                    $total_days_period = getNoOfDaysBetweenTwoDates($start_date,$end_date);
+                                                    $total_entries = 0;
+                                                    if( ($food_return) && ($report_module == 'food_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_food_records);
+                                                        
+                                                        foreach($arr_food_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['meal_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    } 
+                                                    elseif( ($activity_return) && ($report_module == 'activity_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_activity_records);
+                                                        
+                                                        foreach($arr_activity_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['activity_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($aa_return) && ($report_module == 'activity_analysis_report') && count($arr_aa_records) > 0 )
+                                                    {
+                                                        //echo '<br><pre>';
+                                                        //print_r($arr_aa_records);
+                                                        //echo'<br></pre>';
+                                                        $no_of_days_entry = count($arr_aa_records);
+                                                        
+                                                        foreach($arr_aa_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['records']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($mt_return) && ($report_module == 'meal_time_report') && count($arr_mt_records) > 0 )
+                                                    {
+                                                        //echo '<br><pre>';
+                                                        //print_r($arr_mt_records);
+                                                        //echo'<br></pre>';
+                                                        $no_of_days_entry = count($arr_mt_records);
+                                                        
+                                                        $total_entries = 0;
+                                                        foreach($arr_mt_records as $k => $v)
+                                                        {
+                                                            $total_entries += $v['total_entry_per_day']; 
+                                                        }
+                                                    }
+                                                    elseif( ($wae_return) && ($report_module == 'wae_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_wae_records);
+                                                        
+                                                        foreach($arr_wae_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['selected_wae_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($gs_return) && ($report_module == 'gs_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_gs_records);
+                                                        
+                                                        foreach($arr_gs_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['selected_gs_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($sleep_return) && ($report_module == 'sleep_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_sleep_records);
+                                                        
+                                                        foreach($arr_sleep_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['selected_sleep_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($mc_return) && ($report_module == 'mc_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_mc_records);
+                                                        
+                                                        foreach($arr_mc_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['selected_mc_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($mr_return) && ($report_module == 'mr_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_mr_records);
+                                                        
+                                                        foreach($arr_mr_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['selected_mr_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($mle_return) && ($report_module == 'mle_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_mle_records);
+                                                        
+                                                        foreach($arr_mle_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['selected_mle_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($adct_return) && ($report_module == 'adct_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_adct_records);
+                                                        
+                                                        foreach($arr_adct_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['selected_adct_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($bps_return) && ($report_module == 'bps_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_bps_records);
+                                                        
+                                                        foreach($arr_bps_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['bms_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($bes_return) && ($report_module == 'bes_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_bes_records);
+                                                        
+                                                        foreach($arr_bes_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['bms_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    elseif( ($mdt_return) && ($report_module == 'mdt_report') )
+                                                    {
+                                                        $no_of_days_entry = count($arr_mdt_records);
+                                                        
+                                                        foreach($arr_mdt_records as $k => $v)
+                                                        {
+                                                            for($i=0;$i<count($v['bms_id']);$i++)
+                                                            {
+                                                                $total_entries++; 
+                                                            }
+                                                        }
+                                                    }
+                                                    else
+                                                    {
+                                                        $no_of_days_entry = 0;
+                                                    }
+                                                    
+                                                    if($total_days_period > 0)
+                                                    {
+                                                        $percentage_no_of_days_entry = ($no_of_days_entry / $total_days_period) * 100;
+                                                        $percentage_no_of_days_entry = round($percentage_no_of_days_entry,2);
+                                                    }
+                                                    else
+                                                    {
+                                                        $percentage_no_of_days_entry = 0;
+                                                    }
+                                                    ?>
+                                                    <tr>
+                                                        <td height="30" align="left" valign="middle"><strong>No of days(period)</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle"><?php echo $total_days_period;?></td>
+                                                        <td height="30" align="left" valign="middle"><strong>No of days(entry)</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle"><?php echo $no_of_days_entry.' ('.$percentage_no_of_days_entry.'%)';?></td>
+                                                        <td height="30" align="left" valign="middle"><strong>No of entry</strong></td>
+                                                        <td height="30" align="left" valign="middle"><strong>:</strong></td>
+                                                        <td height="30" align="left" valign="middle"><?php echo $total_entries;?></td>
+                                                    </tr>    
+                                                <?php
+                                                } ?>
+                                                    <tr>	
+                                                        <td colspan="9" align="left" height="30">&nbsp;</td>
+                                                    </tr>
+                                                </tbody>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0" class="report">
+                                                <tbody>	
+                                                    <tr>	
+                                                        <td align="left"><strong>Important:</strong></td>
+                                                    </tr>
+                                                    <tr>	
+                                                        <td align="left"><p style="color:#ff0000;">Disclaimers..<br />Just a guide, not an exact scientific research, depends on many factors, as well as accuracy of your Input  DATA.</p></td>
+                                                    </tr>
+                                                    <tr>	
+                                                        <td align="left" height="30">&nbsp;</td>
+                                                    </tr>
+                                                </tbody>
+                                                </table>
+                                            <?php
+                                            }?>    
+
+                                            <?php
+                                            if( ($food_return) && ($report_module == 'food_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Food Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_food_records as $k => $v)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>	
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >	
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                        <td width="285" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Item</td>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Quantity</td>	
+                                                        <td width="65" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">My Desire</td>
+                                                        <td width="270" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Item Remarks</td>	
+                                                    </tr>	
+                                                    <?php
+                                                    for($i=0;$i<count($v['meal_id']);$i++)
+                                                    { ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $v['meal_time'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                        <?php 
+                                                        if($v['meal_id'][$i] == '9999999999')
+                                                        {
+                                                            echo $v['meal_others'][$i];
+                                                        }
+                                                        else
+                                                        {
+                                                            echo getMealName($v['meal_id'][$i]);
+                                                        }
+                                                        ?>
+                                                        </td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['meal_quantity'][$i].' ('.$v['meal_measure'][$i],' )';?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['meal_like'][$i];?><br /><?php echo getMealLikeIcon($v['meal_like'][$i]); ?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['meal_consultant_remark'][$i];?></td>	
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>		
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    //echo '<br><pre>';
+                                                    //print_r($arr_food_records);
+                                                    //echo '<br></pre>';
+                                                    foreach($arr_food_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Item</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">
+                                                            <?php 
+                                                            if($arr_food_records[$first_item_key]['meal_id'][0] == '9999999999')
+                                                            {
+                                                                echo $v['meal_others'][$i];
+                                                            }
+                                                            else
+                                                            {
+                                                                echo getMealName($arr_food_records[$first_item_key]['meal_id'][0]);
+                                                            }
+                                                            ?>
+                                                           
+                                                            </td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                            <td width="285" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Quantity</td>	
+                                                            <td width="65" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">My Desire</td>
+                                                            <td width="270" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Item Remarks</td>			
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_food_records as $k => $v)
+                                                    {
+                                                        for($i=0;$i<count($v['meal_id']);$i++)
+                                                        { 
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $v['meal_time'][$i];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?>
+                                                            </td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['meal_quantity'][$i].' ('.$v['meal_measure'][$i],' )';?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['meal_like'][$i];?><br /><?php echo getMealLikeIcon($v['meal_like'][$i]); ?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['meal_consultant_remark'][$i];?></td>	
+                                                        </tr>	
+                                                    <?php
+                                                        }
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }
+                                                
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+
+                                            <?php
+                                            if( ($activity_return)  && ($report_module == 'activity_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Activity Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /> </td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_activity_records as $k => $v)
+                                                    { 
+                                                        $yesterday_sleep_time = getUserSleepTime($user_id,$k);
+                                                        $today_wakeup_time = getUserWakeUpTime($user_id,$k);
+                                                        $total_sleep_duration = getDurationBetweenTwoTimes($yesterday_sleep_time,$today_wakeup_time);
+                                                        ?>
+                                                <table width="920" border="0" cellpadding="2" cellspacing="1" bgcolor="#999999">
+                                                    <tr>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Date : <?php echo date("d M Y",strtotime($k));?>(<?php echo date("l",strtotime($k));?>)</td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Yesterday Sleep Time : <?php echo $yesterday_sleep_time;?></td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Today Wake-up Time : <?php echo $today_wakeup_time;?></td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Sleep Duration : <?php echo $total_sleep_duration;?></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >	
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                        <td width="385" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Activity</td>	
+                                                        <td width="100" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Duration</td>	
+                                                        <td width="85" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Proper guidance</td>	
+                                                        <td width="200" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Precaution</td>	
+                                                    </tr>	
+                                                    <?php
+                                                    for($i=0;$i<count($v['activity_id']);$i++)
+                                                    { ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $v['activity_time'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                        <?php 
+                                                        if($v['activity_id'][$i] == '9999999999')
+                                                        {
+                                                            echo $v['other_activity'][$i];
+                                                        }
+                                                        else
+                                                        {
+                                                            echo getDailyActivityName($v['activity_id'][$i]);
+                                                        }
+                                                        ?>
+                                                        </td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['mins'][$i].' Mins';?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['proper_guidance'][$i];?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['precaution'][$i];?></td>	
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    //echo '<br><pre>';
+                                                    //print_r($arr_activity_records);
+                                                    //echo '<br></pre>';
+                                                    foreach($arr_activity_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Activity</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">
+                                                            <?php 
+                                                            if($arr_activity_records[$first_item_key]['activity_id'][0] == '9999999999')
+                                                            {
+                                                                echo $v['other_activity'][$i];
+                                                            }
+                                                            else
+                                                            {
+                                                                echo getDailyActivityName($arr_activity_records[$first_item_key]['activity_id'][0]);
+                                                            }
+                                                            ?>
+                                                           
+                                                            </td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                            <td width="385" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>	
+                                                            <td width="100" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Duration</td>	
+                                                            <td width="85" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Proper guidance</td>	
+                                                            <td width="200" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Precaution</td>	
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_activity_records as $k => $v)
+                                                    {
+                                                        for($i=0;$i<count($v['activity_id']);$i++)
+                                                        { 
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $v['activity_time'][$i];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?>
+                                                            </td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['mins'][$i].' Mins';?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['proper_guidance'][$i];?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['precaution'][$i];?></td>	
+                                                        </tr>	
+                                                    <?php
+                                                        }
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+                                                
+                                            <?php
+                                            if( ($aa_return)  && ($report_module == 'activity_analysis_report' || $report_module == '') && count($arr_aa_records) > 0 )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Activity Analysis Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /> </td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_aa_records as $k => $v)
+                                                    {
+                                                        $yesterday_sleep_time = getUserSleepTime($user_id,$k);
+                                                        $today_wakeup_time = getUserWakeUpTime($user_id,$k);
+                                                        $total_sleep_duration = getDurationBetweenTwoTimes($yesterday_sleep_time,$today_wakeup_time);
+                                                        ?>
+                                                <table width="920" border="0" cellpadding="2" cellspacing="1" bgcolor="#999999">
+                                                    <tr>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Date : <?php echo date("d M Y",strtotime($k));?>(<?php echo date("l",strtotime($k));?>)</td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Yesterday Sleep Time : <?php echo $yesterday_sleep_time;?></td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Today Wake-up Time : <?php echo $today_wakeup_time;?></td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Sleep Duration : <?php echo $total_sleep_duration;?></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /> </td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="2" cellspacing="1" bgcolor="#999999">
+                                                    <tr>
+                                                        <td width="25" height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">SNo</td>
+                                                        <td width="250" height="50" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Activity</td>
+                                                        <td width="75" height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Duration<br>(Mins)</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Sedentary Activity(SA)<br>(Cal)</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Light Activity(LA)<br>(Cal)</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Moderate Activity(MA)<br>(Cal)</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Vigorous Activity(VA)<br>(Cal)</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Super Active(SUA)<br>(Cal)</td>
+                                                    </tr>	
+                                                    <?php
+                                                    $j=1;
+                                                    foreach($v['records'] as $key => $val)
+                                                    { ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $j;?></td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getDailyActivityName($val['activity_id']);?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['time'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['duration'].'('.$val['duration_perc'].'%)';?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['sa_cal_burned'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['la_cal_burned'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['ma_cal_burned'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['va_cal_burned'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['sua_cal_burned'];?></td>
+                                                    </tr>   
+                                                        <?php
+                                                        $j++;
+                                                    }?>
+                                                    <tr>
+                                                        <td height="5" colspan="2" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><img src="images/spacer.gif" width="1" height="1" /> </td>
+                                                        <td height="5" colspan="7" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><img src="images/spacer.gif" width="1" height="1" /> </td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">&nbsp;</td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Total Calories Burnt&nbsp;&nbsp;(Cal)</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php
+                                                            $grant_total_cal_burnt = $arr_aa_records[$k]['total_sa_cal_burned'] + $arr_aa_records[$k]['total_la_cal_burned'] + $arr_aa_records[$k]['total_ma_cal_burned'] + $arr_aa_records[$k]['total_va_cal_burned'] + $arr_aa_records[$k]['total_sua_cal_burned'];
+                                                            echo $grant_total_cal_burnt;
+                                                            ?>
+                                                        </td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $arr_aa_records[$k]['total_sa_cal_burned'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $arr_aa_records[$k]['total_la_cal_burned'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $arr_aa_records[$k]['total_ma_cal_burned'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $arr_aa_records[$k]['total_va_cal_burned'];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $arr_aa_records[$k]['total_sua_cal_burned'];?></td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">&nbsp;</td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Total Calories Intake&nbsp;&nbsp;(Cal)</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo getUserTotalCalIntakeOfDate($user_id,$k);?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                    </tr> 
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">&nbsp;</td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Estimated Calorie Required&nbsp;&nbsp;(Cal)</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo getEstimatedCalorieRequired($user_id,$k);?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                    </tr> 
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td height="20" align="left" valign="middle">&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                    <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    //echo '<br><pre>';
+                                                    //print_r($arr_aa_records);
+                                                    //echo '<br></pre>';
+                                                    
+                                                    foreach($arr_aa_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $v['records'][0]['activity_id'];
+                                                        break;
+                                                        
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="2" cellspacing="1" bgcolor="#999999">
+                                                        <tr>
+                                                            <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Activity : <?php echo getDailyActivityName($first_item_key);?></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /> </td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="2" cellspacing="1" bgcolor="#999999">
+                                                        <tr>
+                                                            <td width="25" height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">SNo</td>
+                                                            <td width="250" height="50" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="75" height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                            <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Duration<br>(Mins)</td>
+                                                            <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Sedentary Activity(SA)<br>(Cal)</td>
+                                                            <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Light Activity(LA)<br>(Cal)</td>
+                                                            <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Moderate Activity(MA)<br>(Cal)</td>
+                                                            <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Vigorous Activity(VA)<br>(Cal)</td>
+                                                            <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Super Active(SUA)<br>(Cal)</td>
+                                                        </tr>	
+                                                        <?php
+                                                        $j=1;
+                                                        
+                                                        $total_sa_cal_burned = 0;
+                                                        $total_la_cal_burned = 0;
+                                                        $total_ma_cal_burned = 0;
+                                                        $total_va_cal_burned = 0;
+                                                        $total_sua_cal_burned = 0;
+                                                        
+                                                        foreach($arr_aa_records as $k => $v)
+                                                        {
+                                                            $total_sa_cal_burned += $arr_aa_records[$k]['total_sa_cal_burned'];
+                                                            $total_la_cal_burned += $arr_aa_records[$k]['total_la_cal_burned'];
+                                                            $total_ma_cal_burned += $arr_aa_records[$k]['total_ma_cal_burned'];
+                                                            $total_va_cal_burned += $arr_aa_records[$k]['total_va_cal_burned'];
+                                                            $total_sua_cal_burned += $arr_aa_records[$k]['total_sua_cal_burned'];
+                                                            foreach($v['records'] as $key => $val)
+                                                            { ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $j;?></td>
+                                                            <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k));?>(<?php echo date("l",strtotime($k));?>)</td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['time'];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['duration'].'('.$val['duration_perc'].'%)';?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['sa_cal_burned'];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['la_cal_burned'];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['ma_cal_burned'];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['va_cal_burned'];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $val['sua_cal_burned'];?></td>
+                                                        </tr>   
+                                                            <?php
+                                                            $j++;
+                                                            }
+                                                        }?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">&nbsp;</td>
+                                                            <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Total Calories Burnt&nbsp;&nbsp;(Cal)</td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_header">&nbsp;</td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">&nbsp;</td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $total_sa_cal_burned;?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $total_la_cal_burned;?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $total_ma_cal_burned;?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $total_va_cal_burned;?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $total_sua_cal_burned;?></td>
+                                                        </tr> 
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>   
+                                                
+                                            <?php
+                                            if( ($mt_return)  && ($report_module == 'meal_time_report' || $report_module == '') && count($arr_mt_records)> 0 )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Meal Time Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /> </td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="2" cellspacing="1" bgcolor="#999999">
+                                                    <tr>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">SNo</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date/Days</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Breakfast</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Brunch</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Lunch</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Snacks</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Dinner</td>
+                                                    </tr>
+                                                    <?php
+                                                    $j=1;
+                                                    //for($i=0,$j=1;$i<count($arr_mt_date);$i++,$j++)
+                                                    foreach($arr_mt_records as $key => $val)
+                                                    { ?>
+                                                    <tr>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $j;?></td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($key));?><br />(<?php echo date("l",strtotime($key));?>)</td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php if(isset($val['breakfast_time']) && $val['breakfast_time'] != ''){echo $val['breakfast_time'];}else{echo 'NA';}?></td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php if(isset($val['brunch_time']) && $val['brunch_time'] != ''){echo $val['brunch_time'];}else{echo 'NA';}?></td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php if(isset($val['lunch_time']) && $val['lunch_time'] != ''){echo $val['lunch_time'];}else{echo 'NA';}?></td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php if(isset($val['snacks_time']) && $val['snacks_time'] != ''){echo $val['snacks_time'];}else{echo 'NA';}?></td>
+                                                        <td height="50" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php if(isset($val['dinner_time']) && $val['dinner_time'] != ''){echo $val['dinner_time'];}else{echo 'NA';}?></td>
+                                                    </tr>
+                                                    <?php
+                                                        $j++;
+                                                    } ?>
+                                                </table>        
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>     
+
+                                            <?php
+                                            if( ($wae_return) && ($report_module == 'wae_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Work & Environment Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_wae_records as $k => $v)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                    </tr>	
+                                                        <?php
+                                                        for($i=0;$i<count($v['selected_wae_id']);$i++)
+                                                        { 
+                                                            if($v['data_source'][$i] == 'mdt')
+                                                            {
+                                                                $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_wae_id'][$i],'wae');
+                                                            }
+                                                            else
+                                                            {
+                                                                $data_source = '';
+                                                            }
+                                                            ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getWAESituation($v['selected_wae_id'][$i]); ?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][$i];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][$i]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['my_target'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                    </tr>	
+                                                        <?php
+                                                        } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                    <?php
+                                                    }
+                                                }   
+                                                else
+                                                {
+                                                    foreach($arr_wae_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Situation</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getWAESituation($arr_wae_records[$first_item_key]['selected_wae_id'][0]); //echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                            <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                            <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_wae_records as $k => $v)
+                                                    { 
+                                                        if($v['data_source'][0] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_wae_id'][0],'wae');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo $v['scale'][0];?><br/>
+                                                                <img src="<?php echo SITE_URL."/images/".$v['scale_image'][0]; ?>" width="240" border="0" /> 
+                                                            </td>  
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][0];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                        </tr>	
+                                                    <?php
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+
+                                            <?php
+                                            if( ($gs_return) && ($report_module == 'gs_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My General Stressors Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_gs_records as $k => $v)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                    </tr>	
+                                                    <?php
+                                                    for($i=0;$i<count($v['selected_gs_id']);$i++)
+                                                    {
+                                                        if($v['data_source'][$i] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_gs_id'][$i],'gs');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getGSSituation($v['selected_gs_id'][$i]); ?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][$i];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][$i]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach($arr_gs_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Situation</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getGSSituation($arr_gs_records[$first_item_key]['selected_gs_id'][0]); ?></td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                            <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                            <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_gs_records as $k => $v)
+                                                    {
+                                                        if($v['data_source'][0] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_gs_id'][0],'gs');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo $v['scale'][0];?><br/>
+                                                                <img src="<?php echo SITE_URL."/images/".$v['scale_image'][0]; ?>" width="240" border="0" /> 
+                                                            </td>  
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][0];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                        </tr>	
+                                                    <?php
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+
+
+                                            <?php
+                                            if( ($sleep_return) && ($report_module == 'sleep_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Sleep Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_sleep_records as $k => $v)
+                                                    { 
+                                                        $yesterday_sleep_time = getUserSleepTime($user_id,$k);
+                                                        $today_wakeup_time = getUserWakeUpTime($user_id,$k);
+                                                        $total_sleep_duration = getDurationBetweenTwoTimes($yesterday_sleep_time,$today_wakeup_time);
+                                                        ?>
+                                                <table width="920" border="0" cellpadding="2" cellspacing="1" bgcolor="#999999">
+                                                    <tr>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Date : <?php echo date("d M Y",strtotime($k));?>(<?php echo date("l",strtotime($k));?>)</td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Yesterday Sleep Time : <?php echo $yesterday_sleep_time;?></td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Today Wake-up Time : <?php echo $today_wakeup_time;?></td>
+                                                        <td height="30" align="left" valign="middle" bgcolor="#E1E1E1" class="report_header">Sleep Duration : <?php echo $total_sleep_duration;?></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>        
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                    </tr>	
+                                                    <?php
+                                                    for($i=0;$i<count($v['selected_sleep_id']);$i++)
+                                                    { 
+                                                        if($v['data_source'][$i] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_sleep_id'][$i],'sleep');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getSleepSituation($v['selected_sleep_id'][$i]); ?></td>	 
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][$i];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][$i]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo urldecode($v['responce'][$i]);?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                    <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach($arr_sleep_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Situation</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getSleepSituation($arr_sleep_records[$first_item_key]['selected_sleep_id'][0]); ?></td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                            <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                            <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_sleep_records as $k => $v)
+                                                    { 
+                                                        if($v['data_source'][0] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_sleep_id'][0],'sleep');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo $v['scale'][0];?><br/>
+                                                                <img src="<?php echo SITE_URL."/images/".$v['scale_image'][0]; ?>" width="240" border="0" /> 
+                                                            </td>  
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo urldecode($v['responce'][0]);?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                        </tr>	
+                                                    <?php
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }  ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+
+                                            <?php
+                                            if( ($mc_return) && ($report_module == 'mc_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Communication Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_mc_records as $k => $v)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                    </tr>	
+                                                    <?php
+                                                    for($i=0;$i<count($v['selected_mc_id']);$i++)
+                                                    {
+                                                        if($v['data_source'][$i] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_mc_id'][$i],'mc');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getMCSituation($v['selected_mc_id'][$i]); ?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][$i];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][$i]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach($arr_mc_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Situation</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getMCSituation($arr_mc_records[$first_item_key]['selected_mc_id'][0]); ?></td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                            <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                            <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_mc_records as $k => $v)
+                                                    {
+                                                        if($v['data_source'][0] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_mc_id'][0],'mc');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo $v['scale'][0];?><br/>
+                                                                <img src="<?php echo SITE_URL."/images/".$v['scale_image'][0]; ?>" width="240" border="0" /> 
+                                                            </td>  
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][0];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                        </tr>	
+                                                    <?php
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }     
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+
+                                            <?php
+                                            if( ($mr_return) && ($report_module == 'mr_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Relations Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_mr_records as $k => $v)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                    </tr>	
+                                                    <?php
+                                                    for($i=0;$i<count($v['selected_mr_id']);$i++)
+                                                    {
+                                                        if($v['data_source'][$i] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_mr_id'][$i],'mr');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getMRSituation($v['selected_mr_id'][$i]); ?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][$i];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][$i]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach($arr_mr_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Situation</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getMRSituation($arr_mr_records[$first_item_key]['selected_mr_id'][0]); ?></td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                            <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                            <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_mr_records as $k => $v)
+                                                    {
+                                                        if($v['data_source'][0] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_mr_id'][0],'mr');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo $v['scale'][0];?><br/>
+                                                                <img src="<?php echo SITE_URL."/images/".$v['scale_image'][0]; ?>" width="240" border="0" /> 
+                                                            </td>  
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][0];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                        </tr>	
+                                                    <?php
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+
+                                            <?php
+                                            //if( ($mle_return) && ($report_module == 'mle_report' || $report_module == '') )
+                                            if( ($mle_return) && ($report_module == 'mle_report' ) )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Major Life Events Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_mle_records as $k => $v)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                    </tr>	
+                                                    <?php
+                                                    for($i=0;$i<count($v['selected_mle_id']);$i++)
+                                                    { 
+                                                        if($v['data_source'][$i] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_mle_id'][$i],'mle');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getMLESituation($v['selected_mle_id'][$i]); ?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][$i];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][$i]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach($arr_mle_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Situation</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getMLESituation($arr_mle_records[$first_item_key]['selected_mle_id'][0]); ?></td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                            <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                            <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_mle_records as $k => $v)
+                                                    {
+                                                        if($v['data_source'][0] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_mle_id'][0],'mle');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo $v['scale'][0];?><br/>
+                                                                <img src="<?php echo SITE_URL."/images/".$v['scale_image'][0]; ?>" width="240" border="0" /> 
+                                                            </td>  
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][0];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                        </tr>	
+                                                    <?php
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }    
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+
+                                            <?php
+                                            if( ($adct_return) && ($report_module == 'adct_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Addictions Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_adct_records as $k => $v)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>
+
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                    </tr>	
+
+                                                    <?php
+                                                    for($i=0;$i<count($v['selected_adct_id']);$i++)
+                                                    {
+                                                        if($v['data_source'][$i] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_adct_id'][$i],'adct');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getADCTSituation($v['selected_adct_id'][$i]); ?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][$i];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][$i]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                    <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach($arr_adct_records as $k => $v)
+                                                    {
+                                                        $first_item_key = $k;
+                                                        break;
+                                                    } ?>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Situation</td>
+                                                            <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getADCTSituation($arr_adct_records[$first_item_key]['selected_adct_id'][0]); ?></td>	
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>
+                                                    <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                        <tr>
+                                                            <td width="275" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                            <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                            <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                            <td width="175" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Effects(Scale)</td>		
+                                                        </tr>	
+                                                    <?php
+                                                    foreach($arr_adct_records as $k => $v)
+                                                    {
+                                                        if($v['data_source'][0] == 'mdt')
+                                                        {
+                                                            $data_source = getCommaSepratedSituatinsForTriggers($user_id,$k,$v['selected_adct_id'][0],'adct');
+                                                        }
+                                                        else
+                                                        {
+                                                            $data_source = '';
+                                                        }
+                                                        ?>
+                                                        <tr>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')'; ?></td>	
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                                <?php echo $v['scale'][0];?><br/>
+                                                                <img src="<?php echo SITE_URL."/images/".$v['scale_image'][0]; ?>" width="240" border="0" /> 
+                                                            </td>  
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][0];?></td>
+                                                            <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $data_source;?></td>
+                                                        </tr>	
+                                                    <?php
+                                                    } ?>
+                                                    </table>	
+                                                    <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                        <tr>
+                                                            <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                        </tr>
+                                                    </table>		
+                                                <?php
+                                                }    
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+                                                
+                                            <?php
+                                            if( ($bps_return) && ($report_module == 'bps_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Physical State Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+
+                                                <?php
+                                                foreach($arr_bps_records as $k => $v)
+                                                { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>
+
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Symptoms</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Body Part</td>
+                                                        <td width="320" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>		
+                                                    </tr>	
+
+                                                    <?php
+                                                    for($i=0;$i<count($v['bms_id']);$i++)
+                                                    { ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getCommaSepratedBMS($v['bms_id'][$i]);?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo getUserBodyPartImageBoxSaved($v['bp_id'][$i],$v['spotx'][$i],$v['spoty'][$i],$v['bps_image'][$i]); ?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo getCommaSepratedBMSScaleImage($v['scale'][$i]);?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                }?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>  
+                                                
+                                            <?php
+                                            //if( ($bes_return) && ($report_module == 'bes_report' || $report_module == '') )
+                                            if( ($bes_return) && ($report_module == 'bes_report') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Emotional State Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+
+                                                <?php
+                                                if($module_keyword == '')
+                                                {
+                                                    foreach($arr_bes_records as $k => $v)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                    </tr>
+                                                </table>
+
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="250" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Symptoms</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="50" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                        <td width="50" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Duration</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="50" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">My Target</td>		
+                                                        <td width="50" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Adviser Target</td>
+                                                    </tr>	
+
+                                                    <?php
+                                                    for($i=0;$i<count($v['bms_id']);$i++)
+                                                    { ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getBobyMainSymptomName($v['bms_id'][$i]); ?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][$i];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][$i]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['bes_time'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['bes_duration'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['my_target'][$i];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['adviser_target'][$i];?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    foreach($arr_bes_records as $k => $v)
+                                                    { 
+                                                        $first_item_key = $k;
+                                                        break; 
+                                                    }
+                                                    ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Symptoms</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getBobyMainSymptomName($arr_bes_records[$first_item_key]['bms_id'][0]); ?></td>	
+                                                    </tr>
+                                                </table>
+
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="250" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                        <td width="300" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Scale</td>
+                                                        <td width="50" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                        <td width="50" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Duration</td>
+                                                        <td width="170" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Details</td>		
+                                                        <td width="50" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">My Target</td>		
+                                                        <td width="50" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Adviser Target</td>
+                                                    </tr>	
+
+                                                    <?php
+                                                    foreach($arr_bes_records as $k => $v)
+                                                    { ?>
+                                                    <tr>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($k)). '( '.date("l",strtotime($k)).')';?></td>	
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value">
+                                                            <?php echo $v['scale'][0];?><br/>
+                                                            <img src="<?php echo SITE_URL."/images/".$v['scale_image'][0]; ?>" width="240" border="0" /> 
+                                                        </td>  
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['bes_time'][0];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['bes_duration'][0];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['responce'][0];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['my_target'][0];?></td>
+                                                        <td height="30" align="center" valign="middle" bgcolor="#FFFFFF" class="report_value"><?php echo $v['adviser_target'][0];?></td>
+                                                    </tr>	
+                                                    <?php
+                                                    } ?>
+                                                </table>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                }
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>        
+
+                                            <?php
+                                            if( ($mdt_return) && ($report_module == 'mdt_report' || $report_module == '') )
+                                            { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td>&nbsp;</td>
+                                                        <td>&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="920" align="center" valign="top" bgcolor="#E1E1E1" class="Header_brown">&nbsp;My Daily Situation Patterns</td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+
+                                                <?php
+                                                if($module_keyword == '' && $trigger_criteria == '')
+                                                {
+                                                    //echo '<br><pre>';
+                                                    //print_r($arr_mdt_records);
+                                                    //echo '<br></pre>';
+                                                    foreach($arr_mdt_records as $key => $val)
+                                                    { ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($key)). '( '.date("l",strtotime($key)).')';?></td>	
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                    <?php
+                                                    foreach($val as $k => $v)
+                                                    {
+                                                        $temp_time_arr = explode('_',$k);
+                                                        $time = $temp_time_arr[0];
+                                                        if($temp_time_arr[1] != '')
+                                                        {
+                                                            $duration = $temp_time_arr[1].' Mins';
+                                                        }
+                                                        else
+                                                        {
+                                                            $duration = '';
+                                                        }
+                                                        ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Time</td>
+                                                        <td width="310" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $time;?></td>	
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"> Duration</td>
+                                                        <td width="310" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $duration;?></td>	
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                    <tr>
+                                                        <td width="425" height="30" align="left" valign="top" bgcolor="#FFFFFF">
+                                                            <table width="425" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" >
+                                                                <tr>
+                                                                    <td width="200" height="30" align="center" valign="middle" style="border: 1px solid #999999;" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                                    <td width="225" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;border-right:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header" style="border-right:0px;">Situation Scale</td>
+                                                                </tr>	
+                                                                <?php
+                                                                for($i=0;$i<count($v['bms_id']);$i++)
+                                                                {
+                                                                    if($v['bms_entry_type'][$i] == 'situation')
+                                                                    {
+                                                                       // $situation =  getBobyMainSymptomName($v['bms_id'][$i]);
+                                                                        if($v['bms_type'][$i] == 'adct')
+                                                                        {
+                                                                            $situation = getADCTSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'sleep')
+                                                                        {
+                                                                            $situation = getSleepSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'gs')
+                                                                        {
+                                                                            $situation = getGSSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'wae')
+                                                                        {
+                                                                            $situation = getWAESituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'mc')
+                                                                        {
+                                                                            $situation = getMCSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'mr')
+                                                                        {
+                                                                            $situation = getMRSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'mle')
+                                                                        {
+                                                                            $situation = getMLESituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        else 
+                                                                        {
+                                                                            $situation = getBobyMainSymptomName($v['bms_id'][$i]);    
+                                                                        }
+                                                                        $scale_img_str = $v['scale'][$i].'<br/><img src="'.SITE_URL.'/images/'.$v['scale_image'][$i].'" width="200" border="0" /> ';
+                                                                    ?>
+                                                                <tr>
+                                                                    <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $situation; ?></td>	
+                                                                    <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #E1E1E1; border-left:0px none #E1E1E1;border-right:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $scale_img_str;?></td>  
+                                                                </tr>	
+                                                                <?php
+                                                                    }
+                                                                } ?>
+                                                            </table>
+                                                        </td>
+                                                        <td width="495" height="30" align="left" valign="top" bgcolor="#FFFFFF">
+                                                            <table width="495" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" >
+                                                                <tr>
+                                                                    <td width="200" height="30" align="center" valign="middle" style="border: 1px solid #999999;" bgcolor="#E1E1E1" class="report_header">Trigger</td>
+                                                                    <td width="225" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header">Trigger Scale</td>
+                                                                    <td width="70" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header">Comments</td>		
+                                                                </tr>	
+
+                                                                <?php
+                                                                for($i=0;$i<count($v['bms_id']);$i++)
+                                                                {
+                                                                    if($v['bms_entry_type'][$i] == 'trigger')
+                                                                    {
+                                                                        if($v['bms_type'][$i] == 'adct')
+                                                                        {
+                                                                            $trigger = getADCTSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'sleep')
+                                                                        {
+                                                                            $trigger = getSleepSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'gs')
+                                                                        {
+                                                                            $trigger = getGSSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'wae')
+                                                                        {
+                                                                            $trigger = getWAESituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'mc')
+                                                                        {
+                                                                            $trigger = getMCSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'mr')
+                                                                        {
+                                                                            $trigger = getMRSituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        elseif($v['bms_type'][$i] == 'mle')
+                                                                        {
+                                                                            $trigger = getMLESituation($v['bms_id'][$i]);
+                                                                        }
+                                                                        else 
+                                                                        {
+                                                                            $trigger = getBobyMainSymptomName($v['bms_id'][$i]);    
+                                                                        }
+                                                                        $trigger_scale_img_str = $v['scale'][$i].'<br/><img src="'.SITE_URL.'/images/'.$v['scale_image'][$i].'" width="200" border="0" /> ';
+                                                                        $trigger_comments =  urldecode($v['responce'][$i]);
+                                                                ?>
+                                                                <tr>
+                                                                    <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;" bgcolor="#FFFFFF" class="report_value"><?php echo $trigger; ?></td>	
+                                                                    <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;border-left:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $trigger_scale_img_str;?></td>  
+                                                                    <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;border-left:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $trigger_comments;?></td>
+                                                                </tr>	
+                                                                <?php
+                                                                    }
+                                                                } ?>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                    }
+                                                    }
+                                                }
+                                                elseif($module_keyword == '' && $trigger_criteria != '')
+                                                {
+                                                    //echo '<br><pre>';
+                                                    //print_r($arr_mdt_records);
+                                                    //echo '<br></pre>';
+                                                    foreach($arr_mdt_records as $key => $val)
+                                                    {
+                                                        $first_item_key1 = $key;
+                                                        foreach($val as $k => $v)
+                                                        {
+                                                            if($v['bms_entry_type'] == 'trigger')
+                                                            {
+                                                                $first_item_key2 = $k;
+                                                                break;  
+                                                            }
+                                                        }    
+                                                        break; 
+                                                    }
+                                                    $bms_type = $arr_mdt_records[$first_item_key1][$first_item_key2]['bms_type'];
+                                                    $bms_id = $arr_mdt_records[$first_item_key1][$first_item_key2]['bms_id'];
+                                                    
+                                                    if($bms_type == 'adct')
+                                                    {
+                                                        $trigger = getADCTSituation($bms_id);
+                                                    }
+                                                    elseif($bms_type == 'sleep')
+                                                    {
+                                                        $trigger = getSleepSituation($bms_id);
+                                                    }
+                                                    elseif($bms_type == 'gs')
+                                                    {
+                                                        $trigger = getGSSituation($bms_id);
+                                                    }
+                                                    elseif($bms_type == 'wae')
+                                                    {
+                                                        $trigger = getWAESituation($bms_id);
+                                                    }
+                                                    elseif($bms_type == 'mc')
+                                                    {
+                                                        $trigger = getMCSituation($bms_id);
+                                                    }
+                                                    elseif($bms_type == 'mr')
+                                                    {
+                                                        $trigger = getMRSituation($bms_id);
+                                                    }
+                                                    elseif($bms_type == 'mle')
+                                                    {
+                                                        $trigger = getMLESituation($bms_id);
+                                                    }
+                                                    else 
+                                                    {
+                                                        $trigger = getBobyMainSymptomName($bms_id);    
+                                                    }
+                                                    
+                                                    ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Trigger</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo $trigger; ?></td>	
+                                                    </tr>
+                                                </table>
+
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                    foreach($arr_mdt_records as $key => $val)
+                                                    { 
+                                                        ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($key)). '( '.date("l",strtotime($key)).')'; ?></td>	
+                                                        
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                    <tr>
+                                                        <td width="495" height="30" align="left" valign="top" bgcolor="#FFFFFF">
+                                                            <table width="495" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" >
+                                                            <tr>
+                                                                <td width="100" height="30" align="center" valign="middle" style="border: 1px solid #999999;" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                                <td width="100" height="30" align="center" valign="middle" style="border: 1px solid #999999;" bgcolor="#E1E1E1" class="report_header">Duration</td>
+                                                                <td width="225" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header" style="border-right:0px;">Trigger Scale</td>
+                                                                <td width="70" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;border-right:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header">Comments</td>		
+                                                            </tr>	
+
+                                                            <?php
+                                                            $arr_temp_mdt_time = array();
+                                                            $arr_temp_mdt_duration = array();
+                                                            foreach($val as $k => $v)
+                                                            {
+                                                                if($v['bms_entry_type'] == 'trigger')
+                                                                {
+                                                                    
+                                                                    $trigger_scale_img_str = $v['scale'].'<br/><img src="'.SITE_URL.'/images/'.$v['scale_image'].'" width="200" border="0" /> ';
+                                                                    $trigger_comments =  urldecode($v['responce']);
+                                                                    
+                                                                    $time = $v['mdt_time'];
+                                                                    array_push($arr_temp_mdt_time, $time);
+                                                                    array_push($arr_temp_mdt_duration, $v['mdt_duration']);
+                                                                    if($v['mdt_duration'] != '')
+                                                                    {
+                                                                      $duration = $v['mdt_duration'].' Mins';
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        $duration = '';
+                                                                    }
+
+                                                                ?>
+                                                            <tr>
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $time; ?></td>	
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $duration; ?></td>	
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #E1E1E1; border-left:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $trigger_scale_img_str;?></td>  
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;border-left:0px none #E1E1E1;border-right:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $trigger_comments;?></td>
+                                                            </tr>	
+                                                            <?php
+                                                                }
+                                                            } ?>
+                                                        </table>
+                                                            
+                                                        </td>
+                                                        <td width="425" height="30" align="left" valign="top" bgcolor="#FFFFFF">
+                                                            
+                                                            <table width="425" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" >
+                                                            <tr>
+                                                                <td width="200" height="30" align="center" valign="middle" style="border: 1px solid #999999;" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                                <td width="225" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header">Situation Scale</td>
+                                                                
+                                                            </tr>	
+
+                                                            <?php
+                                                            //echo '<br><pre>';
+                                                            //print_r($arr_temp_mdt_time);
+                                                            //echo '<br></pre>';
+                                                            foreach($val as $k => $v)
+                                                            {
+                                                                if( ($v['bms_entry_type'] == 'situation' ) && (in_array($v['mdt_time'],$arr_temp_mdt_time)) && ( in_array($v['mdt_duration'],$arr_temp_mdt_duration) ) )
+                                                                {
+                                                                    $situation = getBobyMainSymptomName($v['bms_id']);    
+                                                                    $scale_img_str = $v['scale'].'<br/><img src="'.SITE_URL.'/images/'.$v['scale_image'].'" width="200" border="0" /> ';
+                                                                   
+                                                                
+
+                                                                ?>
+                                                            <tr>
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;" bgcolor="#FFFFFF" class="report_value"><?php echo $situation; ?></td>	
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;border-left:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $scale_img_str;?></td>  
+                                                                
+                                                            </tr>	
+                                                            <?php
+                                                                }
+                                                            } ?>
+                                                        </table>
+                                                        </td>
+                                                        
+                                                    </tr>
+
+                                                </table>
+                                                <?php
+                                                    
+                                                    }
+                                                ?>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>	
+                                                    
+                                             <?php       
+                                                    
+                                                    
+                                                    
+                                                    
+                                                }
+                                                
+                                                else
+                                                {
+                                                    //echo '<br><pre>';
+                                                    //print_r($arr_mdt_records);
+                                                    //echo '<br></pre>';
+                                                    
+                                                    foreach($arr_mdt_records as $key => $val)
+                                                    {
+                                                        $first_item_key1 = $key;
+                                                        foreach($val as $k => $v)
+                                                        {
+                                                            if($v['bms_entry_type'] == 'situation')
+                                                            {
+                                                                $first_item_key2 = $k;
+                                                                break;  
+                                                            }
+                                                            
+                                                        }    
+                                                        break; 
+                                                    }
+                                                    
+                                                    ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Situation</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo getBobyMainSymptomName($arr_mdt_records[$first_item_key1][$first_item_key2]['bms_id']); ?></td>	
+                                                    </tr>
+                                                </table>
+
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                <?php
+                                                    foreach($arr_mdt_records as $key => $val)
+                                                    { 
+                                                        ?>
+                                                <table width="920" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999" >
+                                                    <tr>
+                                                        <td width="150" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header">Date</td>
+                                                        <td width="770" height="30" align="center" valign="middle" bgcolor="#E1E1E1" class="report_header"><?php echo date("d M Y",strtotime($key)). '( '.date("l",strtotime($key)).')'; ?></td>	
+                                                        
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                                
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                                    <tr>
+                                                        <td width="425" height="30" align="left" valign="top" bgcolor="#FFFFFF">
+                                                            <table width="425" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" >
+                                                            <tr>
+                                                                <td width="100" height="30" align="center" valign="middle" style="border: 1px solid #999999;" bgcolor="#E1E1E1" class="report_header">Time</td>
+                                                                <td width="100" height="30" align="center" valign="middle" style="border: 1px solid #999999;" bgcolor="#E1E1E1" class="report_header">Duration</td>
+                                                                <td width="225" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;border-right:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header" style="border-right:0px;">Situation Scale</td>
+                                                            </tr>	
+
+                                                            <?php
+                                                            //for($i=0;$i<count($v['bms_id']);$i++)
+                                                            $arr_temp_mdt_time = array();
+                                                            $arr_temp_mdt_duration = array();
+                                                            foreach($val as $k => $v)
+                                                            {
+                                                                if($v['bms_entry_type'] == 'situation')
+                                                                {
+                                                                    $scale_img_str = $v['scale'].'<br/><img src="'.SITE_URL.'/images/'.$v['scale_image'].'" width="200" border="0" /> ';
+                                                                    $time = $v['mdt_time'];
+                                                                    array_push($arr_temp_mdt_time, $time);
+                                                                    array_push($arr_temp_mdt_duration, $v['mdt_duration']);
+                                                                    if($v['mdt_duration'] != '')
+                                                                    {
+                                                                      $duration = $v['mdt_duration'].' Mins';
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        $duration = '';
+                                                                    }
+
+                                                                ?>
+                                                            <tr>
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $time; ?></td>	
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $duration; ?></td>	
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #E1E1E1; border-left:0px none #E1E1E1;border-right:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $scale_img_str;?></td>  
+                                                            </tr>	
+                                                            <?php
+                                                                }
+                                                            } ?>
+                                                        </table>
+                                                            
+                                                        </td>
+                                                        <td width="495" height="30" align="left" valign="top" bgcolor="#FFFFFF">
+                                                            
+                                                            <table width="495" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" >
+                                                            <tr>
+                                                                <td width="200" height="30" align="center" valign="middle" style="border: 1px solid #999999;" bgcolor="#E1E1E1" class="report_header">Trigger</td>
+                                                                <td width="225" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header">Trigger Scale</td>
+                                                                <td width="70" height="30" align="center" valign="middle" style="border: 1px solid #999999; border-left:0px none #E1E1E1;" bgcolor="#E1E1E1" class="report_header">Comments</td>		
+                                                            </tr>	
+
+                                                            <?php
+                                                            //echo '<br><pre>';
+                                                            //print_r($arr_temp_mdt_time);
+                                                            //echo '<br></pre>';
+                                                            //for($i=0;$i<count($v['bms_id']);$i++)
+                                                            foreach($val as $k => $v)
+                                                            {
+                                                                if( ($v['bms_entry_type'] == 'trigger' ) && (in_array($v['mdt_time'],$arr_temp_mdt_time)) && ( in_array($v['mdt_duration'],$arr_temp_mdt_duration) ) )
+                                                                {
+                                                                    $scale_img_str = '';
+                                                                    if($v['bms_type'] == 'adct')
+                                                                    {
+                                                                        $trigger = getADCTSituation($v['bms_id']);
+                                                                    }
+                                                                    elseif($v['bms_type'] == 'sleep')
+                                                                    {
+                                                                        $trigger = getSleepSituation($v['bms_id']);
+                                                                    }
+                                                                    elseif($v['bms_type'] == 'gs')
+                                                                    {
+                                                                        $trigger = getGSSituation($v['bms_id']);
+                                                                    }
+                                                                    elseif($v['bms_type'] == 'wae')
+                                                                    {
+                                                                        $trigger = getWAESituation($v['bms_id']);
+                                                                    }
+                                                                    elseif($v['bms_type'] == 'mc')
+                                                                    {
+                                                                        $trigger = getMCSituation($v['bms_id']);
+                                                                    }
+                                                                    elseif($v['bms_type'] == 'mr')
+                                                                    {
+                                                                        $trigger = getMRSituation($v['bms_id']);
+                                                                    }
+                                                                    elseif($v['bms_type'] == 'mle')
+                                                                    {
+                                                                        $trigger = getMLESituation($v['bms_id']);
+                                                                    }
+                                                                    else 
+                                                                    {
+                                                                        $trigger = getBobyMainSymptomName($v['bms_id']);    
+                                                                    }
+                                                                    $trigger_scale_img_str = $v['scale'].'<br/><img src="'.SITE_URL.'/images/'.$v['scale_image'].'" width="200" border="0" /> ';
+                                                                    $trigger_comments =  urldecode($v['responce']);
+                                                                
+                                                                
+
+                                                                ?>
+                                                            <tr>
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;" bgcolor="#FFFFFF" class="report_value"><?php echo $trigger; ?></td>	
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;border-left:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $trigger_scale_img_str;?></td>  
+                                                                <td height="30" align="center" valign="middle" style="border: 1px solid #999999; border-top:0px none #FFFFFF;border-left:0px none #E1E1E1;" bgcolor="#FFFFFF" class="report_value"><?php echo $trigger_comments;?></td>
+                                                            </tr>	
+                                                            <?php
+                                                                }
+                                                            } ?>
+                                                        </table>
+                                                        </td>
+                                                        
+                                                    </tr>
+
+                                                </table>
+                                                <?php
+                                                    //}
+                                                    }
+                                                ?>	
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>		
+                                                <?php
+                                                    }
+                                                ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+                                                
+                                            
+                                                
+                                            <?php
+                                            if($show_pdf_button)
+                                            { ?> 
+                                                <table width="920" border="0" cellpadding="0" cellspacing="0">
+                                                    <tr>
+                                                        <td align="left">
+                                                            <form action="#" method="post" name="frmpdfreports" id="frmpdfreports">
+                                                                <input type="hidden" name="hdnuser_id" id="hdnhdnuser_id" value="<?php echo $user_id;?>" />
+                                                                <input type="hidden" name="hdndate_type" id="hdndate_type" value="<?php echo $date_type;?>" />
+                                                                <input type="hidden" name="hdnstart_date" id="hdnstart_date" value="<?php echo $start_date;?>" />
+                                                                <input type="hidden" name="hdnend_date" id="hdnend_date" value="<?php echo $end_date;?>" />
+                                                                <input type="hidden" name="hdnsingle_date" id="hdnsingle_date" value="<?php echo $single_date;?>" />
+                                                                <input type="hidden" name="hdnstart_month" id="hdnstart_month" value="<?php echo $start_month;?>" />
+                                                                <input type="hidden" name="hdnstart_year" id="hdnstart_year" value="<?php echo $start_year;?>" />
+                                                                <input type="hidden" name="hdnreport_module" id="hdnreport_module" value="<?php echo $report_module;?>" />
+                                                                <input type="hidden" name="hdnpro_user_id" id="hdnpro_user_id" value="<?php echo $pro_user_id;?>" />
+                                                                <input type="hidden" name="hdnscale_range" id="hdnscale_range" value="<?php echo $scale_range;?>" />
+                                                                <input type="hidden" name="hdnstart_scale_value" id="hdnstart_scale_value" value="<?php echo $start_scale_value;?>" />
+                                                                <input type="hidden" name="hdnend_scale_value" id="hdnend_scale_value" value="<?php echo $end_scale_value;?>" />
+                                                                <input type="hidden" name="hdnmodule_keyword" id="hdnmodule_keyword" value="<?php echo $module_keyword;?>" />
+                                                                <input type="hidden" name="hdnmodule_criteria" id="hdnmodule_criteria" value="<?php echo $module_criteria;?>" />
+                                                                <input type="hidden" name="hdncriteria_scale_range" id="hdncriteria_scale_range" value="<?php echo $criteria_scale_range;?>" />
+                                                                <input type="hidden" name="hdnstart_criteria_scale_value" id="hdnstart_criteria_scale_value" value="<?php echo $start_criteria_scale_value;?>" />
+                                                                <input type="hidden" name="hdnend_criteria_scale_value" id="hdnend_criteria_scale_value" value="<?php echo $end_criteria_scale_value;?>" />
+                                                                <input type="hidden" name="hdntrigger_criteria" id="hdntrigger_criteria" value="<?php echo $trigger_criteria;?>" />
+                                                                <input type="submit" name="btnPdfReport" id="btnPdfReport" value="Save to Excel"/>
+                                                            </form>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0">
+                                                    <tr>
+                                                        <td height="5"><img src="images/spacer.gif" width="1" height="1" /></td>
+                                                    </tr>
+                                                </table>
+                                            <?php
+                                            } ?>
+                                                </div>
+                                        <?php 
+                                        } 
+                                        else 
+                                        { ?>
+                                                <table width="920" border="0" cellspacing="0" cellpadding="0" align="center">
+                                                    <tr align="center">
+                                                        <td height="5" class="Header_brown"><?php echo getCommonSettingValue('3');?></td>
+                                                    </tr>
+                                                </table>
+                                        <?php 
+                                        } ?>		
+                                            </td>
+                                        </tr>
+                                    </table>
+                                    <table width="920" border="0" align="center" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td align="left" valign="top">
+                                                <?php echo getScrollingWindowsCodeMainContent($page_id);?>
+                                                <?php echo getPageContents2($page_id);?>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="940" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <?php include_once('footer.php'); ?>
+        </td>
+    </tr>
+</table>
+<div id="page_loading_bg" class="page_loading_bg" style="display:none;">
+    <div id="page_loading_img" class="page_loading_img"><img border="0" src="<?php echo SITE_URL;?>/images/loading.gif" /></div>
+</div> 
+</body>
+</html>

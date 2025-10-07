@@ -1,0 +1,82 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-12-21 11:41:58
+[getAdminsOption] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'deleted' in 'where clause' , sql:SELECT admin_id,username FROM `tbladmin` WHERE `deleted` = '0' ORDER BY username ASC
+DEBUG_END - time: 2020-12-21 11:41:58
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-12-21 20:20:59
+[EDIT_EVENT] REQUEST:<pre>Array
+(
+    [cat_cnt] => 0
+    [cat_total_cnt] => 1
+    [hdn_master_event_id] => 21
+    [reference_number] => EVE-21
+    [event_status] => 1
+    [institution_id] => Singing  Stars
+    [sponsor_id] => Tata Namak
+    [event_name] => Demo Event 2 -  161220
+    [event_tags] => Array
+        (
+            [0] => Beach
+            [1] => Garden
+            [2] => Open Terrace
+        )
+
+    [profile_cat_1] => 60
+    [fav_cat_1] => Array
+        (
+            [0] => 443
+        )
+
+    [profile_cat_2] => 70
+    [fav_cat_2] => Array
+        (
+            [0] => 486
+            [1] => 483
+            [2] => 479
+            [3] => 480
+            [4] => 482
+        )
+
+    [profile_cat_3] => 40
+    [fav_cat_3] => Array
+        (
+            [0] => 325
+        )
+
+    [profile_cat_4] => 34
+    [fav_cat_4] => Array
+        (
+            [0] => 273
+        )
+
+    [btnSubmit] => btnSubmit
+    [event_contents] => %3Cp%3EThis%20is%20a%20Demo%20Event%202%3C/p%3E
+    [fpestid] => 8qOcqEOyF-ZqDY_Tss4a85JNGZZcQSpXpkPwHWV7niSSFsQRDMNXN4KbkaY61hvdFt7_BQ
+    [__utmz] => 231471641.1608437485.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utma] => 231471641.589312185.1608437485.1608530476.1608561221.6
+    [__utmc] => 231471641
+    [PHPSESSID] => 39aab246bef21991ffb14f87ddde3e7e
+    [__utmb] => 231471641.12.10.1608561221
+)
+</pre>, FILES:<pre>Array
+(
+    [files] => Array
+        (
+            [name] => 
+            [type] => 
+            [tmp_name] => 
+            [error] => 4
+            [size] => 0
+        )
+
+)
+</pre>
+DEBUG_END - time: 2020-12-21 20:20:59
+----------------------------------------------------
+

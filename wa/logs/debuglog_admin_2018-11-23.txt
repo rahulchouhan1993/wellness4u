@@ -1,0 +1,33 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-11-23 14:09:22
+[ADD_VENDORS_ACCESS_FORM] REQUEST:<pre>Array
+(
+    [hdnva_id] => 9
+    [vendor_parent_cat_id] => Array
+        (
+            [0] => 64
+        )
+
+    [vendor_cat_id] => Array
+        (
+            [0] => 461
+        )
+
+    [vafm_id] => 2
+    [btnSubmit] => btnSubmit
+    [PHPSESSID] => 89e3590193e2fb63f52ea63721251822
+)
+</pre>
+DEBUG_END - time: 2018-11-23 14:09:22
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2018-11-23 19:20:34
+[getCertficationTypeOption] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcategories' doesn't exist , sql:SELECT cat_id as vc_cert_type_id, cat_name as vc_cert_type FROM `tblcategories` WHERE `parent_cat_id` = '71' AND `cat_deleted` = '0' ORDER BY vc_cert_type ASC
+DEBUG_END - time: 2018-11-23 19:20:34
+----------------------------------------------------
+

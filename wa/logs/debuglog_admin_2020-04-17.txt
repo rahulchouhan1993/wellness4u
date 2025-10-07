@@ -1,0 +1,190 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-04-17 20:41:14
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 3
+    [aa_title] => View Conversation
+    [aa_link] => view_conversation.php
+    [aa_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1587007812.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => e6a82d645c7992a2d3cb9058247c90f9
+    [__utma] => 231471641.1514276300.1587007812.1587124081.1587129225.16
+)
+</pre>
+DEBUG_END - time: 2020-04-17 20:41:14
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-04-17 20:41:14
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 3
+    [:aa_title] => View Conversation
+    [:aa_link] => view_conversation.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 1
+    [:aa_add_date] => 2020-04-17 20:41:14
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 3
+    [aa_title] => View Conversation
+    [aa_link] => view_conversation.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 1
+    [aa_add_date] => 2020-04-17 20:41:14
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2020-04-17 20:41:14
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-04-17 20:41:26
+[ADD_ADMIN_ACTION] REQUEST:<pre>Array
+(
+    [am_id] => 3
+    [aa_title] => View Conversation
+    [aa_link] => view_conversation.php
+    [aa_vendor_menu] => 0
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1587007812.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => e6a82d645c7992a2d3cb9058247c90f9
+    [__utma] => 231471641.1514276300.1587007812.1587124081.1587129225.16
+)
+</pre>
+DEBUG_END - time: 2020-04-17 20:41:26
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-04-17 20:41:26
+[addRecordCommon] Catch Error:SQLSTATE[42S22]: Column not found: 1054 Unknown column 'am_id' in 'field list', sql:INSERT INTO `tbladminactions` (`am_id`,`aa_title`,`aa_link`,`aa_status`,`aa_vendor_menu`,`aa_add_date`,`added_by_admin`) VALUES (:am_id,:aa_title,:aa_link,:aa_status,:aa_vendor_menu,:aa_add_date,:added_by_admin), arr_execute_parameters:<pre>Array
+(
+    [:am_id] => 3
+    [:aa_title] => View Conversation
+    [:aa_link] => view_conversation.php
+    [:aa_status] => 1
+    [:aa_vendor_menu] => 0
+    [:aa_add_date] => 2020-04-17 20:41:26
+    [:added_by_admin] => 8
+)
+</pre>, tdata:<pre>Array
+(
+    [tablename] => tbladminactions
+    [am_id] => 3
+    [aa_title] => View Conversation
+    [aa_link] => view_conversation.php
+    [aa_status] => 1
+    [aa_vendor_menu] => 0
+    [aa_add_date] => 2020-04-17 20:41:26
+    [added_by_admin] => 8
+)
+</pre>
+DEBUG_END - time: 2020-04-17 20:41:26
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-04-17 21:00:22
+[ADD_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [am_title] => View Conversation
+    [am_link] => view_conversation.php
+    [am_order] => 31
+    [am_vendor_menu] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1587007812.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => e6a82d645c7992a2d3cb9058247c90f9
+    [__utma] => 231471641.1514276300.1587007812.1587124081.1587129225.16
+)
+</pre>
+DEBUG_END - time: 2020-04-17 21:00:22
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-04-17 21:01:17
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 31
+    [am_title] => View Conversation
+    [am_link] => view_conversation.php
+    [am_order] => 29
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1587007812.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => e6a82d645c7992a2d3cb9058247c90f9
+    [__utma] => 231471641.1514276300.1587007812.1587124081.1587129225.16
+)
+</pre>
+DEBUG_END - time: 2020-04-17 21:01:17
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-04-17 21:01:43
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 31
+    [am_title] => View Conversation
+    [am_link] => view_conversation.php
+    [am_order] => 28
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1587007812.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => e6a82d645c7992a2d3cb9058247c90f9
+    [__utma] => 231471641.1514276300.1587007812.1587124081.1587129225.16
+)
+</pre>
+DEBUG_END - time: 2020-04-17 21:01:43
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2020-04-17 21:03:25
+[EDIT_ADMIN_MENU] REQUEST:<pre>Array
+(
+    [hdnam_id] => 31
+    [am_title] => Manage Conversation
+    [am_link] => view_conversation.php
+    [am_order] => 28
+    [am_vendor_menu] => 1
+    [am_status] => 1
+    [btnSubmit] => 
+    [btn_submit] => btn_submit
+    [__utmz] => 231471641.1587007812.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none)
+    [__utmc] => 231471641
+    [PHPSESSID] => e6a82d645c7992a2d3cb9058247c90f9
+    [__utma] => 231471641.1514276300.1587007812.1587124081.1587129225.16
+)
+</pre>
+DEBUG_END - time: 2020-04-17 21:03:25
+----------------------------------------------------
+

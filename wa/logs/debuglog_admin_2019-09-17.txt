@@ -1,0 +1,880 @@
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '133' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '132' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '131' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '130' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '129' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '124' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '123' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '122' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '121' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '120' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '127' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '126' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '125' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '128' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '119' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '118' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '109' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '108' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '103' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '96' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '92' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '91' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '90' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '89' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '88' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '87' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '85' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '84' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '82' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '81' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '80' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '79' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '78' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '77' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '75' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '73' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '72' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '71' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '70' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:51:49
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '69' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:51:49
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '133' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '132' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '131' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '130' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '129' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '124' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '123' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '122' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '121' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '120' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '127' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '126' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '125' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '128' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '119' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '118' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '109' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '108' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '103' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '96' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '92' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '91' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '90' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '89' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '88' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '87' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '85' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '84' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '82' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '81' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '80' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '79' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '78' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '77' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '75' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:03
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '73' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:03
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:04
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '72' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:04
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '71' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:04
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '70' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:04
+----------------------------------------------------
+
+
+
+----------------------------------------------------
+DEBUG_START - time: 2019-09-17 19:53:04
+[getCategoryListingOfCusine] Catch Error:SQLSTATE[42S02]: Base table or view not found: 1146 Table 'wellness.tblcusinecategory' doesn't exist , sql:SELECT TC1.cat_name AS parent_cat_name, TC2.cat_name AS main_cat_name FROM `tblcusinecategory` AS TIC 
+					LEFT JOIN `tblcategories` AS TC1 ON TIC.cucat_parent_cat_id = TC1.cat_id 
+					LEFT JOIN `tblcategories` AS TC2 ON TIC.cucat_cat_id = TC2.cat_id
+					WHERE TIC.cusine_id = '69' AND TIC.cucat_deleted = '0' ORDER BY TIC.cucat_add_date ASC
+DEBUG_END - time: 2019-09-17 19:53:04
+----------------------------------------------------
+
