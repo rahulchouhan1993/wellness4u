@@ -1,6 +1,6 @@
 <?php
 require_once('config/class.mysql.php');
-require_once('classes/class.banner.php');
+require_once('classes/class.banner.php'); 
 require_once('../init.php');
 
 $obj = new Banner();
@@ -38,8 +38,10 @@ $banner_totalRow = '1';
 
 if(isset($_POST['btnSubmit']))
 {
-	$page_id = trim($_POST['page_id']);
-	$position_id = trim($_POST['position_id']);
+	$valid_from = $_POST['valid_from'];
+	$valid_till = $_POST['valid_till'];
+	$page_id = $_POST['page_id'];
+	$position_id = $_POST['position_id'];
 	$width = $_POST['hdnwidth'];
 	$height = $_POST['hdnheight'];
 	$banner_totalRow = trim($_POST['hdnbanner_totalRow']);  
@@ -127,24 +129,19 @@ if(isset($_POST['btnSubmit']))
 						$err_msg .= '<br>Please Upload Only(swf) files for banner';
 					}
 				}
-
-				if(!$error)
-				{	
-					
+				
+				if(!$error){	
 					$banner = time()."_".$banner;
 					$temp_dir = SITE_PATH.'/uploads/';
 					$temp_file = $temp_dir.$banner;
-			
-                                        
-					if(!move_uploaded_file($_FILES['banner']['tmp_name'][$i], $temp_file)) 
-					{
+			              
+					if(!move_uploaded_file($_FILES['banner']['tmp_name'][$i], $temp_file)) {
 						if(file_exists($temp_file)) { unlink($temp_file); } // Remove temp file
 						$error = true;
-						$err_msg .= '<br>Couldn\'t Upload banner 1';
+						$err_msg .= '<br>Couldn\'t Upload banner';
 						$banner = '';
 					}
 					$arr_banner[$i] = $banner;
-//                                        print_r($arr_banner);die();
 				}
 			}  
 		}
@@ -157,7 +154,7 @@ if(isset($_POST['btnSubmit']))
 //            print_r($arr_banner_type);die();
 		$page_name = $obj->getPageName($page_id);
 //		print_r($arr_banner);
-		if($obj->Add_banner($admin_id,$page_id,$page_name,$position_id,$arr_banner,$arr_url,$arr_banner_type,$arr_client_name))
+		if($obj->Add_banner($admin_id,$page_id,$page_name,$position_id,$arr_banner,$arr_url,$arr_banner_type,$arr_client_name,$valid_from,$valid_till))
 		{
 			$msg = "Record Added Successfully!";
 			header('location: index.php?mode=banner&msg='.urlencode($msg));
@@ -177,30 +174,54 @@ $(document).ready(function() {
 	
 					
 					$('#addMoreBanners').click(function() {
-					
-					var banner_cnt = parseInt($('#hdnbanner_cnt').val());
-					//alert(banner_cnt+'ddddddddddddddddd');
-					var banner_totalRow = parseInt($('#hdnbanner_totalRow').val());
-					$('#add_before_this_Banner').before('<tr id="banner_id_1_'+banner_cnt+'"><td width="20%" align="right"><strong>Banner Type</strong></td><td width="5%" align="center"><strong>:</strong></td><td width="75%" align="left"><select name="banner_type[]" id="banner_type_'+banner_cnt+'" onChange="BannerBox('+banner_cnt+')"><option value="Image">Image</option><option value="Flash">Flash</option><option value="Video">Video</option><option value="Google Ads">Google Ads</option><option value="Affilite Ads">Affilite Ads</option><option value="Other Ads">Other Ads</option></select></td></tr>\n\
-					<tr id="banner_id_2_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
-					<tr id="banner_id_3_'+banner_cnt+'"><td width="20%" align="right" valign="top"><strong>Banner</strong></td><td width="5%" align="center" valign="top"><strong>:</strong></td><td width="75%" align="left" id="google_ads_'+banner_cnt+'"></td></tr>\n\
-					<tr id="banner_id_4_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
-					<tr id="trfile_'+banner_cnt+'" style="display:"><td width="20%" align="right" valign="top">&nbsp;</td><td width="5%" align="center" valign="top">&nbsp;</td><td width="75%" align="left"><input type="file" name="banner[]" id="banner_'+banner_cnt+'" /></td></tr><tr id="trtext_'+banner_cnt+'" style="display:none"><td width="20%" align="right" valign="top">&nbsp;</td><td width="5%" align="center" valign="top">&nbsp;</td><td width="75%" align="left"><input type="text" name="banner2[]" id="banner2_'+banner_cnt+'"/></td></tr>\n\
-					<tr id="banner_id_10_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
-					<tr id="banner_id_11_'+banner_cnt+'"><td width="20%" align="right"><strong>Banner Code</strong></td><td width="5%" align="center"><strong>:</strong></td><td width="75%" align="left"><textarea name="banner_code[]" id="banner_code_'+banner_cnt+'" cols="60" rows="3"></textarea></td></tr>\n\
-					<tr id="banner_id_5_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
-					<tr id="banner_id_6_'+banner_cnt+'"><td width="20%" align="right"><strong>URL</strong></td><td width="5%" align="center"><strong>:</strong></td><td width="75%" align="left"><input name="url[]" type="text" id="url_'+banner_cnt+'" style="width:300px;" ></td></tr>\n\
-					<tr id="banner_id_7_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
-					<tr id="banner_id_8_'+banner_cnt+'"><td width="20%" align="right"><strong>Client Name</strong></td><td width="5%" align="center"><strong>:</strong></td><td width="75%" align="left"><input name="client_name[]" type="text" id="client_name_'+banner_cnt+'" >&nbsp;<input type="button" value="Remove Item" id="tr_banner_'+banner_cnt+'" name="tr_banner_'+banner_cnt+'" onclick="removeBannerRow('+banner_cnt+')" /></td></tr>\n\
-					<tr id="banner_id_9_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>');	
-						
-					banner_cnt = banner_cnt + 1;       
-					$('#hdnbanner_cnt').val(banner_cnt);
-					var banner_cnt = $('#hdnbanner_cnt').val();
-					banner_totalRow = banner_totalRow + 1;       
-					$('#hdnbanner_totalRow').val(banner_totalRow);
-						
-						});
+    var banner_cnt = parseInt($('#hdnbanner_cnt').val());
+    var banner_totalRow = parseInt($('#hdnbanner_totalRow').val());
+
+    // Clone Page Name, Position, Width, and Height before banner fields
+    var pageHTML = '<tr><td colspan="100%"><div style="margin: 10px 0; height: 2px; background-color: #ccc;"></div></td></tr><tr> <td colspan="3" align="center">&nbsp;</td> </tr><tr id="page_name_row_'+banner_cnt+'">' +
+        '<td width="20%" align="right"><strong>Page Name</strong></td>' +
+        '<td width="5%" align="center"><strong>:</strong></td>' +
+        '<td width="75%" align="left"><select id="page_id" name="page_id[]"> <option value="">Select Page </option> <option value="14">About Us</option><option value="124">All Round Benefits of Personal Diary</option><option value="191">Challenge2Change</option><option value="214">Clients Appointment List</option><option value="37">Contact Us</option><option value="127">Design My Life - Naya Andaaz - Naya Disha</option><option value="151">Explore Experience</option><option value="1">Home</option><option value="209">Individual Experiences</option><option value="6">Khulja SIM SIM</option><option value="12">My Daily Activity</option><option value="164">My Dashboard</option><option value="111">My Encashed Rewards</option><option value="72">My Fav List</option><option value="46">Feedback and Suggestions</option><option value="13">My Food Today</option><option value="45">My Inner GPS</option><option value="49">My Library</option><option value="44">Nudge Board</option><option value="115">Refer a Adviser</option><option value="74">Refer Friends/Relatives</option><option value="73">Referral History</option><option value="69">AAA- DUPLIATE - Framework-Tools</option><option value="39">Wellness Associate Registration</option><option value="36">WellnessWay4U Ecosystem</option></select></td>' +
+    '</tr>\n\
+    <tr> <td colspan="3" align="center">&nbsp;</td> </tr><tr id="position_row_'+banner_cnt+'">' +
+        '<td width="20%" align="right"><strong>Position</strong></td>' +
+        '<td width="5%" align="center"><strong>:</strong></td>' +
+        '<td width="75%" align="left"><select id="position_id" name="position_id[]" onchange="getHeightAndWidth(this)"> <option value="">Select Position </option> <option value="12">Banner</option><option value="2">Right1A</option><option value="3">Right1B</option><option value="10">Right1C</option><option value="5">Right1D</option><option value="4">Right1E</option><option value="6">Right2A </option><option value="7">Right2B</option><option value="11">Right2C</option><option value="9">Right2D</option><option value="8">Right2E</option><option value="1">Top<option></select></td>' +
+    '</tr>\n\
+    <tr> <td colspan="3" align="center">&nbsp;</td> </tr><tr id="width_row_'+banner_cnt+'">' +
+        '<td width="20%" align="right"><strong>Width</strong></td>' +
+        '<td width="5%" align="center"><strong>:</strong></td>' +
+        '<td width="75%" align="left" id="width"></td> <input type="hidden" name="hdnwidth[]" id="hdnwidth" value="">' +
+    '</tr>\n\
+    <tr> <td colspan="3" align="center">&nbsp;</td> </tr><tr id="height_row_'+banner_cnt+'">' +
+        '<td width="20%" align="right"><strong>Height</strong></td>' +
+        '<td width="5%" align="center"><strong>:</strong></td>' +
+        '<td width="75%" align="left" id="height"></td><input type="hidden" name="hdnheight[]" id="hdnheight" value="">' +
+    '</tr>\n\
+    <tr><td colspan="3" align="center">&nbsp;</td></tr>';
+
+    // Existing cloning logic (unchanged, just appended after new fields)
+    var bannerHTML = '<tr> <td colspan="3" align="center">&nbsp;</td> </tr><tr id="banner_id_1_'+banner_cnt+'"><td width="20%" align="right"><strong>Banner Type</strong></td><td width="5%" align="center"><strong>:</strong></td><td width="75%" align="left"><select name="banner_type[]" id="banner_type_'+banner_cnt+'" onChange="BannerBox('+banner_cnt+')"><option value="Image">Image</option><option value="Flash">Flash</option><option value="Video">Video</option><option value="Google Ads">Google Ads</option><option value="Affilite Ads">Affilite Ads</option><option value="Other Ads">Other Ads</option></select></td></tr>\n\
+    <tr> <td colspan="3" align="center">&nbsp;</td> </tr><tr id="banner_id_2_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
+    <tr id="banner_id_3_'+banner_cnt+'"><td width="20%" align="right" valign="top"><strong>Banner</strong></td><td width="5%" align="center" valign="top"><strong>:</strong></td><td width="75%" align="left" id="google_ads_'+banner_cnt+'"></td></tr>\n\
+    <tr id="banner_id_4_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
+    <tr id="trfile_'+banner_cnt+'" style="display:"><td width="20%" align="right" valign="top">&nbsp;</td><td width="5%" align="center" valign="top">&nbsp;</td><td width="75%" align="left"><input type="file" name="banner[]" id="banner_'+banner_cnt+'" /></td></tr><tr id="trtext_'+banner_cnt+'" style="display:none"><td width="20%" align="right" valign="top">&nbsp;</td><td width="5%" align="center" valign="top">&nbsp;</td><td width="75%" align="left"><input type="text" name="banner2[]" id="banner2_'+banner_cnt+'"/></td></tr>\n\
+    <tr id="banner_id_10_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
+    <tr id="banner_id_11_'+banner_cnt+'"><td width="20%" align="right"><strong>Banner Code</strong></td><td width="5%" align="center"><strong>:</strong></td><td width="75%" align="left"><textarea name="banner_code[]" id="banner_code_'+banner_cnt+'" cols="60" rows="3"></textarea></td></tr>\n\
+    <tr id="banner_id_5_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
+    <tr id="banner_id_6_'+banner_cnt+'"><td width="20%" align="right"><strong>URL</strong></td><td width="5%" align="center"><strong>:</strong></td><td width="75%" align="left"><input name="url[]" type="text" id="url_'+banner_cnt+'" style="width:300px;" ></td></tr>\n\
+    <tr id="banner_id_7_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>\n\
+    <tr id="banner_id_8_'+banner_cnt+'"><td width="20%" align="right"><strong>Client Name</strong></td><td width="5%" align="center"><strong>:</strong></td><td width="75%" align="left"><input name="client_name[]" type="text" id="client_name_'+banner_cnt+'" >&nbsp;<input type="button" value="Remove Item" id="tr_banner_'+banner_cnt+'" name="tr_banner_'+banner_cnt+'" onclick="removeBannerRow('+banner_cnt+')" /></td></tr>\n\
+    <tr id="banner_id_9_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr><tr id="banner_id_10_'+banner_cnt+'"> <td width="20%" align="right"><strong>Valid From</strong></td> <td width="5%" align="center"><strong>:</strong></td> <td width="75%" align="left"><input required name="valid_from[]" type="date" id="valid_from'+banner_cnt+'" value="" style="width:300px;"></td><tr id="banner_id_9_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr><tr id="banner_id_11_'+banner_cnt+'"> <td width="20%" align="right"><strong>Valid Till</strong></td> <td width="5%" align="center"><strong>:</strong></td> <td width="75%" align="left"><input required name="valid_till[]" type="date" id="valid_till'+banner_cnt+'" value="" style="width:300px;"></td> </tr> </tr><tr id="banner_id_9_'+banner_cnt+'"><td colspan="3" align="center">&nbsp;</td></tr>';
+
+    // Insert all cloned rows before Add More Banner link
+    $('#add_before_this_Banner').before(pageHTML + bannerHTML);
+
+    banner_cnt = banner_cnt + 1;
+    $('#hdnbanner_cnt').val(banner_cnt);
+    banner_totalRow = banner_totalRow + 1;
+    $('#hdnbanner_totalRow').val(banner_totalRow);
+});
 				
 				
 });
@@ -269,19 +290,18 @@ $(document).ready(function() {
 					<tr>
 						<td class="mainbox-body">
 							<form action="#" method="post" name="frmedit_banner" id="frmedit_banner" enctype="multipart/form-data" >
-							<input type="hidden" name="hdnheight" id="hdnheight" value="<?php echo $height; ?>"  />
-                            <input type="hidden" name="hdnwidth" id="hdnwidth" value="<?php echo $width; ?>"  />
+							
                             <input type="hidden" name="hdnbanner_cnt" id="hdnbanner_cnt" value="<?php echo $banner_cnt;?>" />
 							<input type="hidden" name="hdnbanner_totalRow" id="hdnbanner_totalRow" value="<?php echo $banner_totalRow;?>" />
                             <table align="center" border="0" width="100%" cellpadding="0" cellspacing="0" id="tblbanner">
 							<tbody>
 								<tr>
-                                                                <td width="20%" align="right"><strong>Page Name</strong></td>
-                                                                <td width="5%" align="center"><strong>:</strong></td>
-                                                                <td width="75%" align="left"><select id="page_id" name="page_id">
-                                                                 <option value="">Select Page </option>
-                                                                 <?php echo $obj->getPageOptionsFromDatadrop('16'); ?>
-                                                                 </select></td>
+								<td width="20%" align="right"><strong>Page Name</strong></td>
+								<td width="5%" align="center"><strong>:</strong></td>
+								<td width="75%" align="left"><select id="page_id" name="page_id[]">
+									<option value="">Select Page </option>
+									<?php echo $obj->getPageOptionsFromDatadrop('16'); ?>
+									</select></td>
 								</tr>
 								<tr>
 									<td colspan="3" align="center">&nbsp;</td>
@@ -289,7 +309,7 @@ $(document).ready(function() {
 								<tr>
 									<td width="20%" align="right"><strong>Position</strong></td>
 									<td width="5%" align="center"><strong>:</strong></td>
-									<td width="75%" align="left"><select id="position_id" name="position_id" onChange="getHeightAndWidth()">
+									<td width="75%" align="left"><select id="position_id" name="position_id[]" onChange="getHeightAndWidth(this)">
                                                                  <option value="">Select Position </option>
                                                                  <?php  echo $obj->getPositions($position_id); ?>
                                                                  </select></td>
@@ -301,6 +321,8 @@ $(document).ready(function() {
 									<td width="20%" align="right"><strong>Width</strong></td>
 									<td width="5%" align="center"><strong>:</strong></td>
 									<td width="75%" align="left" id="width"><?php echo $width; ?></td>
+									
+                            		<input type="hidden" name="hdnwidth[]" id="hdnwidth" value="<?php echo $width; ?>"  />
 								</tr>
 								<tr>
 									<td colspan="3" align="center">&nbsp;</td>
@@ -309,6 +331,7 @@ $(document).ready(function() {
 									<td width="20%" align="right"><strong>Height</strong></td>
 									<td width="5%" align="center"><strong>:</strong></td>
 									<td width="75%" align="left" id="height"><?php echo $height; ?></td>
+									<input type="hidden" name="hdnheight[]" id="hdnheight" value="<?php echo $height; ?>"  />
 								</tr>
 								<tr>
 									<td colspan="3" align="center">&nbsp;</td>
@@ -324,10 +347,10 @@ $(document).ready(function() {
 										<select name="banner_type[]" id="banner_type_<?php echo $i; ?>" onChange="BannerBox('<?php echo $i; ?>')">
 											<option value="Image"  	   <?php if($arr_banner_type[$i] == 'Image'){ ?> selected <?php } ?>>Image</option>
 											<option value="Flash"  	   <?php if($arr_banner_type[$i] == 'Flash'){ ?> selected <?php } ?>>Flash</option>
-                                                                                        <option value="Video" 	   <?php if($arr_banner_type[$i] == 'Video'){ ?> selected <?php } ?>>Video</option>
-                                                                                        <option value="Google Ads" <?php if($arr_banner_type[$i] == 'Google Ads'){ ?> selected <?php } ?>>Google Ads</option>
-                                                                                        <option value="Affilite Ads" <?php if($arr_banner_type[$i] == 'Affilite Ads'){ ?> selected <?php } ?>>Affilite Ads</option>
-                                                                                        <option value="Other Ads" <?php if($arr_banner_type[$i] == 'Other Ads'){ ?> selected <?php } ?>>Other Ads</option>
+												<option value="Video" 	   <?php if($arr_banner_type[$i] == 'Video'){ ?> selected <?php } ?>>Video</option>
+												<option value="Google Ads" <?php if($arr_banner_type[$i] == 'Google Ads'){ ?> selected <?php } ?>>Google Ads</option>
+												<option value="Affilite Ads" <?php if($arr_banner_type[$i] == 'Affilite Ads'){ ?> selected <?php } ?>>Affilite Ads</option>
+												<option value="Other Ads" <?php if($arr_banner_type[$i] == 'Other Ads'){ ?> selected <?php } ?>>Other Ads</option>
 										</select>
 									</td>
 								</tr>
@@ -403,7 +426,7 @@ $(document).ready(function() {
 								<tr id="banner_id_6_<?php echo $i;?>">
 									<td width="20%" align="right"><strong>URL</strong></td>
 									<td width="5%" align="center"><strong>:</strong></td>
-									<td width="75%" align="left"><input name="url[]" type="text" id="url_<?php echo $i; ?>" value="<?php echo $arr_url[$i]; ?>" style="width:300px;" ></td>
+									<td width="75%" align="left"><input required name="url[]" type="text" id="url_<?php echo $i; ?>" value="<?php echo $arr_url[$i]; ?>" style="width:300px;" ></td>
 								</tr>
 								<tr id="banner_id_7_<?php echo $i;?>">
 									<td colspan="3" align="center">&nbsp;</td>
@@ -411,7 +434,7 @@ $(document).ready(function() {
                                 <tr id="banner_id_8_<?php echo $i;?>">
 									<td width="20%" align="right"><strong>Client Name</strong></td>
 									<td width="5%" align="center"><strong>:</strong></td>
-									<td width="75%" align="left"><input name="client_name[]" type="text" id="client_name_<?php echo $i; ?>" value="<?php echo $arr_client_name[$i]; ?>">&nbsp;  
+									<td width="75%" align="left"><input required name="client_name[]" type="text" id="client_name_<?php echo $i; ?>" value="<?php echo $arr_client_name[$i]; ?>">&nbsp;  
                                 <?php
 								if($i > 0)
 								{ ?>
@@ -420,6 +443,22 @@ $(document).ready(function() {
                                     </td>
 								</tr>
                                  <tr  id="banner_id_9_<?php echo $i;?>">
+									<td colspan="3" align="center">&nbsp;</td>
+								</tr>
+								<tr id="banner_id_10_<?php echo $i;?>">
+									<td width="20%" align="right"><strong>Valid From</strong></td>
+									<td width="5%" align="center"><strong>:</strong></td>
+									<td width="75%" align="left"><input required name="valid_from[]" type="date" id="valid_from<?php echo $i; ?>" value="<?php echo $valid_from[$i]; ?>" style="width:300px;" ></td>
+								</tr>
+								<tr id="banner_id_10_<?php echo $i;?>">
+									<td colspan="3" align="center">&nbsp;</td>
+								</tr>
+								<tr id="banner_id_11_<?php echo $i;?>">
+									<td width="20%" align="right"><strong>Valid Till</strong></td>
+									<td width="5%" align="center"><strong>:</strong></td>
+									<td width="75%" align="left"><input name="valid_till[]" type="date" id="valid_till<?php echo $i; ?>" value="<?php echo $valid_till[$i]; ?>" style="width:300px;" ></td>
+								</tr>
+								<tr id="banner_id_11_<?php echo $i;?>">
 									<td colspan="3" align="center">&nbsp;</td>
 								</tr>
 						<?php

@@ -18,10 +18,13 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 	header("Location: index.php?mode=invalid");
 	exit(0);
 }
-
+$filter_array = array();
 if(isset($_POST['btnSubmit']))
 {
-	$search = strip_tags(trim($_POST['search']));
+	$search_for_page = strip_tags(trim($_POST['search_for_page']));
+	$search_for_client = strip_tags(trim($_POST['search_for_client']));
+	$posted_by = strip_tags(trim($_POST['posted_by']));
+	$filter_array = array('search_for_page'=>$search_for_page,'search_for_client'=>$search_for_client,'posted_by'=>$posted_by);
 }
 ?>
 <div id="central_part_contents">
@@ -51,16 +54,16 @@ if(isset($_POST['btnSubmit']))
 							<p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
 							<div id="pagination_contents" align="center"> 
 								<p>
-                                <form action="#" method="post" name="frm_dailymeal" id="frm_dailymeal" enctype="multipart/form-data" AUTOCOMPLETE="off">
+                                <form method="post" name="frm_dailymeal" id="frm_dailymeal" enctype="multipart/form-data" AUTOCOMPLETE="off">
                                 <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
                                 	<tr align="left">
                                     	<td align="right" width="40%">Search For Page- :</td>
-                                        <td align="left" width="15%"><input type="text" id="search" name="search"  value="<?php echo $search; ?>" /></td>
+                                        <td align="left" width="15%"><input type="text" id="search" name="search_for_page"  value="<?php echo $search_for_page; ?>" /></td>
                                         <td align="left" width="10%">Client Name :</td>
-                                        <td align="left" width="15%"><input type="text" id="search" name="search"  value="<?php echo $search; ?>" /></td>
+                                        <td align="left" width="15%"><input type="text" id="search" name="search_for_client"  value="<?php echo $search_for_client; ?>" /></td>
                                         <td align="left" width="7%">Posted By :</td>
-                                        <td align="left" width="15%"><input type="text" id="search" name="search"  value="<?php echo $search; ?>" /></td>
-                                        
+                                        <td align="left" width="15%"><input type="text" id="search" name="posted_by"  value="<?php echo $posted_by; ?>" /></td>
+
                                         <td align="left" width="40%"> <input type="Submit" name="btnSubmit" value="Search" /></td>             
                                     </tr>
                                     
@@ -103,7 +106,7 @@ if(isset($_POST['btnSubmit']))
 										<td width="5%" align="center" nowrap="nowrap" class="manage-header">Delete</td>
 									</tr>
 									<?php
-									echo $obj->GetAllPages($search);
+									echo $obj->GetAllPages($filter_array);
 									?>
 								</tbody>
 								</table>

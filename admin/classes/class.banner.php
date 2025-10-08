@@ -1,231 +1,102 @@
 <?php
-
 include_once("class.paging.php");
-
 include_once("class.admin.php");
 
 class Banner extends Admin
-
 {
 
-    
-
-    // Banner Size Master Functions - Start
-
-    
-
-    public function getAllBannerSizeMasters($search,$status)
-
-    {
-
-   $my_DBH = new mysqlConnection();
-   $DBH = $my_DBH->raw_handle();
-   $DBH->beginTransaction();
-
-
+    public function getAllBannerSizeMasters($search,$status){
+        $my_DBH = new mysqlConnection();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
         $admin_id = $_SESSION['admin_id'];
-
         $edit_action_id = '286';
-
         $delete_action_id = '287';
-
         $view_item_action_id = '284';
-
         $edit = $this->chkValidActionPermission($admin_id,$edit_action_id);
-
         $delete = $this->chkValidActionPermission($admin_id,$delete_action_id);
-
         $view_item = $this->chkValidActionPermission($admin_id,$view_item_action_id);
-
-
-
-        if($search == '')
-
-        {
-
+        if($search == ''){
             $str_sql_search = "";
-
-        }
-
-        else
-
-        {
-
+        }else{
             $str_sql_search = " AND TP.position like '%".$search."%' ";
-
         }
 
-
-
-        if($status == '')
-
-        {
-
+        if($status == ''){
             $str_sql_status = "";
-
-        }
-
-        else
-
-        {
+        }else{
             //commented by rahul
             //$str_sql_status = " AND TB.bci_status = '".$status."' ";
             $str_sql_status = " AND TB.bs_status = '".$status."' ";
-
         }
-
-
-
         $sql = "SELECT * FROM `tblbannerssizes` AS TB "
-
                 . "LEFT JOIN `tblposition` AS TP ON TB.position_id = TP.position_id "
-
                 . "WHERE TB.bs_deleted = '0' ".$str_sql_search." ".$str_sql_status." "
-
                 . "ORDER BY TB.bs_add_date DESC ";
-
-       
-
         $STH = $DBH->prepare($sql);
 		$STH->execute();
-
         $total_records = $STH->rowCount();
-
         $record_per_page = 25;
-
         $scroll = 5;
-
         $page = new Page(); 
-
         $page->set_page_data($_SERVER['PHP_SELF'],$total_records,$record_per_page,$scroll,true,true,true);
-
         $page->set_link_parameter("Class = paging");
-
         $page->set_qry_string($str="mode=banners_sizes_master");
-
         $STH2 = $DBH->prepare($page->get_limit_query($sql));
         $STH2->execute();
-
         $output = '';		
-
-        if($STH2->rowCount() > 0)
-
-        {
-
-            if( isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 )
-
-            {
-
+        if($STH2->rowCount() > 0){
+            if( isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 ){
                 $i = $page->start + 1;
-
-            }
-
-            else
-
-            {
-
+            }else{
                 $i = 1;
-
             }
-
-
-
-            while($row = $STH2->fetch(PDO::FETCH_ASSOC))
-
-            {
-
+            while($row = $STH2->fetch(PDO::FETCH_ASSOC)){
                 $obj2 = new Banner();
-
-
-
-                if($row['bs_status'] == '1')
-
-                {
-
+                if($row['bs_status'] == '1'){
                     $status = 'Active';
-
-                }
-
-                else
-
-                {
-
+                }else{
                     $status = 'Inactive';
-
                 }
-
-
-
-                
-
                 $date_value = date('d-m-Y',strtotime($row['bs_effective_date']));
-
-
+                //commented by rahul
+                // $output .= '<tr class="manage-row">';
+                // $output .= '<td height="30" align="center" nowrap="nowrap" >'.$i.'</td>';
+                // $output .= '<td height="30" align="center">'.stripslashes($row['position']).'</td>';
+                // $output .= '<td height="30" align="center">'.stripslashes($row['bs_width']).'</td>';
+                // $output .= '<td height="30" align="center">'.stripslashes($row['bs_height']).'</td>';
+                // $output .= '<td height="30" align="center">'.stripslashes($row['bs_banner_type']).'</td>';
+                // $output .= '<td height="30" align="center">'.stripslashes($row['bs_currency']).'</td>';
+                // $output .= '<td height="30" align="center">'.stripslashes($row['bs_amount']).'</td>';
+                // $output .= '<td height="30" align="center">'.$date_value.'</td>';
+                // $output .= '<td height="30" align="center">'.$status.'</td>';
+                // $output .= '<td align="center" nowrap="nowrap">';
 
                 $output .= '<tr class="manage-row">';
-
                 $output .= '<td height="30" align="center" nowrap="nowrap" >'.$i.'</td>';
-
-                $output .= '<td height="30" align="center">'.stripslashes($row['position']).'</td>';
-
-                $output .= '<td height="30" align="center">'.stripslashes($row['bs_width']).'</td>';
-
-                $output .= '<td height="30" align="center">'.stripslashes($row['bs_height']).'</td>';
-
-                $output .= '<td height="30" align="center">'.stripslashes($row['bs_banner_type']).'</td>';
-
-                $output .= '<td height="30" align="center">'.stripslashes($row['bs_currency']).'</td>';
-
-                $output .= '<td height="30" align="center">'.stripslashes($row['bs_amount']).'</td>';
-
-                $output .= '<td height="30" align="center">'.$date_value.'</td>';
-
-                $output .= '<td height="30" align="center">'.$status.'</td>';
-
                 $output .= '<td align="center" nowrap="nowrap">';
-
                 if($edit) {
-
-                $output .= '<a href="index.php?mode=edit_banner_size&id='.$row['bs_id'].'" ><img src = "images/edit.gif" border="0"></a>';
-
-                // $output .= '<a href="#" ><img src = "images/edit.gif" border="0"></a>';
-
+                    $output .= '<a href="index.php?mode=edit_banner_size&id='.$row['bs_id'].'" ><img src = "images/edit.gif" border="0"></a>';
                 }
-
                 $output .= '</td>';
-
                 $output .= '<td align="center" nowrap="nowrap">';
-
                 if($delete) {
-
-                $output .= '<a href=\'javascript:fn_confirmdelete("Record","sql/delbannersize.php?id='.$row['bs_id'].'")\' ><img src = "images/del.gif" border="0" ></a>';
-
+                    $output .= '<a href=\'javascript:fn_confirmdelete("Record","sql/delbannersize.php?id='.$row['bs_id'].'")\' ><img src = "images/del.gif" border="0" ></a>';
                 }
-
                 $output .= '</td>';
-
+                $output .= '<td height="30" align="center">'.stripslashes($row['bs_width']).'</td>';
+                $output .= '<td height="30" align="center">'.stripslashes($row['bs_height']).'</td>';
+                $output .= '<td height="30" align="center">'.stripslashes($row['bs_remarks']).'</td>';
+                $output .= '<td height="30" align="center">'.$status.'</td>';
+                
                 $output .= '</tr>';
-
                 $i++;
-
             }
-
-        }
-
-        else
-
-        {
-
+        }else{
             $output = '<tr class="manage-row" height="20"><td colspan="14" align="center">NO RECORDS FOUND</td></tr>';
-
         }
-
-
-
         $page->get_page_nav();
-
         return $output;
-
     }
 
     
@@ -256,14 +127,14 @@ class Banner extends Admin
 
             // Bind the parameters and execute inside a loop (for multiple banners)
             $STH->execute([
-                ':position_id'     => $position_id[$i],
+                ':position_id'     => $position_id[$i] ?? 0,
                 ':bs_width'        => $bs_width[$i],
                 ':bs_height'       => $bs_height[$i],
                 ':bs_remarks'      => $bs_remarks[$i],
                 ':bs_banner_type'  => $arr_bs_banner_type[$i],
                 ':bs_currency'     => $arr_bs_currency[$i],
                 ':bs_amount'       => $arr_bs_amount[$i],
-                ':bs_effective_date'=> $bs_effective_date[$i],
+                ':bs_effective_date'=> $bs_effective_date[$i] ?? '0000-00-00',
                 ':added_by_admin'  => $admin_id,
                 ':updated_by_admin'=> $admin_id,
                 ':updated_on_date' => $updated_on_date,
@@ -287,7 +158,6 @@ class Banner extends Admin
         $updated_on_date = date('Y-m-d H:i:s');
             $sql = "UPDATE tblbannerssizes SET
             bs_remarks       = :bs_remarks,
-            bs_effective_date= :bs_effective_date,
             updated_on_date  = :updated_on_date,
              bs_status  = :bs_status
         WHERE bs_id = :bs_id AND bs_deleted = 0";
@@ -298,7 +168,6 @@ class Banner extends Admin
             // Loop through each banner if needed (for multiple banners)
             $STH->execute([
                 ':bs_remarks'        => $bs_remarks,
-                ':bs_effective_date' => $bs_effective_date,
                 ':updated_on_date'   => $updated_on_date,
                 ':bs_id'             => $bs_id,
                 ':bs_status'         => $bs_status ?? 0
@@ -2219,214 +2088,333 @@ class Banner extends Admin
 	}
 
 
+    //commented by rahul
+	// public function GetAllPages($search)
 
-	public function GetAllPages($search)
+	// {
 
-	{
-
-            $obj = new Banner();
-		$my_DBH = new mysqlConnection();
-                $DBH = $my_DBH->raw_handle();
-                $DBH->beginTransaction();
-
-		
-
-		$admin_id = $_SESSION['admin_id'];
-
-		$edit_action_id = '80';
-
-		$delete_action_id = '82';
+    //         $obj = new Banner();
+	// 	$my_DBH = new mysqlConnection();
+    //             $DBH = $my_DBH->raw_handle();
+    //             $DBH->beginTransaction();
 
 		
 
-		$edit = $this->chkValidActionPermission($admin_id,$edit_action_id);
+	// 	$admin_id = $_SESSION['admin_id'];
+
+	// 	$edit_action_id = '80';
+
+	// 	$delete_action_id = '82';
 
 		
 
-		$delete = $this->chkValidActionPermission($admin_id,$delete_action_id);
+	// 	$edit = $this->chkValidActionPermission($admin_id,$edit_action_id);
 
 		
 
-		if($search == '')
+	// 	$delete = $this->chkValidActionPermission($admin_id,$delete_action_id);
 
-		{
+		
 
-			$sql = "SELECT * FROM `tblbanners` AS TB
+	// 	if($search == '')
 
-					LEFT JOIN `tblposition` AS TP ON TB.position_id = TP.position_id
+	// 	{
 
-					WHERE TB.page_id IN (SELECT page_id FROM tblpages WHERE `adviser_panel` = '0' AND `vender_panel` = '0' AND `show_in_list` = '1')
+	// 		$sql = "SELECT * FROM `tblbanners` AS TB
 
-					ORDER BY TB.banner_add_date DESC, TB.page ASC, TP.position ASC , TB.status DESC  ";
+	// 				LEFT JOIN `tblposition` AS TP ON TB.position_id = TP.position_id
 
-		}
+	// 				WHERE TB.page_id IN (SELECT page_id FROM tblpages WHERE `adviser_panel` = '0' AND `vender_panel` = '0' AND `show_in_list` = '1')
 
-		else
+	// 				ORDER BY TB.banner_add_date DESC, TB.page ASC, TP.position ASC , TB.status DESC  ";
 
-		{
+	// 	}
 
-			$sql = "SELECT * FROM `tblbanners` AS TB
+	// 	else
 
-					LEFT JOIN `tblposition` AS TP ON TB.position_id = TP.position_id
+	// 	{
 
-					WHERE  TB.page_id IN (SELECT page_id FROM tblpages WHERE `adviser_panel` = '0' AND `vender_panel` = '0' AND `show_in_list` = '1') AND TB.page like '%".$search."%' 
+	// 		$sql = "SELECT * FROM `tblbanners` AS TB
 
-					ORDER BY TB.banner_add_date DESC, TB.page ASC, TP.position ASC , TB.status DESC  ";
+	// 				LEFT JOIN `tblposition` AS TP ON TB.position_id = TP.position_id
 
-		}		
+	// 				WHERE  TB.page_id IN (SELECT page_id FROM tblpages WHERE `adviser_panel` = '0' AND `vender_panel` = '0' AND `show_in_list` = '1') AND TB.page like '%".$search."%' 
 
-		$STH = $DBH->prepare($sql);
-                $STH->execute();
+	// 				ORDER BY TB.banner_add_date DESC, TB.page ASC, TP.position ASC , TB.status DESC  ";
 
-		$total_records=$STH->rowCount();
+	// 	}		
 
-		$record_per_page=100;
+	// 	$STH = $DBH->prepare($sql);
+    //             $STH->execute();
 
-		$scroll=5;
+	// 	$total_records=$STH->rowCount();
 
-		$page=new Page(); 
+	// 	$record_per_page=100;
 
-                $page->set_page_data($_SERVER['PHP_SELF'],$total_records,$record_per_page,$scroll,true,true,true);
+	// 	$scroll=5;
 
-		$page->set_link_parameter("Class = paging");
+	// 	$page=new Page(); 
 
-		$page->set_qry_string($str="mode=banner");
+    //             $page->set_page_data($_SERVER['PHP_SELF'],$total_records,$record_per_page,$scroll,true,true,true);
 
-	 	$STH2 = $DBH->prepare($page->get_limit_query($sql));
-                $STH2->execute();
+	// 	$page->set_link_parameter("Class = paging");
 
-		$output = '';		
+	// 	$page->set_qry_string($str="mode=banner");
 
-		if($STH2->rowCount() > 0)
+	//  	$STH2 = $DBH->prepare($page->get_limit_query($sql));
+    //             $STH2->execute();
 
-		{
+	// 	$output = '';		
 
-			if( isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 )
+	// 	if($STH2->rowCount() > 0)
 
-			{
+	// 	{
 
-				$i = $page->start + 1;
+	// 		if( isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0 )
 
-			}
+	// 		{
 
-			else
+	// 			$i = $page->start + 1;
 
-			{
+	// 		}
 
-				$i = 1;
+	// 		else
 
-			}
+	// 		{
 
-			while($row = $STH2->fetch(PDO::FETCH_ASSOC))
+	// 			$i = 1;
 
-			{
+	// 		}
 
-				if($row['status'] == 1)
+	// 		while($row = $STH2->fetch(PDO::FETCH_ASSOC))
 
-				{
+	// 		{
 
-					 $status = 'Active'; 
+	// 			if($row['status'] == 1)
 
-				}
+	// 			{
 
-				else
+	// 				 $status = 'Active'; 
 
-				{ 
+	// 			}
 
-					$status = 'Inactive';
+	// 			else
 
-				}
+	// 			{ 
+
+	// 				$status = 'Inactive';
+
+	// 			}
 
 				
 
-				$output .= '<tr class="manage-row">';
+	// 			$output .= '<tr class="manage-row">';
 
-				$output .= '<td height="30"  align="center" nowrap="nowrap" >'.$i.'</td>';
+	// 			$output .= '<td height="30"  align="center" nowrap="nowrap" >'.$i.'</td>';
 
-				$output .= '<td height="30" align="center">'.stripslashes($row['page']).'</td>';
+	// 			$output .= '<td height="30" align="center">'.stripslashes($row['page']).'</td>';
 
-				$output .= '<td height="30" align="center">'.stripslashes($row['position']).'</td>';
+	// 			$output .= '<td height="30" align="center">'.stripslashes($row['position']).'</td>';
 
-				$output .= '<td height="30" align="center">'.stripslashes($row['width']).'</td>';
+	// 			$output .= '<td height="30" align="center">'.stripslashes($row['width']).'</td>';
 
-				$output .= '<td height="30" align="center">'.stripslashes($row['height']).'</td>';
+	// 			$output .= '<td height="30" align="center">'.stripslashes($row['height']).'</td>';
 
-				if($row['banner_type'] == 'Google Ads')
+	// 			if($row['banner_type'] == 'Google Ads')
 
-				{
+	// 			{
 
-					$output .= '<td height="30" align="center">Google Ads</td>';
+	// 				$output .= '<td height="30" align="center">Google Ads</td>';
 
-				}
-                                elseif($row['banner_type'] == 'Affilite Ads' || $row['banner_type'] == 'Other Ads')
+	// 			}
+    //                             elseif($row['banner_type'] == 'Affilite Ads' || $row['banner_type'] == 'Other Ads')
 
-				{
+	// 			{
 
-					$output .= '<td height="30" align="center">'.$row['banner_type'].'</td>';
+	// 				$output .= '<td height="30" align="center">'.$row['banner_type'].'</td>';
 
-				}
+	// 			}
 
-				else
+	// 			else
 
-				{
+	// 			{
 
-					$output .= '<td height="30" align="center">'.stripslashes($row['banner']).'</td>';
+	// 				$output .= '<td height="30" align="center">'.stripslashes($row['banner']).'</td>';
 
-				}
+	// 			}
 
-                                $output .= '<td height="30" align="center">'.stripslashes($row['url']).'</td>';
-                                $output .= '<td height="30" align="center">'.stripslashes($row['client_name']).'</td>';
-				$output .= '<td height="30" align="center">'.stripslashes($row['banner_add_date']).'</td>';
-                                $output .= '<td height="30" align="center">'.$obj->getAdminNameRam($row['posted_by_admin']).'</td>';
-                                $output .= '<td height="30" align="center">'.$status.'</td>';
+    //                             $output .= '<td height="30" align="center">'.stripslashes($row['url']).'</td>';
+    //                             $output .= '<td height="30" align="center">'.stripslashes($row['client_name']).'</td>';
+	// 			$output .= '<td height="30" align="center">'.stripslashes($row['banner_add_date']).'</td>';
+    //                             $output .= '<td height="30" align="center">'.$obj->getAdminNameRam($row['posted_by_admin']).'</td>';
+    //                             $output .= '<td height="30" align="center">'.$status.'</td>';
 
-				$output .= '<td height="30" align="center" nowrap="nowrap">';
+	// 			$output .= '<td height="30" align="center" nowrap="nowrap">';
 
-				if($edit) 
+	// 			if($edit) 
 
-				{
+	// 			{
 
-					$output .= '<a href="index.php?mode=edit_banner&banner_id='.$row['banner_id'].'" ><img src = "images/edit.gif" border="0"></a>';
+	// 				$output .= '<a href="index.php?mode=edit_banner&banner_id='.$row['banner_id'].'" ><img src = "images/edit.gif" border="0"></a>';
 
-				}
+	// 			}
 
-				$output .= '</td>';
+	// 			$output .= '</td>';
 
-				$output .= '<td height="30" align="center" nowrap="nowrap">';
+	// 			$output .= '<td height="30" align="center" nowrap="nowrap">';
 
-				if($delete) 
+	// 			if($delete) 
 
-				{
+	// 			{
 
-					$output .= '<a href=\'javascript:fn_confirmdelete("Banner","sql/delbanner.php?banner_id='.$row['banner_id'].'&ad=0")\' ><img src = "images/del.gif" border="0" ></a>';
+	// 				$output .= '<a href=\'javascript:fn_confirmdelete("Banner","sql/delbanner.php?banner_id='.$row['banner_id'].'&ad=0")\' ><img src = "images/del.gif" border="0" ></a>';
 
-				}
+	// 			}
 
-				$output .= '</td>';
+	// 			$output .= '</td>';
 
-				$output .= '</tr>';
+	// 			$output .= '</tr>';
 
-				$i++;
+	// 			$i++;
 
-			}
+	// 		}
 
-		}
+	// 	}
 
-		else
+	// 	else
 
-		{
+	// 	{
 
-			$output = '<tr class="manage-row" height="20"><td colspan="9" align="center">NO PAGES FOUND</td></tr>';
+	// 		$output = '<tr class="manage-row" height="20"><td colspan="9" align="center">NO PAGES FOUND</td></tr>';
 
-		}
+	// 	}
 
-		$page->get_page_nav();
+	// 	$page->get_page_nav();
 
-		return $output;
+	// 	return $output;
 
-	}
+	// }
 
-	
+
+    public function GetAllPages($search)
+    {
+        $obj = new Banner();
+        $my_DBH = new mysqlConnection();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+
+        $admin_id = $_SESSION['admin_id'];
+        $edit_action_id = '80';
+        $delete_action_id = '82';
+
+        $edit = $this->chkValidActionPermission($admin_id, $edit_action_id);
+        $delete = $this->chkValidActionPermission($admin_id, $delete_action_id);
+
+        $search_for_page = strip_tags(trim($search['search_for_page']));
+        $search_for_client = strip_tags(trim($search['search_for_client']));
+        $posted_by = strip_tags(trim($search['posted_by']));
+        $search_condition = [];
+
+        if (!empty($search_for_page)) {
+            $search_condition[] = "TB.page LIKE '%" . addslashes($search_for_page) . "%'";
+        }
+
+        if (!empty($search_for_client)) {
+            $search_condition[] = "TB.client_name LIKE '%" . addslashes($search_for_client) . "%'";
+        }
+
+        // Base query
+        $sql = "
+            SELECT * FROM `tblbanners` AS TB
+            LEFT JOIN `tblposition` AS TP ON TB.position_id = TP.position_id
+            WHERE TB.page_id IN (
+                SELECT page_id FROM tblpages 
+                WHERE adviser_panel = '0' 
+                AND vender_panel = '0' 
+                AND show_in_list = '1'
+            )
+        ";
+
+        // Append search conditions if any
+        if (!empty($search_condition)) {
+            $sql .= " AND (" . implode(" AND ", $search_condition) . ")";
+        }
+
+        // Add ordering
+        $sql .= " ORDER BY TB.banner_add_date DESC, TB.page ASC, TP.position ASC, TB.status DESC";
+
+
+        $STH = $DBH->prepare($sql);
+        $STH->execute();
+
+        $total_records = $STH->rowCount();
+        $record_per_page = 100;
+        $scroll = 5;
+
+        $page = new Page();
+        $page->set_page_data($_SERVER['PHP_SELF'], $total_records, $record_per_page, $scroll, true, true, true);
+        $page->set_link_parameter("Class = paging");
+        $page->set_qry_string($str = "mode=banner");
+
+        $STH2 = $DBH->prepare($page->get_limit_query($sql));
+        $STH2->execute();
+
+        $output = '';
+
+        if ($STH2->rowCount() > 0) {
+            if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] > 0) {
+                $i = $page->start + 1;
+            } else {
+                $i = 1;
+            }
+
+            while ($row = $STH2->fetch(PDO::FETCH_ASSOC)) {
+                $status = ($row['status'] == 1) ? 'Active' : 'Inactive';
+
+                $output .= '<tr class="manage-row">';
+                $output .= '<td height="30" align="center" nowrap="nowrap">' . $i . '</td>';
+                $output .= '<td height="30" align="center">' . stripslashes($row['page']) . '</td>';
+                $output .= '<td height="30" align="center">' . stripslashes($row['position']) . '</td>';
+                $output .= '<td height="30" align="center">' . stripslashes($row['width']) . '</td>';
+                $output .= '<td height="30" align="center">' . stripslashes($row['height']) . '</td>';
+
+                if ($row['banner_type'] == 'Google Ads') {
+                    $output .= '<td height="30" align="center">Google Ads</td>';
+                } elseif ($row['banner_type'] == 'Affilite Ads' || $row['banner_type'] == 'Other Ads') {
+                    $output .= '<td height="30" align="center">' . $row['banner_type'] . '</td>';
+                } else {
+                    $output .= '<td height="30" align="center">' . stripslashes($row['banner']) . '</td>';
+                }
+
+                $output .= '<td height="30" align="center">' . stripslashes($row['url']) . '</td>';
+                $output .= '<td height="30" align="center">' . stripslashes($row['client_name']) . '</td>';
+                $output .= '<td height="30" align="center">' . stripslashes($row['banner_add_date']) . '</td>';
+                $output .= '<td height="30" align="center">' . $obj->getAdminNameRam($row['posted_by_admin']) . '</td>';
+                $output .= '<td height="30" align="center">' . $status . '</td>';
+
+                $output .= '<td height="30" align="center" nowrap="nowrap">';
+                if ($edit) {
+                    $output .= '<a href="index.php?mode=edit_banner&banner_id=' . $row['banner_id'] . '"><img src="images/edit.gif" border="0"></a>';
+                }
+                $output .= '</td>';
+
+                $output .= '<td height="30" align="center" nowrap="nowrap">';
+                if ($delete) {
+                    $output .= '<a href=\'javascript:fn_confirmdelete("Banner","sql/delbanner.php?banner_id=' . $row['banner_id'] . '&ad=0")\'><img src="images/del.gif" border="0"></a>';
+                }
+                $output .= '</td>';
+                $output .= '</tr>';
+
+                $i++;
+            }
+        } else {
+            $output = '<tr class="manage-row" height="20"><td colspan="9" align="center">NO PAGES FOUND</td></tr>';
+        }
+
+        $page->get_page_nav();
+        return $output;
+    }
+
 
 	public function getAllAdviserBanners($search)
 
@@ -2828,33 +2816,26 @@ class Banner extends Admin
 
 
 
-	public function Add_banner($admin_id,$page_id,$page_name,$position_id,$arr_banner,$arr_url,$arr_banner_type,$arr_client_name)
-
-	{
-
-             
+	public function Add_banner($admin_id,$page_id,$page_name,$position_id,$arr_banner,$arr_url,$arr_banner_type,$arr_client_name,$valid_from,$valid_till){
+        
 		$my_DBH = new mysqlConnection();
-                $DBH = $my_DBH->raw_handle();
-                $DBH->beginTransaction();
-                      $return=false;
-		for($i=0;$i<count($arr_banner);$i++)
-
-		{
-
-			 $sql = "INSERT INTO `tblbanners`(`posted_by_admin`,`page_id`,`page`,`position_id`,`banner`,`url`,`banner_type`,`client_name`,`status`) VALUES ('".addslashes($admin_id)."','".addslashes($page_id)."','".addslashes($page_name)."','".addslashes($position_id)."','".addslashes($arr_banner[$i])."','".addslashes($arr_url[$i])."','".addslashes($arr_banner_type[$i])."','".addslashes($arr_client_name[$i])."','1')";
-
-			//echo $sql;
-          $STH = $DBH->prepare($sql);
-           $STH->execute();
-       if($STH->rowCount() > 0)
-		{
-			$return = true;
-		}
-		return $return;
-
-
-	}
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $return=false;
+		for($i=0;$i<count($arr_banner);$i++){
+            if(empty($valid_till[$i])){
+                $valid_till[$i] = '0000-00-00';
+            }
+            $page_name = $this->getPageName($page_id[$i]);
+			$sql = "INSERT INTO `tblbanners`(`posted_by_admin`,`page_id`,`page`,`position_id`,`banner`,`url`,`banner_type`,`client_name`,`status`,`valid_from`,`valid_till`) VALUES ('".addslashes($admin_id)."','".addslashes($page_id[$i])."','".addslashes($page_name)."','".addslashes($position_id[$i])."','".addslashes($arr_banner[$i])."','".addslashes($arr_url[$i])."','".addslashes($arr_banner_type[$i])."','".addslashes($arr_client_name[$i])."','1','".addslashes($valid_from[$i])."','".addslashes($valid_till[$i])."')";
+            $STH = $DBH->prepare($sql);
+            $STH->execute();
         }
+        if($STH->rowCount() > 0){
+            $return = true;
+        }
+        return $return;
+    }
 	
 
 	public function addAdviserBannerSetting($pro_user_id,$banner)
@@ -2960,11 +2941,13 @@ class Banner extends Admin
 
 			$status = stripslashes($row['status']);
 
+            $valid_from = stripslashes($row['valid_from']);
+            $valid_till = stripslashes($row['valid_till']);
 			
 
 		}
 
-		return array($page_id,$position_id,$width,$height,$banner,$url,$banner_type,$client_name,$status);
+		return array($page_id,$position_id,$width,$height,$banner,$url,$banner_type,$client_name,$status,$valid_from,$valid_till);
 
 	
 
@@ -3109,15 +3092,17 @@ class Banner extends Admin
 
 	
 
-	public function Update_Banner($admin_id,$page_id,$page,$position_id,$banner,$url,$banner_type,$client_name,$status,$banner_id)
+	public function Update_Banner($admin_id,$page_id,$page,$position_id,$banner,$url,$banner_type,$client_name,$status,$banner_id,$valid_from,$valid_till)
 
 	{
-
+        if(empty($valid_till)){
+            $valid_till = '0000-00-00';
+        }
 		$my_DBH = new mysqlConnection();
                 $DBH = $my_DBH->raw_handle();
                 $DBH->beginTransaction();
                     $return=false;
-		$sql = "UPDATE `tblbanners` SET `posted_by_admin` = '".addslashes($admin_id)."' ,`page_id` = '".addslashes($page_id)."' ,`page` = '".addslashes($page)."' , `position_id` = '".addslashes($position_id)."' , `banner` = '".addslashes($banner)."', `banner_type` = '".addslashes($banner_type)."', `url` = '".addslashes($url)."' ,`status` = '".addslashes($status)."' ,`client_name` = '".addslashes($client_name)."'  WHERE `banner_id` = '".$banner_id."'";
+		$sql = "UPDATE `tblbanners` SET `posted_by_admin` = '".addslashes($admin_id)."' ,`page_id` = '".addslashes($page_id)."' ,`page` = '".addslashes($page)."' , `position_id` = '".addslashes($position_id)."' , `banner` = '".addslashes($banner)."', `banner_type` = '".addslashes($banner_type)."', `url` = '".addslashes($url)."' ,`status` = '".addslashes($status)."' ,`client_name` = '".addslashes($client_name)."', `valid_from` = '".addslashes($valid_from)."', `valid_till` = '".addslashes($valid_till)."' WHERE `banner_id` = '".$banner_id."'";
 
 	    //echo $sql;
 

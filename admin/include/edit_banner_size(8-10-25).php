@@ -29,6 +29,12 @@ if($bs_id <= 0) {
 
 $error = false;
 $err_msg = "";
+
+// Initialize arrays
+$arr_bs_banner_type = array();
+$arr_bs_currency = array();
+$arr_bs_amount = array();
+
 $banner_cnt = 1;
 $banner_totalRow = 1;
 
@@ -42,14 +48,47 @@ if(!$banner_data){
 // If form submitted
 if(isset($_POST['btnSubmit']))
 {
+    $position_id = $_POST['position_id'];
     $bs_status = $_POST['bs_status'];
     $bs_width = strip_tags(trim($_POST['bs_width']));
     $bs_height = strip_tags(trim($_POST['bs_height']));
+    $bs_effective_date = strip_tags(trim($_POST['bs_effective_date']));
     $bs_remarks = strip_tags(trim($_POST['bs_remarks']));
+    $banner_totalRow = trim($_POST['hdnbanner_totalRow']);  
+    $arr_bs_banner_type = $_POST['bs_banner_type'];
+    $arr_bs_currency = $_POST['bs_currency'];
+    $arr_bs_amount = $_POST['bs_amount'];
+
+    // Make sure arrays exist
+    $arr_bs_banner_type = isset($arr_bs_banner_type) && is_array($arr_bs_banner_type) ? $arr_bs_banner_type : [];
+    $arr_bs_currency    = isset($arr_bs_currency) && is_array($arr_bs_currency) ? $arr_bs_currency : [];
+    $arr_bs_amount      = isset($arr_bs_amount) && is_array($arr_bs_amount) ? $arr_bs_amount : [];
+
+    // Now safely check for mismatched counts
+    if (count(array_unique([
+            count($arr_bs_banner_type), 
+            count($arr_bs_currency), 
+            count($arr_bs_amount)
+        ])) > 1) {
+        $error = true;
+        $err_msg = "Mismatched number of banner types, currencies, and amounts.";
+    } else {
+        $banner_cnt = count($arr_bs_banner_type);
+        $_POST['hdnbanner_cnt'] = $banner_cnt;
+    }
+
+    // if($position_id == "") { $error = true; $err_msg .= "<br>Please Select Position."; }
+    // if($bs_width == "") { $error = true; $err_msg .= "<br>Please Enter Width."; }
+    // if($bs_height == "") { $error = true; $err_msg .= "<br>Please Enter Height."; }
+
+    // for($i=0;$i<$banner_cnt;$i++){
+    //     if($arr_bs_currency[$i] == ""){ $error = true; $err_msg .= "<br>Please Select Currency."; }
+    //     if($arr_bs_amount[$i] == ""){ $error = true; $err_msg .= "<br>Please Enter Amount."; }
+    // }
 
     if(!$error){
         $bs_effective_date = date('Y-m-d', strtotime($bs_effective_date));
-        if($obj->updateBannerSizeMaster($bs_id, '', $bs_width, $bs_height, '', '', '', '', $bs_remarks, $admin_id,$bs_status)){
+        if($obj->updateBannerSizeMaster($bs_id, $position_id, $bs_width, $bs_height, $arr_bs_banner_type, $arr_bs_currency, $arr_bs_amount, $bs_effective_date, $bs_remarks, $admin_id,$bs_status)){
             $msg = "Record Updated Successfully!";
             header('location: index.php?mode=banner_size_master&msg='.urlencode($msg));
             exit;
@@ -61,11 +100,29 @@ if(isset($_POST['btnSubmit']))
 } 
 else
 {
+    // Load existing data for editing
+    $position_id = $banner_data['position_id'];
     $bs_width = $banner_data['bs_width'];
     $bs_height = $banner_data['bs_height'];
+    $bs_effective_date = date('d-m-Y', strtotime($banner_data['bs_effective_date']));
     $bs_remarks = $banner_data['bs_remarks'];
+
+    $arr_bs_banner_type = [
+        '0' => [
+            'bs_banner_type' => $banner_data['bs_banner_type'],
+            'bs_currency' => $banner_data['bs_currency'],
+            'bs_amount' => $banner_data['bs_amount']
+        ],
+    ];
+    $arr_bs_currency = $banner_data['currency'];       // array
+    $arr_bs_amount = $banner_data['amount'];           // array
+    if(is_array($arr_bs_banner_type)){
+        $banner_totalRow = count($arr_bs_banner_type) ?? [];
+    }else{
+        $banner_totalRow = 0;
+    }
     
-    $banner_cnt = 1;
+    $banner_cnt = $banner_totalRow;
 }
 
 // HTML / JS for dynamic rows
@@ -159,6 +216,16 @@ $(document).ready(function() {
                                 <input type="hidden" name="hdnbanner_totalRow" id="hdnbanner_totalRow" value="<?php echo $banner_totalRow;?>" />
                                 <table align="center" border="0" width="100%" cellpadding="0" cellspacing="0"  id="tblbanner">
                                 <tbody>
+                                    <tr>
+                                        <td width="30%" align="right"><strong>Position</strong></td>
+                                        <td width="5%" align="center"><strong>:</strong></td>
+                                        <td width="65%" align="left">
+                                            <select disabled id="position_id" name="position_id" onChange="getHeightAndWidthBS()">
+                                                <option value="">Select Position </option>
+                                                <?php echo $obj->getPositions($position_id); ?>
+                                            </select>
+                                        </td>
+                                    </tr>
                                     <tr><td colspan="3">&nbsp;</td></tr>
                                     <tr>
                                         <td align="right"><strong>Width</strong></td>
@@ -172,11 +239,73 @@ $(document).ready(function() {
                                         <td align="left"><input disabled type="text" name="bs_height" id="bs_height" value="<?php echo $bs_height; ?>" ></td>
                                     </tr>
                                     <tr><td colspan="3">&nbsp;</td></tr>
-                            
+
+                                    <?php
+                                    // Render existing banner rows
+                                    for($i=0;$i<$banner_totalRow;$i++){  ?>    
+                                        <tr class="tr_banner_row_<?php echo $i;?>">
+                                            <td align="right"><strong>Banner Type</strong></td>
+                                            <td align="center"><strong>:</strong></td>
+                                            <td align="left">
+                                                <select disabled name="bs_banner_type[]" id="bs_banner_type_<?php echo $i; ?>">
+                                                    <option value="Image" <?php if($arr_bs_banner_type[$i]['bs_banner_type'] == 'Image'){ echo 'selected'; } ?>>Image</option>
+                                                    <option value="Flash" <?php if($arr_bs_banner_type[$i]['bs_banner_type'] == 'Flash'){ echo 'selected'; } ?>>Flash</option>
+                                                    <option value="Video" <?php if($arr_bs_banner_type[$i]['bs_banner_type'] == 'Video'){ echo 'selected'; } ?>>Video</option>
+                                                    <option value="Google Ads" <?php if($arr_bs_banner_type[$i]['bs_banner_type'] == 'Google Ads'){ echo 'selected'; } ?>>Google Ads</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="3">&nbsp;</td></tr>
+                                        <tr class="tr_banner_row_<?php echo $i;?>">
+                                            <td align="right" valign="top"><strong>Currency</strong></td>
+                                            <td align="center" valign="top"><strong>:</strong></td>
+                                            <td align="left">
+                                                <select disabled name="bs_currency[]" id="bs_currency_<?php echo $i; ?>" style="width:200px;">
+                                                    <option value="">Select Currency</option>
+                                                    <?php echo $obj->getCurrencyOptions($arr_bs_banner_type[$i]['bs_currency']); ?>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="3">&nbsp;</td></tr>
+                                        <tr class="tr_banner_row_<?php echo $i;?>">
+                                            <td align="right" valign="top"><strong>Amount</strong></td>
+                                            <td align="center" valign="top"><strong>:</strong></td>
+                                            <td align="left">
+                                                <input disabled type="text" name="bs_amount[]" id="bs_amount_<?php echo $i; ?>" value="<?php echo $arr_bs_banner_type[$i]['bs_amount'];?>"  >
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="3">&nbsp;</td></tr>
+                                        <?php if($i > 0){ ?>
+                                        <tr class="tr_banner_row_<?php echo $i;?>">
+                                            <td align="right">&nbsp;</td>
+                                            <td align="center">&nbsp;</td>
+                                            <td align="left">
+                                                <input type="button" value="Remove Item" id="tr_banner_<?php echo $i; ?>" name="tr_banner_<?php echo $i; ?>" onclick="removeBannerRowMulti('<?php echo $i;?>')" />
+                                            </td>
+                                        </tr>
+                                        <tr><td colspan="3">&nbsp;</td></tr>
+                                        <?php } ?>
+                                    <?php } ?>
+
+                                    <!-- <tr id="add_before_this_Banner">
+                                        <td align="right">&nbsp;</td>
+                                        <td align="center">&nbsp;</td>
+                                        <td align="left"><a href="javascript:void(0)" class="body_link" id="addMoreBanners">Add More Banner Type</a></td>
+                                    </tr>	 -->
+                                    <tr><td colspan="3">&nbsp;</td></tr>
+                                    <tr>
+                                        <td align="right"><strong>Effective Date</strong></td>
+                                        <td align="center"><strong>:</strong></td>
+                                        <td align="left">
+                                            <input type="date" name="bs_effective_date" id="bs_effective_date" value="<?php echo $bs_effective_date; ?>" min="<?php echo date('Y-m-d'); ?>" >
+                                            <script>$('#bs_effective_date').datepick({ dateFormat : 'dd-mm-yy'}); </script>
+                                        </td>
+                                    </tr>
+                                    <tr><td colspan="3">&nbsp;</td></tr>
                                     <tr>
                                         <td align="right"><strong>Remarks</strong></td>
                                         <td align="center"><strong>:</strong></td>
-                                        <td align="left"><textarea required name="bs_remarks" id="bs_remarks" style="width:200px;"><?php echo $bs_remarks; ?></textarea></td>
+                                        <td align="left"><textarea name="bs_remarks" id="bs_remarks" style="width:200px;"><?php echo $bs_remarks; ?></textarea></td>
                                     </tr>
                                     <tr><td colspan="3">&nbsp;</td></tr>
                                         <tr>

@@ -21,8 +21,10 @@ if(!$obj->chkValidActionPermission($admin_id,$edit_action_id))
 
 $error = false;
 $err_msg = "";
-if(isset($_POST['btnSubmit']))
+if(isset($_POST['btnSubmit'])) 
 {
+	$valid_from = $_POST['valid_from'];
+	$valid_till = $_POST['valid_till'];
 	$banner_id = $_POST['hdnbanner_id'];
 	$page_id = trim($_POST['page_id']);
 	$position_id = trim($_POST['position_id']);
@@ -157,7 +159,7 @@ if(isset($_POST['btnSubmit']))
 //                                print_r($banner);
 //                                print_r($banner_type);
 //                                die();
-			if($obj->Update_Banner($admin_id,$page_id,$page,$position_id,$banner,$url,$banner_type,$client_name,$status,$banner_id))
+			if($obj->Update_Banner($admin_id,$page_id,$page,$position_id,$banner,$url,$banner_type,$client_name,$status,$banner_id,$valid_from,$valid_till))
 				{
 						$msg = "Record Edited Successfully!";
 						header('location: index.php?mode=banner&msg='.urlencode($msg));
@@ -172,7 +174,7 @@ if(isset($_POST['btnSubmit']))
 	elseif(isset($_GET['banner_id']))
 	{
 		$banner_id = $_GET['banner_id'];
-		list($page_id,$position_id,$width,$height,$banner,$url,$banner_type,$client_name,$status) = $obj->getBannerDetails($banner_id);
+		list($page_id,$position_id,$width,$height,$banner,$url,$banner_type,$client_name,$status,$valid_from,$valid_till) = $obj->getBannerDetails($banner_id);
 		//echo $position_id;
 
 		if($banner_type == 'Video')
@@ -327,10 +329,10 @@ else
 										<select name="banner_type" id="banner_type" onchange="BannerBox()">
 											<option value="Image" <?php if($banner_type == 'Image'){ ?> selected <?php } ?>>Image</option>
 											<option value="Flash" <?php if($banner_type == 'Flash'){ ?> selected <?php } ?>>Flash</option>
-                                                                                        <option value="Video" <?php if($banner_type == 'Video'){ ?> selected <?php } ?>>Video</option>
-                                                                                        <option value="Google Ads" <?php if($banner_type == 'Google Ads'){ ?> selected <?php } ?>>Google Ads</option>
-                                                                                        <option value="Affilite Ads" <?php if($banner_type == 'Affilite Ads'){ ?> selected <?php } ?>>Affilite Ads</option>
-                                                                                        <option value="Other Ads" <?php if($banner_type == 'Other Ads'){ ?> selected <?php } ?>>Other Ads</option>
+												<option value="Video" <?php if($banner_type == 'Video'){ ?> selected <?php } ?>>Video</option>
+												<option value="Google Ads" <?php if($banner_type == 'Google Ads'){ ?> selected <?php } ?>>Google Ads</option>
+												<option value="Affilite Ads" <?php if($banner_type == 'Affilite Ads'){ ?> selected <?php } ?>>Affilite Ads</option>
+												<option value="Other Ads" <?php if($banner_type == 'Other Ads'){ ?> selected <?php } ?>>Other Ads</option>
 										</select>
 									</td>
 								</tr>
@@ -426,6 +428,23 @@ else
 									<td width="75%" align="left"><input name="client_name" type="text" id="client_name" value="<?php echo $client_name; ?>" style="width:300px;" ></td>
 								</tr>
 								<tr>
+									<td colspan="3" align="center">&nbsp;</td>
+								</tr>
+								
+								<tr id="banner_id_10_<?php echo $i;?>">
+									<td width="20%" align="right"><strong>Valid From</strong></td>
+									<td width="5%" align="center"><strong>:</strong></td>
+									<td width="75%" align="left"><input required name="valid_from" type="date" id="valid_from<?php echo $i; ?>" value="<?php echo $valid_from; ?>" style="width:300px;" ></td>
+								</tr>
+								<tr id="banner_id_10_<?php echo $i;?>">
+									<td colspan="3" align="center">&nbsp;</td>
+								</tr>
+								<tr id="banner_id_11_<?php echo $i;?>">
+									<td width="20%" align="right"><strong>Valid Till</strong></td>
+									<td width="5%" align="center"><strong>:</strong></td>
+									<td width="75%" align="left"><input name="valid_till" type="date" id="valid_till<?php echo $i; ?>" value="<?php echo $valid_till; ?>" style="width:300px;" ></td>
+								</tr>
+								<tr id="banner_id_11_<?php echo $i;?>">
 									<td colspan="3" align="center">&nbsp;</td>
 								</tr>
 								<tr>

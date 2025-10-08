@@ -108,16 +108,13 @@ else
                                     </tr>
                                     <tr class="manage-header">
                                         <td width="5%" class="manage-header" align="center" >S.No.</td>
-                                        <td width="10%" class="manage-header" align="center">Position</td>
-                                        <td width="10%" class="manage-header" align="center">Width</td>
-                                        <td width="10%" class="manage-header" align="center">Height</td>
-                                        <td width="10%" class="manage-header" align="center">Banner Type</td>
-                                        <td width="10%" class="manage-header" align="center">Currency</td>
-                                        <td width="10%" class="manage-header" align="center">Amount</td>
-                                        <td width="10%" class="manage-header" align="center">Effective Date</td>
-                                        <td width="10%" class="manage-header" align="center">Status</td>
                                         <td width="10%" class="manage-header" align="center">Edit</td>
                                         <td width="5%" class="manage-header" align="center">Delete</td>
+                                        <td width="10%" class="manage-header" align="center">Width</td>
+                                        <td width="10%" class="manage-header" align="center">Height</td>
+                                        <td width="10%" class="manage-header" align="center">Remark</td>
+                                        <td width="10%" class="manage-header" align="center">Status</td>
+                                        
                                     </tr>
                                     <?php
                                     echo $obj->getAllBannerSizeMasters($search,$status);

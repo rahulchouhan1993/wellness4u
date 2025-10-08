@@ -3228,42 +3228,27 @@ function Playsound(sound_clip_id)
 
 
 
-function getHeightAndWidth()
-
-{
-
-	var position_id = document.getElementById('position_id').value;
-
-	//alert(position);
-
+function getHeightAndWidth(element){
+	var position_id = element.value;
 	link=SITE_URL+'remote.php?action=getheightandwidth&position_id='+position_id;
-
 	var linkComp = link.split( "?");
-
 	var result;
-
 	var obj = new ajaxObject(linkComp[0], fin);
-
 	obj.update(linkComp[1],"GET");
-
 	obj.callback = function (responseTxt, responseStat) {
-
-		// we'll do something to process the data here.
-
 		result = responseTxt.split("::");
+		console.log(result)
+		//commented by rahul
+		// document.getElementById('width').innerHTML = result[0]; 
+		// document.getElementById('height').innerHTML = result[1];
+		// document.getElementById('hdnwidth').value = result[0]; 
+		// document.getElementById('hdnheight').value = result[1];
 
-		document.getElementById('width').innerHTML = result[0]; 
-
-		document.getElementById('height').innerHTML = result[1];
-
-		
-
-		document.getElementById('hdnwidth').value = result[0]; 
-
-		document.getElementById('hdnheight').value = result[1];
-
+		$(element).parent().parent().next().next('tr').find('td#width').html(result[0]);
+		$(element).parent().parent().next().next('tr').find('input').html(result[0]);
+		$(element).parent().parent().next().next().next().next('tr').find('td#height').html(result[1]);
+		$(element).parent().parent().next().next().next().next('tr').find('input').html(result[1]);
 	}
-
 }
 
 
