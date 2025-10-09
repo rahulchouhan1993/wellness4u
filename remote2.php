@@ -2481,7 +2481,9 @@ if ($action == 'changtheammdt') {
 
 
                                              <select id="days_of_month_main" name="days_of_month_main[]" multiple="multiple" class="input-text-box input-half-width" style="margin-top:20px;">';
-
+                    if (!is_array($arr_days_of_month)) {
+                        $arr_days_of_month = [];
+                    }
                     for ($i = 1;$i <= 31;$i++) {
 
                         $outputstr.= '<option value="' . $i . '"';
@@ -4645,7 +4647,9 @@ if ($action == 'changtheammdt') {
 
 
                                                         <select id="days_of_month" name="days_of_month[0][]" multiple="multiple" style="width:500px;" class="input-text-box input-quarter-width">';
-
+                                if (!is_array($arr_days_of_month)) {
+                                    $arr_days_of_month = [];
+                                }            
                                 for ($i = 1;$i <= 31;$i++) {
 
                                     $outputstr.= '<option value="' . $i . '"';
@@ -8983,12 +8987,12 @@ elseif ($action == 'getRecordNameDetailsKR') {
     $obj2 = new frontclass();
 
 
-
+ 
         //added by ample 08-12-20
 
         $obj3 = new commonFrontclass();
 
-        $ip = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
+        $ip = isset($_SERVER['HTTP_CLIENT_IP']) ? $_SERVER['HTTP_CLIENT_IP'] : (isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR']);
 
         $user_id = $_SESSION['user_id'];
 

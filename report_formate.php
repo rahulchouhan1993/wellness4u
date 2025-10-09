@@ -1249,6 +1249,7 @@ foreach($detais as $key=>$final_show)
 
 
                                              <select id="days_of_month_main" name="days_of_month_main[]" multiple="multiple" class="input-text-box input-half-width" style="margin-top:20px;">';
+                    $arr_days_of_month = array();
                     for ($i = 1;$i <= 31;$i++) {
                         $outputstr.= '<option value="' . $i . '"';
                         if (in_array($i, $arr_days_of_month)) {
@@ -1590,6 +1591,7 @@ $(".formData").submit(function(e) {
 //add by ample 23-07-20
 function action_popup(keyword)
 { 
+
   $('#keyword_data').val(keyword);
   jQuery.noConflict();
   $('#actionModal').modal('show');

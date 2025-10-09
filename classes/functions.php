@@ -2859,17 +2859,62 @@ class frontclass {
         }
         return $sequence;
     }
-    //update by ample 19-02-20
+    //commented by rahul
+    // public function AddmyCanvas($comment, $location, $User_view, $User_Interaction, $alert, $activity_text, $activity_id, $canv_sub_cat_link, $canv_show_fetch, $prof_cat, $sub_cat, $maintab, $subtab, $mdt_date, $sequence, $user_id,$level_title,$level_icon,$level_icon_type,$preview_id) {
+    //     $DBH = new DatabaseHandler();
+    //     $return = false;
+    //     $sql = "INSERT INTO `tbl_mycanvas`(`user_id`, `mdt_entry_date`, `sequence_show`, `main_tab`, `sub_tab`, `profile_cat`, `sub_cat`, `show_fetch_link`,`canv_show_fetch`,`activity_id`, `activity_text`, `comment`, `location`, `user_response`, `what_for_next`, `user_updates`,level_title,level_icon,level_icon_type,preview_id) " . "VALUES ('" . $user_id . "','" . date("Y-m-d", strtotime($mdt_date)) . "','" . $sequence . "','" . $maintab . "','" . $subtab . "','" . $prof_cat . "','" . $sub_cat . "','" . $canv_sub_cat_link . "','" . $canv_show_fetch . "','" . $activity_id . "','" . addslashes($activity_text) . "','" . addslashes($comment) . "','" . $location . "','" . $User_view . "','" . $User_Interaction . "','" . $alert . "','" . $level_title . "','" . $level_icon . "','" . $level_icon_type . "','" . $preview_id . "')";
+    //     // die();
+    //     $STH = $DBH->query($sql);
+    //     // print_r($STH);
+    //     if ($STH->rowCount() > 0) {
+    //         $return = true;
+    //     }
+    //     return $return;
+    // }
     public function AddmyCanvas($comment, $location, $User_view, $User_Interaction, $alert, $activity_text, $activity_id, $canv_sub_cat_link, $canv_show_fetch, $prof_cat, $sub_cat, $maintab, $subtab, $mdt_date, $sequence, $user_id,$level_title,$level_icon,$level_icon_type,$preview_id) {
         $DBH = new DatabaseHandler();
-        $return = false;
-        $sql = "INSERT INTO `tbl_mycanvas`(`user_id`, `mdt_entry_date`, `sequence_show`, `main_tab`, `sub_tab`, `profile_cat`, `sub_cat`, `show_fetch_link`,`canv_show_fetch`,`activity_id`, `activity_text`, `comment`, `location`, `user_response`, `what_for_next`, `user_updates`,level_title,level_icon,level_icon_type,preview_id) " . "VALUES ('" . $user_id . "','" . date("Y-m-d", strtotime($mdt_date)) . "','" . $sequence . "','" . $maintab . "','" . $subtab . "','" . $prof_cat . "','" . $sub_cat . "','" . $canv_sub_cat_link . "','" . $canv_show_fetch . "','" . $activity_id . "','" . addslashes($activity_text) . "','" . addslashes($comment) . "','" . $location . "','" . $User_view . "','" . $User_Interaction . "','" . $alert . "','" . $level_title . "','" . $level_icon . "','" . $level_icon_type . "','" . $preview_id . "')";
-        // die();
-        $STH = $DBH->query($sql);
-        // print_r($STH);
-        if ($STH->rowCount() > 0) {
+       
+        $sql = "INSERT INTO `tbl_mycanvas`
+        (`user_id`, `mdt_entry_date`, `sequence_show`, `main_tab`, `sub_tab`, `profile_cat`, 
+        `sub_cat`, `show_fetch_link`, `canv_show_fetch`, `activity_id`, `activity_text`, 
+        `comment`, `location`, `user_response`, `what_for_next`, `user_updates`, 
+        `level_title`, `level_icon`, `level_icon_type`, `preview_id`)
+        VALUES 
+        (:user_id, :mdt_entry_date, :sequence_show, :main_tab, :sub_tab, :profile_cat, 
+        :sub_cat, :show_fetch_link, :canv_show_fetch, :activity_id, :activity_text, 
+        :comment, :location, :user_response, :what_for_next, :user_updates, 
+        :level_title, :level_icon, :level_icon_type, :preview_id)";
+
+        $STH = $DBH->execute($sql, [
+            ':user_id' => $user_id,
+            ':mdt_entry_date' => date("Y-m-d", strtotime($mdt_date)),
+            ':sequence_show' => $sequence,
+            ':main_tab' => $maintab,
+            ':sub_tab' => $subtab,
+            ':profile_cat' => $prof_cat,
+            ':sub_cat' => is_numeric($sub_cat) ? (int)$sub_cat : 0,
+            ':show_fetch_link' => $canv_sub_cat_link,
+            ':canv_show_fetch' => $canv_show_fetch,
+            ':activity_id' => is_numeric($activity_id) ? (int)$activity_id : 0,
+            ':activity_text' => $activity_text,
+            ':comment' => $comment,
+            ':location' => $location,
+            ':user_response' => $User_view,
+            ':what_for_next' => $User_Interaction,
+            ':user_updates' => $alert,
+            ':level_title' => $level_title,
+            ':level_icon' => $level_icon,
+            ':level_icon_type' => $level_icon_type,
+            ':preview_id' => $preview_id,
+        ]);
+
+        if($STH->rowCount() > 0) {
             $return = true;
+        } else {
+            $return = false;
         }
+
         return $return;
     }
     public function getSelectedSolIdByChkSolidAndFavCatVivek($sol_item_id_implode_value, $fav_cat_id) {
@@ -6141,7 +6186,7 @@ class frontclass {
             ':referral_status' => $referral_status ?? NULL,
             ':vendor_id'       => $vendor_id ?? NULL, 
             ':referral_accept_date' => NULL,
-            ':request_accept_date' => NULL,
+            ':request_accept_date' => '0000-00-00',
             ':report_id' => NULL,
             ':permission_type' => NULL,
             ':last_status_updated_by_adviser' => NULL,
@@ -6151,7 +6196,7 @@ class frontclass {
         //ALTER TABLE `tbladviserreferrals` CHANGE `vendor_id` `vendor_id` INT(200) NULL DEFAULT NULL, CHANGE `request_sent_date` `request_sent_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, CHANGE `referral_accept_date` `referral_accept_date` DATETIME NULL DEFAULT NULL, CHANGE `referral_status` `referral_status` INT(1) NULL DEFAULT NULL, CHANGE `report_id` `report_id` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `permission_type` `permission_type` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL, CHANGE `last_status_updated_by_adviser` `last_status_updated_by_adviser` INT(1) NULL DEFAULT NULL;
 
 
-        if ($STH->rowCount() > 0) {
+        if ($stmt->rowCount() > 0) {
             $ar_id = $DBH->lastInsertId();
         }
         return $ar_id;
@@ -7459,11 +7504,10 @@ class frontclass {
         return $return;
     }
     public function AddUserUploads($data) {
-        // echo "<pre>";print_r($data);echo "</pre>";
-        // exit;
+        $data['sub_cat_id'] = is_numeric($data['sub_cat_id']) ? (int)$data['sub_cat_id'] : 0;
         $DBH = new DatabaseHandler();
         $return = false;
-        $sql = "INSERT INTO `tbl_user_uploads`(`user_id`, `banner_type`, `rss_text`, `video_url`, `image_video_audio_pdf_credit_line`, `image_video_audio_pdf_credit_url`, `documents_credit_line`, `documents_credit_url`, `image_video_audio_pdf`, `documents`, `from_page`,`ref_code`,`box_title`,`sub_cat_id`,`user_tags`)" . "VALUES ('" . $data['user_id'] . "',
+        $sql = "INSERT INTO `tbl_user_uploads`(`user_id`, `banner_type`, `rss_text`, `video_url`, `image_video_audio_pdf_credit_line`, `image_video_audio_pdf_credit_url`, `documents_credit_line`, `documents_credit_url`, `image_video_audio_pdf`, `documents`, `from_page`,`ref_code`,`box_title`,`sub_cat_id`,`user_tags`,`approved_by`,`approved_date`,`show_where`,`admin_notes`,`admin_tags`)" . "VALUES ('" . $data['user_id'] . "',
 
                 '" . addslashes($data['banner_type']) . "',
 
@@ -7487,7 +7531,7 @@ class frontclass {
 
                 '" . addslashes($data['sub_cat_id']) . "',
 
-                '" . addslashes($data['get_tags']) . "')";
+                '" . addslashes($data['get_tags']) . "',0,'0000-00-00','','','')";
         $STH = $DBH->query($sql);
         if ($STH->rowCount() > 0) {
             $return = true;
@@ -7774,10 +7818,23 @@ class frontclass {
             $data['duration_main']="";
             $data['unit_main']="";
         }
-
+        if(empty($start_date_main)){
+            $start_date_main = '0000-00-00';
+        }
+        if(empty($end_date_main)){
+            $end_date_main = '0000-00-00';
+        }
+        if(empty($single_date_main)){
+            $single_date_main = '0000-00-00';
+        }
+         $data['unit_main'] = is_numeric($data['unit_main']) ? (int)$data['unit_main'] : 0;
+        
+        $data['redirect_page'] = is_numeric($data['redirect_page']) ? (int)$data['redirect_page'] : 0;
+        $data['redirect_id'] = is_numeric($data['redirect_id']) ? (int)$data['redirect_id'] : 0;
+        $data['vendor_id'] = is_numeric($data['vendor_id']) ? (int)$data['vendor_id'] : 0;
         //update by ample 10-04-20 & update 22-04-20 & update 24-04-20 &update 27-04-20
-       $sql = "INSERT INTO `tbl_user_design_your_data`(`user_id`, `vendor_id`, `box_title`,`ref_code`,`listing_date_type`, `days_of_month`, `single_date`, `start_date`, `end_date`, `days_of_week`, `months`, `location_fav_cat`, `user_response_fav_cat`,`user_what_fav_cat`,`alerts_fav_cat`,`bes_time`,`duration`,`scale`,`comment`,unit,redirect_page,redirect_id,redirect,post_by) "
-                . "VALUES ('".$data['user_id']."','".$data['vendor_id']."','".addslashes($data['title_id'])."','".addslashes($data['ref_code'])."','".$date_type."','".$days_of_month_main."','".$single_date_main."','".$start_date_main."','".$end_date_main."','".$days_of_week_main."','".$months_main."','".addslashes($data['location_main'])."','".addslashes($data['User_view_main'])."','".addslashes($data['User_Interaction_main'])."','".addslashes($data['alert_main'])."','".addslashes($data['bes_time_main'])."','".addslashes($data['duration_main'])."','".addslashes($data['scale_main'])."','".addslashes($data['comment_main'])."','".addslashes($data['unit_main'])."','".addslashes($data['redirect_page'])."','".addslashes($data['redirect_id'])."','".addslashes($data['redirect'])."','".addslashes($data['post_by'])."')";
+       $sql = "INSERT INTO `tbl_user_design_your_data`(`user_id`, `vendor_id`, `box_title`,`ref_code`,`listing_date_type`, `days_of_month`, `single_date`, `start_date`, `end_date`, `days_of_week`, `months`, `location_fav_cat`, `user_response_fav_cat`,`user_what_fav_cat`,`alerts_fav_cat`,`bes_time`,`duration`,`scale`,`comment`,unit,redirect_page,redirect_id,redirect,post_by,prof_cat_id,sub_cat_id) "
+                . "VALUES ('".$data['user_id']."','".$data['vendor_id']."','".addslashes($data['title_id'])."','".addslashes($data['ref_code'])."','".$date_type."','".$days_of_month_main."','".$single_date_main."','".$start_date_main."','".$end_date_main."','".$days_of_week_main."','".$months_main."','".addslashes($data['location_main'])."','".addslashes($data['User_view_main'])."','".addslashes($data['User_Interaction_main'])."','".addslashes($data['alert_main'])."','".addslashes($data['bes_time_main'])."','".addslashes($data['duration_main'])."','".addslashes($data['scale_main'])."','".addslashes($data['comment_main'])."','".addslashes($data['unit_main'])."','".addslashes($data['redirect_page'])."','".addslashes($data['redirect_id'])."','".addslashes($data['redirect'])."','".addslashes($data['post_by'])."',0,0)";
         $STH = $DBH->prepare($sql);
         $STH->execute();
         if ($STH->rowCount() > 0) {
@@ -7976,10 +8033,10 @@ class frontclass {
                     $final['comment_lo'] = $data['comment_SP'][$i];
                     if($data['SP_icon_type'][$i]==2)
                     {
-                        $final['location_lo'] = implode(',', $data['location_SP'][$i]);
-                        $final['User_view_lo'] = implode(',', $data['User_view_SP'][$i]);
-                        $final['User_Interaction_lo'] = implode(',', $data['User_Interaction_SP'][$i]);
-                        $final['alert_lo'] =  implode(',', $data['alert_SP'][$i]);
+                        $final['location_lo'] = implode(',', (array)$data['location_SP'][$i]);
+                        $final['User_view_lo'] = implode(',', (array)$data['User_view_SP'][$i]);
+                        $final['User_Interaction_lo'] = implode(',', (array)$data['User_Interaction_SP'][$i]);
+                        $final['alert_lo'] =  implode(',', (array)$data['alert_SP'][$i]);
                     }
                     else
                     {
@@ -8008,15 +8065,15 @@ class frontclass {
                     }
                     elseif ($final['userdate_lo']=='days_of_month') {
                         $days_of_month_lo = $data['days_of_month_SP'][$i];
-                        $final['days_of_month_lo'] = implode(',', $days_of_month_lo);
+                        $final['days_of_month_lo'] = implode(',', (array)$days_of_month_lo);
                     }
                     elseif ($final['userdate_lo']=='days_of_week') {
                         $days_of_week_lo = $data['days_of_week_SP'][$i];
-                        $final['days_of_week_lo'] = implode(',', $days_of_week_lo);
+                        $final['days_of_week_lo'] = implode(',', (array)$days_of_week_lo);
                     }
                     elseif ($final['userdate_lo']=='month_wise') {
                         $months_lo = $data['months_SP'][$i];
-                        $final['months_lo'] = implode(',', $months_lo);
+                        $final['months_lo'] = implode(',', (array)$months_lo);
                     }
 
                     
@@ -8044,8 +8101,19 @@ class frontclass {
             $data['duration']="";
             $data['unit']="";
         }
+        $data['scale'] = is_numeric($data['scale']) ? (int)$data['scale'] : 0;
+        $data['unit'] = is_numeric($data['unit']) ? (int)$data['unit'] : 0;
+        if(empty($data['single_date'])){
+            $data['single_date'] = '0000-00-00';
+        }
+        if(empty($data['start_date'])){
+            $data['start_date'] = '0000-00-00';
+        }
+        if(empty($data['end_date'])){
+            $data['end_date'] = '0000-00-00';
+        }
         //01-06-20 chnage table tbl_user_design_favcat_data to tbl_design_user_inputs/ 1 colum update
-        $sql = "INSERT INTO `tbl_design_user_inputs`(`user_id`,`vendor_id`, `user_input`,`design_data_id`,`sub_cat`,`prof_cat`,`canv_show_fetch`,`canv_sub_cat_link`,`comment`,`location_fav_cat`,`user_response_fav_cat`,`user_Interaction`,`alerts_fav_cat`,`scale`,`listing_date_type`,`days_of_month`,`single_date`,`start_date`,`end_date`,`months`,`days_of_week`,`bes_time`,`duration`,unit,is_special_data) " . "VALUES ('" . $data['user_id'] . "','" . $data['vendor_id'] . "','" . addslashes($data['fav_cat_2']) . "','" . addslashes($data['design_data_id']) . "','" . addslashes($data['sub_cat']) . "','" . addslashes($data['prof_cat']) . "','" . addslashes($data['canv_show_fetch']) . "','" . addslashes($data['canv_sub_cat_link']) . "','" . addslashes($data['comment']) . "','" . addslashes($data['location']) . "','" . addslashes($data['User_view']) . "','" . addslashes($data['User_Interaction']) . "','" . addslashes($data['alert']) . "','" . addslashes($data['scale']) . "','" . addslashes($data['userdate']) . "','" . addslashes($data['days_of_month']) . "','" . $data['single_date'] . "','" . $data['start_date'] . "','" . $data['end_date'] . "','" . addslashes($data['months']) . "','" . addslashes($data['days_of_week']) . "','" . addslashes($data['bes_time']) . "','" . addslashes($data['duration']) . "','" . addslashes($data['unit']) . "','" . addslashes($data['is_special_data']) . "')";
+        $sql = "INSERT INTO `tbl_design_user_inputs`(`user_id`,`vendor_id`, `user_input`,`design_data_id`,`sub_cat`,`prof_cat`,`canv_show_fetch`,`canv_sub_cat_link`,`comment`,`location_fav_cat`,`user_response_fav_cat`,`user_Interaction`,`alerts_fav_cat`,`scale`,`listing_date_type`,`days_of_month`,`single_date`,`start_date`,`end_date`,`months`,`days_of_week`,`bes_time`,`duration`,unit,is_special_data,rank) " . "VALUES ('" . $data['user_id'] . "','" . $data['vendor_id'] . "','" . addslashes($data['fav_cat_2']) . "','" . addslashes($data['design_data_id']) . "','" . addslashes($data['sub_cat']) . "','" . addslashes($data['prof_cat']) . "','" . addslashes($data['canv_show_fetch']) . "','" . addslashes($data['canv_sub_cat_link']) . "','" . addslashes($data['comment']) . "','" . addslashes($data['location']) . "','" . addslashes($data['User_view']) . "','" . addslashes($data['User_Interaction']) . "','" . addslashes($data['alert']) . "','" . addslashes($data['scale']) . "','" . addslashes($data['userdate']) . "','" . addslashes($data['days_of_month']) . "','" . $data['single_date'] . "','" . $data['start_date'] . "','" . $data['end_date'] . "','" . addslashes($data['months']) . "','" . addslashes($data['days_of_week']) . "','" . addslashes($data['bes_time']) . "','" . addslashes($data['duration']) . "','" . addslashes($data['unit']) . "','" . addslashes($data['is_special_data']) . "',0)";
         $STH = $DBH->query($sql);
         if ($STH->rowCount() > 0) {
             $return = true;
@@ -8070,6 +8138,20 @@ class frontclass {
         {
             $data['duration_lo']="";
             $data['unit_lo']="";
+        }
+        $data['scale_lo'] = is_numeric($data['scale_lo']) ? (int)$data['scale_lo'] : 0;
+        $data['unit_lo'] = is_numeric($data['unit_lo']) ? (int)$data['unit_lo'] : 0;
+        $data['rank'] = is_numeric($data['rank']) ? (int)$data['rank'] : 0;
+        $data['prof_cat_lo'] = is_numeric($data['prof_cat_lo']) ? (int)$data['prof_cat_lo'] : 0;
+        $data['canv_show_fetch_lo'] = is_numeric($data['canv_show_fetch_lo']) ? (int)$data['canv_show_fetch_lo'] : 0;
+        if(empty($data['single_date_lo'])){
+            $data['single_date_lo'] = '0000-00-00';
+        }
+        if(empty($data['start_date_lo'])){
+            $data['start_date_lo'] = '0000-00-00';
+        }
+        if(empty($data['end_date_lo'])){
+            $data['end_date_lo'] = '0000-00-00';
         }
         $sql = "INSERT INTO `tbl_design_user_inputs`(`user_id`,`vendor_id`, `user_input`,`design_data_id`,`sub_cat`,`prof_cat`,`canv_show_fetch`,`canv_sub_cat_link`,`comment`,`location_fav_cat`,`user_response_fav_cat`,`user_Interaction`,`alerts_fav_cat`,`scale`,`listing_date_type`,`days_of_month`,`single_date`,`start_date`,`end_date`,`months`,`days_of_week`,`bes_time`,`duration`,unit,is_special_data,rank) " . "VALUES ('" . $data['user_id'] . "','" . $data['vendor_id'] . "','" . addslashes($data['user_input']) . "','" . addslashes($data['design_data_id']) . "','" . addslashes($data['sub_cat_lo']) . "','" . addslashes($data['prof_cat_lo']) . "','" . addslashes($data['canv_show_fetch_lo']) . "','" . addslashes($data['canv_sub_cat_link_lo']) . "','" . addslashes($data['comment_lo']) . "','" . addslashes($data['location_lo']) . "','" . addslashes($data['User_view_lo']) . "','" . addslashes($data['User_Interaction_lo']) . "','" . addslashes($data['alert_lo']) . "','" . addslashes($data['scale_lo']) . "','" . addslashes($data['userdate_lo']) . "','" . addslashes($data['days_of_month_lo']) . "','" . $data['single_date_lo'] . "','" . $data['start_date_lo'] . "','" . $data['end_date_lo'] . "','" . addslashes($data['months_lo']) . "','" . addslashes($data['days_of_week_lo']) . "','" . addslashes($data['bes_time_lo']) . "','" . addslashes($data['duration_lo']) . "','" . addslashes($data['unit_lo']) . "','" . addslashes($data['is_special_data']) . "','" . addslashes($data['rank']) . "')";
         $STH = $DBH->query($sql);
@@ -26133,7 +26215,14 @@ class frontclass {
         $DBH = new DatabaseHandler();
         $data = array();
 
-            $cat_id = implode($cat_id, '\',\'');
+        //commented by rahul
+            //$cat_id = implode($cat_id, '\',\'');
+            if (is_array($cat_id)) {
+                $cat_id = implode("','", $cat_id);
+            } else {
+                $cat_id = (string)$cat_id; // fallback if not an array
+            }
+
             $sql = "SELECT ".$fetch_columns." FROM ".$Id_table." WHERE ".$fetch_value." = '".$data_id."'";
             //print_r($sql);
             $STH = $DBH->query($sql);
@@ -26254,28 +26343,33 @@ class frontclass {
             {
                 $this->delete_activity_data($date);
             }
+            if(empty($end_date_main)){
+                $end_date_main = '0000-00-00';
+            }
+            
             
             $my_DBH = new DatabaseHandler();
             $DBH = $my_DBH->raw_handle();
             $DBH->beginTransaction();
             $return=false;
-
+            
                 $query = "INSERT INTO `tblusersdailyactivity` (`user_id`,`activity_date`,`activity_id`,`other_activity`,`activity_start_time`,`activity_end_time`,`activity_duration`,`consultant_remark`,`proper_guidance`,`precaution`,`user_response_id`,`location_type_id`,`location_id`,`yesterday_sleep_time`,`today_wakeup_time`,`sleep_duration`,`dyl_parent_id`,`dyl_child_id`) VALUES ";
                 $values = '';
                 foreach ($data as $key => $value) {
+                    $value['activity_id'] = is_numeric($value['activity_id']) ? (int)$value['activity_id'] : 0;
                         //update 12-06-20
                         if($value['activity_id'] || $value['other_activity'])
                         {
                             $value['parent_id'] = $value['parent_id'] ? $value['parent_id'] : 0;
                             $value['child_id'] = $value['child_id'] ? $value['child_id'] : 0;
-                            $values .= "('".$value['user_id']."','".$value['activity_date']."','".$value['activity_id']."','".$value['other_activity']."','".$value['activity_start_time']."','".$value['activity_end_time']."','".$value['activity_duration']."','','".$value['proper_guidance']."','".$value['precaution']."','".$value['user_response_id']."','".$value['location_type_id']."','".$value['location_id']."','".$value['yesterday_sleep_time']."','".$value['today_wakeup_time']."','".$value['sleep_duration']."','".$value['parent_id']."','".$value['child_id']."'),";
+                            $values .= "('".$value['user_id']."','".$value['activity_date']."',".$value['activity_id'].",'".$value['other_activity']."','".$value['activity_start_time']."','".$value['activity_end_time']."','".$value['activity_duration']."','','".$value['proper_guidance']."','".$value['precaution']."','".$value['user_response_id']."','".$value['location_type_id']."','".$value['location_id']."','".$value['yesterday_sleep_time']."','".$value['today_wakeup_time']."','".$value['sleep_duration']."','".$value['parent_id']."','".$value['child_id']."'),";
                         }
 
                 }
                 //$values = rtrim($values, ',');
                 $values = substr($values, 0, strlen($values) - 1);
                 $insert_query = $query . $values;
-                
+               
             // $STH = $DBH->prepare($sql);
             //  $STH->execute();
              $STH = $DBH->query($insert_query);
@@ -27925,6 +28019,18 @@ class frontclass {
             $data['unit_main']="";
         }
 
+        if(empty($single_date_main)){
+            $single_date_main = '0000-00-00';
+        }
+        if(empty($start_date_main)){
+            $start_date_main = '0000-00-00';
+        }
+        if(empty($end_date_main)){
+            $end_date_main = '0000-00-00';
+        }
+        $value['activity_id'] = is_numeric($value['activity_id']) ? (int)$value['activity_id'] : 0;
+        $data['User_view_main'] = !empty($data['User_view_main']) ? $data['User_view_main'] : 0;
+         $data['alert_main'] = !empty($data['alert_main']) ? $data['alert_main'] : 0;
        $sql = "INSERT INTO `tbl_user_action_data_dyl`(`user_id`, `design_id`, `design_input_id`,`action_title`,`listing_date_type`, `days_of_month`, `single_date`, `start_date`, `end_date`, `days_of_week`, `months`, `location_fav_cat`, `user_response_fav_cat`,`user_what_fav_cat`,`alerts_fav_cat`,`bes_time`,`duration`,`scale`,`comment`,`unit`) "
                 . "VALUES ('".$data['user_id']."','".$data['design_id']."','".$data['design_input_id']."','".addslashes($data['action_title'])."','".$date_type."','".$days_of_month_main."','".$single_date_main."','".$start_date_main."','".$end_date_main."','".$days_of_week_main."','".$months_main."','".addslashes($data['location_main'])."','".addslashes($data['User_view_main'])."','".addslashes($data['User_Interaction_main'])."','".addslashes($data['alert_main'])."','".addslashes($data['bes_time_main'])."','".addslashes($data['duration_main'])."','".addslashes($data['scale_main'])."','".addslashes($data['comment_main'])."','".addslashes($data['unit_main'])."')";
         $STH = $DBH->prepare($sql);
@@ -28109,7 +28215,19 @@ class frontclass {
             $data['duration_main']="";
             $data['unit_main']="";
         }
-
+        if(empty($single_date_main)){
+            $single_date_main = '0000-00-00';
+        }
+        if(empty($start_date_main)){
+            $start_date_main = '0000-00-00';
+        }
+        if(empty($end_date_main)){
+            $end_date_main = '0000-00-00';
+        }
+        $data['User_view_main'] = is_numeric($data['User_view_main']) ? (int)$data['User_view_main'] : 0;
+        $data['alert_main'] = is_numeric($data['alert_main']) ? (int)$data['alert_main'] : 0;
+        $data['unit_main'] = is_numeric($data['unit_main']) ? (int)$data['unit_main'] : 0;
+        // $data['vendor_id'] = is_numeric($data['vendor_id']) ? (int)$data['vendor_id'] : 0;
        $sql = "INSERT INTO `tbl_user_report_action_data`(`user_id`, `report_name`, `report_date_type`, `report_date_data`, `keyword`,`action_title`,`listing_date_type`, `days_of_month`, `single_date`, `start_date`, `end_date`, `days_of_week`, `months`, `location_fav_cat`, `user_response_fav_cat`,`user_what_fav_cat`,`alerts_fav_cat`,`bes_time`,`duration`,`scale`,`comment`,`unit`) "
                 . "VALUES ('".$data['user_id']."','".addslashes($data['report_name'])."','".$data['report_date_type']."','".$data['report_date_data']."','".addslashes($data['keyword_data'])."','".addslashes($data['action_title'])."','".$date_type."','".$days_of_month_main."','".$single_date_main."','".$start_date_main."','".$end_date_main."','".$days_of_week_main."','".$months_main."','".addslashes($data['location_main'])."','".addslashes($data['User_view_main'])."','".addslashes($data['User_Interaction_main'])."','".addslashes($data['alert_main'])."','".addslashes($data['bes_time_main'])."','".addslashes($data['duration_main'])."','".addslashes($data['scale_main'])."','".addslashes($data['comment_main'])."','".addslashes($data['unit_main'])."')";
         $STH = $DBH->prepare($sql);

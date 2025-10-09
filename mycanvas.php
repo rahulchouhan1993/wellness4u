@@ -1,4 +1,7 @@
 <?php 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
   ini_set('max_input_vars', '5000'); //add by ample 20-04-20
   include('classes/config.php');
   $page_id = '6';
@@ -53,7 +56,7 @@
     $preview_id=$obj->saveMycanvasPreviewData($user_id,$_GET['sequence'],$_GET['mdt_date'],$_POST['preview_data']);
     $mdt_date = $_GET['mdt_date'];
     $sequence = $_GET['sequence'];
-
+    
 //new code write by ample 06-05-20
     if(!empty($_POST['data']))
     {
@@ -70,7 +73,8 @@
                   $level_title = $value2['level_title'];
                   $level_icon = $value2['level_icon'];
                   $level_icon_type = $value2['level_icon_type'];
-
+                  if(is_array($value2['activity_text']))
+                  { 
                   for($i=0 ;$i<=count($value2['activity_text']);$i++)
                   {
                       $sub_cat=$value2['sub_cat'][$i];
@@ -78,8 +82,8 @@
                       $canv_show_fetch=$value2['canv_show_fetch'][$i];
                       $canv_sub_cat_link = $value2['canv_sub_cat_link'][$i];
                       $activity_text =$value2['activity_text'][$i];
-                      $activity_id =$value2['activity_id'][$i];
-
+                      $activity_id =$value2['activity_id'][$i] ?? 0;
+                     
                       $comment=isset($value2['comment'][$i]) && $value2['comment'][$i]!='' ? trim($value2['comment'][$i]) : '';
                       $location=isset($value2['location'][$i]) && $value2['location'][$i]!='' ? $value2['location'][$i] : '';
                       $User_view=isset($value2['User_view'][$i]) && $value2['User_view'][$i]!='' ? $value2['User_view'][$i] : '';
@@ -98,6 +102,7 @@
                         } 
 
                   }
+                }
                 
             }
           }
@@ -311,7 +316,7 @@
   <body>
     <?php //include_once('analyticstracking.php'); ?>
     <?php //include_once('analyticstracking_ci.php'); ?>
-    <?php// include_once('analyticstracking_y.php'); ?>
+    <?php // include_once('analyticstracking_y.php'); ?>
     <?php include_once('header.php');?>
     <div id='changemusic'></div>
     <section id="checkout">
