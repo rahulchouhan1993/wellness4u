@@ -168,16 +168,17 @@ elseif(isset($_GET['id']))
         }
 //       echo $oldvalue;
     
-    $prof_cat1 = explode(',',$prof_cat1);
-    $prof_cat2 = explode(',',$prof_cat2);
-    $prof_cat3 = explode(',',$prof_cat3);
-    $prof_cat4 = explode(',',$prof_cat4);
-    $prof_cat5 = explode(',',$prof_cat5);
-    $prof_cat6 = explode(',',$prof_cat6);
-    $prof_cat7 = explode(',',$prof_cat7);
-    $prof_cat8 = explode(',',$prof_cat8);
-    $prof_cat9 = explode(',',$prof_cat9);
-    $prof_cat10 = explode(',',$prof_cat10);
+   $prof_cat1 = is_array($prof_cat1) ? $prof_cat1 : explode(',', (string)$prof_cat1);
+$prof_cat2 = is_array($prof_cat2) ? $prof_cat2 : explode(',', (string)$prof_cat2);
+$prof_cat3 = is_array($prof_cat3) ? $prof_cat3 : explode(',', (string)$prof_cat3);
+$prof_cat4 = is_array($prof_cat4) ? $prof_cat4 : explode(',', (string)$prof_cat4);
+$prof_cat5 = is_array($prof_cat5) ? $prof_cat5 : explode(',', (string)$prof_cat5);
+$prof_cat6 = is_array($prof_cat6) ? $prof_cat6 : explode(',', (string)$prof_cat6);
+$prof_cat7 = is_array($prof_cat7) ? $prof_cat7 : explode(',', (string)$prof_cat7);
+$prof_cat8 = is_array($prof_cat8) ? $prof_cat8 : explode(',', (string)$prof_cat8);
+$prof_cat9 = is_array($prof_cat9) ? $prof_cat9 : explode(',', (string)$prof_cat9);
+$prof_cat10 = is_array($prof_cat10) ? $prof_cat10 : explode(',', (string)$prof_cat10);
+
    
 //    $arr_selected_page_id = explode(',',$page_id_str);
 }	

@@ -98,7 +98,8 @@ if(isset($_POST['btnSubmit']))
     $ref_table = $_POST['ref_table'];
     $group_code = $_POST['group_code']; 
     $wellbgn_ref_num = $_POST['wellbgn_ref_num'];
-    $wellbgn_ref_num_implode = implode(',',$wellbgn_ref_num);
+    $wellbgn_ref_num_implode = implode(',', is_array($wellbgn_ref_num) ? $wellbgn_ref_num : []);
+
 
     //add by ample 23-04-20
     $page_icon=trim($_POST['page_icon']);

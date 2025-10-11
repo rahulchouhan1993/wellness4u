@@ -645,7 +645,7 @@ class FeedParser  extends Admin
 
 
 
-			$this->feedResults["items"][$rec]["linkUrl"] = (string)$val->link{"href"};
+			$this->feedResults["items"][$rec]["linkUrl"] = (string)$val->link["href"];
 
 
 

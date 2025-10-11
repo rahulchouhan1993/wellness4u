@@ -4625,7 +4625,7 @@ public function getKeywordDataByPageNameAndIdDetails($sol_item_id,$page_name_dat
                 $html.='<div style="width:200px;height:150px;float:left;overflow:scroll;">  <ul style="list-style:none;padding:0px;margin:0px;">';
                  foreach ($newData as $key => $value) {
                     $sel="";
-                    if (in_array($value["activity_id"], $sel_id))
+                    if (is_array($sel_id) && in_array($value["activity_id"], $sel_id)) 
                       {
                         $sel="checked";
                       }

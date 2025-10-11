@@ -1709,7 +1709,7 @@ class Contents extends Admin
                     $cat_name = stripslashes($row['prct_cat']);
 
 
-
+                    $arr_selected_cat_id2 = !empty($arr_selected_cat_id2) && is_array($arr_selected_cat_id2) ? $arr_selected_cat_id2 : [];
                     if(in_array($cat_id,$arr_selected_cat_id2))
 
                     {
@@ -16359,7 +16359,7 @@ public function getcolumsNameOftable($tablm_name)
         $DBH->beginTransaction();
         $return=false;
 
-        $sql = "INSERT INTO `tbl_sms_credentials` (`ADDED_BY`,`SMS_URL`,`SMS_USERNAME`,`SMS_PASSWORD`,`SMS_SENDERID`,`STATUS`) VALUES (".$admin_id.",'".$data['SMS_URL']."','".$data['SMS_USERNAME']."','".$data['SMS_PASSWORD']."','".$data['SMS_SENDERID']."','".$data['STATUS']."')";
+        $sql = "INSERT INTO `tbl_sms_credentials` (`ADDED_BY`,`SMS_URL`,`SMS_USERNAME`,`SMS_PASSWORD`,`SMS_SENDERID`,`STATUS`,`UPDATE_BY`,`DELETE_BY`) VALUES (".$admin_id.",'".$data['SMS_URL']."','".$data['SMS_USERNAME']."','".$data['SMS_PASSWORD']."','".$data['SMS_SENDERID']."','".$data['STATUS']."',0,0)";
 
         $STH = $DBH->prepare($sql);
         $STH->execute();

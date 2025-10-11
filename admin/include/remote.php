@@ -1,4 +1,8 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // session add by ample 04-12-19
 session_start();
 require_once('../config/class.mysql.php');

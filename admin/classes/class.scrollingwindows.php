@@ -656,7 +656,9 @@ class Scrolling_Windows extends Admin
 
             $return = false;
 
-            
+            $group_code = ($group_code != '') ? $group_code : '0';
+            $page_icon = ($page_icon != '') ? $page_icon : '0';
+            $cat_total_cnt = !is_array($cat_total_cnt) ? array() : $cat_total_cnt;
 
             $favcatid = $this->getFavtidbyname($fav_cat);
 
@@ -678,7 +680,7 @@ class Scrolling_Windows extends Admin
 
             //$sql = "INSERT INTO `tblfavcategory` (`fav_cat`,`fav_cat_type_id`,`fav_parent_cat`,`fav_cat_status`,`fav_cat_deleted`,`show_hide`) VALUES ('".addslashes($fav_cat)."','".addslashes($str_fav_cat_type_id)."','".addslashes($str_fav_cat_id)."','1','0','".$show_hide."')";
               //update by ample 07-04-20             
-            $sql = "INSERT INTO `tblfavcategory` (`fav_code`,`uom`,`comment`,`fav_cat`,`fav_cat_status`,`fav_cat_deleted`,  link,ref_table,group_code_id,ref_num,`page_icon`,`page_icon_type`,data_view_url) VALUES ('".$fav_code."','".$uom."','".addslashes($comment)."','".addslashes($fav_cat)."','1','0','".$link."','".$ref_table."','".$group_code."','".$ref_num."','".addslashes($page_icon)."','".addslashes($page_icon_type)."','".addslashes($data_view_url)."')";
+            $sql = "INSERT INTO `tblfavcategory` (`fav_code`,`uom`,`comment`,`fav_cat`,`fav_cat_status`,`fav_cat_deleted`,  link,ref_table,group_code_id,ref_num,`page_icon`,`page_icon_type`,data_view_url,fav_cat_type_id,fav_parent_cat,sol_item_id) VALUES ('".$fav_code."','".$uom."','".addslashes($comment)."','".addslashes($fav_cat)."','1','0','".$link."','".$ref_table."','".$group_code."','".$ref_num."','".addslashes($page_icon)."','".addslashes($page_icon_type)."','".addslashes($data_view_url)."',0,0,0)";
 
             $STH = $DBH->prepare($sql);
 
@@ -767,15 +769,18 @@ class Scrolling_Windows extends Admin
             $DBH->beginTransaction();
 
             $return = false;
-
-            $upd_sql = "UPDATE `tblfavcategory` SET `fav_code` = '".addslashes($fav_code)."',`fav_cat` = '".addslashes($fav_cat)."',`fav_cat_status` = '".$fav_cat_status."',`uom` = '".$uom."',`comment` = '".addslashes($comment)."',`link` = '".addslashes($link)."',`ref_table` = '".addslashes($ref_table)."',`group_code_id` = '".addslashes($group_code)."',`ref_num` = '".addslashes($ref_num)."',`page_icon` = '".addslashes($page_icon)."',`page_icon_type` = '".addslashes($page_icon_type)."',`data_view_url` = '".addslashes($data_view_url)."' WHERE `fav_cat_id` = '".$fav_cat_id."'";
+            $uom = ($uom != '') ? $uom : '0';
+            $group_code = ($group_code != '') ? $group_code : '0';
+            
+            
+            $upd_sql = "UPDATE `tblfavcategory` SET  `fav_code` = '".addslashes($fav_code)."',`fav_cat` = '".addslashes($fav_cat)."',`fav_cat_status` = '".$fav_cat_status."',`uom` = '".$uom."',`comment` = '".addslashes($comment)."',`link` = '".addslashes($link)."',`ref_table` = '".addslashes($ref_table)."',`group_code_id` = '".addslashes($group_code)."',`ref_num` = '".addslashes($ref_num)."',`page_icon` = '".addslashes($page_icon)."',`page_icon_type` = '".addslashes($page_icon_type)."',`data_view_url` = '".addslashes($data_view_url)."' WHERE `fav_cat_id` = '".$fav_cat_id."'";
 
             $STH = $DBH->prepare($upd_sql);
 
             $STH->execute();
 
             
-
+            $fav_cat_id_parent = ($fav_cat_id_parent != '') ? $fav_cat_id_parent : '0';
             $upd_sql = "UPDATE `tblcustomfavcategory` SET `fav_cat_type_id` = '".addslashes($fav_cat_type_id)."', `fav_parent_cat` = '".$fav_cat_id_parent."' ,`show_hide` = '".addslashes($show_hide)."' , `cat_status` ='".$cat_status."', `updated_by` = '".$_SESSION['admin_id']."' WHERE `id` = '".$id."'";
 
             $STH2 = $DBH->prepare($upd_sql);
@@ -5613,7 +5618,8 @@ class Scrolling_Windows extends Admin
 
                 $arr_fav_cat = $this->getfavcatidarrayRamakant($search);
 
-                $arr_fav_cat = implode($arr_fav_cat, '\',\'');
+                $arr_fav_cat = implode("','", $arr_fav_cat);
+
 
                 $str_sql_search = " AND `favcat_id` IN ('".$arr_fav_cat."') ";
 

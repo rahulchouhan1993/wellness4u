@@ -1,7 +1,7 @@
 <?php 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
   ini_set('max_input_vars', '5000'); //add by ample 20-04-20
   include('classes/config.php');
   $page_id = '6';

@@ -110,7 +110,11 @@ if(isset($_POST['btnSubmit']))
     $ref_table = $_POST['ref_table'];
     $group_code = $_POST['group_code']; 
     $wellbgn_ref_num = $_POST['wellbgn_ref_num'];
-    $wellbgn_ref_num_implode = implode(',',$wellbgn_ref_num);
+    if (is_array($wellbgn_ref_num) && !empty($wellbgn_ref_num)) {
+        $wellbgn_ref_num_implode = implode(',', $wellbgn_ref_num);
+    } else {
+        $wellbgn_ref_num_implode = '';
+    }
     //add by ample 23-04-20
     $page_icon=trim($_POST['page_icon']);
     $page_icon_type=trim($_POST['page_icon_type']);
@@ -198,9 +202,18 @@ elseif(isset($_GET['id']))
 
    
 
-     $fav_cat_id_data_implode=implode('\',\'',$fav_cat_id_data);
+    if (is_array($fav_cat_id_data) && !empty($fav_cat_id_data)) {
+        $fav_cat_id_data_implode = implode("','", $fav_cat_id_data);
+    } else {
+        $fav_cat_id_data_implode = '';
+    }
+    
+    if (is_array($sub_cat_id_data) && !empty($sub_cat_id_data)) {
+        $sub_cat_id_data_implode = implode("','", $sub_cat_id_data);
+    } else {
+        $sub_cat_id_data_implode = '';
+    }
 
-     $sub_cat_id_data_implode=implode('\',\'',$sub_cat_id_data);
 
      $fav_cat_name=$obj->getSubCatNameByProfileCatIdFromFavCatTableVivek($fav_cat_id_data_implode,$sub_cat_id_data_implode);
 

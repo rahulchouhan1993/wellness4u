@@ -61,8 +61,8 @@ if(isset($_POST['btnSubmit']))
                                         <td align="left" width="15%"><input type="text" id="search" name="search_for_page"  value="<?php echo $search_for_page; ?>" /></td>
                                         <td align="left" width="10%">Client Name :</td>
                                         <td align="left" width="15%"><input type="text" id="search" name="search_for_client"  value="<?php echo $search_for_client; ?>" /></td>
-                                        <td align="left" width="7%">Posted By :</td>
-                                        <td align="left" width="15%"><input type="text" id="search" name="posted_by"  value="<?php echo $posted_by; ?>" /></td>
+                                        <!-- <td align="left" width="7%">Posted By :</td>
+                                        <td align="left" width="15%"><input type="text" id="search" name="posted_by"  value="<?php echo $posted_by; ?>" /></td> -->
 
                                         <td align="left" width="40%"> <input type="Submit" name="btnSubmit" value="Search" /></td>             
                                     </tr>

@@ -1,1 +1,980 @@
-<?phprequire_once('config/class.mysql.php');require_once('classes/class.solutions.php');require_once('../init.php');require_once('classes/class.dailymeals.php');$obj4 = new Daily_Meals();$obj = new Solutions();//add by ample 19-10-20require_once('classes/class.scrollingwindows.php');$obj1 = new Scrolling_Windows();require_once('classes/class.banner.php');  $obj6 = new Banner();//add by ample 12-05-20require_once('classes/class.bodyparts.php');$obj2 = new BodyParts();require_once('classes/class.mindjumble.php');$obj3 = new Mindjumble();//add by ample 12-05-20require_once('classes/class.contents.php');  $obj5 = new Contents();$tables=$obj5->getTableNameFrom_tbltabldropdown('3'); //add by ample 18-05-20$add_action_id = '258';if($_GET['name']=='fav_categories'){  $reference_title = $obj->getTitleNameByIdVivek($_GET['image_id']);  }else if($_GET['name']=='main_symptoms'){  $reference_title = $obj->getTitleNameByIdFromBodymainsymptomVivek($_GET['image_id']);}$page_name = 'wellness_solution_items';if(!$obj->isAdminLoggedIn()){    header("Location: index.php?mode=login");    exit(0);}if(!$obj->chkValidActionPermission($admin_id,$add_action_id)){	    header("Location: index.php?mode=invalid");    exit(0);}$image_id=$_GET['image_id'];$page_name=$_GET['name'];if(empty($page_name)){    $page_name = 'wellness_solution_items'; //add new condition by 15-05-20}$error = false;$err_msg = "";$display_stressbuster = 'none';$display_trtext = '';$display_trfile = 'none'; $tr_rss_content = 'none';$arr_sol_item_cat_id = array();$arr_selected_page_id = array();if(isset($_POST['btnSubmit'])){    // echo "<pre>";    // print_r($_POST);    // die('------');    $topic_subject = $_POST['topic_subject'];        $narration = $_POST['narration'];        $user_name = $_POST['user_name'];        $user_id = $_POST['user_id'];        $user_type=1;        $wellbgn_ref_num = $_POST['wellbgn_ref_num'];        $reference_title = $_POST['reference_title'];        $credit     = strip_tags(trim($_POST['credit']));    $credit_url = strip_tags(trim($_POST['credit_url']));         $image_id = strip_tags(trim($_POST['image_id']));    $page_name = strip_tags(trim($_POST['page_name']));    $group_code = $_POST['group_code_category'];    $show_in_pop=trim($_POST['show_in_pop']);    $tags = $_POST['tags'];    $str_tags=implode(',',$tags);    //add by ample 13-08-20    $category=implode(',', $_POST['category_id']);    $category_header=trim($_POST['category_header']);    //add by ample 15-05-20    $key_ref_title=isset($_POST['key_ref_title'])?1:0;    $key_topic=isset($_POST['key_topic'])?1:0;    $key_narration=isset($_POST['key_narration'])?1:0;    $key_tags=isset($_POST['key_tags'])?1:0;    $order_show = strip_tags(trim($_POST['order_show']));    $user_upload_show = $_POST['user_upload_show'];    //add by ample 03-02-20    foreach ($_POST['selected_page_id'] as $key => $value)         {            array_push($arr_selected_page_id,$value);        }        $page_id = implode(',', $arr_selected_page_id);    //update by ample 15-05-20    if(empty(trim($topic_subject)))    {        $error = true;        $err_msg .= "<br>Please Enter Topic/Subjects.";    }    if(empty(trim($narration)))    {        $error = true;        $err_msg .= "<br>Please Enter Narration.";    }    if(empty(trim($category)))    {        $error = true;        $err_msg .= "<br>Please Select Category.";    }    $banner_type = $_POST['banner_type'];    $admin_notes = strip_tags(trim($_POST['admin_notes'])); //30-12-20    $is_featured=$_POST['is_featured']; //19-10-20    $is_featured_item=$_POST['is_featured_item']; //30-12-20     //update by ample 15-05-20    if($banner_type == 'text')    {        $display_trfile = 'none';        $display_trtext = 'none';        $tr_rss_content = 'none';        $banner="";    }    elseif($banner_type == 'rss')    {           $display_trfile = 'none';        $display_trtext = 'none';        $tr_rss_content = '';        $banner = trim($_POST['banner']);    }    elseif($banner_type == 'Video')    {           $display_trfile = 'none';        $display_trtext = '';        $tr_rss_content = 'none';        $banner = trim($_POST['banner2']);    }    else    {          $display_trfile = '';        $display_trtext = 'none';        if(isset($_FILES['banner']['tmp_name']) && $_FILES['banner']['tmp_name'] != '')            {                $banner = $_FILES['banner']['name'];                $file4=substr($banner, -4, 4);                    if($banner_type == 'Image')                    {                        if(($file4 != '.jpg')and($file4 != '.JPG') and ($file4 !='jpeg') and ($file4 != 'JPEG') and ($file4 !='.gif') and ($file4 != '.GIF') and ($file4 !='.png') and ($file4 != '.PNG'))                        {                            $error = true;                            $err_msg .= '<br>Please Upload Only(jpg/gif/jpeg/png) files for banner';                        }                            elseif( $_FILES['banner']['type'] != 'image/jpeg' and $_FILES['banner']['type'] != 'image/pjpeg'  and $_FILES['banner']['type'] != 'image/gif' and $_FILES['banner']['type'] != 'image/png' )                        {                            $error = true;                            $err_msg .= '<br>Please Upload Only(jpg/gif/jpeg/png) files for banner';                        }                        $image_size = $_FILES['banner']['size']/1024;                            $max_image_allowed_file_size = 2000; // size in KB                        if($image_size > $max_image_allowed_file_size )                            {                                $error = true;                                $err_msg .=  "<br>Size of image file should be less than $max_image_allowed_file_size kb";                            }                    }                    elseif($banner_type == 'Flash')                        {                        if(($file4 != '.swf')and($file4 != '.SWF'))                            {                                $error = true;                                $err_msg .= '<br>Please Upload Only(swf) files for banner ';                            }                            elseif( $_FILES['banner']['type'] != 'application/x-shockwave-flash'  )                            {                                $error = true;                                $err_msg .= '<br>Please Upload Only(swf) files for banner';                            }                            $flash_size = $_FILES['banner']['size']/1024;                                $max_flash_allowed_file_size = 2000; // size in KB                            if($flash_size > $max_flash_allowed_file_size )                                {                                    $error = true;                                    $err_msg .=  "<br>Size of flash file should be less than $max_flash_allowed_file_size kb";                                }                        }                        //update by ample 07-12-19                        elseif($banner_type == 'Audio' || $banner_type == 'Sound')                        {                            if(($file4 != '.mp3')and($file4 != '.wav') and ($file4 !='.MP3') and ($file4 != '.WAV') and ($file4 !='.mid') and ($file4 != '.MID'))                            {                                $error = true;                                $err_msg .= '<br>Please Upload Only(mp3 / wav / mid) files for banner ';                            }                            $banner_size = $_FILES['banner']['size']/1024;                               $max_audio_allowed_file_size = 2000; // size in KB                            if($banner_size > $max_audio_allowed_file_size )                                {                                    $error = true;                                    $err_msg .=  "<br>Size of audio file should be less than $max_audio_allowed_file_size kb";                                }                        }                        if(!$error)                            {                                   $banner = time()."_".$banner;                                $temp_dir = SITE_PATH.'/uploads/';                                $temp_file = $temp_dir.$banner;                                                if(!move_uploaded_file($_FILES['banner']['tmp_name'], $temp_file))                                 {                                    if(file_exists($temp_file)) { unlink($temp_file); } // Remove temp file                                    $error = true;                                    $err_msg .= '<br>Couldn\'t Upload banner 1';                                    $banner = trim($_POST['hdnbanner']);                                }                            }                            else                            {                                $banner = '';                            }            }              else                {                  $error = true;                   $err_msg .= '<br>Please upload banner';                                 }    }    if(!$error)    {           $sub_cat = implode(',', $arr_selected_cat_id);        if($obj->addSolutionItem($topic_subject,$narration,$user_name,$user_id,$user_type,$wellbgn_ref_num,$reference_title,$image_id,$page_name,$show_in_pop,$group_code,$category,$category_header,$str_tags,$order_show,$user_upload_show,$credit,$credit_url,$banner_type,$banner,$admin_notes,$page_id,$is_featured,$is_featured_item))        {                        $msg = "Record Added Successfully!";            header('location: index.php?mode=wellness_solution_items&msg='.urlencode($msg));        }        else        {            $error = true;            $err_msg = "Currently there is some problem.Please try again later.";        }    }	}else{    $credit_url = 'http://';}?><style>    .fstQueryInput {         font-size: 12px !important;         }           .fstChoiceItem         {            background-color: #505558 !important;            font-size: 10px !important;         }           .fstMultipleMode .fstControls {                box-sizing: border-box;                padding: 0.5em 0.5em 0em 0.5em;                overflow: hidden;                width: 50em !important;                cursor: text;            }</style><!--add by ample 13-12-19 --><link rel="stylesheet" href="css/build.min.css"><script src="js/build.min.js"></script><link rel="stylesheet" href="css/fastselect.min.css"><script src="js/fastselect.standalone.js"></script><div id="central_part_contents">    <div id="notification_contents">	<?php	if($error)	{ ?>        <table class="notification-border-e" id="notification" align="center" border="0" width="97%" cellpadding="1" cellspacing="1">        <tbody>            <tr>                <td class="notification-body-e">                    <table border="0" width="100%" cellpadding="0" cellspacing="6">                    <tbody>                        <tr>                            <td><img src="images/notification_icon_e.gif" alt="" border="0" width="12" height="10"></td>                            <td width="100%">                                <table border="0" width="100%" cellpadding="0" cellspacing="0">                                <tbody>                                    <tr>                                        <td class="notification-title-E">Error</td>                                    </tr>                                </tbody>                                </table>                            </td>                        </tr>                        <tr>                            <td>&nbsp;</td>                            <td class="notification-body-e"><?php echo $err_msg; ?></td>                        </tr>                    </tbody>                    </table>                </td>            </tr>        </tbody>        </table>        <?php	} ?>        <!--notification_contents-->    </div>	     <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">    <tbody>        <tr>            <td>                <table border="0" width="100%" cellpadding="0" cellspacing="0">                <tbody>                    <tr>                        <td style="background-image: url(images/mainbox_title_left.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>                        <td style="background-image: url(images/mainbox_title_bg.gif);" valign="middle" width="21"><img src="images/mainbox_title_icon.gif" alt="" border="0" width="21" height="5"></td>                        <td style="background-image: url(images/mainbox_title_bg.gif);" class="mainbox-title" width="100%">Add Wellness Solution Item</td>                        <td style="background-image: url(images/mainbox_title_right.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>                    </tr>                </tbody>                </table>            </td>        </tr>        <tr>            <td>                <table class="mainbox-border" border="0" width="100%" cellpadding="10" cellspacing="1">                <tbody>                    <tr>                        <td class="mainbox-body">                            <form action="#" method="post" name="frm_addstressBuster" id="frm_addstressBuster" enctype="multipart/form-data" >                                                                <input type="hidden"  id="image_id" name="image_id" value="<?php echo $image_id; ?>"/>                                <input type="hidden"  id="page_name" name="page_name" value="<?php echo $page_name; ?>"/>                                                              <input type="hidden"  id="user_name" name="user_name" value="<?php echo $_SESSION['admin_username']; ?>" readonly style="width:200px;"/>                               <input type="hidden"  id="user_id" name="user_id" value="<?php echo $_SESSION['admin_id']; ?>" readonly style="width:200px;"/>                                                                                              <table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">                                <tbody>                                                                        <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                            <td align="right"><strong>Reference Number</strong></td>                                                                              <td align="center"><strong>:</strong></td>                                             <td align="left">                                            <input type="text"  id="wellbgn_ref_num" name="wellbgn_ref_num" value="<?php echo $wellbgn_ref_num; ?>"  style="width:200px;"/>                                   	</td>                                                                            </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <!-- Group code section copy by ample 12-05-20 -->                                    <tr>                                            <td align="right"><strong>Group Code Category</strong></td>                                        <td align="center"><strong>:</strong></td>                                             <td align="left">                                             <select name="group_code_category" id="group_code_category" style="height: 23px;width: 200px;">                                                <?php echo $obj2->getFavCategoryRamakant('78',''); ?>                                            </select>                                    </td>                                                                            </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                     <tr>                                        <td align="right"><strong>Reference Page Name</strong></td>                                                                              <td align="center"><strong>:</strong></td>                                             <td align="left">                                            <input type="text"  id="page_name" name="page_name" value="<?php echo $page_name; ?>" readonly style="width:200px;"/>                                   	</td>                                    </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                            <td align="right"><strong>Reference Title</strong></td>                                                                              <td align="center"><strong>:</strong></td>                                             <td align="left">                                            <input type="text"  id="reference_title" name="reference_title" value="<?php echo $reference_title; ?>" readonly style="width:200px;"/>                                            &nbsp;&nbsp;<input type="checkbox" name="key_ref_title" id="key_ref_title"> keyword Selection                                   	</td>                                                                            </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                        <td width="20%" align="right"><strong>Topic/Subject</strong></td>                                        <td width="5%" align="center"><strong>:</strong></td>                                        <td width="75%" align="left"><input type="text"  id="topic_subject" name="topic_subject" value="<?php echo $topic_subject; ?>" style="width:550px;"/>                                            &nbsp;&nbsp;<input type="checkbox" name="key_topic" id="key_topic"> keyword Selection                                        </td>                                    </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                        <td align="right" valign="top"><strong>Narration</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                                                                <td align="left"><textarea id="narration" rows="10" cols="50" name="narration" ><?php echo $narration; ?></textarea>                                            &nbsp;&nbsp;<input type="checkbox" name="key_narration" id="key_narration"> keyword Selection                                        </td>                                                                           </tr>                                                                       <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                    <td width="30%" align="right" valign="top"><strong>Page Name</strong></td>                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>                                    <td width="65%" align="left" valign="top">                                                                            <?php echo $obj5->getPageDropdownChkeckbox($arr_selected_page_id,'29','200','100');?>                                                                                                                                                    </td>                                </tr>                                     <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                <tr>                                    <td width="20%" align="right"><strong>Banner Type</strong></td>                                    <td width="5%" align="center"><strong>:</strong></td>                                    <td width="75%" align="left">                                        <select name="banner_type" id="banner_type" onchange="BannerBox1()">                                                <?php echo $obj->getSolutionItemTypeOptions($banner_type); ?>                                        </select>                                    </td>                                </tr>                                <tr>                                    <td colspan="3" align="center">&nbsp;</td>                                </tr>                                <tr id="trfile" style="display:<?php echo $display_trfile;?>">                                        <td align="right" valign="top"><strong>Banner</strong></td>                                        <td align="center" valign="top">:</td>                                        <td align="left">                                            <input type="file" name="banner" id="banner" />                                        </td>                                </tr>                                <tr id="trtext" style="display:<?php echo $display_trtext;?>">                                    <td align="right" valign="top"><strong>Banner</strong></td>                                    <td align="center" valign="top">:</td>                                    <td align="left">                                        <input type="text" name="banner2" id="banner2" placeholder="Enter URL" value="<?php echo $banner;?>" style="width: 50%;" />                                    </td>                                </tr>                                <tr id="tr_rss_content" style="display:<?php echo $tr_rss_content;?>">                                        <td align="right"><strong>Rss Feeds</strong></td>                                        <td align="center"><strong>:</strong></td>                                        <td align="left">                                            <select name="banner" id="banner3" onchange="getDescriptionDataVivek();return false;" style="width:400px;">                                                <option value="">Select Rss Feed</option>                                                <?php echo $obj->getRssFeedOptions($rss_feed_item_id); ?>                                            </select>                                    </td>                                </tr>                                <tr>                                    <td colspan="3" align="center">&nbsp;</td>                                </tr>                                     <tr>                                    <td width="20%" align="right"><strong>Credit</strong></td>                                    <td width="5%" align="center"><strong>:</strong></td>                                    <td width="75%" align="left"><input type="text"  id="credit" name="credit" value="<?php echo $credit; ?>" style="width:500px;"/>                                                        </td>                                </tr>                                                                <tr>                                    <td colspan="3" align="center">&nbsp;</td>                                </tr>                                                                <tr>                                    <td width="20%" align="right"><strong>Credit URL</strong></td>                                    <td width="5%" align="center"><strong>:</strong></td>                                    <td width="75%" align="left"><input type="text"  id="credit_url" name="credit_url" style="width:500px;" value="<?php echo $credit_url; ?>"/>&nbsp;(Please enter link like http://www.google.com)                                     </td>                                </tr>                                    <tr>                                        <td colspan="8" height="30" align="left" valign="middle">&nbsp;</td>                                    </tr>                                        <td align="right" valign="top"><strong>Category</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                                <?php echo $obj->getManageFavCatDropdownDataOption(34); ?>                                             &nbsp;&nbsp;&nbsp;Header <input type="text" name="category_header" id="category_header" />                                                                                    </td>                                    </tr>                                    <tr>                                        <td colspan="8" height="30" align="left" valign="middle">&nbsp;</td>                                    </tr>                                    <tr>                                    <td width="20%" align="right" valign="top"><strong>Admin Notes</strong></td>                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>                                    <td width="75%" align="left"><textarea id="admin_notes" rows="10" cols="50" name="admin_notes" ><?php echo $admin_notes; ?></textarea>                                    </td>                                </tr>                                    <tr>                                        <td colspan="8" height="30" align="left" valign="middle">&nbsp;</td>                                    </tr>                                                                       <!-- tags copy by ample 12-05-20-->                                        <tr>                                            <td width="20%" align="right"><strong>Tags</strong></td>                                            <td width="5%" align="center"><strong>:</strong></td>                                            <td width="75%" align="left">                                                <select class="multipleSelect" name="tags[]" id="tags" multiple>                                                    <?php echo $obj3->getIngredientsByIngrdientType('','423','85',$tags);?>                                                </select>                                                <script>                                                    $('.multipleSelect').fastselect();                                                </script>                                                &nbsp;&nbsp;<input type="checkbox" name="key_tags" id="key_tags"> keyword Selection                                        </tr>                                        <tr>                                            <td colspan="3" align="center">&nbsp;</td>                                        </tr>                                        <tr>                                        <tr>                                                                                                            <td align="right" valign="top"><strong>Order</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="order_show" style="width:200px; height: 24px;">                                                <?php for($i=1;$i<=50;$i++) { ?>                                                <option value="<?php echo $i ?>"><?php echo $i ?></option>                                                <?php } ?>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>User upload</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="user_upload_show" id="user_upload_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1">Show</option>                                                <option value="0">Hide</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                                                         <tr>                                                                                <td align="right" valign="top"><strong>&nbsp;&nbsp;&nbsp;&nbsp;Show in popup</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td align="left" >                                                                                     <select name="show_in_pop" id="show_in_pop" style="width:200px;height: 20px;" onchange="">                                              <option value="Yes">Yes</option>                                              <option value="No">No</option>                                            </select>                                        </td>                                                                           </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                        <td align="right"><strong>&nbsp;</strong></td>                                        <td align="center"><strong>&nbsp;</strong></td>                                        <td align="left">                                          <input type="checkbox" value="1" name="is_featured" id="is_featured"> Featured-homepage                                          <br>                                          <input type="checkbox" value="1" name="is_featured_item" id="is_featured_item"> Featured-MoodReset                                        </td>                                    </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                                                     <tr>                                        <td>&nbsp;</td>                                        <td>&nbsp;</td>                                        <td align="left">                                            <input type="Submit" name="btnSubmit" value="Submit" />&nbsp;                                            <input type="button" name="btnCancel" value="Cancel" onclick="window.location.href='index.php?mode=wellness_solution_items'">                                        </td>                                    </tr>                                </tbody>                                </table>                            </form>                        </td>                    </tr>                </tbody>                </table>            </td>        </tr>    </tbody>    </table>    <br> <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>    <script type="text/javascript">        tinyMCE.init({            mode : "exact",            theme : "advanced",            elements : "narration,box_desc,admin_notes",            plugins : "style,advimage,advlink,emotions",            theme_advanced_buttons1 : "bold,italic,underline,indicime,indicimehelp,formatselect,fontselect,fontsizeselect",            theme_advanced_buttons2 : "justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,forecolor,backcolor",            theme_advanced_buttons3 : "blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview",        });//copy by ample 12-05-20function getMainCategoryOptionAddMore(){    var parent_cat_id = $("#fav_cat_type_id").val();        var id='';    var dataString = 'action=getsubcatoption&parent_cat_id='+parent_cat_id+'&id='+id;    $.ajax({        type: "POST",        url: "include/remote.php",        data: dataString,        cache: false,        success: function(result)        {            $("#fav_cat_id").html(result);        }    });}//copy  by ample 12-05-20 function get_column_names(tbl="",show_on="")    {           //alert(tbl.value);        var tbl_name=tbl.value;        var dataString = 'action=getTableColumnsName&tbl_name='+tbl_name;      $.ajax({        type: "POST",        url: "include/remote.php",        // dataType:'JSON',        data: dataString,        cache: false,        success: function(result)        {            //alert(result);            $('#'+show_on).html(result);        }      });    }    </script></div>
+<?php
+
+require_once('config/class.mysql.php');
+
+require_once('classes/class.solutions.php');
+
+require_once('../init.php');
+
+require_once('classes/class.dailymeals.php');
+$obj4 = new Daily_Meals();
+$obj = new Solutions();
+
+//add by ample 19-10-20
+require_once('classes/class.scrollingwindows.php');
+$obj1 = new Scrolling_Windows();
+
+require_once('classes/class.banner.php');  
+$obj6 = new Banner();
+
+//add by ample 12-05-20
+require_once('classes/class.bodyparts.php');
+$obj2 = new BodyParts();
+require_once('classes/class.mindjumble.php');
+$obj3 = new Mindjumble();
+//add by ample 12-05-20
+require_once('classes/class.contents.php');  
+$obj5 = new Contents();
+
+
+$tables=$obj5->getTableNameFrom_tbltabldropdown('3'); //add by ample 18-05-20
+
+$add_action_id = '258';
+
+if($_GET['name']=='fav_categories')
+{
+  $reference_title = $obj->getTitleNameByIdVivek($_GET['image_id']);
+  
+}
+else if($_GET['name']=='main_symptoms')
+{
+  $reference_title = $obj->getTitleNameByIdFromBodymainsymptomVivek($_GET['image_id']);
+}
+
+$page_name = 'wellness_solution_items';
+
+
+if(!$obj->isAdminLoggedIn())
+
+{
+
+    header("Location: index.php?mode=login");
+
+    exit(0);
+
+}
+
+
+
+if(!$obj->chkValidActionPermission($admin_id,$add_action_id))
+
+{	
+
+    header("Location: index.php?mode=invalid");
+
+    exit(0);
+
+}
+
+
+$image_id=$_GET['image_id'];
+$page_name=$_GET['name'];
+
+if(empty($page_name))
+{
+    $page_name = 'wellness_solution_items'; //add new condition by 15-05-20
+}
+
+
+$error = false;
+$err_msg = "";
+$display_stressbuster = 'none';
+$display_trtext = '';
+$display_trfile = 'none'; 
+$tr_rss_content = 'none';
+$arr_sol_item_cat_id = array();
+$arr_selected_page_id = array();
+
+if(isset($_POST['btnSubmit']))
+
+{
+
+    // echo "<pre>";
+
+    // print_r($_POST);
+
+    // die('------');
+
+    $topic_subject = $_POST['topic_subject'];
+    
+    $narration = $_POST['narration'];
+    
+    $user_name = $_POST['user_name'];
+    
+    $user_id = $_POST['user_id'];
+    
+    $user_type=1;
+    
+    $wellbgn_ref_num = $_POST['wellbgn_ref_num'];
+    
+    $reference_title = $_POST['reference_title'];
+    
+    $credit     = strip_tags(trim($_POST['credit']));
+
+    $credit_url = strip_tags(trim($_POST['credit_url'])); 
+    
+    $image_id = strip_tags(trim($_POST['image_id']));
+
+    $page_name = strip_tags(trim($_POST['page_name']));
+
+    $group_code = $_POST['group_code_category'];
+
+    $show_in_pop=trim($_POST['show_in_pop']);
+
+    $tags = $_POST['tags'];
+    //$str_tags = implode(',', array_filter((array)$tags));
+    $str_tags = implode(',', array_filter((array)$tags));
+
+
+    //add by ample 13-08-20
+    
+    
+    $category = implode(',', array_filter((array)$_POST['category_id']));
+    
+    $category_header=trim($_POST['category_header']);
+
+    //add by ample 15-05-20
+    $key_ref_title=isset($_POST['key_ref_title'])?1:0;
+    $key_topic=isset($_POST['key_topic'])?1:0;
+    $key_narration=isset($_POST['key_narration'])?1:0;
+    $key_tags=isset($_POST['key_tags'])?1:0;
+
+    $order_show = strip_tags(trim($_POST['order_show']));
+    $user_upload_show = $_POST['user_upload_show'];
+
+    //add by ample 03-02-20
+    foreach ($_POST['selected_page_id'] as $key => $value) 
+        {
+            array_push($arr_selected_page_id,$value);
+        }
+        $page_id = implode(',', $arr_selected_page_id);
+
+    //update by ample 15-05-20
+    if(empty(trim($topic_subject)))
+    {
+        $error = true;
+        $err_msg .= "<br>Please Enter Topic/Subjects.";
+    }
+    if(empty(trim($narration)))
+    {
+        $error = true;
+        $err_msg .= "<br>Please Enter Narration.";
+    }
+    if(empty(trim($category)))
+    {
+        $error = true;
+        $err_msg .= "<br>Please Select Category.";
+    }
+
+    $banner_type = $_POST['banner_type'];
+    $admin_notes = strip_tags(trim($_POST['admin_notes'])); //30-12-20
+    $is_featured=$_POST['is_featured']; //19-10-20
+    $is_featured_item=$_POST['is_featured_item']; //30-12-20
+
+     //update by ample 15-05-20
+    if($banner_type == 'text')
+    {
+        $display_trfile = 'none';
+        $display_trtext = 'none';
+        $tr_rss_content = 'none';
+        $banner="";
+    }
+    elseif($banner_type == 'rss')
+    {   
+        $display_trfile = 'none';
+        $display_trtext = 'none';
+        $tr_rss_content = '';
+        $banner = trim($_POST['banner']);
+    }
+    elseif($banner_type == 'Video')
+    {   
+        $display_trfile = 'none';
+        $display_trtext = '';
+        $tr_rss_content = 'none';
+        $banner = trim($_POST['banner2']);
+    }
+    else
+    {  
+        $display_trfile = '';
+        $display_trtext = 'none';
+
+        if(isset($_FILES['banner']['tmp_name']) && $_FILES['banner']['tmp_name'] != '')
+            {
+                $banner = $_FILES['banner']['name'];
+                $file4=substr($banner, -4, 4);
+                    if($banner_type == 'Image')
+                    {
+                        if(($file4 != '.jpg')and($file4 != '.JPG') and ($file4 !='jpeg') and ($file4 != 'JPEG') and ($file4 !='.gif') and ($file4 != '.GIF') and ($file4 !='.png') and ($file4 != '.PNG'))
+                        {
+                            $error = true;
+                            $err_msg .= '<br>Please Upload Only(jpg/gif/jpeg/png) files for banner';
+                        }    
+                        elseif( $_FILES['banner']['type'] != 'image/jpeg' and $_FILES['banner']['type'] != 'image/pjpeg'  and $_FILES['banner']['type'] != 'image/gif' and $_FILES['banner']['type'] != 'image/png' )
+                        {
+                            $error = true;
+                            $err_msg .= '<br>Please Upload Only(jpg/gif/jpeg/png) files for banner';
+                        }
+                        $image_size = $_FILES['banner']['size']/1024;    
+                        $max_image_allowed_file_size = 2000; // size in KB
+                        if($image_size > $max_image_allowed_file_size )
+                            {
+                                $error = true;
+                                $err_msg .=  "<br>Size of image file should be less than $max_image_allowed_file_size kb";
+                            }
+                    }
+                    elseif($banner_type == 'Flash')
+                        {
+                        if(($file4 != '.swf')and($file4 != '.SWF'))
+                            {
+                                $error = true;
+                                $err_msg .= '<br>Please Upload Only(swf) files for banner ';
+                            }    
+                        elseif( $_FILES['banner']['type'] != 'application/x-shockwave-flash'  )
+                            {
+                                $error = true;
+                                $err_msg .= '<br>Please Upload Only(swf) files for banner';
+                            }
+                            $flash_size = $_FILES['banner']['size']/1024;    
+                            $max_flash_allowed_file_size = 2000; // size in KB
+                            if($flash_size > $max_flash_allowed_file_size )
+                                {
+                                    $error = true;
+                                    $err_msg .=  "<br>Size of flash file should be less than $max_flash_allowed_file_size kb";
+                                }
+                        }
+                        //update by ample 07-12-19
+                        elseif($banner_type == 'Audio' || $banner_type == 'Sound')
+                        {   
+                         if(($file4 != '.mp3')and($file4 != '.wav') and ($file4 !='.MP3') and ($file4 != '.WAV') and ($file4 !='.mid') and ($file4 != '.MID'))
+                            {
+                                $error = true;
+                                $err_msg .= '<br>Please Upload Only(mp3 / wav / mid) files for banner ';
+                            }
+                            $banner_size = $_FILES['banner']['size']/1024;   
+                            $max_audio_allowed_file_size = 2000; // size in KB
+                            if($banner_size > $max_audio_allowed_file_size )
+                                {
+                                    $error = true;
+                                    $err_msg .=  "<br>Size of audio file should be less than $max_audio_allowed_file_size kb";
+                                }
+                        }
+
+                        if(!$error)
+                            {   
+                                $banner = time()."_".$banner;
+                                $temp_dir = SITE_PATH.'/uploads/';
+                                $temp_file = $temp_dir.$banner;
+                        
+                        if(!move_uploaded_file($_FILES['banner']['tmp_name'], $temp_file)) 
+                                {
+                                    if(file_exists($temp_file)) { unlink($temp_file); } // Remove temp file
+                                    $error = true;
+                                    $err_msg .= '<br>Couldn\'t Upload banner 1';
+                                    $banner = trim($_POST['hdnbanner']);
+                                }
+                            }
+                            else
+                            {
+                                $banner = '';
+                            }
+            }  
+            else
+                {
+                  $error = true; 
+                  $err_msg .= '<br>Please upload banner'; 
+                
+                }
+    }
+
+    if(!$error)
+
+    {   
+        $sub_cat = implode(',', $arr_selected_cat_id);
+
+        if($obj->addSolutionItem($topic_subject,$narration,$user_name,$user_id,$user_type,$wellbgn_ref_num,$reference_title,$image_id,$page_name,$show_in_pop,$group_code,$category,$category_header,$str_tags,$order_show,$user_upload_show,$credit,$credit_url,$banner_type,$banner,$admin_notes,$page_id,$is_featured,$is_featured_item))
+
+        {
+            
+
+            $msg = "Record Added Successfully!";
+
+            header('location: index.php?mode=wellness_solution_items&msg='.urlencode($msg));
+
+        }
+
+        else
+
+        {
+
+            $error = true;
+
+            $err_msg = "Currently there is some problem.Please try again later.";
+
+        }
+
+    }	
+
+}
+else
+{
+    $credit_url = 'http://';
+}
+
+
+?>
+
+
+<style>
+    .fstQueryInput {
+
+         font-size: 12px !important;
+
+         }  
+
+         .fstChoiceItem
+
+         {
+
+            background-color: #505558 !important;
+
+            font-size: 10px !important;
+
+         }  
+
+         .fstMultipleMode .fstControls {
+
+                box-sizing: border-box;
+
+                padding: 0.5em 0.5em 0em 0.5em;
+
+                overflow: hidden;
+
+                width: 50em !important;
+
+                cursor: text;
+
+            }
+
+</style>
+<!--add by ample 13-12-19 -->
+<link rel="stylesheet" href="css/build.min.css">
+<script src="js/build.min.js"></script>
+<link rel="stylesheet" href="css/fastselect.min.css">
+<script src="js/fastselect.standalone.js"></script>
+
+<div id="central_part_contents">
+
+    <div id="notification_contents">
+
+	<?php
+
+	if($error)
+
+	{ ?>
+
+        <table class="notification-border-e" id="notification" align="center" border="0" width="97%" cellpadding="1" cellspacing="1">
+
+        <tbody>
+
+            <tr>
+
+                <td class="notification-body-e">
+
+                    <table border="0" width="100%" cellpadding="0" cellspacing="6">
+
+                    <tbody>
+
+                        <tr>
+
+                            <td><img src="images/notification_icon_e.gif" alt="" border="0" width="12" height="10"></td>
+
+                            <td width="100%">
+
+                                <table border="0" width="100%" cellpadding="0" cellspacing="0">
+
+                                <tbody>
+
+                                    <tr>
+
+                                        <td class="notification-title-E">Error</td>
+
+                                    </tr>
+
+                                </tbody>
+
+                                </table>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>&nbsp;</td>
+
+                            <td class="notification-body-e"><?php echo $err_msg; ?></td>
+
+                        </tr>
+
+                    </tbody>
+
+                    </table>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+        </table>
+
+        <?php
+
+	} ?>
+
+        <!--notification_contents-->
+
+    </div>	 
+
+    <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+
+    <tbody>
+
+        <tr>
+
+            <td>
+
+                <table border="0" width="100%" cellpadding="0" cellspacing="0">
+
+                <tbody>
+
+                    <tr>
+
+                        <td style="background-image: url(images/mainbox_title_left.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>
+
+                        <td style="background-image: url(images/mainbox_title_bg.gif);" valign="middle" width="21"><img src="images/mainbox_title_icon.gif" alt="" border="0" width="21" height="5"></td>
+
+                        <td style="background-image: url(images/mainbox_title_bg.gif);" class="mainbox-title" width="100%">Add Wellness Solution Item</td>
+
+                        <td style="background-image: url(images/mainbox_title_right.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>
+
+                    </tr>
+
+                </tbody>
+
+                </table>
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <td>
+
+                <table class="mainbox-border" border="0" width="100%" cellpadding="10" cellspacing="1">
+
+                <tbody>
+
+                    <tr>
+
+                        <td class="mainbox-body">
+
+                            <form action="#" method="post" name="frm_addstressBuster" id="frm_addstressBuster" enctype="multipart/form-data" >
+                                
+                                <input type="hidden"  id="image_id" name="image_id" value="<?php echo $image_id; ?>"/>
+                                <input type="hidden"  id="page_name" name="page_name" value="<?php echo $page_name; ?>"/>
+                               
+                               <input type="hidden"  id="user_name" name="user_name" value="<?php echo $_SESSION['admin_username']; ?>" readonly style="width:200px;"/>
+                               <input type="hidden"  id="user_id" name="user_id" value="<?php echo $_SESSION['admin_id']; ?>" readonly style="width:200px;"/>
+
+                               
+                               
+                                <table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+
+                                <tbody>
+
+                                    
+                                    <tr>
+
+                                        <td colspan="3" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>    
+                                        <td align="right"><strong>Reference Number</strong></td>
+
+                                      
+                                        <td align="center"><strong>:</strong></td>
+                                             <td align="left">
+
+                                            <input type="text"  id="wellbgn_ref_num" name="wellbgn_ref_num" value="<?php echo $wellbgn_ref_num; ?>"  style="width:200px;"/>
+
+                                   	</td>
+                                        
+
+                                    </tr>
+                                    <tr>
+
+                                        <td colspan="3" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <!-- Group code section copy by ample 12-05-20 -->
+                                    <tr>    
+                                        <td align="right"><strong>Group Code Category</strong></td>
+                                        <td align="center"><strong>:</strong></td>
+                                             <td align="left">
+                                             <select name="group_code_category" id="group_code_category" style="height: 23px;width: 200px;">
+                                                <?php echo $obj2->getFavCategoryRamakant('78',''); ?>
+                                            </select>
+                                    </td>
+                                        
+
+                                    </tr>
+                                    <tr>
+
+                                        <td colspan="3" align="center">&nbsp;</td>
+
+                                    </tr>
+
+
+                                     <tr>
+
+                                        <td align="right"><strong>Reference Page Name</strong></td>
+
+                                      
+                                        <td align="center"><strong>:</strong></td>
+                                             <td align="left">
+
+                                            <input type="text"  id="page_name" name="page_name" value="<?php echo $page_name; ?>" readonly style="width:200px;"/>
+
+                                   	</td>
+                                    </tr>
+                                    <tr>
+
+                                        <td colspan="3" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>    
+                                        <td align="right"><strong>Reference Title</strong></td>
+
+                                      
+                                        <td align="center"><strong>:</strong></td>
+                                             <td align="left">
+
+                                            <input type="text"  id="reference_title" name="reference_title" value="<?php echo $reference_title; ?>" readonly style="width:200px;"/>
+
+                                            &nbsp;&nbsp;<input type="checkbox" name="key_ref_title" id="key_ref_title"> keyword Selection
+
+                                   	</td>
+                                        
+
+                                    </tr>
+                                    <tr>
+
+                                        <td colspan="3" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td width="20%" align="right"><strong>Topic/Subject</strong></td>
+
+                                        <td width="5%" align="center"><strong>:</strong></td>
+
+                                        <td width="75%" align="left"><input type="text"  id="topic_subject" name="topic_subject" value="<?php echo $topic_subject; ?>" style="width:550px;"/>
+                                            &nbsp;&nbsp;<input type="checkbox" name="key_topic" id="key_topic"> keyword Selection
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+
+                                        <td colspan="3" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td align="right" valign="top"><strong>Narration</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        
+                                        <td align="left"><textarea id="narration" rows="10" cols="50" name="narration" ><?php echo $narration; ?></textarea>
+                                            &nbsp;&nbsp;<input type="checkbox" name="key_narration" id="key_narration"> keyword Selection
+                                        </td>
+                                       
+                                    </tr>
+                                   
+                                    <tr>
+
+                                        <td colspan="3" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>
+                                    <td width="30%" align="right" valign="top"><strong>Page Name</strong></td>
+                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>
+                                    <td width="65%" align="left" valign="top">
+
+                                                                            <?php echo $obj5->getPageDropdownChkeckbox($arr_selected_page_id,'29','200','100');?>
+                                                                            
+                                                                        </td>
+                                </tr>
+                                     <tr>
+
+                                        <td colspan="3" align="center">&nbsp;</td>
+
+                                    </tr>
+                                <tr>
+                                    <td width="20%" align="right"><strong>Banner Type</strong></td>
+                                    <td width="5%" align="center"><strong>:</strong></td>
+                                    <td width="75%" align="left">
+                                        <select name="banner_type" id="banner_type" onchange="BannerBox1()">
+
+                                                <?php echo $obj->getSolutionItemTypeOptions($banner_type); ?>
+
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" align="center">&nbsp;</td>
+                                </tr>
+                                <tr id="trfile" style="display:<?php echo $display_trfile;?>">
+                                        <td align="right" valign="top"><strong>Banner</strong></td>
+                                        <td align="center" valign="top">:</td>
+                                        <td align="left">
+                                            <input type="file" name="banner" id="banner" />
+                                        </td>
+                                </tr>
+                                <tr id="trtext" style="display:<?php echo $display_trtext;?>">
+                                    <td align="right" valign="top"><strong>Banner</strong></td>
+                                    <td align="center" valign="top">:</td>
+                                    <td align="left">
+                                        <input type="text" name="banner2" id="banner2" placeholder="Enter URL" value="<?php echo $banner;?>" style="width: 50%;" />
+                                    </td>
+                                </tr>
+                                <tr id="tr_rss_content" style="display:<?php echo $tr_rss_content;?>">
+                                        <td align="right"><strong>Rss Feeds</strong></td>
+                                        <td align="center"><strong>:</strong></td>
+                                        <td align="left">
+                                            <select name="banner" id="banner3" onchange="getDescriptionDataVivek();return false;" style="width:400px;">
+                                                <option value="">Select Rss Feed</option>
+                                                <?php echo $obj->getRssFeedOptions($rss_feed_item_id); ?>
+                                            </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" align="center">&nbsp;</td>
+                                </tr>
+
+                                     <tr>
+
+                                    <td width="20%" align="right"><strong>Credit</strong></td>
+
+                                    <td width="5%" align="center"><strong>:</strong></td>
+
+                                    <td width="75%" align="left"><input type="text"  id="credit" name="credit" value="<?php echo $credit; ?>" style="width:500px;"/>
+
+                                                        </td>
+
+                                </tr>
+
+                                                                <tr>
+
+                                    <td colspan="3" align="center">&nbsp;</td>
+
+                                </tr>
+
+                                                                <tr>
+
+                                    <td width="20%" align="right"><strong>Credit URL</strong></td>
+
+                                    <td width="5%" align="center"><strong>:</strong></td>
+
+                                    <td width="75%" align="left"><input type="text"  id="credit_url" name="credit_url" style="width:500px;" value="<?php echo $credit_url; ?>"/>&nbsp;(Please enter link like http://www.google.com)
+
+                                     </td>
+
+                                </tr>
+
+                                    <tr>
+                                        <td colspan="8" height="30" align="left" valign="middle">&nbsp;</td>
+                                    </tr>
+
+
+                                        <td align="right" valign="top"><strong>Category</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                                <?php echo $obj->getManageFavCatDropdownDataOption(34); ?>
+
+                                             &nbsp;&nbsp;&nbsp;Header <input type="text" name="category_header" id="category_header" />
+                                            
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="8" height="30" align="left" valign="middle">&nbsp;</td>
+                                    </tr>
+
+                                    <tr>
+                                    <td width="20%" align="right" valign="top"><strong>Admin Notes</strong></td>
+                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>
+                                    <td width="75%" align="left"><textarea id="admin_notes" rows="10" cols="50" name="admin_notes" ><?php echo $admin_notes; ?></textarea>
+                                    </td>
+                                </tr>
+
+                                    <tr>
+                                        <td colspan="8" height="30" align="left" valign="middle">&nbsp;</td>
+                                    </tr>
+                                   
+                                    <!-- tags copy by ample 12-05-20-->
+                                        <tr>
+                                            <td width="20%" align="right"><strong>Tags</strong></td>
+                                            <td width="5%" align="center"><strong>:</strong></td>
+                                            <td width="75%" align="left">
+                                                <select class="multipleSelect" name="tags[]" id="tags" multiple>   
+                                                 <?php echo $obj3->getIngredientsByIngrdientType('','423','85',$tags);?>
+                                                </select>
+                                                <script>
+                                                    $('.multipleSelect').fastselect();
+                                                </script>
+                                                &nbsp;&nbsp;<input type="checkbox" name="key_tags" id="key_tags"> keyword Selection
+                                        </tr>
+
+                                        <tr>
+
+                                            <td colspan="3" align="center">&nbsp;</td>
+
+                                        </tr>
+
+                                        <tr>
+
+                                        <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Order</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="order_show" style="width:200px; height: 24px;">
+
+                                                <?php for($i=1;$i<=50;$i++) { ?>
+
+                                                <option value="<?php echo $i ?>"><?php echo $i ?></option>
+
+                                                <?php } ?>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>User upload</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="user_upload_show" id="user_upload_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1">Show</option>
+
+                                                <option value="0">Hide</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+                                    
+                                     <tr>
+                                        
+                                        <td align="right" valign="top"><strong>&nbsp;&nbsp;&nbsp;&nbsp;Show in popup</strong></td>
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td align="left" >
+                                         
+                                            <select name="show_in_pop" id="show_in_pop" style="width:200px;height: 20px;" onchange="">
+                                              <option value="Yes">Yes</option>
+                                              <option value="No">No</option>
+                                            </select>
+                                        </td>
+                                       
+                                    </tr>
+
+
+                                    <tr>
+                                        <td colspan="3" align="center">&nbsp;</td>
+                                    </tr>
+
+                                    <tr>
+
+                                        <td align="right"><strong>&nbsp;</strong></td>
+
+                                        <td align="center"><strong>&nbsp;</strong></td>
+
+                                        <td align="left">
+
+                                          <input type="checkbox" value="1" name="is_featured" id="is_featured"> Featured-homepage
+                                          <br>
+                                          <input type="checkbox" value="1" name="is_featured_item" id="is_featured_item"> Featured-MoodReset
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="3" align="center">&nbsp;</td>
+                                    </tr>
+
+                                    <tr>
+
+                                
+
+                                    <tr>
+                                        <td colspan="3" align="center">&nbsp;</td>
+                                    </tr>
+                                 
+                                    <tr>
+
+                                        <td>&nbsp;</td>
+
+                                        <td>&nbsp;</td>
+
+                                        <td align="left">
+
+                                            <input type="Submit" name="btnSubmit" value="Submit" />&nbsp;
+
+                                            <input type="button" name="btnCancel" value="Cancel" onclick="window.location.href='index.php?mode=wellness_solution_items'">
+
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+
+                                </table>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+                </table>
+
+            </td>
+
+        </tr>
+
+    </tbody>
+
+    </table>
+
+    <br>
+
+
+ <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+    <script type="text/javascript">
+        tinyMCE.init({
+            mode : "exact",
+            theme : "advanced",
+            elements : "narration,box_desc,admin_notes",
+            plugins : "style,advimage,advlink,emotions",
+            theme_advanced_buttons1 : "bold,italic,underline,indicime,indicimehelp,formatselect,fontselect,fontsizeselect",
+            theme_advanced_buttons2 : "justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,forecolor,backcolor",
+            theme_advanced_buttons3 : "blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview",
+        });
+
+
+//copy by ample 12-05-20
+
+function getMainCategoryOptionAddMore()
+
+{
+
+
+    var parent_cat_id = $("#fav_cat_type_id").val();
+
+        var id='';
+
+
+    var dataString = 'action=getsubcatoption&parent_cat_id='+parent_cat_id+'&id='+id;
+
+    $.ajax({
+
+        type: "POST",
+
+        url: "include/remote.php",
+
+        data: dataString,
+
+        cache: false,
+
+        success: function(result)
+
+        {
+            $("#fav_cat_id").html(result);
+
+        }
+
+    });
+
+}
+
+
+
+
+//copy  by ample 12-05-20
+ function get_column_names(tbl="",show_on="")
+    {   
+        //alert(tbl.value);
+        var tbl_name=tbl.value;
+        var dataString = 'action=getTableColumnsName&tbl_name='+tbl_name;
+
+      $.ajax({
+        type: "POST",
+        url: "include/remote.php",
+        // dataType:'JSON',
+        data: dataString,
+        cache: false,
+        success: function(result)
+        {
+            //alert(result);
+            $('#'+show_on).html(result);
+        }
+      });
+    }
+
+
+
+
+    </script>
+
+</div>

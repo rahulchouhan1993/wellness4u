@@ -4,6 +4,15 @@ include_once("class.admin.php");
 
 class Banner extends Admin
 {
+    public function getAllPostedByUser(){
+        $my_DBH = new mysqlConnection();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $sql = "SELECT admin_id,admin_username FROM `tblbanners` WHERE admin_deleted = '0' AND admin_status = '1' ORDER BY admin_username ASC ";
+        $STH = $DBH->prepare($sql); 
+        $STH->execute();
+        return $STH->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getAllBannerSizeMasters($search,$status){
         $my_DBH = new mysqlConnection();

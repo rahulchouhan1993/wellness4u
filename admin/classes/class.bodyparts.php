@@ -2452,7 +2452,7 @@ class BodyParts extends Admin
 
         
 
-        if($STH->rowCount() > 0)
+        if ($STH && $STH->rowCount() > 0) 
 
         {
 
@@ -2462,7 +2462,7 @@ class BodyParts extends Admin
 
         
 
-        if(count($cat_total_cnt) > 0)
+        if (count((array)$cat_total_cnt) > 0) 
 
             {
 
@@ -2500,7 +2500,7 @@ class BodyParts extends Admin
 
             }
 
-        if(count($cat_total_cnt1) > 0)
+        if (count((array)$cat_total_cnt1) > 0)
 
             {
 
@@ -2747,7 +2747,8 @@ class BodyParts extends Admin
 
                 
 
-                $arr_fav_cat = implode($arr_fav_cat, '\',\'');
+                $arr_fav_cat = implode("','", $arr_fav_cat);
+
 
                 
 
