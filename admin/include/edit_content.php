@@ -497,7 +497,9 @@ else
                                             }
                                             else
                                             {
-                                                $banner_data=$obj->get_data_from_tblmindjumble('',$page_icon);
+												//commented by rahul
+                                                //$banner_data=$obj->get_data_from_tblmindjumble('',$page_icon);
+												$banner_data=$obj->get_data_from_tblicons('',$page_icon);
                                                 $banner_name=$banner_data[0]['box_title'];
                                                 $banner_file=$banner_data[0]['box_banner'];
                                             }

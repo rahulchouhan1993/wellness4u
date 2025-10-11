@@ -662,6 +662,7 @@ class Scrolling_Windows extends Admin
 
             $favcatid = $this->getFavtidbyname($fav_cat);
 
+            $uom = ($uom != '') ? $uom : '0';
             
 
             if($favcatid > 0)
@@ -3226,8 +3227,10 @@ class Scrolling_Windows extends Admin
 
 		$time = time();
 
-		
-
+        $sc_single_date = ($sc_single_date != '') ? date('Y-m-d',strtotime($sc_single_date)) : '0000-00-00';
+        $sc_start_date = ($sc_start_date != '') ? date('Y-m-d',strtotime($sc_start_date)) : '0000-00-00';
+        $sc_end_date = ($sc_end_date != '') ? date('Y-m-d',strtotime($sc_end_date)) : '0000-00-00';
+        $rss_feed_item_id = ($rss_feed_item_id != '') ? $rss_feed_item_id : 0;
 		$sql = "INSERT INTO `tblscrollingcontents` (`sw_id`,`sc_title`,`sc_title_font_family`,`sc_title_font_size`,`sc_content_type`,"
 
                         . "`sc_content`,`sc_content_font_family`,`sc_content_font_size`,`sc_image`,`sc_video`,`sc_flash`,`sc_show_credit`,"
@@ -3433,7 +3436,10 @@ class Scrolling_Windows extends Admin
                 $DBH->beginTransaction();
 
 		$return = false;
-
+        $sc_single_date = ($sc_single_date != '') ? date('Y-m-d',strtotime($sc_single_date)) : '0000-00-00';
+        $sc_start_date = ($sc_start_date != '') ? date('Y-m-d',strtotime($sc_start_date)) : '0000-00-00';
+        $sc_end_date = ($sc_end_date != '') ? date('Y-m-d',strtotime($sc_end_date)) : '0000-00-00';
+        $rss_feed_item_id = ($rss_feed_item_id != '') ? $rss_feed_item_id : 0;
 		$upd_sql = "UPDATE `tblscrollingcontents` SET "
 
                         . "`sc_title` = '".addslashes($sc_title)."' ,"

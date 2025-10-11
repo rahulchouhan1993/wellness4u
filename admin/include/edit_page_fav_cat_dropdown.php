@@ -95,16 +95,16 @@ if(isset($_POST['btnSubmit']))
     if(!$error)
     {
         
-        $sub_cat1 = implode(',',$arr_selected_cat_id1);
-        $sub_cat2 = implode(',',$arr_selected_cat_id2);
-        $sub_cat3 = implode(',',$arr_selected_cat_id3);
-        $sub_cat4 = implode(',',$arr_selected_cat_id4);
-        $sub_cat5 = implode(',',$arr_selected_cat_id5);
-        $sub_cat6 = implode(',',$arr_selected_cat_id6);
-        $sub_cat7 = implode(',',$arr_selected_cat_id7);
-        $sub_cat8 = implode(',',$arr_selected_cat_id8);
-        $sub_cat9 = implode(',',$arr_selected_cat_id9);
-        $sub_cat10 = implode(',',$arr_selected_cat_id10);
+        $sub_cat1  = !empty($arr_selected_cat_id1) && is_array($arr_selected_cat_id1) ? implode(',', $arr_selected_cat_id1) : '';
+        $sub_cat2  = !empty($arr_selected_cat_id2) && is_array($arr_selected_cat_id2) ? implode(',', $arr_selected_cat_id2) : '';
+        $sub_cat3  = !empty($arr_selected_cat_id3) && is_array($arr_selected_cat_id3) ? implode(',', $arr_selected_cat_id3) : '';
+        $sub_cat4  = !empty($arr_selected_cat_id4) && is_array($arr_selected_cat_id4) ? implode(',', $arr_selected_cat_id4) : '';
+        $sub_cat5  = !empty($arr_selected_cat_id5) && is_array($arr_selected_cat_id5) ? implode(',', $arr_selected_cat_id5) : '';
+        $sub_cat6  = !empty($arr_selected_cat_id6) && is_array($arr_selected_cat_id6) ? implode(',', $arr_selected_cat_id6) : '';
+        $sub_cat7  = !empty($arr_selected_cat_id7) && is_array($arr_selected_cat_id7) ? implode(',', $arr_selected_cat_id7) : '';
+        $sub_cat8  = !empty($arr_selected_cat_id8) && is_array($arr_selected_cat_id8) ? implode(',', $arr_selected_cat_id8) : '';
+        $sub_cat9  = !empty($arr_selected_cat_id9) && is_array($arr_selected_cat_id9) ? implode(',', $arr_selected_cat_id9) : '';
+        $sub_cat10 = !empty($arr_selected_cat_id10) && is_array($arr_selected_cat_id10) ? implode(',', $arr_selected_cat_id10) : '';
         $admin_comment = $_POST['admin_comment'];
         
         if($obj->updatePageFavCatDropdown($admin_comment,$pag_cat_status,$admin_id,$ref_code,$page_name,$sub_cat1,$sub_cat2,$sub_cat3,$sub_cat4,$sub_cat5,$sub_cat6,$sub_cat7,$sub_cat8,$sub_cat9,$sub_cat10,$prof_cat1,$prof_cat2,$prof_cat3,$prof_cat4,$prof_cat5,$prof_cat6,$prof_cat7,$prof_cat8,$prof_cat9,$prof_cat10,$id))

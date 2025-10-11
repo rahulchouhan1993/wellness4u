@@ -486,7 +486,7 @@ $add_more_row_cat_str1 = '<tr id="row_cats_\'+cat_cnt1+\'"><td width="10%" heigh
 
                                                         <input type="hidden" name="hdnsymptom_id" id="hdnsymptom_id" value="<?php echo $symptom_id;?>" />
 
-                                                        <!--<input type="hidden" name="total_count" id="total_count" value="<?php echo count($total_count);?>" />-->
+                                                     
 
                                                         <input type="hidden" name="symptom_keyword_id" id="symptom_keyword_id" value="<?php echo $symptom_keyword_id_implode;?>" />
 

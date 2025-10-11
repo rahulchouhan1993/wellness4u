@@ -45,12 +45,12 @@ if(isset($_REQUEST['action']) && $_REQUEST['action'] =='addFunctionName')
 
 if(isset($_POST['btnSubmit']))
 {
-    //echo '<br><pre>';
-    //print_r($_POST);
-    //echo '<br></pre>';
+    
     $pdm_id = strip_tags(trim($_POST['pdm_id']));
     
-    $menu_id = implode(',', $_POST['admin_menu_id']);
+    $menu_id = isset($_POST['admin_menu_id']) && is_array($_POST['admin_menu_id'])
+    ? implode(',', $_POST['admin_menu_id'])
+    : '';
     $admin_comment = $_POST['admin_comment'];
     
     $table_name = $_POST['table_name'];

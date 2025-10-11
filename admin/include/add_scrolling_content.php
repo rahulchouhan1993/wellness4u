@@ -263,15 +263,15 @@ if(isset($_POST['btnSubmit']))
 			{
 				$sc_image = $_FILES['sc_image']['name'];
 				$file4 = substr($sc_image, -4, 4);
-				if(($file4 != '.jpg')and($file4 != '.JPG') and ($file4 !='jpeg') and ($file4 != 'JPEG') and ($file4 !='.gif') and ($file4 != '.GIF'))
+				if(($file4 != '.jpg')and($file4 != '.JPG') and ($file4 !='jpeg') and ($file4 != 'JPEG') and ($file4 !='.gif') and ($file4 != '.GIF') and ($file4 !='.png') and ($file4 != '.PNG'))
 				{
 					$error = true;
-					$err_msg .= '<br>Please Upload Only(jpg/gif/jpeg) files';
+					$err_msg .= '<br>Please Upload Only(jpg/gif/jpeg/png/png) files';
 				}	 
-				elseif( $_FILES['sc_image']['type'] != 'image/jpeg' and $_FILES['sc_image']['type'] != 'image/pjpeg' and $_FILES['sc_image']['type'] != 'image/gif' )
+				elseif( $_FILES['sc_image']['type'] != 'image/jpeg' and $_FILES['sc_image']['type'] != 'image/pjpeg' and $_FILES['sc_image']['type'] != 'image/gif' && $_FILES['sc_image']['type'] != 'image/png' && $_FILES['sc_image']['type'] != 'image/x-png' )
 				{
 					$error = true;
-					$err_msg .= '<br>Please Upload Only(jpg/gif/jpeg) files';
+					$err_msg .= '<br>Please Upload Only(jpg/gif/jpeg/png) files';
 				}
 				
 				$sc_image = time()."_".$sc_image;
@@ -508,7 +508,7 @@ else
 									<td align="right" valign="top"><strong>Select Date</strong></td>
 									<td align="center" valign="top"><strong>:</strong></td>
 									<td align="left">
-                                    	<input name="sc_single_date" id="sc_single_date" type="text" value="<?php echo $sc_single_date;?>" style="width:200px;"  />
+                                    	<input name="sc_single_date" id="sc_single_date" type="date" value="<?php echo $sc_single_date;?>" style="width:200px;"  />
                                         <script>$('#sc_single_date').datepick({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script>
                                     </td>
 								</tr>
@@ -516,7 +516,7 @@ else
 									<td align="right" valign="top"><strong>Select Date Range</strong></td>
 									<td align="center" valign="top"><strong>:</strong></td>
 									<td align="left">
-                                    	<input name="sc_start_date" id="sc_start_date" type="text" value="<?php echo $sc_start_date;?>" style="width:200px;"  /> - <input name="sc_end_date" id="sc_end_date" type="text" value="<?php echo $sc_end_date;?>" style="width:200px;"  />
+                                    	<input name="sc_start_date" id="sc_start_date" type="date" value="<?php echo $sc_start_date;?>" style="width:200px;"  /> - <input name="sc_end_date" id="sc_end_date" type="date" value="<?php echo $sc_end_date;?>" style="width:200px;"  />
                                         <script>$('#sc_start_date').datepick({ minDate: 0 , dateFormat : 'dd-mm-yy'});$('#sc_end_date').datepick({ minDate: 0 , dateFormat : 'dd-mm-yy'}); </script>
                                     </td>
 								</tr>

@@ -453,10 +453,21 @@ if (isset($_POST['btnSubmit'])) {
         $level['level_icon_type']=$_POST['level_icon_type'];
         $level['level_icon_heading']=$_POST['level_icon_heading'];
     
-    $location_category = implode(',', $_POST['location_category']);
-    $user_response_category = implode(',', $_POST['user_response_category']);
-    $user_what_next_category = implode(',', $_POST['user_what_next_category']);
-    $alerts_updates_category = implode(',', $_POST['alerts_updates_category']);
+    $location_category = isset($_POST['location_category']) && is_array($_POST['location_category']) 
+        ? implode(',', $_POST['location_category']) 
+        : '';
+
+    $user_response_category = isset($_POST['user_response_category']) && is_array($_POST['user_response_category']) 
+        ? implode(',', $_POST['user_response_category']) 
+        : '';
+
+    $user_what_next_category = isset($_POST['user_what_next_category']) && is_array($_POST['user_what_next_category']) 
+        ? implode(',', $_POST['user_what_next_category']) 
+        : '';
+
+    $alerts_updates_category = isset($_POST['alerts_updates_category']) && is_array($_POST['alerts_updates_category']) 
+        ? implode(',', $_POST['alerts_updates_category']) 
+        : '';
     
     //add by ample 19-05-20
     $special_key=array(

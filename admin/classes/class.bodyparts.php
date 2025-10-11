@@ -2432,9 +2432,9 @@ class BodyParts extends Admin
 
             {
 
-                $sql = "INSERT INTO `tblbodymainsymptoms` (`sym_code`,`bms_name`,`comment`,`bms_status`,`posted_by`) "
+                $sql = "INSERT INTO `tblbodymainsymptoms` (`sym_code`,`bms_name`,`comment`,`bms_status`,`posted_by`,`bms_deleted`,`bmst_id`,`keywords`,`sol_item_id`) "
 
-                        . "VALUES ('".addslashes($daily_code)."','".addslashes($bms_name)."','".  addslashes($comment)."','1','".$_SESSION['admin_id']."')";
+                        . "VALUES ('".addslashes($daily_code)."','".addslashes($bms_name)."','".  addslashes($comment)."','1','".$_SESSION['admin_id']."',0,0,'',0)";
 
                 //echo'<br>'.$sql;
 

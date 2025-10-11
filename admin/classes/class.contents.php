@@ -4591,8 +4591,9 @@ class Contents extends Admin
                 $DBH = $my_DBH->raw_handle();
 
                 $DBH->beginTransaction();
-                //update by ample 09-12-19
-		$ins_sql = "INSERT INTO `tblpages`(`page_icon`,`page_name`,`page_title`,`page_contents`,`meta_title`,`meta_keywords`,`meta_description`,`show_in_list`,`show_in_manage_menu`,`link_enable`,`menu_title`,`adviser_panel`,`page_contents2`,`vender_panel`,`posted_by`,`page_icon_type`) VALUES ('".addslashes($page_icon)."','".addslashes($page_name)."','".addslashes($page_title)."','".addslashes($page_contents)."','".addslashes($meta_title)."','".addslashes($meta_keywords)."','".addslashes($meta_description)."','1','1','".addslashes($menu_link_enable)."','".addslashes($menu_title)."','".addslashes($adviser_panel)."','".addslashes($page_contents2)."','".addslashes($vender_panel)."','".addslashes($admin_id)."','".addslashes($page_icon_type)."')";
+        $menu_link_enable = ($menu_link_enable == '') ? 0 : $menu_link_enable ;
+                //update by ample 09-12-19 show_in_feedback
+		$ins_sql = "INSERT INTO `tblpages`(`page_icon`,`page_name`,`page_title`,`page_contents`,`meta_title`,`meta_keywords`,`meta_description`,`show_in_list`,`show_in_manage_menu`,`link_enable`,`menu_title`,`adviser_panel`,`page_contents2`,`vender_panel`,`posted_by`,`page_icon_type`,`show_in_feedback`,`show_in_adviser_query`,`show_in_menu`,`parent_menu`,`menu_order`,`menu_link`,`position`,`show_order`,`dashboard_header`,`updated_by`,`dashboard_contents`) VALUES ('".addslashes($page_icon)."','".addslashes($page_name)."','".addslashes($page_title)."','".addslashes($page_contents)."','".addslashes($meta_title)."','".addslashes($meta_keywords)."','".addslashes($meta_description)."','1','1','".addslashes($menu_link_enable)."','".addslashes($menu_title)."','".addslashes($adviser_panel)."','".addslashes($page_contents2)."','".addslashes($vender_panel)."','".addslashes($admin_id)."','".addslashes($page_icon_type)."',0,0,0,0,0,0,0,0,'',0,'')";
 
 		$STH = $DBH->prepare($ins_sql);
 
@@ -4759,6 +4760,7 @@ class Contents extends Admin
                 $DBH->beginTransaction();
 
 		$return=false;    
+        $menu_link_enable = ($menu_link_enable == '') ? 0 : $menu_link_enable ;
         // update by ample 09-12-19
 		$upd_sql = "UPDATE `tblpages` SET `page_icon` = '".addslashes($page_icon)."',`page_icon_type` = '".addslashes($page_icon_type)."', `show_in_manage_menu` = 1, `page_name` = '".addslashes($page_name)."' , `page_title` = '".addslashes($page_title)."' , `page_contents` = '".addslashes($page_contents)."' , `page_contents2` = '".addslashes($page_contents2)."' , `meta_title` = '".addslashes($meta_title)."' , `meta_keywords` = '".addslashes($meta_keywords)."' , `meta_description` = '".addslashes($meta_description)."' , `menu_title` = '".addslashes($menu_title)."' ,`menu_link` = '".addslashes($menu_link)."' , `link_enable` = '".addslashes($menu_link_enable)."',`updated_by`='".$admin_id."',`updated_date`='".date("Y-m-d H:i:s")."'   WHERE `page_id` = '".$page_id."'";
 
@@ -5322,7 +5324,12 @@ class Contents extends Admin
 
             $canv_sub_cat10_show_fetch = ($cat_fetch_show_data['canv_sub_cat10_show_fetch'] ==''? 0 : $cat_fetch_show_data['canv_sub_cat10_show_fetch']);
 
-            
+            $special_key['special_key1'] = ($special_key['special_key1'] ==''? 0 : $special_key['special_key1']);
+
+             $special_key['special_key2'] = ($special_key['special_key2'] ==''? 0 : $special_key['special_key2']);
+
+            $special_key['special_key3'] = ($special_key['special_key3'] ==''? 0 : $special_key['special_key3']);
+
 
             
             //update SQL accroding to new prof cat heading & refer_code by ample 04-11-19 & update 16-12-19
@@ -5332,9 +5339,9 @@ class Contents extends Admin
 
             {
 
-            $sql = "INSERT INTO `tbl_data_dropdown` (`admin_comment`,`system_cat`,`healcareandwellbeing`,`page_name`,`ref_code`,`sub_cat1`,`sub_cat2`,`sub_cat3`,`sub_cat4`,`sub_cat5`,`sub_cat6`,`sub_cat7`,`sub_cat8`,`sub_cat9`,`sub_cat10`,`prof_cat1`,`prof_cat2`,`prof_cat3`,`prof_cat4`,`prof_cat5`,`prof_cat6`,`prof_cat7`,`prof_cat8`,`prof_cat9`,`prof_cat10`,`pag_cat_status`,`added_by_admin`,`updated_by_admin`,`updated_on_date`,`time_show`,`duration_show`,`location_show`,`User_view`,`User_Interaction`,`scale_show`,`alert_show`,`heading`,`order_show`,`comment_show`,`location_fav_cat`,`user_response_fav_cat`,`user_what_fav_cat`,`alerts_fav_cat`,`canv_sub_cat1_show_fetch`, `canv_sub_cat2_show_fetch`, `canv_sub_cat3_show_fetch`, `canv_sub_cat4_show_fetch`, `canv_sub_cat5_show_fetch`, `canv_sub_cat6_show_fetch`, `canv_sub_cat7_show_fetch`, `canv_sub_cat8_show_fetch`, `canv_sub_cat9_show_fetch`, `canv_sub_cat10_show_fetch`, `canv_sub_cat1_link`, `canv_sub_cat2_link`, `canv_sub_cat3_link`, `canv_sub_cat4_link`, `canv_sub_cat5_link`, `canv_sub_cat6_link`, `canv_sub_cat7_link`, `canv_sub_cat8_link`, `canv_sub_cat9_link`, `canv_sub_cat10_link`,`data_source`,`page_type`,`time_heading`,`duration_heading`,`location_heading`,`like_dislike_heading`,`set_goals_heading`,`scale_heading`,`reminder_heading`,`comments_heading`, `location_ref_code`,`ur_ref_code`,`uw_ref_code`,`au_ref_code`,prof_cat1_heading,prof_cat2_heading,prof_cat3_heading,prof_cat4_heading,prof_cat5_heading,prof_cat6_heading,prof_cat7_heading,prof_cat8_heading,prof_cat9_heading,prof_cat10_heading,prof_cat1_ref_code,prof_cat2_ref_code,prof_cat3_ref_code,prof_cat4_ref_code,prof_cat5_ref_code,prof_cat6_ref_code,prof_cat7_ref_code,prof_cat8_ref_code,prof_cat9_ref_code,prof_cat10_ref_code,`level`, `level_title`, `level_icon`, `level_heading`, `level_title_heading`, `level_icon_heading`,`level_icon_type`,special_key1,special_key2,special_key3,special_ref_code1,special_ref_code2,special_ref_code3,pop_show) "
+            $sql = "INSERT INTO `tbl_data_dropdown` (`admin_comment`,`system_cat`,`healcareandwellbeing`,`page_name`,`ref_code`,`sub_cat1`,`sub_cat2`,`sub_cat3`,`sub_cat4`,`sub_cat5`,`sub_cat6`,`sub_cat7`,`sub_cat8`,`sub_cat9`,`sub_cat10`,`prof_cat1`,`prof_cat2`,`prof_cat3`,`prof_cat4`,`prof_cat5`,`prof_cat6`,`prof_cat7`,`prof_cat8`,`prof_cat9`,`prof_cat10`,`pag_cat_status`,`added_by_admin`,`updated_by_admin`,`updated_on_date`,`time_show`,`duration_show`,`location_show`,`User_view`,`User_Interaction`,`scale_show`,`alert_show`,`heading`,`order_show`,`comment_show`,`location_fav_cat`,`user_response_fav_cat`,`user_what_fav_cat`,`alerts_fav_cat`,`canv_sub_cat1_show_fetch`, `canv_sub_cat2_show_fetch`, `canv_sub_cat3_show_fetch`, `canv_sub_cat4_show_fetch`, `canv_sub_cat5_show_fetch`, `canv_sub_cat6_show_fetch`, `canv_sub_cat7_show_fetch`, `canv_sub_cat8_show_fetch`, `canv_sub_cat9_show_fetch`, `canv_sub_cat10_show_fetch`, `canv_sub_cat1_link`, `canv_sub_cat2_link`, `canv_sub_cat3_link`, `canv_sub_cat4_link`, `canv_sub_cat5_link`, `canv_sub_cat6_link`, `canv_sub_cat7_link`, `canv_sub_cat8_link`, `canv_sub_cat9_link`, `canv_sub_cat10_link`,`data_source`,`page_type`,`time_heading`,`duration_heading`,`location_heading`,`like_dislike_heading`,`set_goals_heading`,`scale_heading`,`reminder_heading`,`comments_heading`, `location_ref_code`,`ur_ref_code`,`uw_ref_code`,`au_ref_code`,prof_cat1_heading,prof_cat2_heading,prof_cat3_heading,prof_cat4_heading,prof_cat5_heading,prof_cat6_heading,prof_cat7_heading,prof_cat8_heading,prof_cat9_heading,prof_cat10_heading,prof_cat1_ref_code,prof_cat2_ref_code,prof_cat3_ref_code,prof_cat4_ref_code,prof_cat5_ref_code,prof_cat6_ref_code,prof_cat7_ref_code,prof_cat8_ref_code,prof_cat9_ref_code,prof_cat10_ref_code,`level`, `level_title`, `level_icon`, `level_heading`, `level_title_heading`, `level_icon_heading`,`level_icon_type`,special_key1,special_key2,special_key3,special_ref_code1,special_ref_code2,special_ref_code3,pop_show,loc_cat_uid,ur_cat_uid,uwn_uid,au_cat_uid) "
 
-                . "VALUES ('".addslashes($admin_comment)."','".addslashes($fav_cat_type_id_0)."','".addslashes($healcareandwellbeing[$i])."','".addslashes($page_name)."','".addslashes($ref_code)."','".addslashes($sub_cat1)."','".addslashes($sub_cat2)."','".addslashes($sub_cat3)."','".addslashes($sub_cat4)."','".addslashes($sub_cat5)."','".addslashes($sub_cat6)."','".addslashes($sub_cat7)."','".addslashes($sub_cat8)."','".addslashes($sub_cat9)."','".addslashes($sub_cat10)."','".addslashes($prof_cat1)."','".addslashes($prof_cat2)."','".addslashes($prof_cat3)."','".addslashes($prof_cat4)."','".addslashes($prof_cat5)."','".addslashes($prof_cat6)."','".addslashes($prof_cat7)."','".addslashes($prof_cat8)."','".addslashes($prof_cat9)."','".addslashes($prof_cat10)."','1','".$admin_id."','".$admin_id."','".$updated_on_date."','".$time_show."','".$duration_show."','".$location_show."','".$like_dislike_show."','".$set_goals_show."','".$scale_show."','".$reminder_show."','".$heading."','".$order_show."','".$comments_show."','".addslashes($location_category)."','".addslashes($user_response_category)."','".addslashes($user_what_next_category)."','".addslashes($alerts_updates_category)."','".$canv_sub_cat1_show_fetch."', '".$canv_sub_cat2_show_fetch."', '".$canv_sub_cat3_show_fetch."','".$canv_sub_cat4_show_fetch."', '".$canv_sub_cat5_show_fetch."', '".$canv_sub_cat6_show_fetch."', '".$canv_sub_cat7_show_fetch."', '".$canv_sub_cat8_show_fetch."', '".$canv_sub_cat9_show_fetch."', '".$canv_sub_cat10_show_fetch."', '".$canv_sub_cat_link['canv_sub_cat1_link']."', '".$canv_sub_cat_link['canv_sub_cat2_link']."', '".$canv_sub_cat_link['canv_sub_cat3_link']."', '".$canv_sub_cat_link['canv_sub_cat4_link']."', '".$canv_sub_cat_link['canv_sub_cat5_link']."', '".$canv_sub_cat_link['canv_sub_cat6_link']."', '".$canv_sub_cat_link['canv_sub_cat7_link']."', '".$canv_sub_cat_link['canv_sub_cat8_link']."', '".$canv_sub_cat_link['canv_sub_cat9_link']."', '".$canv_sub_cat_link['canv_sub_cat10_link']."','".$data_source."','".$page_type."','".$arr_heading['time_heading']."','".$arr_heading['duration_heading']."','".$arr_heading['location_heading']."','".$arr_heading['like_dislike_heading']."','".$arr_heading['set_goals_heading']."','".$arr_heading['scale_heading']."','".$arr_heading['reminder_heading']."','".$arr_heading['comments_heading']."','".addslashes($location_ref_code)."','".addslashes($ur_ref_code)."','".addslashes($uw_ref_code)."','".addslashes($au_ref_code)."','".$prof_cat_heading['prof_cat1_heading']."','".$prof_cat_heading['prof_cat2_heading']."','".$prof_cat_heading['prof_cat3_heading']."','".$prof_cat_heading['prof_cat4_heading']."','".$prof_cat_heading['prof_cat5_heading']."','".$prof_cat_heading['prof_cat6_heading']."','".$prof_cat_heading['prof_cat7_heading']."','".$prof_cat_heading['prof_cat8_heading']."','".$prof_cat_heading['prof_cat9_heading']."','".$prof_cat_heading['prof_cat10_heading']."','".$prof_cat_ref_code['prof_cat1_ref_code']."','".$prof_cat_ref_code['prof_cat2_ref_code']."','".$prof_cat_ref_code['prof_cat3_ref_code']."','".$prof_cat_ref_code['prof_cat4_ref_code']."','".$prof_cat_ref_code['prof_cat5_ref_code']."','".$prof_cat_ref_code['prof_cat6_ref_code']."','".$prof_cat_ref_code['prof_cat7_ref_code']."','".$prof_cat_ref_code['prof_cat8_ref_code']."','".$prof_cat_ref_code['prof_cat9_ref_code']."','".$prof_cat_ref_code['prof_cat10_ref_code']."','".$level['level']."','". $level['level_title']."','".$level['level_icon']."','".$level['level_heading']."','".$level['level_title_heading']."','".$level['level_icon_heading']."','".$level['level_icon_type']."','".$special_key['special_key1']."','".$special_key['special_key2']."','".$special_key['special_key3']."','".$special_key['special_ref_code1']."','".$special_key['special_ref_code2']."','".$special_key['special_ref_code3']."','".$pop_show."')";
+                . "VALUES ('".addslashes($admin_comment)."','".addslashes($fav_cat_type_id_0)."','".addslashes($healcareandwellbeing[$i])."','".addslashes($page_name)."','".addslashes($ref_code)."','".addslashes($sub_cat1)."','".addslashes($sub_cat2)."','".addslashes($sub_cat3)."','".addslashes($sub_cat4)."','".addslashes($sub_cat5)."','".addslashes($sub_cat6)."','".addslashes($sub_cat7)."','".addslashes($sub_cat8)."','".addslashes($sub_cat9)."','".addslashes($sub_cat10)."','".addslashes($prof_cat1)."','".addslashes($prof_cat2)."','".addslashes($prof_cat3)."','".addslashes($prof_cat4)."','".addslashes($prof_cat5)."','".addslashes($prof_cat6)."','".addslashes($prof_cat7)."','".addslashes($prof_cat8)."','".addslashes($prof_cat9)."','".addslashes($prof_cat10)."','1','".$admin_id."','".$admin_id."','".$updated_on_date."','".$time_show."','".$duration_show."','".$location_show."','".$like_dislike_show."','".$set_goals_show."','".$scale_show."','".$reminder_show."','".$heading."','".$order_show."','".$comments_show."','".addslashes($location_category)."','".addslashes($user_response_category)."','".addslashes($user_what_next_category)."','".addslashes($alerts_updates_category)."','".$canv_sub_cat1_show_fetch."', '".$canv_sub_cat2_show_fetch."', '".$canv_sub_cat3_show_fetch."','".$canv_sub_cat4_show_fetch."', '".$canv_sub_cat5_show_fetch."', '".$canv_sub_cat6_show_fetch."', '".$canv_sub_cat7_show_fetch."', '".$canv_sub_cat8_show_fetch."', '".$canv_sub_cat9_show_fetch."', '".$canv_sub_cat10_show_fetch."', '".$canv_sub_cat_link['canv_sub_cat1_link']."', '".$canv_sub_cat_link['canv_sub_cat2_link']."', '".$canv_sub_cat_link['canv_sub_cat3_link']."', '".$canv_sub_cat_link['canv_sub_cat4_link']."', '".$canv_sub_cat_link['canv_sub_cat5_link']."', '".$canv_sub_cat_link['canv_sub_cat6_link']."', '".$canv_sub_cat_link['canv_sub_cat7_link']."', '".$canv_sub_cat_link['canv_sub_cat8_link']."', '".$canv_sub_cat_link['canv_sub_cat9_link']."', '".$canv_sub_cat_link['canv_sub_cat10_link']."','".$data_source."','".$page_type."','".$arr_heading['time_heading']."','".$arr_heading['duration_heading']."','".$arr_heading['location_heading']."','".$arr_heading['like_dislike_heading']."','".$arr_heading['set_goals_heading']."','".$arr_heading['scale_heading']."','".$arr_heading['reminder_heading']."','".$arr_heading['comments_heading']."','".addslashes($location_ref_code)."','".addslashes($ur_ref_code)."','".addslashes($uw_ref_code)."','".addslashes($au_ref_code)."','".$prof_cat_heading['prof_cat1_heading']."','".$prof_cat_heading['prof_cat2_heading']."','".$prof_cat_heading['prof_cat3_heading']."','".$prof_cat_heading['prof_cat4_heading']."','".$prof_cat_heading['prof_cat5_heading']."','".$prof_cat_heading['prof_cat6_heading']."','".$prof_cat_heading['prof_cat7_heading']."','".$prof_cat_heading['prof_cat8_heading']."','".$prof_cat_heading['prof_cat9_heading']."','".$prof_cat_heading['prof_cat10_heading']."','".$prof_cat_ref_code['prof_cat1_ref_code']."','".$prof_cat_ref_code['prof_cat2_ref_code']."','".$prof_cat_ref_code['prof_cat3_ref_code']."','".$prof_cat_ref_code['prof_cat4_ref_code']."','".$prof_cat_ref_code['prof_cat5_ref_code']."','".$prof_cat_ref_code['prof_cat6_ref_code']."','".$prof_cat_ref_code['prof_cat7_ref_code']."','".$prof_cat_ref_code['prof_cat8_ref_code']."','".$prof_cat_ref_code['prof_cat9_ref_code']."','".$prof_cat_ref_code['prof_cat10_ref_code']."','".$level['level']."','". $level['level_title']."','".$level['level_icon']."','".$level['level_heading']."','".$level['level_title_heading']."','".$level['level_icon_heading']."','".$level['level_icon_type']."','".$special_key['special_key1']."','".$special_key['special_key2']."','".$special_key['special_key3']."','".$special_key['special_ref_code1']."','".$special_key['special_ref_code2']."','".$special_key['special_ref_code3']."','".$pop_show."',0,0,0,0)";
 
                // echo $sql;
 
@@ -6572,9 +6579,9 @@ class Contents extends Admin
 
             
 
-            $sql = "INSERT INTO `tblpagedropdowns` (`admin_comment`,`menu_id`,`pdm_id`,`page_id_str`,`pd_status`,`added_by_admin`,`updated_by_admin`,`updated_on_date`,`plan_table`) "
+            $sql = "INSERT INTO `tblpagedropdowns` (`admin_comment`,`menu_id`,`pdm_id`,`page_id_str`,`pd_status`,`added_by_admin`,`updated_by_admin`,`updated_on_date`,`plan_table`,`pd_deleted`) "
 
-                . "VALUES ('".addslashes($admin_comment)."','".addslashes($menu_id)."','".addslashes($pdm_id)."','".addslashes($page_id_str)."','1','".$admin_id."','".$admin_id."','".$updated_on_date."','".$table_name."')";
+                . "VALUES ('".addslashes($admin_comment)."','".addslashes($menu_id)."','".addslashes($pdm_id)."','".addslashes($page_id_str)."','1','".$admin_id."','".$admin_id."','".$updated_on_date."','".$table_name."',0)";
 
                 $STH = $DBH->prepare($sql);
 
@@ -6644,9 +6651,9 @@ class Contents extends Admin
 
             
 
-            $sql = "INSERT INTO `tblpagedropdownmodules` (`pdm_name`,`pdm_status`,`pdm_add_date`) "
+            $sql = "INSERT INTO `tblpagedropdownmodules` (`pdm_name`,`pdm_status`,`pdm_add_date`,`admin_menu_id`,`pdm_deleted`) "
 
-                . "VALUES ('".addslashes($pdm_name)."','1','".$updated_on_date."')";
+                . "VALUES ('".addslashes($pdm_name)."','1','".$updated_on_date."',0,0)";
 
             $STH = $DBH->prepare($sql);
 
@@ -10173,9 +10180,9 @@ public function AddUserPlanAttributes($page_id)
 
             $return = false;
 
-            $sql = "INSERT INTO `tbladviserplanatributes` (`apa_name`,`apa_status`,`show_for_adviser`,`show_for_user`,`page_id`) "
+            $sql = "INSERT INTO `tbladviserplanatributes` (`apa_name`,`apa_status`,`show_for_adviser`,`show_for_user`,`page_id`,`apa_code`) "
 
-                . "VALUES ('".addslashes($this->getPagenamebyid($page_id))."','1','1','1','".$page_id."')";
+                . "VALUES ('".addslashes($this->getPagenamebyid($page_id))."','1','1','1','".$page_id."',0)";
 
             $STH = $DBH->prepare($sql);
 
@@ -11078,9 +11085,9 @@ public function getAllTablDropdowns($search,$status)
 
             
 
-            $sql = "INSERT INTO `tbltabldropdown` (`admin_comment`,`tablm_id`,`tabl_name`,`tabl_status`,`updated_on_date`,`page_id`,page_type,`added_by_admin`)"
+            $sql = "INSERT INTO `tbltabldropdown` (`admin_comment`,`tablm_id`,`tabl_name`,`tabl_status`,`updated_on_date`,`page_id`,page_type,`added_by_admin`,`tabl_delete`,`updated_by_admin`)"
 
-                ."VALUES ('".addslashes($admin_comment)."','".addslashes($tablm_id)."','".addslashes($table_name_str)."','1','".$updated_on_date."','".$page_id."','".$page_type."','".$admin_id."')";
+                ."VALUES ('".addslashes($admin_comment)."','".addslashes($tablm_id)."','".addslashes($table_name_str)."','1','".$updated_on_date."','".$page_id."','".$page_type."','".$admin_id."',0,0)";
 
                 $STH = $DBH->prepare($sql);
 

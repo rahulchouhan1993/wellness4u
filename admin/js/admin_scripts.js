@@ -2210,32 +2210,40 @@ function SetSelectedUsers()
 
 
 
-function toggleCheckBoxes(id_val)
+// function toggleCheckBoxes(id_val)
 
-{
+// {
 
-    //alert($("#all_"+id_val).attr("checked"));
+//     //alert($("#all_"+id_val).attr("checked"));
 
-    if($("#all_"+id_val).attr("checked")== 'checked' ||  $("#all_"+id_val).attr("checked") === true)
+//     if($("#all_"+id_val).attr("checked")== 'checked' ||  $("#all_"+id_val).attr("checked") === true)
 
-    {
+//     {
 
-        //alert('all chkd');
+//         //alert('all chkd');
 
-        $("input[id^='"+id_val+"_']").attr("checked", true);
+//         $("input[id^='"+id_val+"_']").attr("checked", true);
 
-    }
+//     }
 
-    else
+//     else
 
-    {
+//     {
 
-        //alert('not chkd'+ '#all_'+id_val);
+//         //alert('not chkd'+ '#all_'+id_val);
 
-        $("input[id^='"+id_val+"_']").removeAttr("checked");
+//         $("input[id^='"+id_val+"_']").removeAttr("checked");
 
-    }
+//     }
 
+// }
+
+function toggleCheckBoxes(id_val){
+	if ($("#all_" + id_val).is(":checked")) {
+		$("input[id^='" + id_val + "_']").prop("checked", true);
+	} else {
+		$("input[id^='" + id_val + "_']").prop("checked", false);
+	}
 }
 
 
