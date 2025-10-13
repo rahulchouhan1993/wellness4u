@@ -1,1 +1,3438 @@
-<?phprequire_once('config/class.mysql.php');require_once('classes/class.mindjumble.php');require_once('../init.php');$obj = new Mindjumble();require_once('classes/class.scrollingwindows.php');$obj1 = new Scrolling_Windows();require_once('classes/class.contents.php'); $obj2 = new Contents();$edit_action_id = '339';if(!$obj->isAdminLoggedIn()){		header("Location: index.php?mode=login");	exit(0);}else{   $admin_id = $_SESSION['admin_id']; }if(!$obj->chkValidActionPermission($admin_id,$edit_action_id))	{		  	header("Location: index.php?mode=invalid");		exit(0);	}/*define by ample for dynamic*/$tblID='5';$error = false;$err_msg = "";$display_stressbuster = 'none';$display_trtext = 'none';$display_trfile = '';$fav_cat_id_data = '';$fav_cat_id_data_2 = '';$fav_cat_id_data_3 = '';$fav_cat_id_data_4 = '';if(isset($_POST['report_setting'])){         $design_id =   $_GET['id'];    $u_col_name=$_POST['u_col_name'];    $get_unoqu=$_POST['get_unoqu'];    $get_col_id=$_POST['get_col_id'];    $check_=$_POST['check_'];    $checkvalue=$_POST['checkvalue'];    $tables_names=$_POST['tables_names'];    $columns_dropdown=$_POST['columns_dropdown'];    $columns_dropdown_value=$_POST['columns_dropdown_value'];      $arr=array(      $get_unoqu,      $get_col_id,      $checkvalue,      $tables_names,      $columns_dropdown,      $columns_dropdown_value    );    if(empty($checkvalue))    {        $error = true;        $err_msg = 'Please checked table';    }    if(!$error)    {        $res=$obj2->update_report_custom_data($arr,$checkvalue,$design_id,$u_col_name,'tbl_design_your_life','id');        if($res==true)        {            $msg = "Report setting Updated Successfully!";        }        else        {            $error = true;            $err_msg = "Currently there is some problem.Please try again later.";        }    }    }$special_bg_color = '000000';$special_font_color='FFFFFF';$special_icon_code='fa-hand-o-right';if(isset($_POST['btnSubmit'])){        $design_id = $_POST['id'];        $ref_code = strip_tags(trim($_POST['ref_code']));	$admin_comment = $_POST['admin_comment'];	$title_id = $_POST['title_id'];	$narration = $_POST['narration'];         $group_code = $_POST['group_code']; 	   // $fav_cat_type_id_header = $_POST['fav_cat_type_id_header'];                //code added by ample 26-11-19        $level=array();        $level['level']=$_POST['level'];        $level['level_heading']=$_POST['level_heading'];        $level['level_title']=$_POST['level_title'];        $level['level_title_heading']=$_POST['level_title_heading'];        $level['level_icon']=$_POST['level_icon'];        $level['level_icon_type']=$_POST['level_icon_type'];        $level['level_icon_heading']=$_POST['level_icon_heading'];                //update by ample 07-12-19	//$banner_type_1 = strip_tags(trim($_POST['banner_type_1']));         $banner_type_1 = strip_tags(trim($_POST['banner1_type']));         $image_1_show =  strip_tags(trim($_POST['image_1_show']));         $image_2_show =  strip_tags(trim($_POST['image_2_show']));         //$banner_1 = $_FILES['banner_1']['name'];	$credit_line_1 = strip_tags(trim($_POST['credit_line_1']));        $credit_line_url_1 = strip_tags(trim($_POST['credit_line_url_1']));        $sound_clip_id_1 = strip_tags(trim($_POST['sound_clip_id_1']));        //update by ample 07-12-19        //$banner_type_2 = strip_tags(trim($_POST['banner_type_2']));         $banner_type_2 = strip_tags(trim($_POST['banner2_type']));        //$banner_2 = $_FILES['banner_2']['name'];        $credit_line_2 = strip_tags(trim($_POST['credit_line_2']));        $credit_line_url_2 = strip_tags(trim($_POST['credit_line_url_2']));        $sound_clip_id_2 = strip_tags(trim($_POST['sound_clip_id_2']));        $user_date_show = strip_tags(trim($_POST['user_date_show']));        $user_date_show_heading = strip_tags(trim($_POST['user_date_show_heading']));        $time_show = strip_tags(trim($_POST['time_show']));        $time_heading = strip_tags(trim($_POST['time_heading']));        $duration_show = strip_tags(trim($_POST['duration_show']));        $duration_heading = strip_tags(trim($_POST['duration_heading']));        $location_show = strip_tags(trim($_POST['location_show']));        $location_heading = strip_tags(trim($_POST['location_heading']));        $location_category = implode(',',$_POST['location_category']);        $like_dislike_show = strip_tags(trim($_POST['like_dislike_show']));        $like_dislike_heading = strip_tags(trim($_POST['like_dislike_heading']));        $user_response_category = implode(',',$_POST['user_response_category']);                $set_goals_show = strip_tags(trim($_POST['set_goals_show']));        $set_goals_heading = strip_tags(trim($_POST['set_goals_heading']));        $user_what_next_category = implode(',',$_POST['user_what_next_category']);                $scale_show = strip_tags(trim($_POST['scale_show']));        $scale_heading = strip_tags(trim($_POST['scale_heading']));        $reminder_show = strip_tags(trim($_POST['reminder_show']));        $reminder_heading = strip_tags(trim($_POST['reminder_heading']));        $alerts_updates_category = implode(',',$_POST['alerts_updates_category']);                $comments_show = strip_tags(trim($_POST['comments_show']));        $comments_heading = strip_tags(trim($_POST['comments_heading']));        $order_show = strip_tags(trim($_POST['order_show']));                $fav_cat_type_id = strip_tags(trim($_POST['fav_cat_type_id']));        $fav_cat_id = $_POST['selected_cat_id1'];                $canv_sub_cat1_show_fetch = $_POST['canv_sub_cat1_show_fetch'];        $canv_sub_cat1_link=$_POST['prof_cat1_link'];        $comment_order_show = $_POST['comment_order_show'];        $reminder_order_show = $_POST['reminder_order_show'];        $scale_order_show = $_POST['scale_order_show'];        $set_goals_order_show = $_POST['set_goals_order_show'];        $like_dislike_order_show = $_POST['like_dislike_order_show'];        $location_order_show = $_POST['location_order_show'];        $duration_order_show = $_POST['duration_order_show'];        $time_order_show = $_POST['time_order_show'];        $user_date_order_show = $_POST['user_date_order_show'];        $image2_order_show = $_POST['image2_order_show'];        $image1_order_show = $_POST['image1_order_show'];                $fav_cat_type_id_2 = strip_tags(trim($_POST['fav_cat_type_id2']));        $fav_cat_id_2 = $_POST['selected_cat_id2'];        $canv_sub_cat2_show_fetch = $_POST['canv_sub_cat2_show_fetch'];        $canv_sub_cat2_link=$_POST['prof_cat2_link'];                $fav_cat_type_id_3 = strip_tags(trim($_POST['fav_cat_type_id3']));        $fav_cat_id_3 = $_POST['selected_cat_id3'];        $canv_sub_cat3_show_fetch = $_POST['canv_sub_cat3_show_fetch'];        $canv_sub_cat3_link=$_POST['prof_cat3_link'];                $fav_cat_type_id_4 = strip_tags(trim($_POST['fav_cat_type_id4']));        $fav_cat_id_4 = $_POST['selected_cat_id4'];        $canv_sub_cat4_show_fetch = $_POST['canv_sub_cat4_show_fetch'];        $canv_sub_cat4_link=$_POST['prof_cat4_link'];        $narration_show = strip_tags(trim($_POST['narration_show']));         $page_cat_id = $_POST['page_cat_id'];        $show_to_user = $_POST['show_to_user'];        $video_1 = $_POST['video_1'];        $video_2 = $_POST['video_2'];        $quick_response_show = $_POST['quick_response_show'];        $quick_tip_icon = $_POST['quick_tip_icon'];        //add by ample 23-01-20        $quick_tip_icon_type = $_POST['quick_tip_icon_type'];        $quick_response_heading = $_POST['quick_response_heading'];        $response_heading = $_POST['response_heading'];        $box_count = $_POST['box_count'];        $user_upload_show = $_POST['user_upload_show'];        $page_show=$_POST['page_show']; // add by ample 07-04-20        $text_box_show = $_POST['text_box_show'];        $text_box_count = $_POST['text_box_count'];        /* code added by ample 06-11-19 */        $prof_cat_heading=array();        $prof_cat_heading['prof_cat1_heading'] = $_POST['prof_cat1_heading'];        $prof_cat_heading['prof_cat2_heading'] = $_POST['prof_cat2_heading'];        $prof_cat_heading['prof_cat3_heading'] = $_POST['prof_cat3_heading'];        $prof_cat_heading['prof_cat4_heading'] = $_POST['prof_cat4_heading'];        $prof_cat_ref_code=array();        $prof_cat_ref_code['prof_cat1_ref_code'] = $_POST['prof_cat1_ref_code'];        $prof_cat_ref_code['prof_cat2_ref_code'] = $_POST['prof_cat2_ref_code'];        $prof_cat_ref_code['prof_cat3_ref_code'] = $_POST['prof_cat3_ref_code'];        $prof_cat_ref_code['prof_cat4_ref_code'] = $_POST['prof_cat4_ref_code'];        $cat_fetch_show_data=array();        $cat_fetch_show_data['canv_loc_cat_show_fetch'] = $_POST['canv_loc_cat_show_fetch'];        $cat_fetch_show_data['canv_user_cat_show_fetch'] = $_POST['canv_user_cat_show_fetch'];        $cat_fetch_show_data['canv_wn_cat_show_fetch'] = $_POST['canv_wn_cat_show_fetch'];        $cat_fetch_show_data['canv_au_cat_show_fetch'] = $_POST['canv_au_cat_show_fetch'];        $cat_link_data=array();        $cat_link_data['canv_loc_cat_link'] = $_POST['canv_loc_cat_link'];        $cat_link_data['canv_user_cat_link'] = $_POST['canv_user_cat_link'];        $cat_link_data['canv_wn_cat_link'] = $_POST['canv_wn_cat_link'];        $cat_link_data['canv_au_cat_link'] = $_POST['canv_au_cat_link'];        $cat_ref_code = array();        $cat_ref_code['location_ref_code'] = $_POST['location_ref_code'];        $cat_ref_code['ur_ref_code'] = $_POST['ur_ref_code'];        $cat_ref_code['uw_ref_code'] = $_POST['uw_ref_code'];        $cat_ref_code['au_ref_code'] = $_POST['au_ref_code'];         /* code added by ample 06-11-19 */        $banner_position=$_POST['banner_position']; //add by ample 13-04-20        $status=$_POST['status'];  //add by ample 27-04-20        $example_box=$_POST['example_box']; // add by ample 07-05-20        $special_text_position=$_POST['special_text_position']; //add by ample 02-06-20        //add by ample 23-05-20        $box_data=array();        $box_data['qr_box_type']=$_POST['qr_box_type'];        if($box_data['qr_box_type']==2 || $box_data['qr_box_type']==3)        {            $box_data['qr_data_source']=implode(',', $_POST['qr_data_source']);            $box_data['qr_specifiq_text']='';        }        else if($box_data['qr_box_type']==4)        {            $box_data['qr_data_source']=implode(',', $_POST['qr_data_source']);            $box_data['qr_specifiq_text']=$_POST['qr_specifiq_text'];        }        else        {            $box_data['qr_data_source']=implode(',', $_POST['qr_data_source']);            $box_data['qr_specifiq_text']='';        }        $box_data['other_box_type']=$_POST['other_box_type'];        if($box_data['other_box_type']==2 || $box_data['other_box_type']==3)        {            $box_data['other_data_source']=implode(',', $_POST['other_data_source']);            $box_data['other_specifiq_text']='';        }        else if($box_data['other_box_type']==4)        {            $box_data['other_data_source']=implode(',', $_POST['other_data_source']);            $box_data['other_specifiq_text']=$_POST['other_specifiq_text'];        }        else        {            $box_data['other_data_source']='';            $box_data['other_specifiq_text']='';        }         //update by ample 06-07-20         $box_data['icon_box1']=$_POST['icon_box1'];        if($box_data['icon_box1']==2 || $box_data['icon_box1']==3 || $box_data['icon_box1']==1)        {            $box_data['box_source1']=implode(',', $_POST['box_source1']);        }        else        {            $box_data['box_source1']='';        }        $box_data['icon_box2']=$_POST['icon_box2'];        if($box_data['icon_box2']==2 || $box_data['icon_box2']==3 || $box_data['icon_box2']==1)        {            $box_data['box_source2']=implode(',', $_POST['box_source2']);        }        else        {            $box_data['box_source2']='';        }        //add by ample 09-06-20 & & update 22-06-20        $special_data=array();        $special_data['special_bg_color']=(!empty($_POST['special_bg_color']))? $_POST['special_bg_color'] : '000000';        $special_data['special_font_color']=(!empty($_POST['special_font_color']))? $_POST['special_font_color'] : 'FFFFFF';        $special_data['special_icon_code']=(!empty($_POST['special_icon_code']))? $_POST['special_icon_code'] : 'fa-hand-o-right';        $special_data['special_font_family']=$_POST['special_font_family'];        $special_data['special_font_size']=$_POST['special_font_size'];    if($ref_code == '')    {       $error = true;        $err_msg ='Please fill all cumpulsorry data';    }        if(!empty($fav_cat_id)) {           $fav_cat_id_data = implode(',',$fav_cat_id);        }if(!empty($fav_cat_id_2)) {           $fav_cat_id_data_2 = implode(',',$fav_cat_id_2);        }if(!empty($fav_cat_id_3)) {           $fav_cat_id_data_3 = implode(',',$fav_cat_id_3);        }if(!empty($fav_cat_id_4)) {           $fav_cat_id_data_4 = implode(',',$fav_cat_id_4);        }     // add by ample 07-12-19    $banner_1 = $_POST['banner1'];    $banner_2 = $_POST['banner2'];    $is_featured=$_POST['is_featured']; //28-10-20        if(!$error)        {          $updated_date = date("Y-m-d H:i:s");          //update  by ample 06-11-19 & update 23-01-20 & update 13-04-20 & update 27-04-20 & update 07-05-20 & update 23-05-20 & 28-10-20          if($obj2->UpdateDesignMyLife($text_box_show,$text_box_count,$user_upload_show,$quick_response_show,$quick_tip_icon,$quick_tip_icon_type,$quick_response_heading,$response_heading,$box_count,$show_to_user,$page_cat_id,$fav_cat_type_id_2,$canv_sub_cat1_show_fetch,$canv_sub_cat1_link,$canv_sub_cat2_show_fetch,$canv_sub_cat2_link,$fav_cat_id_data_2,$fav_cat_type_id_3,$canv_sub_cat3_show_fetch,$canv_sub_cat3_link,$fav_cat_id_data_3,$fav_cat_type_id_4,$canv_sub_cat4_show_fetch,$canv_sub_cat4_link,$fav_cat_id_data_4,$narration_show,$comment_order_show,$reminder_order_show,$scale_order_show,$set_goals_order_show,$like_dislike_order_show,$location_order_show,$duration_order_show,$time_order_show,$user_date_order_show,$ref_code,$admin_comment,$title_id,$narration,$user_date_show,$user_date_show_heading,$time_show,$time_heading,$duration_show,$duration_heading,$location_show,$location_heading,$location_category,$like_dislike_show,$like_dislike_heading,$user_response_category,$set_goals_show,$set_goals_heading,$user_what_next_category,$scale_show,$scale_heading,$reminder_show,$reminder_heading,$alerts_updates_category,$comments_show,$comments_heading,$order_show,$fav_cat_type_id,$fav_cat_id_data,$admin_id,$updated_date,$design_id,$group_code,$prof_cat_heading,$prof_cat_ref_code,$cat_fetch_show_data,$cat_link_data,$cat_ref_code,$level,$page_show,$banner_position,$status,$example_box,$box_data,$special_text_position,$special_data,$is_featured))          {                    $msg = "Record Updated Successfully!";                    header('location: index.php?mode=manage-design-your-life&msg='.urlencode($msg));            }            else            {                $error = true;                $err_msg = "Currently there is some problem.Please try again later.";            }                      }      }else	{                if(isset($_GET['id']))                {                  $design_id =   $_GET['id'];                  $design_data = $obj2->GetDesignYourLifeData($design_id);                   // echo "<pre>";                   // print_r($design_data);                  // echo "</pre>";                  // die();                  $arr_selected_cat_id = explode(',', $design_data['sub_cat_id']);                  $arr_location_category= $design_data['location_fav_cat'];                  $arr_user_response_fav_cat= $design_data['user_response_fav_cat'];                  $arr_user_what_fav_cat= $design_data['user_what_fav_cat'];                  $arr_alerts_fav_cat= $design_data['alerts_fav_cat'];                                                $show_to_user = $design_data['show_to_user'];                  $quick_response_show = $design_data['quick_response_show'];                  $quick_tip_icon = $design_data['quick_tip_icon'];                  $quick_response_heading = $design_data['quick_response_heading'];                  $response_heading = $design_data['response_heading'];                  $box_count = $design_data['box_count'];                                    $text_box_show = $design_data['input_box_show'];                  $text_box_count = $design_data['input_box_count'];                  //add by ample 23-05-20                  $qr_data_source = explode(',', $design_data['qr_data_source']);                  $other_data_source = explode(',', $design_data['other_data_source']);                  $box_source1 = explode(',', $design_data['icon_box_source1']);                  $box_source2 = explode(',', $design_data['icon_box_source2']);                              //add by ample 09-06-20                $special_bg_color=(!empty($design_data['special_bg_color']))? $design_data['special_bg_color'] : '000000';                $special_font_color=(!empty($design_data['special_font_color']))? $design_data['special_font_color'] : 'FFFFFF';                $special_icon_code=(!empty($design_data['special_icon_code']))? $design_data['special_icon_code'] : 'fa-hand-o-right';	}      }?><!-- <script type="text/javascript" src="js/jscolor.js"></script> --><!-- <script src="js/AC_ActiveX.js" type="text/javascript"></script><script src="js/AC_RunActiveContent.js" type="text/javascript"></script> --><div id="central_part_contents">	<div id="notification_contents">    <?php if(!empty($_SESSION['banner_msg'])) {   $message = $_SESSION['banner_msg'];   echo '<div class="alert alert-success">'.$message.'</div>';   unset($_SESSION['banner_msg']);}    ?>	<?php	if($error)	{	?>		<table class="notification-border-e" id="notification" align="center" border="0" width="97%" cellpadding="1" cellspacing="1">		<tbody>			<tr>				<td class="notification-body-e">					<table border="0" width="100%" cellpadding="0" cellspacing="6">					<tbody>						<tr>							<td><img src="images/notification_icon_e.gif" alt="" border="0" width="12" height="10"></td>							<td width="100%">								<table border="0" width="100%" cellpadding="0" cellspacing="0">								<tbody>									<tr>										<td class="notification-title-E">Error</td>									</tr>								</tbody>								</table>							</td>						</tr>						<tr>							<td>&nbsp;</td>							<td class="notification-body-e"><?php echo $err_msg; ?></td>						</tr>					</tbody>					</table>				</td>			</tr>		</tbody>		</table>	<?php	}	?><!--notification_contents-->	</div>	 	<table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">	<tbody>		<tr>			<td>				<table border="0" width="100%" cellpadding="0" cellspacing="0">				<tbody>                                    <tr>                                        <td style="background-image: url(images/mainbox_title_left.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>                                        <td style="background-image: url(images/mainbox_title_bg.gif);" valign="middle" width="21"><img src="images/mainbox_title_icon.gif" alt="" border="0" width="21" height="5"></td>                                        <td style="background-image: url(images/mainbox_title_bg.gif);" class="mainbox-title" width="100%">Edit Design Your Life</td>                                        <td style="background-image: url(images/mainbox_title_right.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>                                    </tr>				</tbody>				</table>			</td>		</tr>		<tr>			<td>				<table class="mainbox-border" border="0" width="100%" cellpadding="10" cellspacing="1">				<tbody>					<tr>						<td class="mainbox-body">							<form action="#" method="post" name="frm_mindjumble" id="frm_mindjumble" enctype="multipart/form-data" >                                                            <input type="hidden" name="id" id="id" value="<?php echo $design_data['id']; ?>">                                                            <input type="hidden" name="old_img_1" id="old_img_1" value="<?php echo $design_data['image_1']; ?>">                                                            <input type="hidden" name="old_img_2" id="old_img_2" value="<?php echo $design_data['image_2']; ?>">							<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">							<tbody>								<tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>								<tr>                                                                    <td width="30%" align="right" valign="top"><strong>Reference Code</strong></td>                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>                                                                    <td width="65%" align="left" valign="top">                                                                        <input type="text" name="ref_code" id="ref_code" value="<?php echo $design_data['ref_code']; ?>" style="width:200px;height: 24px;" required="" readonly>                                                                    </td>                                                                </tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                                                <tr>                                                                    <td width="30%" align="right" valign="top"><strong>Group Code</strong></td>                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>                                                                    <td width="65%" align="left" valign="top">                                                                                                                                                <select name="group_code" id="group_code" style="width:300px;" required="">                                                                                <option value="">Select</option>                                                                                                                                                                <?php echo $obj2->getdylgroupcodeoption('78',$design_data['group_code_id']); ?>                                                                                                                                                             </select>                                                                                                                                            </td>                                                                </tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                                                <tr>                                                                    <td width="30%" align="right" valign="top"><strong>Admin Notes</strong></td>                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>                                                                    <td width="65%" align="left" valign="top">                                                                        <textarea rows="5" cols="40" name="admin_comment" id="admin_comment"><?php echo $design_data['admin_comment']; ?></textarea>                                                                                                                                            </td>                                                                </tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                <!-- color added by ample 09-06-20-->                                <tr>                                    <td align="right"><strong>Special Heading BG Color</strong></td>                                    <td align="center"><strong>:</strong></td>                                    <td align="left">                                            <input type="text" class="color" name="special_bg_color" value="<?php echo $special_bg_color; ?>"/>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                    <td align="right"><strong>Special Heading Font Color</strong></td>                                    <td align="center"><strong>:</strong></td>                                    <td align="left">                                         <input type="text" class="color"  name="special_font_color" value="<?php echo $special_font_color; ?>"/>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                    <td align="right"><strong>Special Heading Icon Code</strong></td>                                    <td align="center"><strong>:</strong></td>                                    <td align="left">                                         <input type="text" name="special_icon_code"  value="<?php echo $special_icon_code; ?>"/>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="3" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                    <td align="right" valign="top"><strong>Special Font Family</strong></td>                                    <td align="center" valign="top"><strong>:</strong></td>                                    <td align="left" valign="top">                                        <select name="special_font_family" id="special_font_family" style="width:200px;">                                                <option value="">Select Font Family</option>                                                <?php echo $obj1->getFontFamilyOptions($design_data['special_font_family']); ?>                                        </select>                                    </td>                                </tr>                                <tr>                                    <td colspan="3" align="center" valign="top">&nbsp;</td>                                </tr>                                                                                                <tr>                                    <td align="right" valign="top"><strong>Special Font Size</strong></td>                                    <td align="center" valign="top"><strong>:</strong></td>                                    <td align="left" valign="top">                                        <select name="special_font_size" id="special_font_size" style="width:200px;">                                                <option value="">Select Font Size</option>                                                <?php echo $obj1->getFontSizeOptions($design_data['special_font_size']); ?>                                        </select>                                    </td>                                </tr>                                <tr>                                    <td colspan="3" align="center" valign="top">&nbsp;</td>                                </tr>                                <!-- level code added by ample 26-11-19 -->                                <tr>                                                                                                            <td align="right" valign="top"><strong>Level</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="level" style="min-width: 100px;">                                                <?php for($i=1;$i<=200;$i++) { ?>                                                <option value="<?php echo $i ?>" <?php if($design_data['level'] == $i ){ ?> selected <?php } ?>><?php echo $i ?></option>                                                <?php } ?>                                            </select>                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="level_heading" id="level_heading" value="<?php echo $design_data['level_heading'];?>" >                                        </td>                                    </tr>                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                 <tr>                                                                                                            <td align="right" valign="top"><strong>Level Title</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <input type="text" name="level_title" id="level_title" value="<?php echo $design_data['level_title'];?>" style="width:200px;height: 24px;">                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="level_title_heading" id="level_title_heading" value="<?php echo $design_data['level_title_heading'];?>" >                                        </td>                                    </tr>                                 <tr>                                    <td colspan="3" align="center">&nbsp;</td>                                </tr>                                <tr>                                                                                                            <td align="right" valign="top"><strong>Level Icons</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <!-- <input type="text" name="level_icon" id="level_icon" value="<?php echo $design_data['level_icon'];?>" style="width:200px;height: 24px;"> -->                                             <!-- add by ample 23-01-20 -->                                        <button type="button" class="btn btn-primary btn-xs" onclick="galleryData('IMG',0,'level_icon');">Gallery 1</button>                                        <button type="button" class="btn btn-primary btn-xs" onclick="galleryData('OT',0,'level_icon');">Gallery 2</button>                                        <input type="hidden" name="level_icon" id="level_icon" value="<?=$design_data['level_icon']?>" readonly />                                        <input type="text" name="level_icon_type" id="level_icon_type" value="<?=$design_data['level_icon_type']?>" readonly/>                                        <?php                                         $banner_name=$banner_file="";                                        if(!empty($design_data['level_icon_type']))                                        {                                            if($design_data['level_icon_type']=='Image')                                            {                                                $banner_data=$obj->get_data_from_tblicons('',$design_data['level_icon']);                                                $banner_name=$banner_data[0]['icons_name'];                                                $banner_file=$banner_data[0]['image'];                                            }                                            else                                            {                                                $banner_data=$obj->get_data_from_tblmindjumble('',$design_data['level_icon']);                                                $banner_name=$banner_data[0]['box_title'];                                                $banner_file=$banner_data[0]['box_banner'];                                            }                                        }                                        ?>                                        <input type="text"  id="level_icon_name" value="<?=$banner_name;?>" disabled/>                                        <input type="text"  id="level_icon_file" value="<?=$banner_file;?>" disabled />                                        <button type="button" class="btn btn-danger btn-xs" onclick="ResetgalleryData('level_icon');">Reset</button>                                                                                 <br>                                        <?php                                         if(!empty($banner_file))                                        {                                                ?>                                                <a href="<?php echo SITE_URL.'/uploads/'. $banner_file;?>" target="_blank"><?php echo $banner_file;?></a>                                                 <?php                                        }                                        ?>                                        <br>                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="level_icon_heading" id="level_icon_heading" value="<?php echo $design_data['level_icon_heading'];?>" >                                        </td>                                    </tr>                                <tr>                                    <td colspan="3" align="center">&nbsp;</td>                                </tr>                                                                <tr>									<td width="20%" align="right"><strong>User Show</strong></td>									<td width="5%" align="center"><strong>:</strong></td>									<td width="75%" align="left">                                                                            <select name="show_to_user" id="show_to_user" style="width:300px;" required="">                                                                                <option value="">Select</option>                                                                                <option value="1" <?php if($show_to_user == 1) { echo 'selected'; } ?>>Yes</option>                                                                                <option value="2" <?php if($show_to_user == 2) { echo 'selected'; } ?>>No</option>                                                                                <option value="3" <?php if($show_to_user == 3) { echo 'selected'; } ?>>Own</option>                                                                            </select>                                                                        </td>								</tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                                                <tr>									<td width="20%" align="right"><strong>Select data Category</strong></td>									<td width="5%" align="center"><strong>:</strong></td>									<td width="75%" align="left">                                                                            <select name="page_cat_id" id="page_cat_id" style="width:300px;" required="" onchange="GetBoxTitle()">                                                                                <option value="">Select Category</option>                                                                                <?php echo $obj2->getDesignYourLifeOption($design_data['data_category']); ?>                                                                              </select>                                                                        </td>								</tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                                                <tr>									<td width="20%" align="right"><strong>Select Box Title</strong></td>									<td width="5%" align="center"><strong>:</strong></td>									<td width="75%" align="left">                                                                            <select name="title_id" id="title_id" style="width:450px;" >                                                                                <option value="">Select Option</option>                                                                                <?php// echo $final_dropdown; ?>                                                                              </select>                                                                            &nbsp; &nbsp; <strong>Example Box Show:</strong>                                                                         <select name="example_box" style="width:100px;">                                                                            <option value="">Select</option>                                                                            <option value="1" <?php if($design_data['example_box'] == 1) { echo 'selected'; } ?>>Yes</option>                                                                            <option value="0" <?php if($design_data['example_box'] == 0) { echo 'selected'; } ?>>NO</option>                                                                        </select>                                                                        </td>								</tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                                                                                                                <tr>                                                                    <td width="30%" align="right" valign="top"><strong>Narration</strong></td>                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>                                                                    <td width="65%" align="left" valign="top">                                                                        <textarea rows="5" cols="40" name="narration" id="narration">                                                                            <?php echo $design_data['narration']; ?>                                                                        </textarea>                                                                                                                                            </td>                                                                </tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                                                                                                                <tr>                                                                    <td width="10%" align="right" valign="top"><strong>Narration Show</strong></td>                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>                                                                    <td width="65%" align="left" valign="top">                                                                        <select name="narration_show" style="width:100px; height: 24px;">                                                                            <option value="">Select</option>                                                                            <option value="1" <?php if($design_data['narration_show'] == 1) { echo 'selected'; } ?>>Yes</option>                                                                            <option value="0" <?php if($design_data['narration_show'] == 0) { echo 'selected'; } ?>>NO</option>                                                                        </select>                                                                    </td>                                                                </tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>								                                                                <tr>                                                                                                            <td width="30%" align="right" valign="top"><strong>Profile Category</strong></td>                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>                                                                    <td width="65%" align="left" valign="top">                                                                        <select name="fav_cat_type_id" id="fav_cat_type_id" style="width:200px; height: 24px;" onchange="getMainCategoryOptionAddMore()">                                                                            <option value="">Select Prof Cat</option>                                                                           <?php  echo $obj2->getFavCategoryTypeOptions($design_data['prof_cat_id']);?>                                                                        </select>                                                                        <!-- &nbsp;&nbsp;&nbsp;Heading <input type="text" name="fav_cat_type_id_header" id="fav_cat_type_id_header" value="<?php echo $design_data['fav_cat_type_id_header'] ?>" > -->                                                                         &nbsp;&nbsp;&nbsp;Heading <input type="text" name="prof_cat1_heading" id="prof_cat1_heading" value="<?php echo $design_data['prof_cat1_heading'];?>" >                                                                         <input type="radio" name="canv_sub_cat1_show_fetch" <?php if($design_data['sub_cat1_show_fetch'] == 1){ echo 'checked'; } ?> value="1">Show                                                                        &nbsp;&nbsp;                                                                        <input type="radio" name="canv_sub_cat1_show_fetch" <?php if($design_data['sub_cat1_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch                                                                    </td>                                                                </tr>                                                                <!-- added by ample 06-11-19 -->                                                                 <tr>                                                                    <td width="30%" align="right" valign="top"></td>                                                                    <td width="5%" align="center" valign="top"></td>                                                                    <td width="65%" align="left" valign="top">                                                                    <div class="" style="margin-top: 2.5px;">                                                                             <!-- make daynamic by ample-->                                                                             Link                                                                            <select name="prof_cat1_link" id="prof_cat1_link" class="tbl_link" onchange="get_column_names(this,'prof_cat1_ref_code','<?=$design_data["prof_cat1_ref_code"];?>')">                                                                                <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['sub_cat1_link']); ?>                                                                             </select>                                                                             &nbsp;&nbsp; Reference Code                                                                             <select name="prof_cat1_ref_code" id="prof_cat1_ref_code" style="width: 177px;">                                                                            <option value="">Select</option>                                                                            </select>                                                                    </div>                                                                      <!--Add by ample 23-11-19 -->                                                                    <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['sub_cat1_link'];?>','<?=$design_data["prof_cat1_ref_code"];?>','<?=$design_data['prof_cat1_uid'];?>','prof_cat1_uid');">Setting</button>                                                                    </td>                                                                </tr>                                                                <tr>									<td colspan="3" align="center">&nbsp;</td>								</tr>                                                                                                                                <tr>                                                                    <td colspan="8" align="center">&nbsp;</td>                                                                </tr>                                                                <tr>                                                                                                                                        <td align="right" valign="top"><strong>Sub Category</strong></td>                                                                    <td align="center" valign="top"><strong>:</strong></td>                                                                    <td id="fav_cat_id" align="left" valign="top">                                                                                                                                                <?php  echo $obj2->getAllSubCategoryChkeckbox($design_data['prof_cat_id'],$arr_selected_cat_id,'0','300','200');?>                                                                                                                                        </td>                                                                </tr>                                                                <tr>                                                                    <td colspan="8" align="center">&nbsp;</td>                                                                </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>User Date (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="user_date_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['user_date_show'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['user_date_show'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['user_date_show'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['user_date_show'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="user_date_show_heading" id="user_date_show_heading" value="<?php echo $design_data['user_date_heading']; ?>" >                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="user_date_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['user_date_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['user_date_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['user_date_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['user_date_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['user_date_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['user_date_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['user_date_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['user_date_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['user_date_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['user_date_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['user_date_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                     <tr>                                                                                                            <td align="right" valign="top"><strong>Time (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="time_show" style="width:200px; height: 24px;">                                                 <option value="">Select</option>                                                 <option value="1" <?php if($design_data['time_show'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['time_show'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['time_show'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['time_show'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="time_heading" id="time_heading" value="<?php echo $design_data['time_heading']; ?>">                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="time_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['time_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['time_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['time_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['time_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['time_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['time_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['time_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['time_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['time_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['time_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['time_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Duration (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="duration_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['duration_show'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['duration_show'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['duration_show'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['duration_show'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="duration_heading" id="duration_heading" value="<?php echo $design_data['duration_heading']; ?>">                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="duration_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['duration_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['duration_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['duration_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['duration_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['duration_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['duration_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['duration_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['duration_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['duration_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['duration_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['duration_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Location (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="location_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['location_show'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['location_show'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['location_show'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['location_show'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="location_heading" id="location_heading" value="<?php echo $design_data['location_heading']; ?>" >                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="location_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['location_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['location_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['location_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['location_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['location_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['location_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['location_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['location_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['location_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['location_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['location_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Location Category </strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                                <?php echo $obj2->getAllFavCatChkeckbox('location_category',$arr_location_category,'200','150');?>                                              <!-- added by ample 06-11-19-->                                            &nbsp;&nbsp;                                            <input type="radio" name="canv_loc_cat_show_fetch" <?php if($design_data['canv_loc_cat_show_fetch'] == 1){ echo 'checked'; } ?>  value="1">Show                                             &nbsp;&nbsp;                                            <input type="radio" name="canv_loc_cat_show_fetch" <?php if($design_data['canv_loc_cat_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch                                            &nbsp;&nbsp;&nbsp;Link                                             <!-- make daynamic by ample-->                                            <select name="canv_loc_cat_link" id="canv_loc_cat_link" class="tbl_link"  onchange="get_column_names(this,'location_ref_code','<?=$design_data["location_ref_code"];?>')">                                                 <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['canv_loc_cat_link']); ?>                                             </select>                                                 <div style="margin-top: 2.5px;">                                               &nbsp;&nbsp;&nbsp;  Reference Code                                                 <select name="location_ref_code" id="location_ref_code" style="width: 175px;">                                                <option value="">Select</option>                                                </select>                                            </div>                                                                                                        <!--Add by ample 23-11-19 -->                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['canv_loc_cat_link'];?>','<?=$design_data["location_ref_code"];?>','<?=$design_data['loc_cat_uid'];?>','loc_cat_uid');">Setting</button>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>User Response (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="like_dislike_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['User_view'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['User_view'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['User_view'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['User_view'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="like_dislike_heading" id="like_dislike_heading" value="<?php echo $design_data['like_dislike_heading']; ?>" >                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="like_dislike_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['like_dislike_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['like_dislike_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['like_dislike_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['like_dislike_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['like_dislike_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['like_dislike_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['like_dislike_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['like_dislike_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['like_dislike_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['like_dislike_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['like_dislike_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>User Response Category </strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                                <?php echo $obj2->getAllFavCatChkeckbox('user_response_category',$arr_user_response_fav_cat,'200','150');?>                                                <!-- added by ample 06-11-19-->                                            &nbsp;&nbsp;                                            <input type="radio" name="canv_user_cat_show_fetch" <?php if($design_data['canv_user_cat_show_fetch'] == 1){ echo 'checked'; } ?>  value="1">Show                                             &nbsp;&nbsp;                                            <input type="radio" name="canv_user_cat_show_fetch" <?php if($design_data['canv_user_cat_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch                                            &nbsp;&nbsp;&nbsp;Link                                             <!-- make daynamic by ample-->                                            <select name="canv_user_cat_link" id="canv_user_cat_link" class="tbl_link"  onchange="get_column_names(this,'ur_ref_code','<?=$design_data["ur_ref_code"];?>')">                                                 <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['canv_user_cat_link']); ?>                                             </select>                                                 <div style="margin-top: 2.5px;">                                               &nbsp;&nbsp;&nbsp;  Reference Code                                                 <select name="ur_ref_code" id="ur_ref_code" style="width: 175px;">                                                <option value="">Select</option>                                                </select>                                                      <!--Add by ample 23-11-19 -->                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['canv_user_cat_link'];?>','<?=$design_data["ur_ref_code"];?>','<?=$design_data['ur_cat_uid'];?>','ur_cat_uid');">Setting</button>                                                                             </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>User What Next (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="set_goals_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['User_Interaction'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['User_Interaction'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['User_Interaction'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['User_Interaction'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="set_goals_heading" id="set_goals_heading" value="<?php echo $design_data['set_goals_heading']; ?>">                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="set_goals_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['set_goals_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['set_goals_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['set_goals_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['set_goals_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['set_goals_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['set_goals_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['set_goals_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['set_goals_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['set_goals_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['set_goals_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['set_goals_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>User What Next Category </strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                                <?php echo $obj2->getAllFavCatChkeckbox('user_what_next_category',$arr_user_what_fav_cat,'200','150');?>                                            <!-- added by ample 06-11-19-->                                            &nbsp;&nbsp;                                            <input type="radio" name="canv_wn_cat_show_fetch" <?php if($design_data['canv_wn_cat_show_fetch'] == 1){ echo 'checked'; } ?>  value="1">Show                                             &nbsp;&nbsp;                                            <input type="radio" name="canv_wn_cat_show_fetch" <?php if($design_data['canv_wn_cat_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch                                            &nbsp;&nbsp;&nbsp;Link                                             <!-- make daynamic by ample-->                                            <select name="canv_wn_cat_link" id="canv_wn_cat_link" class="tbl_link" onchange="get_column_names(this,'uw_ref_code','<?=$design_data["uw_ref_code"];?>')">                                                 <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['canv_wn_cat_link']); ?>                                             </select>                                                 <div style="margin-top: 2.5px;">                                               &nbsp;&nbsp;&nbsp;  Reference Code                                                 <select name="uw_ref_code" id="uw_ref_code" style="width: 175px;">                                                <option value="">Select</option>                                                </select>                                                    <!--Add by ample 23-11-19 -->                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['canv_wn_cat_link'];?>','<?=$design_data["uw_ref_code"];?>','<?=$design_data['uwn_uid'];?>','uwn_uid');">Setting</button>                                                                                     </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Scale (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="scale_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['scale_show'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['scale_show'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['scale_show'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['scale_show'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="scale_heading" id="scale_heading" value="<?php echo $design_data['scale_heading']; ?>" >                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="scale_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['scale_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['scale_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['scale_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['scale_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['scale_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['scale_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['scale_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['scale_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['scale_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['scale_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['scale_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                                                        <tr>                                                                                                            <td align="right" valign="top"><strong>Alerts/Updates (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="reminder_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['alert_show'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['alert_show'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['alert_show'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['alert_show'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="reminder_heading" id="reminder_heading" value="<?php echo $design_data['reminder_heading']; ?>" >                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="reminder_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['reminder_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['reminder_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['reminder_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['reminder_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['reminder_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['reminder_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['reminder_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['reminder_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['reminder_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['reminder_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['reminder_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                     <tr>                                                                                                            <td align="right" valign="top"><strong>Alerts/Updates Category </strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                                <?php echo $obj2->getAllFavCatChkeckbox('alerts_updates_category',$arr_alerts_fav_cat,'200','150');?>                                                <!-- added by ample 06-11-19-->                                            &nbsp;&nbsp;                                            <input type="radio" name="canv_au_cat_show_fetch" <?php if($design_data['canv_au_cat_show_fetch'] == 1){ echo 'checked'; } ?>  value="1">Show                                             &nbsp;&nbsp;                                            <input type="radio" name="canv_au_cat_show_fetch" <?php if($design_data['canv_au_cat_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch                                            &nbsp;&nbsp;&nbsp;Link                                             <!-- make daynamic by ample-->                                            <select name="canv_au_cat_link" id="canv_au_cat_link" class="tbl_link" onchange="get_column_names(this,'au_ref_code','<?=$design_data["au_ref_code"];?>')">                                                 <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['canv_au_cat_link']); ?>                                             </select>                                                 <div style="margin-top: 2.5px;">                                               &nbsp;&nbsp;&nbsp;  Reference Code                                                 <select name="au_ref_code" id="au_ref_code" style="width: 175px;">                                                <option value="">Select</option>                                                </select>                                                      <!--Add by ample 23-11-19 -->                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['canv_au_cat_link'];?>','<?=$design_data["au_ref_code"];?>','<?=$design_data['au_cat_uid'];?>','au_cat_uid');">Setting</button>                                                                               </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Comments (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="comments_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['comment_show'] == '1'){ ?> selected <?php } ?>>Individual</option>                                                <option value="0" <?php if($design_data['comment_show'] == '0'){ ?> selected <?php } ?>>No</option>                                                <option value="2" <?php if($design_data['comment_show'] == '2'){ ?> selected <?php } ?>>Common</option>                                                <option value="3" <?php if($design_data['comment_show'] == '3'){ ?> selected <?php } ?>>Both</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="comments_heading" id="comments_heading" value="<?php echo $design_data['comments_heading']; ?>" >                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;                                            <select name="comment_order_show" style="width:100px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['comment_order_show'] == '1'){ ?> selected <?php } ?>>1</option>                                                <option value="2" <?php if($design_data['comment_order_show'] == '2'){ ?> selected <?php } ?>>2</option>                                                <option value="3" <?php if($design_data['comment_order_show'] == '3'){ ?> selected <?php } ?>>3</option>                                                <option value="4" <?php if($design_data['comment_order_show'] == '4'){ ?> selected <?php } ?>>4</option>                                                <option value="5" <?php if($design_data['comment_order_show'] == '5'){ ?> selected <?php } ?>>5</option>                                                <option value="6" <?php if($design_data['comment_order_show'] == '6'){ ?> selected <?php } ?>>6</option>                                                <option value="7" <?php if($design_data['comment_order_show'] == '7'){ ?> selected <?php } ?>>7</option>                                                <option value="8" <?php if($design_data['comment_order_show'] == '8'){ ?> selected <?php } ?>>8</option>                                                <option value="9" <?php if($design_data['comment_order_show'] == '9'){ ?> selected <?php } ?>>9</option>                                                <option value="10" <?php if($design_data['comment_order_show'] == '10'){ ?> selected <?php } ?>>10</option>                                                <option value="11" <?php if($design_data['comment_order_show'] == '11'){ ?> selected <?php } ?>>11</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Quick Responses (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="quick_response_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($quick_response_show == '1'){ ?> selected <?php } ?>>Yes</option>                                                <option value="0" <?php if($quick_response_show == '0'){ ?> selected <?php } ?>>No</option>                                            </select>                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="quick_response_heading" id="quick_response_heading" value="<?php echo $quick_response_heading; ?>">                                            &nbsp;&nbsp;&nbsp;Box Count <input type="number" name="box_count" id="box_count" value="<?php echo $box_count; ?>">                                            <br><br>                                            <b>QR box type :</b>                                            <select name="qr_box_type" id="qr_box_type" class="tbl_link" onchange="box_type_setting(this,'qr')" style="width:200px; height: 24px;">                                                <option value="1" <?=($design_data['qr_box_type'] == '1')? 'selected' : '' ;?> >Input Box</option>                                                <option value="2" <?=($design_data['qr_box_type'] == '2')? 'selected' : '' ;?> >Select Box</option>                                                <option value="3" <?=($design_data['qr_box_type'] == '3')? 'selected' : '' ;?> >Example Box</option>                                                <!-- <option value="4" <?=($design_data['qr_box_type'] == '4')? 'selected' : '' ;?> >Display Box</option> -->                                            </select>                                                                                        <div id="data_source_box_qr" style="display: none;">                                                <br><br>                                                <b>QR data source :</b>                                                <select name="qr_data_source[]" id="data_source_qr" style="width:200px; height: auto;" onchange="update_specifiq_box('qr')" multiple>                                                    <option value="ProfCat2" <?=(in_array("ProfCat2", $qr_data_source))? 'selected' : '' ;?> >ProfCat2</option>                                                    <option value="ProfCat3" <?=(in_array("ProfCat3", $qr_data_source))? 'selected' : '' ;?> >ProfCat3</option>                                                    <option value="ProfCat4" <?=(in_array("ProfCat4", $qr_data_source))? 'selected' : '' ;?> >ProfCat4</option>                                                </select>                                                <span class="text-danger">You can choose more than one option by using the ctrl key.</span>                                            </div>                                            <div id="specifiq_text_box_qr" style="display: none;">                                                <br><br>                                                <b>QR specifiq text:</b>                                                <select name="qr_specifiq_text" id="specifiq_text_qr" style="width:200px; height: 24px;">                                                    <option value="">Select</option>                                                </select>                                                <input type="hidden" id="specifiq_text_select_qr" value="<?=$design_data['qr_specifiq_text']?>">                                            </div>                                            <br><br>                                            <b>QR icon box type :</b>                                            <select name="icon_box1" id="icon_box1" class="tbl_link" style="width:200px; height: 24px;" onchange="icon_box_type_setting(this,1)">                                                <option value="0" <?=($design_data['icon_box1'] == '0')? 'selected' : '' ;?> >No Icon</option>                                                <option value="1" <?=($design_data['icon_box1'] == '1')? 'selected' : '' ;?> >Drop-Down</option>                                                <option value="2" <?=($design_data['icon_box1'] == '2')? 'selected' : '' ;?> >Checkbox</option>                                                <option value="3" <?=($design_data['icon_box1'] == '3')? 'selected' : '' ;?> >Radio</option>                                            </select>                                             <div id="icon_box_source1" style="display: none;">                                                 <br><br>                                                <b>QR icon data source :</b>                                                <select name="box_source1[]" id="box_source1" style="width:200px; height: auto;" multiple>                                                    <option value="Location" <?=(in_array("Location", $box_source1))? 'selected' : '' ;?> >Location Category</option>                                                    <option value="User_Response" <?=(in_array("User_Response", $box_source1))? 'selected' : '' ;?>>User Response</option>                                                    <option value="User_What_Next" <?=(in_array("User_What_Next", $box_source1))? 'selected' : '' ;?>>User What Next</option>                                                    <option value="Alert_Update" <?=(in_array("Alert_Update", $box_source1))? 'selected' : '' ;?>>Alert Update</option>                                                    <option value="Comment" <?=(in_array("Comment", $box_source1))? 'selected' : '' ;?>>Comment</option>                                                    <option value="Scale" <?=(in_array("Scale", $box_source1))? 'selected' : '' ;?>>Scale</option>                                                    <option value="Time" <?=(in_array("Time", $box_source1))? 'selected' : '' ;?>>Time</option>                                                    <option value="Duration" <?=(in_array("Duration", $box_source1))? 'selected' : '' ;?>>Duration</option>                                                    <option value="Date" <?=(in_array("Date", $box_source1))? 'selected' : '' ;?>>Date</option>                                                </select>                                                 <span class="text-danger">You can choose more than one option by using the ctrl key.</span>                                              </div>                                        </td>                                    </tr>                                                                       <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>User Box (Show)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="text_box_show" id="text_box_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($text_box_show == '1'){ ?> selected <?php } ?>>Yes</option>                                                <option value="0" <?php if($text_box_show == '0'){ ?> selected <?php } ?>>No</option>                                            </select>                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="response_heading" id="response_heading"  value="<?php echo $response_heading; ?>">                                            &nbsp;&nbsp;&nbsp;Box Count <input type="number" name="text_box_count" id="text_box_count" value="<?php echo $text_box_count; ?>">                                             <br><br>                                            <b>User box type :</b>                                            <select name="other_box_type" class="tbl_link" id="other_box_type" onchange="box_type_setting(this,'ot')" style="width:200px; height: 24px;">                                                <option value="1" <?=($design_data['other_box_type'] == '1')? 'selected' : '' ;?> >Input Box</option>                                                <option value="2" <?=($design_data['other_box_type'] == '2')? 'selected' : '' ;?> >Select Box</option>                                                <option value="3" <?=($design_data['other_box_type'] == '3')? 'selected' : '' ;?> >Example Box</option>                                                <!-- <option value="4" <?=($design_data['other_box_type'] == '4')? 'selected' : '' ;?> >Display Box</option> -->                                            </select>                                                                                       <div id="data_source_box_ot" style="display: none;">                                                <br><br>                                                <b>User data source :</b>                                                <select name="other_data_source[]" id="data_source_ot" style="width:200px; height: auto;" onchange="update_specifiq_box('ot')" multiple>                                                    <option value="ProfCat2" <?=(in_array("ProfCat2", $other_data_source))? 'selected' : '' ;?> >ProfCat2</option>                                                    <option value="ProfCat3" <?=(in_array("ProfCat3", $other_data_source))? 'selected' : '' ;?> >ProfCat3</option>                                                    <option value="ProfCat4" <?=(in_array("ProfCat4", $other_data_source))? 'selected' : '' ;?> >ProfCat4</option>                                                </select>                                                <span class="text-danger">You can choose more than one option by using the ctrl key.</span>                                            </div>                                            <div id="specifiq_text_box_ot" style="display: none;">                                                <br><br>                                                <b>User specifiq text:</b>                                                <select name="other_specifiq_text" id="specifiq_text_ot" style="width:200px; height: 24px;">                                                    <option value="">Select</option>                                                </select>                                                <input type="hidden" id="specifiq_text_select_ot" value="<?=$design_data['other_specifiq_text']?>">                                            </div>                                            <br><br>                                            <b>User icon box type :</b>                                            <select name="icon_box2" class="tbl_link" id="icon_box2" style="width:200px; height: 24px;" onchange="icon_box_type_setting(this,2)">                                                <option value="0" <?=($design_data['icon_box2'] == '0')? 'selected' : '' ;?> >No Icon</option>                                                <option value="1" <?=($design_data['icon_box2'] == '1')? 'selected' : '' ;?> >Drop-Down</option>                                                <option value="2" <?=($design_data['icon_box2'] == '2')? 'selected' : '' ;?> >Checkbox</option>                                                <option value="3" <?=($design_data['icon_box2'] == '3')? 'selected' : '' ;?> >Radio</option>                                            </select>                                             <div id="icon_box_source2" style="display: none;">                                                 <br><br>                                                <b>User icon data source :</b>                                                <select name="box_source2[]" id="box_source2" style="width:200px; height: auto;" multiple>                                                    <option value="Location" <?=(in_array("Location", $box_source2))? 'selected' : '' ;?> >Location Category</option>                                                    <option value="User_Response" <?=(in_array("User_Response", $box_source2))? 'selected' : '' ;?> >User Response</option>                                                    <option value="User_What_Next" <?=(in_array("User_What_Next", $box_source2))? 'selected' : '' ;?> >User What Next</option>                                                    <option value="Alert_Update" <?=(in_array("Alert_Update", $box_source2))? 'selected' : '' ;?> >Alert Update</option>                                                    <option value="Comment" <?=(in_array("Comment", $box_source2))? 'selected' : '' ;?>>Comment</option>                                                    <option value="Scale" <?=(in_array("Scale", $box_source2))? 'selected' : '' ;?>>Scale</option>                                                    <option value="Time" <?=(in_array("Time", $box_source2))? 'selected' : '' ;?>>Time</option>                                                    <option value="Duration" <?=(in_array("Duration", $box_source2))? 'selected' : '' ;?>>Duration</option>                                                    <option value="Date" <?=(in_array("Date", $box_source2))? 'selected' : '' ;?>>Date</option>                                                </select>                                                 <span class="text-danger">You can choose more than one option by using the ctrl key.</span>                                              </div>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Icons ID(From Icon Master)</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <!-- <input type="text" name="quick_tip_icon" id="quick_tip_icon" value="<?php echo $quick_tip_icon; ?>"> -->                                        <!-- add by ample 23-01-20 -->                                        <button type="button" class="btn btn-primary btn-xs" onclick="galleryData('IMG',0,'quick_tip_icon');">Gallery 1</button>                                        <button type="button" class="btn btn-primary btn-xs" onclick="galleryData('OT',0,'quick_tip_icon');">Gallery 2</button>                                        <input type="hidden" name="quick_tip_icon" id="quick_tip_icon" value="<?=$design_data['quick_tip_icon']?>" readonly />                                        <input type="text" name="quick_tip_icon_type" id="quick_tip_icon_type" value="<?=$design_data['quick_tip_icon_type']?>" readonly/>                                        <?php                                         $banner_name=$banner_file="";                                        if(!empty($design_data['quick_tip_icon_type']))                                        {                                            if($design_data['quick_tip_icon_type']=='Image')                                            {                                                $banner_data=$obj->get_data_from_tblicons('',$design_data['quick_tip_icon']);                                                $banner_name=$banner_data[0]['icons_name'];                                                $banner_file=$banner_data[0]['image'];                                            }                                            else                                            {                                                $banner_data=$obj->get_data_from_tblmindjumble('',$design_data['quick_tip_icon']);                                                $banner_name=$banner_data[0]['box_title'];                                                $banner_file=$banner_data[0]['box_banner'];                                            }                                        }                                        ?>                                        <input type="text"  id="level_icon_name" value="<?=$banner_name;?>" disabled/>                                        <input type="text"  id="level_icon_file" value="<?=$banner_file;?>" disabled />                                        <button type="button" class="btn btn-danger btn-xs" onclick="ResetgalleryData('level_icon');">Reset</button>                                                                                 <br>                                        <?php                                         if(!empty($banner_file))                                        {                                                ?>                                                <a href="<?php echo SITE_URL.'/uploads/'. $banner_file;?>" target="_blank"><?php echo $banner_file;?></a>                                                 <?php                                        }                                        ?>                                        <br>                                                                                </td>                                    </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                                                        <tr>                                                                                <td width="30%" align="right" valign="top"><strong>Profile Category2</strong></td>                                        <td width="5%" align="center" valign="top"><strong>:</strong></td>                                        <td width="65%" align="left" valign="top">                                            <select name="fav_cat_type_id2" id="fav_cat_type_id2" style="width:200px; height: 24px;" onchange="getMainCategoryOptionAddMore2()">                                                <option value="">Select Prof Cat</option>                                               <?php  echo $obj2->getFavCategoryTypeOptions($design_data['prof_cat2']);?>                                            </select>                                             &nbsp;&nbsp;                                            <input type="radio" name="canv_sub_cat2_show_fetch" value="1" <?php if($design_data['sub_cat2_show_fetch'] == 1){ echo 'checked'; } ?>>Show                                             &nbsp;&nbsp;                                            <input type="radio" name="canv_sub_cat2_show_fetch" value="2" <?php if($design_data['sub_cat2_show_fetch'] == 2){ echo 'checked'; } ?>>Fetch                                            <!--  add by ample 06-11-19-->                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="prof_cat2_heading" id="prof_cat2_heading" value="<?php echo $design_data['prof_cat2_heading'];?>" >                                            <!-- <select name="canv_sub_cat2_link" id="canv_sub_cat2_link">                                                <option value="">Select</option>                                                <option value="tbl_bodymainsymptoms" <?php if($design_data['sub_cat2_link'] == 'tbl_bodymainsymptoms'){ echo 'selected'; } ?>>tbl_bodymainsymptoms</option>                                                <option value="tblsolutionitems" <?php if($design_data['sub_cat2_link'] == 'tblsolutionitems'){ echo 'selected'; } ?>>tblsolutionitems</option>                                                <option value="tbldailymealsfavcategory" <?php if($design_data['sub_cat2_link'] == 'tbldailymealsfavcategory'){ echo 'selected'; } ?>>tbldailymealsfavcategory</option>                                                <option value="tbldailyactivity" <?php if($design_data['sub_cat2_link'] == 'tbldailyactivity'){ echo 'selected'; } ?>>tbldailyactivity</option>                                            </select> -->                                        </td>                                    </tr>                                     <!-- added by ample 06-11-19 -->                                       <tr>                                          <td width="30%" align="right" valign="top"></td>                                          <td width="5%" align="center" valign="top"></td>                                          <td width="65%" align="left" valign="top">                                          <div class="" style="margin-top: 2.5px;">                                                   <!-- make daynamic by ample-->                                                   Link                                                  <select name="prof_cat2_link" id="prof_cat2_link" class="tbl_link" onchange="get_column_names(this,'prof_cat2_ref_code','<?=$design_data["prof_cat2_ref_code"];?>')">                                                      <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['sub_cat2_link']); ?>                                                   </select>                                                   &nbsp;&nbsp; Reference Code                                                   <select name="prof_cat2_ref_code" id="prof_cat2_ref_code" style="width: 177px;">                                                  <option value="">Select</option>                                                  </select>                                                   <!--Add by ample 23-11-19 -->                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['sub_cat2_link'];?>','<?=$design_data["prof_cat2_ref_code"];?>','<?=$design_data['prof_cat2_uid'];?>','prof_cat2_uid');">Setting</button>                                          </div>                                          </td>                                      </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Sub Category2</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td id="fav_cat_id2" align="left" valign="top">                                                                                        <?php                                                                                          $arr_selected_cat_id2 = explode(',', $design_data['sub_cat2']);                                                                                        echo $obj2->getAllSubCategoryChkeckboxDesign($design_data['prof_cat2'],$arr_selected_cat_id2,'selected_cat_id2','300','200');                                                                                                                                    ?>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                <td width="30%" align="right" valign="top"><strong>Profile Category3</strong></td>                                        <td width="5%" align="center" valign="top"><strong>:</strong></td>                                        <td width="65%" align="left" valign="top">                                            <select name="fav_cat_type_id3" id="fav_cat_type_id3" style="width:200px; height: 24px;" onchange="getMainCategoryOptionAddMore3()">                                                <option value="">Select Prof Cat</option>                                               <?php  echo $obj2->getFavCategoryTypeOptions($design_data['prof_cat3']);?>                                            </select>                                            &nbsp;&nbsp;                                            <input type="radio" name="canv_sub_cat3_show_fetch" value="1" <?php if($design_data['sub_cat3_show_fetch'] == 1){ echo 'checked'; } ?>>Show                                             &nbsp;&nbsp;                                            <input type="radio" name="canv_sub_cat3_show_fetch" value="2" <?php if($design_data['sub_cat3_show_fetch'] == 2){ echo 'checked'; } ?>>Fetch                                            <!--  add by ample 06-11-19-->                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="prof_cat3_heading" id="prof_cat3_heading" value="<?php echo $design_data['prof_cat3_heading'];?>" >                                            <!-- &nbsp;&nbsp;&nbsp;Link                                             <select name="canv_sub_cat3_link" id="canv_sub_cat3_link">                                                <option value="">Select</option>                                                <option value="tbl_bodymainsymptoms" <?php if($design_data['sub_cat3_link'] == 'tbl_bodymainsymptoms'){ echo 'selected'; } ?>>tbl_bodymainsymptoms</option>                                                <option value="tblsolutionitems" <?php if($design_data['sub_cat3_link'] == 'tblsolutionitems'){ echo 'selected'; } ?>>tblsolutionitems</option>                                                <option value="tbldailymealsfavcategory" <?php if($design_data['sub_cat3_link'] == 'tbldailymealsfavcategory'){ echo 'selected'; } ?>>tbldailymealsfavcategory</option>                                                <option value="tbldailyactivity" <?php if($design_data['sub_cat3_link'] == 'tbldailyactivity'){ echo 'selected'; } ?>>tbldailyactivity</option>                                            </select> -->                                        </td>                                    </tr>                                    <!-- added by ample 06-11-19 -->                                       <tr>                                          <td width="30%" align="right" valign="top"></td>                                          <td width="5%" align="center" valign="top"></td>                                          <td width="65%" align="left" valign="top">                                          <div class="" style="margin-top: 2.5px;">                                                   <!-- make daynamic by ample-->                                                     Link                                                  <select name="prof_cat3_link" id="prof_cat3_link" class="tbl_link" onchange="get_column_names(this,'prof_cat3_ref_code','<?=$design_data["prof_cat3_ref_code"];?>')">                                                      <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['sub_cat3_link']); ?>                                                   </select>                                                   &nbsp;&nbsp; Reference Code                                                   <select name="prof_cat3_ref_code" id="prof_cat3_ref_code" style="width: 177px;">                                                  <option value="">Select</option>                                                  </select>                                                  <!--Add by ample 23-11-19 -->                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['sub_cat3_link'];?>','<?=$design_data["prof_cat3_ref_code"];?>','<?=$design_data['prof_cat3_uid'];?>','prof_cat3_uid');">Setting</button>                                          </div>                                          </td>                                      </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Sub Category3</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td id="fav_cat_id3" align="left" valign="top">                                                                                        <?php                                                                                          $arr_selected_cat_id3 = explode(',', $design_data['sub_cat3']);                                                                                        echo $obj2->getAllSubCategoryChkeckboxDesign($design_data['prof_cat3'],$arr_selected_cat_id3,'selected_cat_id3','300','200');                                                                                                                                    ?>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                <td width="30%" align="right" valign="top"><strong>Profile Category4</strong></td>                                        <td width="5%" align="center" valign="top"><strong>:</strong></td>                                        <td width="65%" align="left" valign="top">                                            <select name="fav_cat_type_id4" id="fav_cat_type_id4" style="width:200px; height: 24px;" onchange="getMainCategoryOptionAddMore4()">                                                <option value="">Select Prof Cat</option>                                               <?php  echo $obj2->getFavCategoryTypeOptions($design_data['prof_cat4']);?>                                            </select>                                            &nbsp;&nbsp;                                            <input type="radio" name="canv_sub_cat4_show_fetch" value="1" <?php if($design_data['sub_cat4_show_fetch'] == 1){ echo 'checked'; } ?>>Show                                             &nbsp;&nbsp;                                            <input type="radio" name="canv_sub_cat4_show_fetch" value="2" <?php if($design_data['sub_cat4_show_fetch'] == 2){ echo 'checked'; } ?>>Fetch                                            <!--  add by ample 06-11-19-->                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="prof_cat4_heading" id="prof_cat4_heading" value="<?php echo $design_data['prof_cat4_heading'];?>" >                                           <!--  &nbsp;&nbsp;&nbsp;Link                                             <select name="canv_sub_cat4_link" id="canv_sub_cat4_link">                                                <option value="">Select</option>                                                <option value="tbl_bodymainsymptoms" <?php if($design_data['sub_cat4_link'] == 'tbl_bodymainsymptoms'){ echo 'selected'; } ?>>tbl_bodymainsymptoms</option>                                                <option value="tblsolutionitems" <?php if($design_data['sub_cat4_link'] == 'tblsolutionitems'){ echo 'selected'; } ?>>tblsolutionitems</option>                                                <option value="tbldailymealsfavcategory" <?php if($design_data['sub_cat4_link'] == 'tbldailymealsfavcategory'){ echo 'selected'; } ?>>tbldailymealsfavcategory</option>                                                <option value="tbldailyactivity" <?php if($design_data['sub_cat4_link'] == 'tbldailyactivity'){ echo 'selected'; } ?>>tbldailyactivity</option>                                            </select> -->                                        </td>                                    </tr>                                    <!-- added by ample 06-11-19 -->                                       <tr>                                          <td width="30%" align="right" valign="top"></td>                                          <td width="5%" align="center" valign="top"></td>                                          <td width="65%" align="left" valign="top">                                          <div class="" style="margin-top: 2.5px;">                                                   <!-- make daynamic by ample-->                                                     Link                                                  <select name="prof_cat4_link" id="prof_cat4_link" class="tbl_link" onchange="get_column_names(this,'prof_cat4_ref_code','<?=$design_data["prof_cat4_ref_code"];?>')">                                                      <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['sub_cat4_link']); ?>                                                   </select>                                                   &nbsp;&nbsp; Reference Code                                                   <select name="prof_cat4_ref_code" id="prof_cat4_ref_code" style="width: 177px;">                                                  <option value="">Select</option>                                                  </select>                                                  <!--Add by ample 23-11-19 -->                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['sub_cat4_link'];?>','<?=$design_data["prof_cat4_ref_code"];?>','<?=$design_data['prof_cat4_uid'];?>','prof_cat4_uid');">Setting</button>                                          </div>                                          </td>                                      </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr >                                                                                                            <td align="right" valign="top"><strong>Sub Category4</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td id="fav_cat_id4" align="left" valign="top">                                            <?php                                                                                          $arr_selected_cat_id4 = explode(',', $design_data['sub_cat4']);                                                                                        echo $obj2->getAllSubCategoryChkeckboxDesign($design_data['prof_cat4'],$arr_selected_cat_id4,'selected_cat_id4','300','200');                                                                                                                                    ?>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                        <tr>                                                                                                            <td align="right" valign="top"><strong>Order</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="order_show" style="width:200px; height: 24px;">                                                <?php for($i=1;$i<=50;$i++) { ?>                                                <option value="<?php echo $i ?>" <?php if($design_data['order_show'] == $i ){ ?> selected <?php } ?>><?php echo $i ?></option>                                                <?php } ?>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <tr>                                                                                                            <td align="right" valign="top"><strong>User upload</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="user_upload_show" id="user_upload_show" style="width:200px; height: 24px;">                                                <option value="">Select</option>                                                <option value="1" <?php if($design_data['user_upload_show'] == 1 ) { echo 'selected'; } ?>>Show</option>                                                <option value="0" <?php if($design_data['user_upload_show'] == 0 ) { echo 'selected'; } ?>>Hide</option>                                            </select>                                        </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <!--copy by ample 07-04-20 -->                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Page Popup</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <?php //echo $show_pop;?>                                            <select name="page_show" id="page_show" style="width:200px; height: 24px;">                                                                                                <option value="<?php echo $design_data['pop_show'];?>"><?php echo $design_data['pop_show'];?></option>                                                <option value="">Select</option>                                                <option value="Show">Show</option>                                                <option value="Hide">Hide</option>                                            </select>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <!-- status add by ample 27-04-20 -->                                    <tr>                                            <td width="30%" align="right"><strong>Status</strong></td>                                            <td width="5%" align="center"><strong>:</strong></td>                                            <td width="65%" align="left">                                                <select id="status" name="status" style="width:200px;height: 24px;">                                                    <option value="1" <?php if($design_data['status'] == '1'){ ?> selected <?php } ?>>Active</option>                                                    <option value="0" <?php if($design_data['status'] == '0'){ ?> selected <?php } ?>>Inactive</option>                                                </select>                                            </td>                                    </tr>                                     <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <!-- banner position add by ample 13-04-20 -->                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Banner Position</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="banner_position" id="banner_position" style="width:200px; height: 24px;">                                                <option value="Top" <?=($design_data['banner_position']=='Top')? 'selected' : '';?> >Top</option>                                                <option value="Bottom" <?=($design_data['banner_position']=='Bottom')? 'selected' : '';?>>Bottom</option>                                            </select>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                    <!-- specail text position add by ample 02-06-20 -->                                    <tr>                                                                                                            <td align="right" valign="top"><strong>Special Text Position</strong></td>                                        <td align="center" valign="top"><strong>:</strong></td>                                        <td  align="left" valign="top">                                            <select name="special_text_position" id="special_text_position" style="width:200px; height: 24px;">                                                <option value="Top" <?=($design_data['special_text_position']=='Top')? 'selected' : '';?> >Top</option>                                                <option value="Bottom" <?=($design_data['special_text_position']=='Bottom')? 'selected' : '';?>>Bottom</option>                                            </select>                                        </td>                                    </tr>                                    <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                                                    <tr>                                    <td>&nbsp;</td>                                    <td>&nbsp;</td>                                    <td align="left">                                        <a href="index.php?mode=update_banner_DYL&DYL_id=<?=$_GET['id']?>"><button type="button" class="btn btn-info btn-xs">Banner Setting</button></a>                                        &nbsp;&nbsp;                                        <a href="index.php?mode=update_specifiq_data_DYL&DYL_id=<?=$_GET['id']?>"><button type="button" class="btn btn-warning btn-xs">Specific Data Set</button></a>                                        &nbsp;&nbsp;                                        <?php                                            if(!empty($design_data['page_decor_id']))                                            {                                                ?>                                                <a href="index.php?mode=edit-page-decor&id=<?=$design_data['page_decor_id'];?>" target="_blank"><button type="button" class="btn btn-success btn-xs">Page Decor</button></a>                                                <?php                                            }                                               else                                            {                                                ?>                                                <a href="index.php?mode=add-page-decor&DYL_id=<?=$_GET['id']?>" target="_blank"><button type="button" class="btn btn-success btn-xs">Page Decor</button></a>                                                <?php                                            }                                         ?>                                         &nbsp;&nbsp;                                         <?php                                            if(!empty($design_data['SW_id']))                                            {                                                ?>                                                <a href="index.php?mode=edit_scrolling_window&id=<?=$design_data['SW_id'];?>" target="_blank"><button type="button" class="btn btn-danger btn-xs">Scrolling Windows</button></a>                                                <?php                                            }                                               else                                            {                                                ?>                                                <a href="index.php?mode=add_scrolling_window&page_id=<?=$design_data['page_name'];?>&DYL_id=<?=$_GET['id']?>" target="_blank"><button type="button" class="btn btn-danger btn-xs">Scrolling Windows</button></a>                                                <?php                                            }                                         ?>                                    </td>                                </tr>                                 <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>								<tr>                                    <tr>                                <td align="right"><strong>&nbsp;</strong></td>                                <td align="center"><strong>&nbsp;</strong></td>                                <td align="left">                                  <input type="checkbox" value="1" name="is_featured" id="is_featured" <?php if($design_data['is_featured'] == 1) { echo 'checked'; } ?> > Featured Item                                  <br> <br>                                  <a href="index.php?mode=update_scheduled&redirect_id=<?=$_GET['id']?>&redirect=dyl" target="_blank"><button type="button" class="btn btn-warning btn-xs">Schedule Set</button></a>                                </td>                            </tr>                             <tr>                                        <td colspan="8" align="center">&nbsp;</td>                                    </tr>                                <tr>									<td>&nbsp;</td>									<td>&nbsp;</td>									<td align="left"><input type="Submit" name="btnSubmit" value="Submit" /></td>								</tr>							</tbody>							</table>							</form>						</td>					</tr>				</tbody>				</table>			</td>		</tr>	</tbody>	</table>	<br>    <!-- Modal add by ample 20-11-19 --><div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">  <div class="modal-dialog modal-lg" role="document" >    <div class="modal-content">      <div class="modal-header">        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>        <h4 class="modal-title" id="myModalLabel">Report Setting</h4>      </div>      <div class="modal-body">                    <div class="row">                <div class="col-md-12">                    <div id="showData">                    </div>                </div>            </div>      </div>      <div class="modal-footer">        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>      </div>    </div>  </div></div><script type="text/javascript" src="js/jscolor.js"></script><script type="text/javascript">    //add this by ample 06-11-19 function get_column_names(tbl="",show_on="",selected="")    {           //alert(tbl.value);        var tbl_name=tbl.value;        var dataString = 'action=getTableColumnsName&tbl_name='+tbl_name+'&selected='+selected;      $.ajax({        type: "POST",        url: "include/remote.php",        //dataType:'JSON',        data: dataString,        cache: false,        success: function(result)        {            //alert(result);            $('#'+show_on).html(result);        }      });    }    $(document).ready(function()    {       $('.tbl_link').trigger('change');    });    // code write by ample 22-11-19       function getSelfColumnData(link,ref_code,UID,u_col_name)    {           if(link =='' || ref_code =='')        {            alert('Please save link and reference code first!');            return false;        }        $.ajax({            url: "include/remote.php",            type:'get',            data: {action:'getSelfColumnData',link:link, ref_code:ref_code,UID:UID,u_col_name:u_col_name },            // dataType: 'json',            success: function(response) {              //Do Something              //window.location.reload(true);              //alert(response);              $('#showData').html(response);              $('#showModal').modal('show');            },            error: function(xhr) {            //Do Something to handle error                //alert(xhr);            }        });    }        // added by ample 22-11-19    function Selectable(get)    {           var table_name=$('#tables_names'+get).val();           var dataString = 'action=getTableColumnsNameKR&tablm_name='+table_name+'&get='+get;          $.ajax({            type: "POST",            url: "include/remote.php",            // dataType:'JSON',            data: dataString,            cache: false,            success: function(result)            {             $('#columns_dropdown'+get).html(result);             $('#columns_dropdown_value'+get).html(result);            }            ,            error: function(xhr) {            //Do Something to handle error                //alert(xhr);            }          });    }    function selectcheck(num,colums)        {           if($('#check_'+num).is(":checked")) {            $('#checkvalue'+num).val(colums);          }          else          {             $('#checkvalue'+num).val('');          }        }</script>        <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>	<script type="text/javascript">		tinyMCE.init({			mode : "exact",			theme : "advanced",			elements : "narration,admin_comment",			plugins : "style,advimage,advlink,emotions",			theme_advanced_buttons1 : "bold,italic,underline,indicime,indicimehelp,formatselect,fontselect,fontsizeselect",			theme_advanced_buttons2 : "justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,forecolor,backcolor",			theme_advanced_buttons3 : "blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview",		});                function getMainCategoryOptionAddMore(){        	var parent_cat_id = $("#fav_cat_type_id").val();        var id='';	var dataString = 'action=getsubcatoption&parent_cat_id='+parent_cat_id+'&id='+id;	$.ajax({		type: "POST",		url: "include/remote.php",		data: dataString,		cache: false,		success: function(result)		{			//alert(result);                        //alert(sub_cat);			$("#fav_cat_id").html(result);		}	});} function getMainCategoryOptionAddMore2(){        	var parent_cat_id = $("#fav_cat_type_id2").val();        var id='';	var dataString = 'action=getsubcat2option&parent_cat_id='+parent_cat_id+'&id='+id;	$.ajax({		type: "POST",		url: "include/remote.php",		data: dataString,		cache: false,		success: function(result)		{			//alert(result);                        //alert(sub_cat);			$("#fav_cat_id2").html(result);		}	});} function getMainCategoryOptionAddMore3(){        	var parent_cat_id = $("#fav_cat_type_id3").val();        var id='';	var dataString = 'action=getsubcat3option&parent_cat_id='+parent_cat_id+'&id='+id;	$.ajax({		type: "POST",		url: "include/remote.php",		data: dataString,		cache: false,		success: function(result)		{			//alert(result);                        //alert(sub_cat);			$("#fav_cat_id3").html(result);		}	});}function getMainCategoryOptionAddMore4(){        	var parent_cat_id = $("#fav_cat_type_id4").val();        var id='';	var dataString = 'action=getsubcat4option&parent_cat_id='+parent_cat_id+'&id='+id;	$.ajax({		type: "POST",		url: "include/remote.php",		data: dataString,		cache: false,		success: function(result)		{			//alert(result);                        //alert(sub_cat);			$("#fav_cat_id4").html(result);		}	});}function GetBoxTitle(){    var page_cat_id = $("#page_cat_id").val();        	var dataString = 'action=getboxtitle&page_cat_id='+page_cat_id;	$.ajax({		type: "POST",		url: "include/remote.php",		data: dataString,		cache: false,		success: function(result)		{			//alert(result);                        //alert(sub_cat);			$("#title_id").html(result);		}	});  } $("#page_cat_id").trigger('change');function showVideoURL1(){    //alert("Hiii");    var banner_type = $("#banner_type_1").val();    //alert(banner_type);    if(banner_type == 'Image')    {        $("#video_1_show").hide();        $("#banner_1_show").show();            }    if(banner_type == 'Video')    {       $("#video_1_show").show();       $("#banner_1_show").hide();    }}function showVideoURL2(){    var banner_type = $("#banner_type_2").val();    if(banner_type == 'Image')    {        $("#video_2_show").hide();        $("#banner_2_show").show();            }    if(banner_type == 'Video')    {       $("#video_2_show").show();       $("#banner_2_show").hide();    }} //write by ample 22-05-20    function box_type_setting(box,box_id)    {        var type=box.value;        //alert(type);        $('#data_source_box_'+box_id).hide();        $('#specifiq_text_box_'+box_id).hide();        if(type==2 || type==3)        {            $('#data_source_box_'+box_id).show();            $('#specifiq_text_box_'+box_id).hide();        }        else if(type==4)        {               $('#data_source_box_'+box_id).show();            get_data_of_profCat(box_id);            $('#specifiq_text_box_'+box_id).show();        }        else        {            $('#data_source_box_'+box_id).hide();            $('#specifiq_text_box_'+box_id).hide();        }    }    //write by ample 22-05-20 & update 06-07-20    function icon_box_type_setting(box,box_id)    {        var type=box.value;        //alert(type);        $('#icon_box_source'+box_id).hide();        if(type==2 || type==3 || type==1)        {            $('#icon_box_source'+box_id).show();        }        else        {            $('#icon_box_source'+box_id).hide();        }    }    function update_specifiq_box(box_id)    {        get_data_of_profCat(box_id);    }    //addd by ample 25-05-20    function get_data_of_profCat(box_id)    {                var DYL_id='<?=$_GET["id"]?>';        var source=$('#data_source_'+box_id).val();        var selected=$('#specifiq_text_select_'+box_id).val();        var dataString = 'action=GetPRofCatData_DLY&source='+source+'&selected='+selected+'&data_id='+DYL_id;            $.ajax({                type: "POST",                url: "include/remote.php",                data: dataString,                cache: false,                success: function(result)                {                    // alert(result);                    // console.log(result);                    $("#specifiq_text_"+box_id).html(result);                }            });     }</script></div>
+<?php
+require_once('config/class.mysql.php');
+require_once('classes/class.mindjumble.php');
+require_once('../init.php');
+
+
+
+$obj = new Mindjumble();
+
+
+
+require_once('classes/class.scrollingwindows.php');
+
+$obj1 = new Scrolling_Windows();
+
+
+
+require_once('classes/class.contents.php'); 
+
+$obj2 = new Contents();
+
+
+
+$edit_action_id = '339';
+
+
+
+if(!$obj->isAdminLoggedIn())
+
+{
+
+	
+
+	header("Location: index.php?mode=login");
+
+	exit(0);
+
+}
+
+else
+
+{
+
+   $admin_id = $_SESSION['admin_id']; 
+
+}
+
+
+
+if(!$obj->chkValidActionPermission($admin_id,$edit_action_id))
+
+	{	
+
+	  	header("Location: index.php?mode=invalid");
+
+		exit(0);
+
+	}
+
+/*define by ample for dynamic*/
+$tblID='5';
+
+$error = false;
+
+$err_msg = "";
+
+$display_stressbuster = 'none';
+
+$display_trtext = 'none';
+
+$display_trfile = '';
+
+
+
+$fav_cat_id_data = '';
+
+$fav_cat_id_data_2 = '';
+
+$fav_cat_id_data_3 = '';
+
+$fav_cat_id_data_4 = '';
+
+
+
+if(isset($_POST['report_setting']))
+{
+    
+     $design_id =   $_GET['id'];
+
+    $u_col_name=$_POST['u_col_name'];
+
+    $get_unoqu=$_POST['get_unoqu'];
+
+    $get_col_id=$_POST['get_col_id'];
+
+    $check_=$_POST['check_'];
+
+    $checkvalue=$_POST['checkvalue'];
+
+    $tables_names=$_POST['tables_names'];
+
+    $columns_dropdown=$_POST['columns_dropdown'];
+
+    $columns_dropdown_value=$_POST['columns_dropdown_value'];
+  
+    $arr=array(
+
+      $get_unoqu,
+
+      $get_col_id,
+
+      $checkvalue,
+
+      $tables_names,
+
+      $columns_dropdown,
+
+      $columns_dropdown_value
+
+    );
+
+    if(empty($checkvalue))
+    {
+        $error = true;
+
+        $err_msg = 'Please checked table';
+    }
+
+    if(!$error)
+
+    {
+        $res=$obj2->update_report_custom_data($arr,$checkvalue,$design_id,$u_col_name,'tbl_design_your_life','id');
+        if($res==true)
+
+        {
+
+            $msg = "Report setting Updated Successfully!";
+
+
+        }
+
+        else
+
+        {
+
+            $error = true;
+
+            $err_msg = "Currently there is some problem.Please try again later.";
+
+        }
+    }
+
+    
+
+}
+
+$special_bg_color = '000000';
+$special_font_color='FFFFFF';
+$special_icon_code='fa-hand-o-right';
+
+if(isset($_POST['btnSubmit']))
+
+{
+
+
+        $design_id = $_POST['id'];
+
+        $ref_code = strip_tags(trim($_POST['ref_code']));
+
+	$admin_comment = $_POST['admin_comment'];
+
+	$title_id = $_POST['title_id'];
+
+	$narration = $_POST['narration']; 
+
+        $group_code = $_POST['group_code']; 
+
+	   // $fav_cat_type_id_header = $_POST['fav_cat_type_id_header'];
+
+        
+        //code added by ample 26-11-19
+        $level=array();
+        $level['level']=$_POST['level'];
+        $level['level_heading']=$_POST['level_heading'];
+        $level['level_title']=$_POST['level_title'];
+        $level['level_title_heading']=$_POST['level_title_heading'];
+        $level['level_icon']=$_POST['level_icon'];
+        $level['level_icon_type']=$_POST['level_icon_type'];
+        $level['level_icon_heading']=$_POST['level_icon_heading'];
+
+        
+        //update by ample 07-12-19
+	//$banner_type_1 = strip_tags(trim($_POST['banner_type_1'])); 
+        $banner_type_1 = strip_tags(trim($_POST['banner1_type'])); 
+
+        $image_1_show =  strip_tags(trim($_POST['image_1_show'])); 
+
+        $image_2_show =  strip_tags(trim($_POST['image_2_show'])); 
+
+        //$banner_1 = $_FILES['banner_1']['name'];
+
+	$credit_line_1 = strip_tags(trim($_POST['credit_line_1']));
+
+        $credit_line_url_1 = strip_tags(trim($_POST['credit_line_url_1']));
+
+        $sound_clip_id_1 = strip_tags(trim($_POST['sound_clip_id_1']));
+
+        //update by ample 07-12-19
+        //$banner_type_2 = strip_tags(trim($_POST['banner_type_2']));
+
+         $banner_type_2 = strip_tags(trim($_POST['banner2_type']));
+
+        //$banner_2 = $_FILES['banner_2']['name'];
+
+        $credit_line_2 = strip_tags(trim($_POST['credit_line_2']));
+
+        $credit_line_url_2 = strip_tags(trim($_POST['credit_line_url_2']));
+
+        $sound_clip_id_2 = strip_tags(trim($_POST['sound_clip_id_2']));
+
+        $user_date_show = strip_tags(trim($_POST['user_date_show']));
+
+        $user_date_show_heading = strip_tags(trim($_POST['user_date_show_heading']));
+
+        $time_show = strip_tags(trim($_POST['time_show']));
+
+        $time_heading = strip_tags(trim($_POST['time_heading']));
+
+        $duration_show = strip_tags(trim($_POST['duration_show']));
+
+        $duration_heading = strip_tags(trim($_POST['duration_heading']));
+
+        $location_show = strip_tags(trim($_POST['location_show']));
+
+        $location_heading = strip_tags(trim($_POST['location_heading']));
+
+        $location_category = isset($_POST['location_category']) 
+    ? (is_array($_POST['location_category']) ? implode(',', $_POST['location_category']) : $_POST['location_category']) 
+    : '';
+
+
+        $like_dislike_show = strip_tags(trim($_POST['like_dislike_show']));
+
+        $like_dislike_heading = strip_tags(trim($_POST['like_dislike_heading']));
+
+          $user_response_category = isset($_POST['user_response_category']) 
+    ? (is_array($_POST['user_response_category']) ? implode(',', $_POST['user_response_category']) : $_POST['user_response_category']) 
+    : '';
+
+    
+
+        
+
+        $set_goals_show = strip_tags(trim($_POST['set_goals_show']));
+
+        $set_goals_heading = strip_tags(trim($_POST['set_goals_heading']));
+
+        $user_what_next_category = isset($_POST['user_what_next_category']) 
+    ? (is_array($_POST['user_what_next_category']) ? implode(',', $_POST['user_what_next_category']) : $_POST['user_what_next_category']) 
+    : '';
+
+        
+
+        $scale_show = strip_tags(trim($_POST['scale_show']));
+
+        $scale_heading = strip_tags(trim($_POST['scale_heading']));
+
+        $reminder_show = strip_tags(trim($_POST['reminder_show']));
+
+        $reminder_heading = strip_tags(trim($_POST['reminder_heading']));
+
+        $alerts_updates_category = isset($_POST['alerts_updates_category']) 
+    ? (is_array($_POST['alerts_updates_category']) ? implode(',', $_POST['alerts_updates_category']) : $_POST['alerts_updates_category']) 
+    : '';
+
+        
+
+        $comments_show = strip_tags(trim($_POST['comments_show']));
+
+        $comments_heading = strip_tags(trim($_POST['comments_heading']));
+
+        $order_show = strip_tags(trim($_POST['order_show']));
+
+        
+
+        $fav_cat_type_id = strip_tags(trim($_POST['fav_cat_type_id']));
+
+        $fav_cat_id = $_POST['selected_cat_id1'];
+
+        
+        $canv_sub_cat1_show_fetch = $_POST['canv_sub_cat1_show_fetch'];
+        $canv_sub_cat1_link=$_POST['prof_cat1_link'];
+
+        $comment_order_show = $_POST['comment_order_show'];
+
+        $reminder_order_show = $_POST['reminder_order_show'];
+
+        $scale_order_show = $_POST['scale_order_show'];
+
+        $set_goals_order_show = $_POST['set_goals_order_show'];
+
+        $like_dislike_order_show = $_POST['like_dislike_order_show'];
+
+        $location_order_show = $_POST['location_order_show'];
+
+        $duration_order_show = $_POST['duration_order_show'];
+
+        $time_order_show = $_POST['time_order_show'];
+
+        $user_date_order_show = $_POST['user_date_order_show'];
+
+        $image2_order_show = $_POST['image2_order_show'];
+
+        $image1_order_show = $_POST['image1_order_show'];
+
+        
+
+        $fav_cat_type_id_2 = strip_tags(trim($_POST['fav_cat_type_id2']));
+
+        $fav_cat_id_2 = $_POST['selected_cat_id2'];
+
+        $canv_sub_cat2_show_fetch = $_POST['canv_sub_cat2_show_fetch'];
+
+        $canv_sub_cat2_link=$_POST['prof_cat2_link'];
+
+        
+
+        $fav_cat_type_id_3 = strip_tags(trim($_POST['fav_cat_type_id3']));
+
+        $fav_cat_id_3 = $_POST['selected_cat_id3'];
+
+        $canv_sub_cat3_show_fetch = $_POST['canv_sub_cat3_show_fetch'];
+
+        $canv_sub_cat3_link=$_POST['prof_cat3_link'];
+
+        
+
+        $fav_cat_type_id_4 = strip_tags(trim($_POST['fav_cat_type_id4']));
+
+        $fav_cat_id_4 = $_POST['selected_cat_id4'];
+
+        $canv_sub_cat4_show_fetch = $_POST['canv_sub_cat4_show_fetch'];
+
+        $canv_sub_cat4_link=$_POST['prof_cat4_link'];
+
+        $narration_show = strip_tags(trim($_POST['narration_show'])); 
+
+        $page_cat_id = $_POST['page_cat_id'];
+
+        $show_to_user = $_POST['show_to_user'];
+
+        $video_1 = $_POST['video_1'];
+
+        $video_2 = $_POST['video_2'];
+
+        $quick_response_show = $_POST['quick_response_show'];
+
+        $quick_tip_icon = $_POST['quick_tip_icon'];
+        //add by ample 23-01-20
+        $quick_tip_icon_type = $_POST['quick_tip_icon_type'];
+
+        $quick_response_heading = $_POST['quick_response_heading'];
+
+        $response_heading = $_POST['response_heading'];
+
+        $box_count = $_POST['box_count'];
+
+        $user_upload_show = $_POST['user_upload_show'];
+
+        $page_show=$_POST['page_show']; // add by ample 07-04-20
+
+        $text_box_show = $_POST['text_box_show'];
+
+        $text_box_count = $_POST['text_box_count'];
+
+        /* code added by ample 06-11-19 */
+        $prof_cat_heading=array();
+        $prof_cat_heading['prof_cat1_heading'] = $_POST['prof_cat1_heading'];
+        $prof_cat_heading['prof_cat2_heading'] = $_POST['prof_cat2_heading'];
+        $prof_cat_heading['prof_cat3_heading'] = $_POST['prof_cat3_heading'];
+        $prof_cat_heading['prof_cat4_heading'] = $_POST['prof_cat4_heading'];
+        $prof_cat_ref_code=array();
+        $prof_cat_ref_code['prof_cat1_ref_code'] = $_POST['prof_cat1_ref_code'];
+        $prof_cat_ref_code['prof_cat2_ref_code'] = $_POST['prof_cat2_ref_code'];
+        $prof_cat_ref_code['prof_cat3_ref_code'] = $_POST['prof_cat3_ref_code'];
+        $prof_cat_ref_code['prof_cat4_ref_code'] = $_POST['prof_cat4_ref_code'];
+        $cat_fetch_show_data=array();
+        $cat_fetch_show_data['canv_loc_cat_show_fetch'] = $_POST['canv_loc_cat_show_fetch'];
+        $cat_fetch_show_data['canv_user_cat_show_fetch'] = $_POST['canv_user_cat_show_fetch'];
+        $cat_fetch_show_data['canv_wn_cat_show_fetch'] = $_POST['canv_wn_cat_show_fetch'];
+        $cat_fetch_show_data['canv_au_cat_show_fetch'] = $_POST['canv_au_cat_show_fetch'];
+        $cat_link_data=array();
+        $cat_link_data['canv_loc_cat_link'] = $_POST['canv_loc_cat_link'];
+        $cat_link_data['canv_user_cat_link'] = $_POST['canv_user_cat_link'];
+        $cat_link_data['canv_wn_cat_link'] = $_POST['canv_wn_cat_link'];
+        $cat_link_data['canv_au_cat_link'] = $_POST['canv_au_cat_link'];
+        $cat_ref_code = array();
+        $cat_ref_code['location_ref_code'] = $_POST['location_ref_code'];
+        $cat_ref_code['ur_ref_code'] = $_POST['ur_ref_code'];
+        $cat_ref_code['uw_ref_code'] = $_POST['uw_ref_code'];
+        $cat_ref_code['au_ref_code'] = $_POST['au_ref_code'];
+         /* code added by ample 06-11-19 */
+
+        $banner_position=$_POST['banner_position']; //add by ample 13-04-20
+        $status=$_POST['status'];  //add by ample 27-04-20
+
+        $example_box=$_POST['example_box']; // add by ample 07-05-20
+        $special_text_position=$_POST['special_text_position']; //add by ample 02-06-20
+
+        //add by ample 23-05-20
+        $box_data=array();
+        $box_data['qr_box_type']=$_POST['qr_box_type'];
+        if($box_data['qr_box_type']==2 || $box_data['qr_box_type']==3)
+        {
+            $box_data['qr_data_source']=implode(',', (array) $_POST['qr_data_source']);
+            $box_data['qr_specifiq_text']='';
+        }
+        else if($box_data['qr_box_type']==4)
+        {
+            $box_data['qr_data_source']=implode(',', (array)$_POST['qr_data_source']);
+            $box_data['qr_specifiq_text']=$_POST['qr_specifiq_text'];
+        }
+        else
+        {
+            $box_data['qr_data_source']=implode(',', (array)$_POST['qr_data_source']);
+            $box_data['qr_specifiq_text']='';
+        }
+        $box_data['other_box_type']=$_POST['other_box_type'];
+        if($box_data['other_box_type']==2 || $box_data['other_box_type']==3)
+        {
+            $box_data['other_data_source']=implode(',', (array)$_POST['other_data_source']);
+            $box_data['other_specifiq_text']='';
+        }
+        else if($box_data['other_box_type']==4)
+        {
+            $box_data['other_data_source']=implode(',', (array)$_POST['other_data_source']);
+            $box_data['other_specifiq_text']=$_POST['other_specifiq_text'];
+        }
+        else
+        {
+            $box_data['other_data_source']='';
+            $box_data['other_specifiq_text']='';
+        }
+         //update by ample 06-07-20 
+        $box_data['icon_box1']=$_POST['icon_box1'];
+        if($box_data['icon_box1']==2 || $box_data['icon_box1']==3 || $box_data['icon_box1']==1)
+        {
+            $box_data['box_source1']=implode(',', (array)$_POST['box_source1']);
+        }
+        else
+        {
+            $box_data['box_source1']='';
+        }
+        $box_data['icon_box2']=$_POST['icon_box2'];
+        if($box_data['icon_box2']==2 || $box_data['icon_box2']==3 || $box_data['icon_box2']==1)
+        {
+            $box_data['box_source2']=implode(',', (array)$_POST['box_source2']);
+        }
+        else
+        {
+            $box_data['box_source2']='';
+        }
+        //add by ample 09-06-20 & & update 22-06-20
+        $special_data=array();
+        $special_data['special_bg_color']=(!empty($_POST['special_bg_color']))? $_POST['special_bg_color'] : '000000';
+        $special_data['special_font_color']=(!empty($_POST['special_font_color']))? $_POST['special_font_color'] : 'FFFFFF';
+        $special_data['special_icon_code']=(!empty($_POST['special_icon_code']))? $_POST['special_icon_code'] : 'fa-hand-o-right';
+        $special_data['special_font_family']=$_POST['special_font_family'];
+        $special_data['special_font_size']=$_POST['special_font_size'];
+
+    if($ref_code == '')
+
+    {
+
+       $error = true; 
+
+       $err_msg ='Please fill all cumpulsorry data';
+
+    }
+
+        
+
+if(!empty($fav_cat_id))
+
+ {
+
+
+
+    
+
+       $fav_cat_id_data = implode(',',$fav_cat_id);
+
+        
+
+}
+
+
+
+if(!empty($fav_cat_id_2))
+
+ {
+
+
+
+    
+
+       $fav_cat_id_data_2 = implode(',',$fav_cat_id_2);
+
+        
+
+}
+
+
+
+if(!empty($fav_cat_id_3))
+
+ {
+
+
+
+    
+
+       $fav_cat_id_data_3 = implode(',',$fav_cat_id_3);
+
+        
+
+}
+
+
+
+if(!empty($fav_cat_id_4))
+
+ {
+
+
+
+    
+
+       $fav_cat_id_data_4 = implode(',',$fav_cat_id_4);
+
+        
+
+}
+
+     // add by ample 07-12-19
+    $banner_1 = $_POST['banner1'];
+    $banner_2 = $_POST['banner2'];
+    $is_featured=$_POST['is_featured']; //28-10-20
+
+
+        if(!$error)
+
+        {
+
+
+          $updated_date = date("Y-m-d H:i:s");
+          //update  by ample 06-11-19 & update 23-01-20 & update 13-04-20 & update 27-04-20 & update 07-05-20 & update 23-05-20 & 28-10-20
+          if($obj2->UpdateDesignMyLife($text_box_show,$text_box_count,$user_upload_show,$quick_response_show,$quick_tip_icon,$quick_tip_icon_type,$quick_response_heading,$response_heading,$box_count,$show_to_user,$page_cat_id,$fav_cat_type_id_2,$canv_sub_cat1_show_fetch,$canv_sub_cat1_link,$canv_sub_cat2_show_fetch,$canv_sub_cat2_link,$fav_cat_id_data_2,$fav_cat_type_id_3,$canv_sub_cat3_show_fetch,$canv_sub_cat3_link,$fav_cat_id_data_3,$fav_cat_type_id_4,$canv_sub_cat4_show_fetch,$canv_sub_cat4_link,$fav_cat_id_data_4,$narration_show,$comment_order_show,$reminder_order_show,$scale_order_show,$set_goals_order_show,$like_dislike_order_show,$location_order_show,$duration_order_show,$time_order_show,$user_date_order_show,$ref_code,$admin_comment,$title_id,$narration,$user_date_show,$user_date_show_heading,$time_show,$time_heading,$duration_show,$duration_heading,$location_show,$location_heading,$location_category,$like_dislike_show,$like_dislike_heading,$user_response_category,$set_goals_show,$set_goals_heading,$user_what_next_category,$scale_show,$scale_heading,$reminder_show,$reminder_heading,$alerts_updates_category,$comments_show,$comments_heading,$order_show,$fav_cat_type_id,$fav_cat_id_data,$admin_id,$updated_date,$design_id,$group_code,$prof_cat_heading,$prof_cat_ref_code,$cat_fetch_show_data,$cat_link_data,$cat_ref_code,$level,$page_show,$banner_position,$status,$example_box,$box_data,$special_text_position,$special_data,$is_featured))
+
+          {
+
+                    $msg = "Record Updated Successfully!";
+
+                    header('location: index.php?mode=manage-design-your-life&msg='.urlencode($msg));
+
+            }
+
+            else
+
+            {
+
+                $error = true;
+
+                $err_msg = "Currently there is some problem.Please try again later.";
+
+            }  
+
+            
+
+        }
+
+      
+
+}
+
+else
+
+	{
+
+
+                if(isset($_GET['id']))
+
+                {
+
+                  $design_id =   $_GET['id'];
+
+                  $design_data = $obj2->GetDesignYourLifeData($design_id); 
+                  // echo "<pre>"; 
+                  // print_r($design_data);
+                  // echo "</pre>";
+                  // die();
+
+                  $arr_selected_cat_id = explode(',', $design_data['sub_cat_id']);
+
+                  $arr_location_category= $design_data['location_fav_cat'];
+
+                  $arr_user_response_fav_cat= $design_data['user_response_fav_cat'];
+
+                  $arr_user_what_fav_cat= $design_data['user_what_fav_cat'];
+
+                  $arr_alerts_fav_cat= $design_data['alerts_fav_cat'];
+
+                              
+                  $show_to_user = $design_data['show_to_user'];
+
+                  $quick_response_show = $design_data['quick_response_show'];
+
+                  $quick_tip_icon = $design_data['quick_tip_icon'];
+
+                  $quick_response_heading = $design_data['quick_response_heading'];
+
+                  $response_heading = $design_data['response_heading'];
+
+                  $box_count = $design_data['box_count'];
+
+                  
+
+                  $text_box_show = $design_data['input_box_show'];
+
+                  $text_box_count = $design_data['input_box_count'];
+
+                  //add by ample 23-05-20
+                  $qr_data_source = explode(',', $design_data['qr_data_source']);
+                  $other_data_source = explode(',', $design_data['other_data_source']);
+                  $box_source1 = explode(',', $design_data['icon_box_source1']);
+                  $box_source2 = explode(',', $design_data['icon_box_source2']);
+
+            
+                  //add by ample 09-06-20
+                $special_bg_color=(!empty($design_data['special_bg_color']))? $design_data['special_bg_color'] : '000000';
+                $special_font_color=(!empty($design_data['special_font_color']))? $design_data['special_font_color'] : 'FFFFFF';
+                $special_icon_code=(!empty($design_data['special_icon_code']))? $design_data['special_icon_code'] : 'fa-hand-o-right';
+
+
+
+	}
+
+
+
+      
+}
+
+
+?>
+<!-- <script type="text/javascript" src="js/jscolor.js"></script> -->
+
+<!-- <script src="js/AC_ActiveX.js" type="text/javascript"></script>
+
+<script src="js/AC_RunActiveContent.js" type="text/javascript"></script> -->
+
+<div id="central_part_contents">
+
+	<div id="notification_contents">
+
+    <?php 
+
+if(!empty($_SESSION['banner_msg'])) {
+   $message = $_SESSION['banner_msg'];
+   echo '<div class="alert alert-success">'.$message.'</div>';
+   unset($_SESSION['banner_msg']);
+}
+
+    ?>
+
+
+	<?php
+
+	if($error)
+
+	{
+
+
+
+	?>
+
+		<table class="notification-border-e" id="notification" align="center" border="0" width="97%" cellpadding="1" cellspacing="1">
+
+		<tbody>
+
+			<tr>
+
+				<td class="notification-body-e">
+
+					<table border="0" width="100%" cellpadding="0" cellspacing="6">
+
+					<tbody>
+
+						<tr>
+
+							<td><img src="images/notification_icon_e.gif" alt="" border="0" width="12" height="10"></td>
+
+							<td width="100%">
+
+								<table border="0" width="100%" cellpadding="0" cellspacing="0">
+
+								<tbody>
+
+									<tr>
+
+										<td class="notification-title-E">Error</td>
+
+									</tr>
+
+								</tbody>
+
+								</table>
+
+							</td>
+
+						</tr>
+
+						<tr>
+
+							<td>&nbsp;</td>
+
+							<td class="notification-body-e"><?php echo $err_msg; ?></td>
+
+						</tr>
+
+					</tbody>
+
+					</table>
+
+				</td>
+
+			</tr>
+
+		</tbody>
+
+		</table>
+
+	<?php
+
+	}
+
+	?>
+
+<!--notification_contents-->
+
+	</div>	 
+
+	<table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+
+	<tbody>
+
+		<tr>
+
+			<td>
+
+				<table border="0" width="100%" cellpadding="0" cellspacing="0">
+
+				<tbody>
+
+                                    <tr>
+
+                                        <td style="background-image: url(images/mainbox_title_left.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>
+
+                                        <td style="background-image: url(images/mainbox_title_bg.gif);" valign="middle" width="21"><img src="images/mainbox_title_icon.gif" alt="" border="0" width="21" height="5"></td>
+
+                                        <td style="background-image: url(images/mainbox_title_bg.gif);" class="mainbox-title" width="100%">Edit Design Your Life</td>
+
+                                        <td style="background-image: url(images/mainbox_title_right.gif);" valign="top" width="9"><img src="images/spacer.gif" alt="" border="0" width="9" height="21"></td>
+
+                                    </tr>
+
+				</tbody>
+
+				</table>
+
+			</td>
+
+		</tr>
+
+		<tr>
+
+			<td>
+
+				<table class="mainbox-border" border="0" width="100%" cellpadding="10" cellspacing="1">
+
+				<tbody>
+
+					<tr>
+
+						<td class="mainbox-body">
+
+							<form action="#" method="post" name="frm_mindjumble" id="frm_mindjumble" enctype="multipart/form-data" >
+
+                                                            <input type="hidden" name="id" id="id" value="<?php echo $design_data['id']; ?>">
+
+                                                            <input type="hidden" name="old_img_1" id="old_img_1" value="<?php echo $design_data['image_1']; ?>">
+
+                                                            <input type="hidden" name="old_img_2" id="old_img_2" value="<?php echo $design_data['image_2']; ?>">
+
+							<table align="center" border="0" width="100%" cellpadding="0" cellspacing="0">
+
+							<tbody>
+
+
+
+								<tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+
+
+								<tr>
+
+                                                                    <td width="30%" align="right" valign="top"><strong>Reference Code</strong></td>
+
+                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                                                    <td width="65%" align="left" valign="top">
+
+                                                                        <input type="text" name="ref_code" id="ref_code" value="<?php echo $design_data['ref_code']; ?>" style="width:200px;height: 24px;" required="" readonly>
+
+
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+                                                                <tr>
+
+                                                                    <td width="30%" align="right" valign="top"><strong>Group Code</strong></td>
+
+                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                                                    <td width="65%" align="left" valign="top">
+                                                                        
+                                                                        <select name="group_code" id="group_code" style="width:300px;" required="">
+
+                                                                                <option value="">Select</option>
+                                                                                
+                                                                                <?php echo $obj2->getdylgroupcodeoption('78',$design_data['group_code_id']); ?>
+                                                                                 
+                                                                            </select>
+                                                                        
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+                                                                <tr>
+
+                                                                    <td width="30%" align="right" valign="top"><strong>Admin Notes</strong></td>
+
+                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                                                    <td width="65%" align="left" valign="top">
+
+                                                                        <textarea rows="5" cols="40" name="admin_comment" id="admin_comment"><?php echo $design_data['admin_comment']; ?></textarea>
+
+                                                                        
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+                                <!-- color added by ample 09-06-20-->
+                                <tr>
+                                    <td align="right"><strong>Special Heading BG Color</strong></td>
+                                    <td align="center"><strong>:</strong></td>
+                                    <td align="left">
+                                            <input type="text" class="color" name="special_bg_color" value="<?php echo $special_bg_color; ?>"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" align="center">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                    <td align="right"><strong>Special Heading Font Color</strong></td>
+                                    <td align="center"><strong>:</strong></td>
+                                    <td align="left">
+                                         <input type="text" class="color"  name="special_font_color" value="<?php echo $special_font_color; ?>"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" align="center">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                    <td align="right"><strong>Special Heading Icon Code</strong></td>
+                                    <td align="center"><strong>:</strong></td>
+                                    <td align="left">
+                                         <input type="text" name="special_icon_code"  value="<?php echo $special_icon_code; ?>"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3" align="center">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                    <td align="right" valign="top"><strong>Special Font Family</strong></td>
+                                    <td align="center" valign="top"><strong>:</strong></td>
+                                    <td align="left" valign="top">
+                                        <select name="special_font_family" id="special_font_family" style="width:200px;">
+                                                <option value="">Select Font Family</option>
+                                                <?php echo $obj1->getFontFamilyOptions($design_data['special_font_family']); ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" align="center" valign="top">&nbsp;</td>
+                                </tr>
+                                
+                                                                <tr>
+                                    <td align="right" valign="top"><strong>Special Font Size</strong></td>
+                                    <td align="center" valign="top"><strong>:</strong></td>
+                                    <td align="left" valign="top">
+                                        <select name="special_font_size" id="special_font_size" style="width:200px;">
+                                                <option value="">Select Font Size</option>
+                                                <?php echo $obj1->getFontSizeOptions($design_data['special_font_size']); ?>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="3" align="center" valign="top">&nbsp;</td>
+                                </tr>
+                                <!-- level code added by ample 26-11-19 -->
+                                <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Level</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="level" style="min-width: 100px;">
+
+                                                <?php for($i=1;$i<=200;$i++) { ?>
+
+                                                <option value="<?php echo $i ?>" <?php if($design_data['level'] == $i ){ ?> selected <?php } ?>><?php echo $i ?></option>
+
+                                                <?php } ?>
+
+                                            </select>
+
+                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="level_heading" id="level_heading" value="<?php echo $design_data['level_heading'];?>" >
+
+                                        </td>
+
+                                    </tr>
+
+                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+                                 <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Level Title</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <input type="text" name="level_title" id="level_title" value="<?php echo $design_data['level_title'];?>" style="width:200px;height: 24px;">
+
+                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="level_title_heading" id="level_title_heading" value="<?php echo $design_data['level_title_heading'];?>" >
+
+                                        </td>
+
+                                    </tr>
+                                 <tr>
+
+                                    <td colspan="3" align="center">&nbsp;</td>
+
+                                </tr>
+
+                                <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Level Icons</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <!-- <input type="text" name="level_icon" id="level_icon" value="<?php echo $design_data['level_icon'];?>" style="width:200px;height: 24px;"> -->
+
+                                             <!-- add by ample 23-01-20 -->
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="galleryData('IMG',0,'level_icon');">Gallery 1</button>
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="galleryData('OT',0,'level_icon');">Gallery 2</button>
+                                        <input type="hidden" name="level_icon" id="level_icon" value="<?=$design_data['level_icon']?>" readonly />
+                                        <input type="text" name="level_icon_type" id="level_icon_type" value="<?=$design_data['level_icon_type']?>" readonly/>
+
+                                        <?php 
+                                        $banner_name=$banner_file="";
+                                        if(!empty($design_data['level_icon_type']))
+                                        {
+                                            if($design_data['level_icon_type']=='Image')
+                                            {
+                                                $banner_data=$obj->get_data_from_tblicons('',$design_data['level_icon']);
+                                                $banner_name=$banner_data[0]['icons_name'];
+                                                $banner_file=$banner_data[0]['image'];
+                                            }
+                                            else
+                                            {
+                                                $banner_data=$obj->get_data_from_tblmindjumble('',$design_data['level_icon']);
+                                                $banner_name=$banner_data[0]['box_title'];
+                                                $banner_file=$banner_data[0]['box_banner'];
+                                            }
+                                        }
+
+                                        ?>
+
+                                        <input type="text"  id="level_icon_name" value="<?=$banner_name;?>" disabled/>
+                                        <input type="text"  id="level_icon_file" value="<?=$banner_file;?>" disabled />
+                                        <button type="button" class="btn btn-danger btn-xs" onclick="ResetgalleryData('level_icon');">Reset</button>
+                                        
+                                         <br>
+                                        <?php 
+
+                                        if(!empty($banner_file))
+                                        {
+
+                                                ?>
+                                                <a href="<?php echo SITE_URL.'/uploads/'. $banner_file;?>" target="_blank"><?php echo $banner_file;?></a> 
+                                                <?php
+                                        }
+
+
+                                        ?>
+                                        <br>
+
+
+                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="level_icon_heading" id="level_icon_heading" value="<?php echo $design_data['level_icon_heading'];?>" >
+
+                                        </td>
+
+                                    </tr>
+
+                                <tr>
+
+                                    <td colspan="3" align="center">&nbsp;</td>
+
+                                </tr>
+
+                                                                <tr>
+
+									<td width="20%" align="right"><strong>User Show</strong></td>
+
+									<td width="5%" align="center"><strong>:</strong></td>
+
+									<td width="75%" align="left">
+
+                                                                            <select name="show_to_user" id="show_to_user" style="width:300px;" required="">
+
+                                                                                <option value="">Select</option>
+
+                                                                                <option value="1" <?php if($show_to_user == 1) { echo 'selected'; } ?>>Yes</option>
+
+                                                                                <option value="2" <?php if($show_to_user == 2) { echo 'selected'; } ?>>No</option>
+
+                                                                                <option value="3" <?php if($show_to_user == 3) { echo 'selected'; } ?>>Own</option>
+
+
+                                                                            </select>
+
+                                                                        </td>
+
+								</tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+                                                                <tr>
+
+									<td width="20%" align="right"><strong>Select data Category</strong></td>
+
+									<td width="5%" align="center"><strong>:</strong></td>
+
+									<td width="75%" align="left">
+
+                                                                            <select name="page_cat_id" id="page_cat_id" style="width:300px;" required="" onchange="GetBoxTitle()">
+
+                                                                                <option value="">Select Category</option>
+
+                                                                                <?php echo $obj2->getDesignYourLifeOption($design_data['data_category']); ?>  
+
+                                                                            </select>
+
+                                                                        </td>
+
+								</tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+                                                                <tr>
+
+									<td width="20%" align="right"><strong>Select Box Title</strong></td>
+
+									<td width="5%" align="center"><strong>:</strong></td>
+
+									<td width="75%" align="left">
+
+                                                                            <select name="title_id" id="title_id" style="width:450px;" >
+
+                                                                                <option value="">Select Option</option>
+
+                                                                                <?php// echo $final_dropdown; ?>  
+
+                                                                            </select>
+
+                                                                            &nbsp; &nbsp; <strong>Example Box Show:</strong>
+ 
+                                                                        <select name="example_box" style="width:100px;">
+
+                                                                            <option value="">Select</option>
+
+                                                                            <option value="1" <?php if($design_data['example_box'] == 1) { echo 'selected'; } ?>>Yes</option>
+
+                                                                            <option value="0" <?php if($design_data['example_box'] == 0) { echo 'selected'; } ?>>NO</option>
+
+                                                                        </select>
+
+                                                                        </td>
+
+								</tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+                                                                
+
+                                                                <tr>
+
+                                                                    <td width="30%" align="right" valign="top"><strong>Narration</strong></td>
+
+                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                                                    <td width="65%" align="left" valign="top">
+
+                                                                        <textarea rows="5" cols="40" name="narration" id="narration">
+
+                                                                            <?php echo $design_data['narration']; ?>
+
+                                                                        </textarea>
+
+                                                                        
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+                                                                
+
+                                                                <tr>
+
+                                                                    <td width="10%" align="right" valign="top"><strong>Narration Show</strong></td>
+
+                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                                                    <td width="65%" align="left" valign="top">
+
+                                                                        <select name="narration_show" style="width:100px; height: 24px;">
+
+                                                                            <option value="">Select</option>
+
+                                                                            <option value="1" <?php if($design_data['narration_show'] == 1) { echo 'selected'; } ?>>Yes</option>
+
+                                                                            <option value="0" <?php if($design_data['narration_show'] == 0) { echo 'selected'; } ?>>NO</option>
+
+                                                                        </select>
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+								
+
+                                                                <tr>
+
+                                        
+
+                                                                    <td width="30%" align="right" valign="top"><strong>Profile Category</strong></td>
+
+                                                                    <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                                                    <td width="65%" align="left" valign="top">
+
+                                                                        <select name="fav_cat_type_id" id="fav_cat_type_id" style="width:200px; height: 24px;" onchange="getMainCategoryOptionAddMore()">
+
+                                                                            <option value="">Select Prof Cat</option>
+
+                                                                           <?php  echo $obj2->getFavCategoryTypeOptions($design_data['prof_cat_id']);?>
+
+                                                                        </select>
+
+                                                                        <!-- &nbsp;&nbsp;&nbsp;Heading <input type="text" name="fav_cat_type_id_header" id="fav_cat_type_id_header" value="<?php echo $design_data['fav_cat_type_id_header'] ?>" > -->
+
+                                                                         &nbsp;&nbsp;&nbsp;Heading <input type="text" name="prof_cat1_heading" id="prof_cat1_heading" value="<?php echo $design_data['prof_cat1_heading'];?>" >
+
+                                                                         <input type="radio" name="canv_sub_cat1_show_fetch" <?php if($design_data['sub_cat1_show_fetch'] == 1){ echo 'checked'; } ?> value="1">Show
+
+                                                                        &nbsp;&nbsp;
+
+                                                                        <input type="radio" name="canv_sub_cat1_show_fetch" <?php if($design_data['sub_cat1_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <!-- added by ample 06-11-19 -->
+                                                                 <tr>
+                                                                    <td width="30%" align="right" valign="top"></td>
+                                                                    <td width="5%" align="center" valign="top"></td>
+                                                                    <td width="65%" align="left" valign="top">
+                                                                    <div class="" style="margin-top: 2.5px;">
+                                                                             <!-- make daynamic by ample-->
+                                                                             Link
+                                                                            <select name="prof_cat1_link" id="prof_cat1_link" class="tbl_link" onchange="get_column_names(this,'prof_cat1_ref_code','<?=$design_data["prof_cat1_ref_code"];?>')">
+
+                                                                                <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['sub_cat1_link']); ?> 
+
+                                                                            </select>
+                                                                             &nbsp;&nbsp; Reference Code 
+                                                                            <select name="prof_cat1_ref_code" id="prof_cat1_ref_code" style="width: 177px;">
+                                                                            <option value="">Select</option>
+                                                                            </select>
+                                                                    </div>
+                                                                      <!--Add by ample 23-11-19 -->
+                                                                    <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['sub_cat1_link'];?>','<?=$design_data["prof_cat1_ref_code"];?>','<?=$design_data['prof_cat1_uid'];?>','prof_cat1_uid');">Setting</button>
+                                                                    </td>
+                                                                </tr>
+
+                                                                <tr>
+
+									<td colspan="3" align="center">&nbsp;</td>
+
+								</tr>
+
+                                                                
+
+                                                                <tr>
+
+                                                                    <td colspan="8" align="center">&nbsp;</td>
+
+                                                                </tr>
+
+                                                                <tr>                                                                    
+
+                                                                    <td align="right" valign="top"><strong>Sub Category</strong></td>
+
+                                                                    <td align="center" valign="top"><strong>:</strong></td>
+
+                                                                    <td id="fav_cat_id" align="left" valign="top">
+
+                                                                        
+
+                                                                        <?php  echo $obj2->getAllSubCategoryChkeckbox($design_data['prof_cat_id'],$arr_selected_cat_id,'0','300','200');?>
+
+                                                                    
+
+                                                                    </td>
+
+                                                                </tr>
+
+                                                                <tr>
+
+                                                                    <td colspan="8" align="center">&nbsp;</td>
+
+                                                                </tr>
+
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>User Date (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="user_date_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['user_date_show'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['user_date_show'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['user_date_show'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['user_date_show'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="user_date_show_heading" id="user_date_show_heading" value="<?php echo $design_data['user_date_heading']; ?>" >
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="user_date_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['user_date_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['user_date_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['user_date_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['user_date_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['user_date_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['user_date_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['user_date_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['user_date_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['user_date_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['user_date_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['user_date_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                     <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Time (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="time_show" style="width:200px; height: 24px;">
+
+                                                 <option value="">Select</option>
+
+                                                 <option value="1" <?php if($design_data['time_show'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['time_show'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['time_show'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['time_show'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="time_heading" id="time_heading" value="<?php echo $design_data['time_heading']; ?>">
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="time_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['time_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['time_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['time_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['time_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['time_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['time_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['time_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['time_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['time_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['time_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['time_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Duration (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="duration_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['duration_show'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['duration_show'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['duration_show'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['duration_show'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="duration_heading" id="duration_heading" value="<?php echo $design_data['duration_heading']; ?>">
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="duration_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['duration_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['duration_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['duration_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['duration_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['duration_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['duration_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['duration_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['duration_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['duration_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['duration_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['duration_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Location (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="location_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['location_show'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['location_show'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['location_show'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['location_show'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="location_heading" id="location_heading" value="<?php echo $design_data['location_heading']; ?>" >
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="location_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['location_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['location_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['location_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['location_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['location_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['location_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['location_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['location_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['location_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['location_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['location_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Location Category </strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                                <?php echo $obj2->getAllFavCatChkeckbox('location_category',$arr_location_category,'200','150');?> 
+                                             <!-- added by ample 06-11-19-->
+                                            &nbsp;&nbsp;
+                                            <input type="radio" name="canv_loc_cat_show_fetch" <?php if($design_data['canv_loc_cat_show_fetch'] == 1){ echo 'checked'; } ?>  value="1">Show
+                                             &nbsp;&nbsp;
+                                            <input type="radio" name="canv_loc_cat_show_fetch" <?php if($design_data['canv_loc_cat_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch
+                                            &nbsp;&nbsp;&nbsp;Link 
+                                            <!-- make daynamic by ample-->
+                                            <select name="canv_loc_cat_link" id="canv_loc_cat_link" class="tbl_link"  onchange="get_column_names(this,'location_ref_code','<?=$design_data["location_ref_code"];?>')">
+                                                 <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['canv_loc_cat_link']); ?> 
+                                            </select>    
+                                             <div style="margin-top: 2.5px;">
+                                               &nbsp;&nbsp;&nbsp;  Reference Code 
+                                                <select name="location_ref_code" id="location_ref_code" style="width: 175px;">
+                                                <option value="">Select</option>
+                                                </select>
+                                            </div>                                                           
+
+                                             <!--Add by ample 23-11-19 -->
+                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['canv_loc_cat_link'];?>','<?=$design_data["location_ref_code"];?>','<?=$design_data['loc_cat_uid'];?>','loc_cat_uid');">Setting</button>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>User Response (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="like_dislike_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['User_view'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['User_view'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['User_view'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['User_view'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="like_dislike_heading" id="like_dislike_heading" value="<?php echo $design_data['like_dislike_heading']; ?>" >
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="like_dislike_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['like_dislike_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['like_dislike_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['like_dislike_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['like_dislike_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['like_dislike_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['like_dislike_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['like_dislike_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['like_dislike_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['like_dislike_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['like_dislike_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['like_dislike_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>User Response Category </strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                                <?php echo $obj2->getAllFavCatChkeckbox('user_response_category',$arr_user_response_fav_cat,'200','150');?> 
+
+                                               <!-- added by ample 06-11-19-->
+                                            &nbsp;&nbsp;
+                                            <input type="radio" name="canv_user_cat_show_fetch" <?php if($design_data['canv_user_cat_show_fetch'] == 1){ echo 'checked'; } ?>  value="1">Show
+                                             &nbsp;&nbsp;
+                                            <input type="radio" name="canv_user_cat_show_fetch" <?php if($design_data['canv_user_cat_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch
+                                            &nbsp;&nbsp;&nbsp;Link 
+                                            <!-- make daynamic by ample-->
+                                            <select name="canv_user_cat_link" id="canv_user_cat_link" class="tbl_link"  onchange="get_column_names(this,'ur_ref_code','<?=$design_data["ur_ref_code"];?>')">
+                                                 <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['canv_user_cat_link']); ?> 
+                                            </select>    
+                                             <div style="margin-top: 2.5px;">
+                                               &nbsp;&nbsp;&nbsp;  Reference Code 
+                                                <select name="ur_ref_code" id="ur_ref_code" style="width: 175px;">
+                                                <option value="">Select</option>
+                                                </select>      
+
+                                                <!--Add by ample 23-11-19 -->
+                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['canv_user_cat_link'];?>','<?=$design_data["ur_ref_code"];?>','<?=$design_data['ur_cat_uid'];?>','ur_cat_uid');">Setting</button>                                     
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>User What Next (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="set_goals_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['User_Interaction'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['User_Interaction'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['User_Interaction'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['User_Interaction'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="set_goals_heading" id="set_goals_heading" value="<?php echo $design_data['set_goals_heading']; ?>">
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="set_goals_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['set_goals_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['set_goals_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['set_goals_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['set_goals_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['set_goals_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['set_goals_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['set_goals_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['set_goals_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['set_goals_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['set_goals_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['set_goals_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>User What Next Category </strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                                <?php echo $obj2->getAllFavCatChkeckbox('user_what_next_category',$arr_user_what_fav_cat,'200','150');?>
+
+                                            <!-- added by ample 06-11-19-->
+                                            &nbsp;&nbsp;
+                                            <input type="radio" name="canv_wn_cat_show_fetch" <?php if($design_data['canv_wn_cat_show_fetch'] == 1){ echo 'checked'; } ?>  value="1">Show
+                                             &nbsp;&nbsp;
+                                            <input type="radio" name="canv_wn_cat_show_fetch" <?php if($design_data['canv_wn_cat_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch
+                                            &nbsp;&nbsp;&nbsp;Link 
+                                            <!-- make daynamic by ample-->
+                                            <select name="canv_wn_cat_link" id="canv_wn_cat_link" class="tbl_link" onchange="get_column_names(this,'uw_ref_code','<?=$design_data["uw_ref_code"];?>')">
+                                                 <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['canv_wn_cat_link']); ?> 
+                                            </select>    
+                                             <div style="margin-top: 2.5px;">
+                                               &nbsp;&nbsp;&nbsp;  Reference Code 
+                                                <select name="uw_ref_code" id="uw_ref_code" style="width: 175px;">
+                                                <option value="">Select</option>
+                                                </select>    
+
+                                                <!--Add by ample 23-11-19 -->
+                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['canv_wn_cat_link'];?>','<?=$design_data["uw_ref_code"];?>','<?=$design_data['uwn_uid'];?>','uwn_uid');">Setting</button>                                             
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Scale (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="scale_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['scale_show'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['scale_show'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['scale_show'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['scale_show'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="scale_heading" id="scale_heading" value="<?php echo $design_data['scale_heading']; ?>" >
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="scale_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['scale_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['scale_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['scale_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['scale_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['scale_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['scale_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['scale_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['scale_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['scale_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['scale_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['scale_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Alerts/Updates (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="reminder_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['alert_show'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['alert_show'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['alert_show'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['alert_show'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="reminder_heading" id="reminder_heading" value="<?php echo $design_data['reminder_heading']; ?>" >
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="reminder_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['reminder_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['reminder_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['reminder_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['reminder_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['reminder_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['reminder_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['reminder_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['reminder_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['reminder_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['reminder_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['reminder_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                     <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Alerts/Updates Category </strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                                <?php echo $obj2->getAllFavCatChkeckbox('alerts_updates_category',$arr_alerts_fav_cat,'200','150');?>  
+
+                                              <!-- added by ample 06-11-19-->
+                                            &nbsp;&nbsp;
+                                            <input type="radio" name="canv_au_cat_show_fetch" <?php if($design_data['canv_au_cat_show_fetch'] == 1){ echo 'checked'; } ?>  value="1">Show
+                                             &nbsp;&nbsp;
+                                            <input type="radio" name="canv_au_cat_show_fetch" <?php if($design_data['canv_au_cat_show_fetch'] == 2){ echo 'checked'; } ?> value="2">Fetch
+                                            &nbsp;&nbsp;&nbsp;Link 
+                                            <!-- make daynamic by ample-->
+                                            <select name="canv_au_cat_link" id="canv_au_cat_link" class="tbl_link" onchange="get_column_names(this,'au_ref_code','<?=$design_data["au_ref_code"];?>')">
+                                                 <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['canv_au_cat_link']); ?> 
+                                            </select>    
+                                             <div style="margin-top: 2.5px;">
+                                               &nbsp;&nbsp;&nbsp;  Reference Code 
+                                                <select name="au_ref_code" id="au_ref_code" style="width: 175px;">
+                                                <option value="">Select</option>
+                                                </select>      
+
+                                                <!--Add by ample 23-11-19 -->
+                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['canv_au_cat_link'];?>','<?=$design_data["au_ref_code"];?>','<?=$design_data['au_cat_uid'];?>','au_cat_uid');">Setting</button>                                       
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Comments (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="comments_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['comment_show'] == '1'){ ?> selected <?php } ?>>Individual</option>
+
+                                                <option value="0" <?php if($design_data['comment_show'] == '0'){ ?> selected <?php } ?>>No</option>
+
+                                                <option value="2" <?php if($design_data['comment_show'] == '2'){ ?> selected <?php } ?>>Common</option>
+
+                                                <option value="3" <?php if($design_data['comment_show'] == '3'){ ?> selected <?php } ?>>Both</option>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="comments_heading" id="comments_heading" value="<?php echo $design_data['comments_heading']; ?>" >
+
+                                            &nbsp;&nbsp;&nbsp;&nbsp;Order&nbsp;&nbsp;
+
+                                            <select name="comment_order_show" style="width:100px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['comment_order_show'] == '1'){ ?> selected <?php } ?>>1</option>
+
+                                                <option value="2" <?php if($design_data['comment_order_show'] == '2'){ ?> selected <?php } ?>>2</option>
+
+                                                <option value="3" <?php if($design_data['comment_order_show'] == '3'){ ?> selected <?php } ?>>3</option>
+
+                                                <option value="4" <?php if($design_data['comment_order_show'] == '4'){ ?> selected <?php } ?>>4</option>
+
+                                                <option value="5" <?php if($design_data['comment_order_show'] == '5'){ ?> selected <?php } ?>>5</option>
+
+                                                <option value="6" <?php if($design_data['comment_order_show'] == '6'){ ?> selected <?php } ?>>6</option>
+
+                                                <option value="7" <?php if($design_data['comment_order_show'] == '7'){ ?> selected <?php } ?>>7</option>
+
+                                                <option value="8" <?php if($design_data['comment_order_show'] == '8'){ ?> selected <?php } ?>>8</option>
+
+                                                <option value="9" <?php if($design_data['comment_order_show'] == '9'){ ?> selected <?php } ?>>9</option>
+
+                                                <option value="10" <?php if($design_data['comment_order_show'] == '10'){ ?> selected <?php } ?>>10</option>
+
+                                                <option value="11" <?php if($design_data['comment_order_show'] == '11'){ ?> selected <?php } ?>>11</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Quick Responses (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="quick_response_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($quick_response_show == '1'){ ?> selected <?php } ?>>Yes</option>
+
+                                                <option value="0" <?php if($quick_response_show == '0'){ ?> selected <?php } ?>>No</option>
+
+
+                                            </select>
+
+                                            &nbsp;&nbsp;&nbsp;Heading <input type="text" name="quick_response_heading" id="quick_response_heading" value="<?php echo $quick_response_heading; ?>">
+
+                                            &nbsp;&nbsp;&nbsp;Box Count <input type="number" name="box_count" id="box_count" value="<?php echo $box_count; ?>">
+
+                                            <br><br>
+                                            <b>QR box type :</b>
+                                            <select name="qr_box_type" id="qr_box_type" class="tbl_link" onchange="box_type_setting(this,'qr')" style="width:200px; height: 24px;">
+                                                <option value="1" <?=($design_data['qr_box_type'] == '1')? 'selected' : '' ;?> >Input Box</option>
+                                                <option value="2" <?=($design_data['qr_box_type'] == '2')? 'selected' : '' ;?> >Select Box</option>
+                                                <option value="3" <?=($design_data['qr_box_type'] == '3')? 'selected' : '' ;?> >Example Box</option>
+                                                <!-- <option value="4" <?=($design_data['qr_box_type'] == '4')? 'selected' : '' ;?> >Display Box</option> -->
+                                            </select>
+                                            
+                                            <div id="data_source_box_qr" style="display: none;">
+                                                <br><br>
+                                                <b>QR data source :</b>
+                                                <select name="qr_data_source[]" id="data_source_qr" style="width:200px; height: auto;" onchange="update_specifiq_box('qr')" multiple>
+                                                    <option value="ProfCat2" <?=(in_array("ProfCat2", $qr_data_source))? 'selected' : '' ;?> >ProfCat2</option>
+                                                    <option value="ProfCat3" <?=(in_array("ProfCat3", $qr_data_source))? 'selected' : '' ;?> >ProfCat3</option>
+                                                    <option value="ProfCat4" <?=(in_array("ProfCat4", $qr_data_source))? 'selected' : '' ;?> >ProfCat4</option>
+                                                </select>
+                                                <span class="text-danger">You can choose more than one option by using the ctrl key.</span>
+                                            </div>
+                                            <div id="specifiq_text_box_qr" style="display: none;">
+                                                <br><br>
+                                                <b>QR specifiq text:</b>
+                                                <select name="qr_specifiq_text" id="specifiq_text_qr" style="width:200px; height: 24px;">
+                                                    <option value="">Select</option>
+                                                </select>
+                                                <input type="hidden" id="specifiq_text_select_qr" value="<?=$design_data['qr_specifiq_text']?>">
+                                            </div>
+                                            <br><br>
+                                            <b>QR icon box type :</b>
+                                            <select name="icon_box1" id="icon_box1" class="tbl_link" style="width:200px; height: 24px;" onchange="icon_box_type_setting(this,1)">
+                                                <option value="0" <?=($design_data['icon_box1'] == '0')? 'selected' : '' ;?> >No Icon</option>
+                                                <option value="1" <?=($design_data['icon_box1'] == '1')? 'selected' : '' ;?> >Drop-Down</option>
+                                                <option value="2" <?=($design_data['icon_box1'] == '2')? 'selected' : '' ;?> >Checkbox</option>
+                                                <option value="3" <?=($design_data['icon_box1'] == '3')? 'selected' : '' ;?> >Radio</option>
+                                            </select>
+                                             <div id="icon_box_source1" style="display: none;">
+                                                 <br><br>
+                                                <b>QR icon data source :</b>
+                                                <select name="box_source1[]" id="box_source1" style="width:200px; height: auto;" multiple>
+                                                    <option value="Location" <?=(in_array("Location", $box_source1))? 'selected' : '' ;?> >Location Category</option>
+                                                    <option value="User_Response" <?=(in_array("User_Response", $box_source1))? 'selected' : '' ;?>>User Response</option>
+                                                    <option value="User_What_Next" <?=(in_array("User_What_Next", $box_source1))? 'selected' : '' ;?>>User What Next</option>
+                                                    <option value="Alert_Update" <?=(in_array("Alert_Update", $box_source1))? 'selected' : '' ;?>>Alert Update</option>
+                                                    <option value="Comment" <?=(in_array("Comment", $box_source1))? 'selected' : '' ;?>>Comment</option>
+                                                    <option value="Scale" <?=(in_array("Scale", $box_source1))? 'selected' : '' ;?>>Scale</option>
+                                                    <option value="Time" <?=(in_array("Time", $box_source1))? 'selected' : '' ;?>>Time</option>
+                                                    <option value="Duration" <?=(in_array("Duration", $box_source1))? 'selected' : '' ;?>>Duration</option>
+                                                    <option value="Date" <?=(in_array("Date", $box_source1))? 'selected' : '' ;?>>Date</option>
+                                                </select>
+                                                 <span class="text-danger">You can choose more than one option by using the ctrl key.</span>
+                                              </div>
+
+                                        </td>
+
+                                    </tr>
+                                   
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>User Box (Show)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="text_box_show" id="text_box_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+
+                                                <option value="1" <?php if($text_box_show == '1'){ ?> selected <?php } ?>>Yes</option>
+
+                                                <option value="0" <?php if($text_box_show == '0'){ ?> selected <?php } ?>>No</option>
+
+
+                                            </select>
+
+                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="response_heading" id="response_heading"  value="<?php echo $response_heading; ?>">
+
+                                            &nbsp;&nbsp;&nbsp;Box Count <input type="number" name="text_box_count" id="text_box_count" value="<?php echo $text_box_count; ?>">
+
+                                             <br><br>
+                                            <b>User box type :</b>
+                                            <select name="other_box_type" class="tbl_link" id="other_box_type" onchange="box_type_setting(this,'ot')" style="width:200px; height: 24px;">
+                                                <option value="1" <?=($design_data['other_box_type'] == '1')? 'selected' : '' ;?> >Input Box</option>
+                                                <option value="2" <?=($design_data['other_box_type'] == '2')? 'selected' : '' ;?> >Select Box</option>
+                                                <option value="3" <?=($design_data['other_box_type'] == '3')? 'selected' : '' ;?> >Example Box</option>
+                                                <!-- <option value="4" <?=($design_data['other_box_type'] == '4')? 'selected' : '' ;?> >Display Box</option> -->
+                                            </select>
+                                           
+                                            <div id="data_source_box_ot" style="display: none;">
+                                                <br><br>
+                                                <b>User data source :</b>
+                                                <select name="other_data_source[]" id="data_source_ot" style="width:200px; height: auto;" onchange="update_specifiq_box('ot')" multiple>
+                                                    <option value="ProfCat2" <?=(in_array("ProfCat2", $other_data_source))? 'selected' : '' ;?> >ProfCat2</option>
+                                                    <option value="ProfCat3" <?=(in_array("ProfCat3", $other_data_source))? 'selected' : '' ;?> >ProfCat3</option>
+                                                    <option value="ProfCat4" <?=(in_array("ProfCat4", $other_data_source))? 'selected' : '' ;?> >ProfCat4</option>
+                                                </select>
+                                                <span class="text-danger">You can choose more than one option by using the ctrl key.</span>
+                                            </div>
+                                            <div id="specifiq_text_box_ot" style="display: none;">
+                                                <br><br>
+                                                <b>User specifiq text:</b>
+                                                <select name="other_specifiq_text" id="specifiq_text_ot" style="width:200px; height: 24px;">
+                                                    <option value="">Select</option>
+                                                </select>
+                                                <input type="hidden" id="specifiq_text_select_ot" value="<?=$design_data['other_specifiq_text']?>">
+                                            </div>
+                                            <br><br>
+                                            <b>User icon box type :</b>
+                                            <select name="icon_box2" class="tbl_link" id="icon_box2" style="width:200px; height: 24px;" onchange="icon_box_type_setting(this,2)">
+                                                <option value="0" <?=($design_data['icon_box2'] == '0')? 'selected' : '' ;?> >No Icon</option>
+                                                <option value="1" <?=($design_data['icon_box2'] == '1')? 'selected' : '' ;?> >Drop-Down</option>
+                                                <option value="2" <?=($design_data['icon_box2'] == '2')? 'selected' : '' ;?> >Checkbox</option>
+                                                <option value="3" <?=($design_data['icon_box2'] == '3')? 'selected' : '' ;?> >Radio</option>
+                                            </select>
+                                             <div id="icon_box_source2" style="display: none;">
+                                                 <br><br>
+                                                <b>User icon data source :</b>
+                                                <select name="box_source2[]" id="box_source2" style="width:200px; height: auto;" multiple>
+                                                    <option value="Location" <?=(in_array("Location", $box_source2))? 'selected' : '' ;?> >Location Category</option>
+                                                    <option value="User_Response" <?=(in_array("User_Response", $box_source2))? 'selected' : '' ;?> >User Response</option>
+                                                    <option value="User_What_Next" <?=(in_array("User_What_Next", $box_source2))? 'selected' : '' ;?> >User What Next</option>
+                                                    <option value="Alert_Update" <?=(in_array("Alert_Update", $box_source2))? 'selected' : '' ;?> >Alert Update</option>
+                                                    <option value="Comment" <?=(in_array("Comment", $box_source2))? 'selected' : '' ;?>>Comment</option>
+                                                    <option value="Scale" <?=(in_array("Scale", $box_source2))? 'selected' : '' ;?>>Scale</option>
+                                                    <option value="Time" <?=(in_array("Time", $box_source2))? 'selected' : '' ;?>>Time</option>
+                                                    <option value="Duration" <?=(in_array("Duration", $box_source2))? 'selected' : '' ;?>>Duration</option>
+                                                    <option value="Date" <?=(in_array("Date", $box_source2))? 'selected' : '' ;?>>Date</option>
+                                                </select>
+                                                 <span class="text-danger">You can choose more than one option by using the ctrl key.</span>
+                                              </div>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Icons ID(From Icon Master)</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <!-- <input type="text" name="quick_tip_icon" id="quick_tip_icon" value="<?php echo $quick_tip_icon; ?>"> -->
+                                        <!-- add by ample 23-01-20 -->
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="galleryData('IMG',0,'quick_tip_icon');">Gallery 1</button>
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="galleryData('OT',0,'quick_tip_icon');">Gallery 2</button>
+                                        <input type="hidden" name="quick_tip_icon" id="quick_tip_icon" value="<?=$design_data['quick_tip_icon']?>" readonly />
+                                        <input type="text" name="quick_tip_icon_type" id="quick_tip_icon_type" value="<?=$design_data['quick_tip_icon_type']?>" readonly/>
+
+                                        <?php 
+                                        $banner_name=$banner_file="";
+                                        if(!empty($design_data['quick_tip_icon_type']))
+                                        {
+                                            if($design_data['quick_tip_icon_type']=='Image')
+                                            {
+                                                $banner_data=$obj->get_data_from_tblicons('',$design_data['quick_tip_icon']);
+                                                $banner_name=$banner_data[0]['icons_name'];
+                                                $banner_file=$banner_data[0]['image'];
+                                            }
+                                            else
+                                            {
+                                                $banner_data=$obj->get_data_from_tblmindjumble('',$design_data['quick_tip_icon']);
+                                                $banner_name=$banner_data[0]['box_title'];
+                                                $banner_file=$banner_data[0]['box_banner'];
+                                            }
+                                        }
+
+                                        ?>
+
+                                        <input type="text"  id="level_icon_name" value="<?=$banner_name;?>" disabled/>
+                                        <input type="text"  id="level_icon_file" value="<?=$banner_file;?>" disabled />
+                                        <button type="button" class="btn btn-danger btn-xs" onclick="ResetgalleryData('level_icon');">Reset</button>
+                                        
+                                         <br>
+                                        <?php 
+
+                                        if(!empty($banner_file))
+                                        {
+
+                                                ?>
+                                                <a href="<?php echo SITE_URL.'/uploads/'. $banner_file;?>" target="_blank"><?php echo $banner_file;?></a> 
+                                                <?php
+                                        }
+
+
+                                        ?>
+                                        <br>
+
+                                        
+
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    
+
+                                    <tr>
+
+                                        
+
+                                        <td width="30%" align="right" valign="top"><strong>Profile Category2</strong></td>
+
+                                        <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                        <td width="65%" align="left" valign="top">
+
+                                            <select name="fav_cat_type_id2" id="fav_cat_type_id2" style="width:200px; height: 24px;" onchange="getMainCategoryOptionAddMore2()">
+
+                                                <option value="">Select Prof Cat</option>
+
+                                               <?php  echo $obj2->getFavCategoryTypeOptions($design_data['prof_cat2']);?>
+
+                                            </select>
+
+                                             &nbsp;&nbsp;
+
+                                            <input type="radio" name="canv_sub_cat2_show_fetch" value="1" <?php if($design_data['sub_cat2_show_fetch'] == 1){ echo 'checked'; } ?>>Show
+
+                                             &nbsp;&nbsp;
+
+                                            <input type="radio" name="canv_sub_cat2_show_fetch" value="2" <?php if($design_data['sub_cat2_show_fetch'] == 2){ echo 'checked'; } ?>>Fetch
+                                            <!--  add by ample 06-11-19-->
+                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="prof_cat2_heading" id="prof_cat2_heading" value="<?php echo $design_data['prof_cat2_heading'];?>" >
+
+                                            <!-- <select name="canv_sub_cat2_link" id="canv_sub_cat2_link">
+
+                                                <option value="">Select</option>
+
+                                                <option value="tbl_bodymainsymptoms" <?php if($design_data['sub_cat2_link'] == 'tbl_bodymainsymptoms'){ echo 'selected'; } ?>>tbl_bodymainsymptoms</option>
+
+                                                <option value="tblsolutionitems" <?php if($design_data['sub_cat2_link'] == 'tblsolutionitems'){ echo 'selected'; } ?>>tblsolutionitems</option>
+
+                                                <option value="tbldailymealsfavcategory" <?php if($design_data['sub_cat2_link'] == 'tbldailymealsfavcategory'){ echo 'selected'; } ?>>tbldailymealsfavcategory</option>
+
+                                                <option value="tbldailyactivity" <?php if($design_data['sub_cat2_link'] == 'tbldailyactivity'){ echo 'selected'; } ?>>tbldailyactivity</option>
+
+                                            </select> -->
+
+                                        </td>
+
+                                    </tr>
+
+                                     <!-- added by ample 06-11-19 -->
+                                       <tr>
+                                          <td width="30%" align="right" valign="top"></td>
+                                          <td width="5%" align="center" valign="top"></td>
+                                          <td width="65%" align="left" valign="top">
+                                          <div class="" style="margin-top: 2.5px;">
+                                                   <!-- make daynamic by ample-->
+                                                   Link
+                                                  <select name="prof_cat2_link" id="prof_cat2_link" class="tbl_link" onchange="get_column_names(this,'prof_cat2_ref_code','<?=$design_data["prof_cat2_ref_code"];?>')">
+
+                                                      <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['sub_cat2_link']); ?> 
+
+                                                  </select>
+                                                   &nbsp;&nbsp; Reference Code 
+                                                  <select name="prof_cat2_ref_code" id="prof_cat2_ref_code" style="width: 177px;">
+                                                  <option value="">Select</option>
+                                                  </select>
+
+                                                   <!--Add by ample 23-11-19 -->
+                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['sub_cat2_link'];?>','<?=$design_data["prof_cat2_ref_code"];?>','<?=$design_data['prof_cat2_uid'];?>','prof_cat2_uid');">Setting</button>
+                                          </div>
+                                          </td>
+                                      </tr>
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Sub Category2</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td id="fav_cat_id2" align="left" valign="top">
+
+                                            
+
+                                            <?php  
+
+                                            
+
+                                            $arr_selected_cat_id2 = explode(',', $design_data['sub_cat2']);
+
+                                            
+
+                                            echo $obj2->getAllSubCategoryChkeckboxDesign($design_data['prof_cat2'],$arr_selected_cat_id2,'selected_cat_id2','300','200');
+
+                                            
+
+                                            
+
+                                            ?>
+
+                                        </td>
+
+                                    </tr>
+
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        
+
+                                        <td width="30%" align="right" valign="top"><strong>Profile Category3</strong></td>
+
+                                        <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                        <td width="65%" align="left" valign="top">
+
+                                            <select name="fav_cat_type_id3" id="fav_cat_type_id3" style="width:200px; height: 24px;" onchange="getMainCategoryOptionAddMore3()">
+
+                                                <option value="">Select Prof Cat</option>
+
+                                               <?php  echo $obj2->getFavCategoryTypeOptions($design_data['prof_cat3']);?>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;
+
+                                            <input type="radio" name="canv_sub_cat3_show_fetch" value="1" <?php if($design_data['sub_cat3_show_fetch'] == 1){ echo 'checked'; } ?>>Show
+
+                                             &nbsp;&nbsp;
+
+                                            <input type="radio" name="canv_sub_cat3_show_fetch" value="2" <?php if($design_data['sub_cat3_show_fetch'] == 2){ echo 'checked'; } ?>>Fetch
+                                            <!--  add by ample 06-11-19-->
+                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="prof_cat3_heading" id="prof_cat3_heading" value="<?php echo $design_data['prof_cat3_heading'];?>" >
+
+                                            <!-- &nbsp;&nbsp;&nbsp;Link 
+
+                                            <select name="canv_sub_cat3_link" id="canv_sub_cat3_link">
+
+                                                <option value="">Select</option>
+
+                                                <option value="tbl_bodymainsymptoms" <?php if($design_data['sub_cat3_link'] == 'tbl_bodymainsymptoms'){ echo 'selected'; } ?>>tbl_bodymainsymptoms</option>
+
+                                                <option value="tblsolutionitems" <?php if($design_data['sub_cat3_link'] == 'tblsolutionitems'){ echo 'selected'; } ?>>tblsolutionitems</option>
+
+                                                <option value="tbldailymealsfavcategory" <?php if($design_data['sub_cat3_link'] == 'tbldailymealsfavcategory'){ echo 'selected'; } ?>>tbldailymealsfavcategory</option>
+
+                                                <option value="tbldailyactivity" <?php if($design_data['sub_cat3_link'] == 'tbldailyactivity'){ echo 'selected'; } ?>>tbldailyactivity</option>
+
+                                            </select> -->
+
+                                        </td>
+
+                                    </tr>
+
+                                    <!-- added by ample 06-11-19 -->
+                                       <tr>
+                                          <td width="30%" align="right" valign="top"></td>
+                                          <td width="5%" align="center" valign="top"></td>
+                                          <td width="65%" align="left" valign="top">
+                                          <div class="" style="margin-top: 2.5px;">
+                                                   <!-- make daynamic by ample-->
+                                                     Link
+                                                  <select name="prof_cat3_link" id="prof_cat3_link" class="tbl_link" onchange="get_column_names(this,'prof_cat3_ref_code','<?=$design_data["prof_cat3_ref_code"];?>')">
+
+                                                      <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['sub_cat3_link']); ?> 
+
+                                                  </select>
+                                                   &nbsp;&nbsp; Reference Code 
+                                                  <select name="prof_cat3_ref_code" id="prof_cat3_ref_code" style="width: 177px;">
+                                                  <option value="">Select</option>
+                                                  </select>
+
+                                                  <!--Add by ample 23-11-19 -->
+                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['sub_cat3_link'];?>','<?=$design_data["prof_cat3_ref_code"];?>','<?=$design_data['prof_cat3_uid'];?>','prof_cat3_uid');">Setting</button>
+                                          </div>
+                                          </td>
+                                      </tr>
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Sub Category3</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td id="fav_cat_id3" align="left" valign="top">
+
+                                            
+
+                                            <?php  
+
+                                            
+
+                                            $arr_selected_cat_id3 = explode(',', $design_data['sub_cat3']);
+
+                                            
+
+                                            echo $obj2->getAllSubCategoryChkeckboxDesign($design_data['prof_cat3'],$arr_selected_cat_id3,'selected_cat_id3','300','200');
+
+                                            
+
+                                            
+
+                                            ?>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                        
+
+                                        <td width="30%" align="right" valign="top"><strong>Profile Category4</strong></td>
+
+                                        <td width="5%" align="center" valign="top"><strong>:</strong></td>
+
+                                        <td width="65%" align="left" valign="top">
+
+                                            <select name="fav_cat_type_id4" id="fav_cat_type_id4" style="width:200px; height: 24px;" onchange="getMainCategoryOptionAddMore4()">
+
+                                                <option value="">Select Prof Cat</option>
+
+                                               <?php  echo $obj2->getFavCategoryTypeOptions($design_data['prof_cat4']);?>
+
+                                            </select>
+
+                                            &nbsp;&nbsp;
+
+                                            <input type="radio" name="canv_sub_cat4_show_fetch" value="1" <?php if($design_data['sub_cat4_show_fetch'] == 1){ echo 'checked'; } ?>>Show
+
+                                             &nbsp;&nbsp;
+
+                                            <input type="radio" name="canv_sub_cat4_show_fetch" value="2" <?php if($design_data['sub_cat4_show_fetch'] == 2){ echo 'checked'; } ?>>Fetch
+                                            <!--  add by ample 06-11-19-->
+                                             &nbsp;&nbsp;&nbsp;Heading <input type="text" name="prof_cat4_heading" id="prof_cat4_heading" value="<?php echo $design_data['prof_cat4_heading'];?>" >
+
+                                           <!--  &nbsp;&nbsp;&nbsp;Link 
+
+                                            <select name="canv_sub_cat4_link" id="canv_sub_cat4_link">
+
+                                                <option value="">Select</option>
+
+                                                <option value="tbl_bodymainsymptoms" <?php if($design_data['sub_cat4_link'] == 'tbl_bodymainsymptoms'){ echo 'selected'; } ?>>tbl_bodymainsymptoms</option>
+
+                                                <option value="tblsolutionitems" <?php if($design_data['sub_cat4_link'] == 'tblsolutionitems'){ echo 'selected'; } ?>>tblsolutionitems</option>
+
+                                                <option value="tbldailymealsfavcategory" <?php if($design_data['sub_cat4_link'] == 'tbldailymealsfavcategory'){ echo 'selected'; } ?>>tbldailymealsfavcategory</option>
+
+                                                <option value="tbldailyactivity" <?php if($design_data['sub_cat4_link'] == 'tbldailyactivity'){ echo 'selected'; } ?>>tbldailyactivity</option>
+
+                                            </select> -->
+
+                                        </td>
+
+                                    </tr>
+
+                                    <!-- added by ample 06-11-19 -->
+                                       <tr>
+                                          <td width="30%" align="right" valign="top"></td>
+                                          <td width="5%" align="center" valign="top"></td>
+                                          <td width="65%" align="left" valign="top">
+                                          <div class="" style="margin-top: 2.5px;">
+                                                   <!-- make daynamic by ample-->
+                                                     Link
+                                                  <select name="prof_cat4_link" id="prof_cat4_link" class="tbl_link" onchange="get_column_names(this,'prof_cat4_ref_code','<?=$design_data["prof_cat4_ref_code"];?>')">
+
+                                                      <?php echo $obj2->getTableNameFrom_tbltabldropdown($tblID,$design_data['sub_cat4_link']); ?> 
+
+                                                  </select>
+                                                   &nbsp;&nbsp; Reference Code 
+                                                  <select name="prof_cat4_ref_code" id="prof_cat4_ref_code" style="width: 177px;">
+                                                  <option value="">Select</option>
+                                                  </select>
+                                                  <!--Add by ample 23-11-19 -->
+                                                     <button type="button" class="btn btn-xs" onclick="getSelfColumnData('<?=$design_data['sub_cat4_link'];?>','<?=$design_data["prof_cat4_ref_code"];?>','<?=$design_data['prof_cat4_uid'];?>','prof_cat4_uid');">Setting</button>
+                                          </div>
+                                          </td>
+                                      </tr>
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr >                                                                    
+
+                                        <td align="right" valign="top"><strong>Sub Category4</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td id="fav_cat_id4" align="left" valign="top">
+
+                                            <?php  
+
+                                            
+
+                                            $arr_selected_cat_id4 = explode(',', $design_data['sub_cat4']);
+
+                                            
+
+                                            echo $obj2->getAllSubCategoryChkeckboxDesign($design_data['prof_cat4'],$arr_selected_cat_id4,'selected_cat_id4','300','200');
+
+                                            
+
+                                            
+
+                                            ?>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Order</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="order_show" style="width:200px; height: 24px;">
+
+                                                <?php for($i=1;$i<=50;$i++) { ?>
+
+                                                <option value="<?php echo $i ?>" <?php if($design_data['order_show'] == $i ){ ?> selected <?php } ?>><?php echo $i ?></option>
+
+                                                <?php } ?>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>User upload</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+                                            <select name="user_upload_show" id="user_upload_show" style="width:200px; height: 24px;">
+
+                                                <option value="">Select</option>
+
+                                                <option value="1" <?php if($design_data['user_upload_show'] == 1 ) { echo 'selected'; } ?>>Show</option>
+
+                                                <option value="0" <?php if($design_data['user_upload_show'] == 0 ) { echo 'selected'; } ?>>Hide</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <!--copy by ample 07-04-20 -->
+
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Page Popup</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+
+
+                                            <?php //echo $show_pop;?>
+
+                                            <select name="page_show" id="page_show" style="width:200px; height: 24px;">
+
+                                                
+
+                                                <option value="<?php echo $design_data['pop_show'];?>"><?php echo $design_data['pop_show'];?></option>
+
+                                                <option value="">Select</option>
+
+                                                <option value="Show">Show</option>
+
+                                                <option value="Hide">Hide</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+                                    <!-- status add by ample 27-04-20 -->
+                                    <tr>
+
+                                            <td width="30%" align="right"><strong>Status</strong></td>
+
+                                            <td width="5%" align="center"><strong>:</strong></td>
+
+                                            <td width="65%" align="left">
+
+                                                <select id="status" name="status" style="width:200px;height: 24px;">
+
+                                                    <option value="1" <?php if($design_data['status'] == '1'){ ?> selected <?php } ?>>Active</option>
+
+                                                    <option value="0" <?php if($design_data['status'] == '0'){ ?> selected <?php } ?>>Inactive</option>
+
+                                                </select>
+
+                                            </td>
+
+                                    </tr>
+
+                                     <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+                                    <!-- banner position add by ample 13-04-20 -->
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Banner Position</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+
+                                            <select name="banner_position" id="banner_position" style="width:200px; height: 24px;">
+
+                                                <option value="Top" <?=($design_data['banner_position']=='Top')? 'selected' : '';?> >Top</option>
+
+                                                <option value="Bottom" <?=($design_data['banner_position']=='Bottom')? 'selected' : '';?>>Bottom</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    <!-- specail text position add by ample 02-06-20 -->
+                                    <tr>                                                                    
+
+                                        <td align="right" valign="top"><strong>Special Text Position</strong></td>
+
+                                        <td align="center" valign="top"><strong>:</strong></td>
+
+                                        <td  align="left" valign="top">
+
+
+                                            <select name="special_text_position" id="special_text_position" style="width:200px; height: 24px;">
+
+                                                <option value="Top" <?=($design_data['special_text_position']=='Top')? 'selected' : '';?> >Top</option>
+
+                                                <option value="Bottom" <?=($design_data['special_text_position']=='Bottom')? 'selected' : '';?>>Bottom</option>
+
+                                            </select>
+
+                                        </td>
+
+                                    </tr>
+
+                                    <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                    
+                                <tr>
+
+                                    <td>&nbsp;</td>
+
+                                    <td>&nbsp;</td>
+
+                                    <td align="left">
+                                        <a href="index.php?mode=update_banner_DYL&DYL_id=<?=$_GET['id']?>"><button type="button" class="btn btn-info btn-xs">Banner Setting</button></a>
+                                        &nbsp;&nbsp;
+                                        <a href="index.php?mode=update_specifiq_data_DYL&DYL_id=<?=$_GET['id']?>"><button type="button" class="btn btn-warning btn-xs">Specific Data Set</button></a>
+                                        &nbsp;&nbsp;
+                                        <?php
+                                            if(!empty($design_data['page_decor_id']))
+                                            {
+                                                ?>
+                                                <a href="index.php?mode=edit-page-decor&id=<?=$design_data['page_decor_id'];?>" target="_blank"><button type="button" class="btn btn-success btn-xs">Page Decor</button></a>
+                                                <?php
+                                            }   
+                                            else
+                                            {
+                                                ?>
+                                                <a href="index.php?mode=add-page-decor&DYL_id=<?=$_GET['id']?>" target="_blank"><button type="button" class="btn btn-success btn-xs">Page Decor</button></a>
+                                                <?php
+                                            }
+                                         ?>
+                                         &nbsp;&nbsp;
+                                         <?php
+                                            if(!empty($design_data['SW_id']))
+                                            {
+                                                ?>
+                                                <a href="index.php?mode=edit_scrolling_window&id=<?=$design_data['SW_id'];?>" target="_blank"><button type="button" class="btn btn-danger btn-xs">Scrolling Windows</button></a>
+                                                <?php
+                                            }   
+                                            else
+                                            {
+                                                ?>
+                                                <a href="index.php?mode=add_scrolling_window&page_id=<?=$design_data['page_name'];?>&DYL_id=<?=$_GET['id']?>" target="_blank"><button type="button" class="btn btn-danger btn-xs">Scrolling Windows</button></a>
+                                                <?php
+                                            }
+                                         ?>
+
+                                    </td>
+
+                                </tr>
+
+                                 <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+								<tr>
+
+                                    <tr>
+
+                                <td align="right"><strong>&nbsp;</strong></td>
+
+                                <td align="center"><strong>&nbsp;</strong></td>
+
+                                <td align="left">
+
+                                  <input type="checkbox" value="1" name="is_featured" id="is_featured" <?php if($design_data['is_featured'] == 1) { echo 'checked'; } ?> > Featured Item
+
+                                  <br> <br>
+
+                                  <a href="index.php?mode=update_scheduled&redirect_id=<?=$_GET['id']?>&redirect=dyl" target="_blank"><button type="button" class="btn btn-warning btn-xs">Schedule Set</button></a>
+
+                                </td>
+
+                            </tr>
+                             <tr>
+
+                                        <td colspan="8" align="center">&nbsp;</td>
+
+                                    </tr>
+
+                                <tr>
+
+									<td>&nbsp;</td>
+
+									<td>&nbsp;</td>
+
+									<td align="left"><input type="Submit" name="btnSubmit" value="Submit" /></td>
+
+								</tr>
+
+							</tbody>
+
+							</table>
+
+							</form>
+
+						</td>
+
+					</tr>
+
+				</tbody>
+
+				</table>
+
+			</td>
+
+		</tr>
+
+	</tbody>
+
+	</table>
+
+	<br>
+
+    <!-- Modal add by ample 20-11-19 -->
+<div class="modal fade" id="showModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document" >
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Report Setting</h4>
+      </div>
+      <div class="modal-body">
+        
+            <div class="row">
+                <div class="col-md-12">
+                    <div id="showData">
+
+                    </div>
+                </div>
+            </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript" src="js/jscolor.js"></script>
+
+<script type="text/javascript">
+
+    //add this by ample 06-11-19
+
+ function get_column_names(tbl="",show_on="",selected="")
+    {   
+        //alert(tbl.value);
+        var tbl_name=tbl.value;
+        var dataString = 'action=getTableColumnsName&tbl_name='+tbl_name+'&selected='+selected;
+
+      $.ajax({
+        type: "POST",
+        url: "include/remote.php",
+        //dataType:'JSON',
+        data: dataString,
+        cache: false,
+        success: function(result)
+        {
+            //alert(result);
+            $('#'+show_on).html(result);
+        }
+      });
+    }
+    $(document).ready(function()
+    {
+       $('.tbl_link').trigger('change');
+    });
+
+
+    // code write by ample 22-11-19
+       function getSelfColumnData(link,ref_code,UID,u_col_name)
+    {   
+        if(link =='' || ref_code =='')
+        {
+            alert('Please save link and reference code first!');
+            return false;
+        }
+        $.ajax({
+            url: "include/remote.php",
+            type:'get',
+            data: {action:'getSelfColumnData',link:link, ref_code:ref_code,UID:UID,u_col_name:u_col_name },
+            // dataType: 'json',
+            success: function(response) {
+              //Do Something
+              //window.location.reload(true);
+              //alert(response);
+              $('#showData').html(response);
+              $('#showModal').modal('show');
+            },
+            error: function(xhr) {
+            //Do Something to handle error
+                //alert(xhr);
+            }
+        });
+
+    }
+
+        // added by ample 22-11-19
+    function Selectable(get)
+    {   
+        var table_name=$('#tables_names'+get).val();   
+
+        var dataString = 'action=getTableColumnsNameKR&tablm_name='+table_name+'&get='+get;
+
+          $.ajax({
+
+            type: "POST",
+
+            url: "include/remote.php",
+
+            // dataType:'JSON',
+
+            data: dataString,
+
+            cache: false,
+
+            success: function(result)
+
+            {
+
+             $('#columns_dropdown'+get).html(result);
+
+             $('#columns_dropdown_value'+get).html(result);
+
+            }
+            ,
+            error: function(xhr) {
+            //Do Something to handle error
+                //alert(xhr);
+            }
+
+          });
+
+
+    }
+
+    function selectcheck(num,colums)
+
+        {   
+
+        if($('#check_'+num).is(":checked")) {
+
+            $('#checkvalue'+num).val(colums);
+
+          }
+
+          else
+
+          {
+
+             $('#checkvalue'+num).val('');
+
+          }
+
+        }
+
+
+</script>
+
+        <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+
+	<script type="text/javascript">
+
+		tinyMCE.init({
+
+			mode : "exact",
+
+			theme : "advanced",
+
+			elements : "narration,admin_comment",
+
+			plugins : "style,advimage,advlink,emotions",
+
+			theme_advanced_buttons1 : "bold,italic,underline,indicime,indicimehelp,formatselect,fontselect,fontsizeselect",
+
+			theme_advanced_buttons2 : "justifyleft,justifycenter,justifyright,justifyfull,|,bullist,numlist,|,outdent,indent,|,forecolor,backcolor",
+
+			theme_advanced_buttons3 : "blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview",
+
+		});
+
+                
+
+function getMainCategoryOptionAddMore()
+
+{
+
+        
+
+	var parent_cat_id = $("#fav_cat_type_id").val();
+
+        var id='';
+
+
+
+	var dataString = 'action=getsubcatoption&parent_cat_id='+parent_cat_id+'&id='+id;
+
+	$.ajax({
+
+		type: "POST",
+
+		url: "include/remote.php",
+
+		data: dataString,
+
+		cache: false,
+
+		success: function(result)
+
+		{
+
+			//alert(result);
+
+                        //alert(sub_cat);
+
+			$("#fav_cat_id").html(result);
+
+		}
+
+	});
+
+}
+
+ function getMainCategoryOptionAddMore2()
+
+{
+
+        
+
+	var parent_cat_id = $("#fav_cat_type_id2").val();
+
+        var id='';
+
+
+
+	var dataString = 'action=getsubcat2option&parent_cat_id='+parent_cat_id+'&id='+id;
+
+	$.ajax({
+
+		type: "POST",
+
+		url: "include/remote.php",
+
+		data: dataString,
+
+		cache: false,
+
+		success: function(result)
+
+		{
+
+			//alert(result);
+
+                        //alert(sub_cat);
+
+			$("#fav_cat_id2").html(result);
+
+		}
+
+	});
+
+}
+
+
+
+ function getMainCategoryOptionAddMore3()
+
+{
+
+        
+
+	var parent_cat_id = $("#fav_cat_type_id3").val();
+
+        var id='';
+
+	var dataString = 'action=getsubcat3option&parent_cat_id='+parent_cat_id+'&id='+id;
+
+	$.ajax({
+
+		type: "POST",
+
+		url: "include/remote.php",
+
+		data: dataString,
+
+		cache: false,
+
+		success: function(result)
+
+		{
+
+			//alert(result);
+
+                        //alert(sub_cat);
+
+			$("#fav_cat_id3").html(result);
+
+		}
+
+	});
+
+}
+
+
+
+function getMainCategoryOptionAddMore4()
+
+{
+
+        
+
+	var parent_cat_id = $("#fav_cat_type_id4").val();
+
+        var id='';
+
+	var dataString = 'action=getsubcat4option&parent_cat_id='+parent_cat_id+'&id='+id;
+
+	$.ajax({
+
+		type: "POST",
+
+		url: "include/remote.php",
+
+		data: dataString,
+
+		cache: false,
+
+		success: function(result)
+
+		{
+
+			//alert(result);
+
+                        //alert(sub_cat);
+
+			$("#fav_cat_id4").html(result);
+
+		}
+
+	});
+
+}
+
+
+
+function GetBoxTitle()
+
+{
+
+    var page_cat_id = $("#page_cat_id").val();
+
+        
+
+	var dataString = 'action=getboxtitle&page_cat_id='+page_cat_id;
+
+	$.ajax({
+
+		type: "POST",
+
+		url: "include/remote.php",
+
+		data: dataString,
+
+		cache: false,
+
+		success: function(result)
+
+		{
+
+			//alert(result);
+
+                        //alert(sub_cat);
+
+			$("#title_id").html(result);
+
+		}
+
+	});  
+
+}
+
+ $("#page_cat_id").trigger('change');
+
+
+
+function showVideoURL1()
+
+{
+
+    //alert("Hiii");
+
+    var banner_type = $("#banner_type_1").val();
+
+    //alert(banner_type);
+
+    if(banner_type == 'Image')
+
+    {
+
+        $("#video_1_show").hide();
+
+        $("#banner_1_show").show();
+
+        
+
+    }
+
+    if(banner_type == 'Video')
+
+    {
+
+       $("#video_1_show").show();
+
+       $("#banner_1_show").hide();
+
+    }
+
+}
+
+
+
+function showVideoURL2()
+
+{
+
+    var banner_type = $("#banner_type_2").val();
+
+    if(banner_type == 'Image')
+
+    {
+
+        $("#video_2_show").hide();
+
+        $("#banner_2_show").show();
+
+        
+
+    }
+
+    if(banner_type == 'Video')
+
+    {
+
+       $("#video_2_show").show();
+
+       $("#banner_2_show").hide();
+
+    }
+
+}
+ //write by ample 22-05-20
+    function box_type_setting(box,box_id)
+    {
+        var type=box.value;
+        //alert(type);
+        $('#data_source_box_'+box_id).hide();
+        $('#specifiq_text_box_'+box_id).hide();
+        if(type==2 || type==3)
+        {
+            $('#data_source_box_'+box_id).show();
+            $('#specifiq_text_box_'+box_id).hide();
+        }
+        else if(type==4)
+        {   
+            $('#data_source_box_'+box_id).show();
+            get_data_of_profCat(box_id);
+            $('#specifiq_text_box_'+box_id).show();
+        }
+        else
+        {
+            $('#data_source_box_'+box_id).hide();
+            $('#specifiq_text_box_'+box_id).hide();
+        }
+    }
+
+    //write by ample 22-05-20 & update 06-07-20
+    function icon_box_type_setting(box,box_id)
+    {
+        var type=box.value;
+        //alert(type);
+        $('#icon_box_source'+box_id).hide();
+        if(type==2 || type==3 || type==1)
+        {
+            $('#icon_box_source'+box_id).show();
+        }
+        else
+        {
+            $('#icon_box_source'+box_id).hide();
+        }
+    }
+
+    function update_specifiq_box(box_id)
+    {
+        get_data_of_profCat(box_id);
+    }
+
+    //addd by ample 25-05-20
+    function get_data_of_profCat(box_id)
+    {
+        
+        var DYL_id='<?=$_GET["id"]?>';
+        var source=$('#data_source_'+box_id).val();
+        var selected=$('#specifiq_text_select_'+box_id).val();
+
+        var dataString = 'action=GetPRofCatData_DLY&source='+source+'&selected='+selected+'&data_id='+DYL_id;
+
+            $.ajax({
+
+                type: "POST",
+
+                url: "include/remote.php",
+
+                data: dataString,
+
+                cache: false,
+
+                success: function(result)
+
+                {
+
+                    // alert(result);
+
+                    // console.log(result);
+
+                    $("#specifiq_text_"+box_id).html(result);
+
+                }
+
+            }); 
+    }
+
+</script>
+
+</div>

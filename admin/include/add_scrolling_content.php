@@ -38,6 +38,7 @@ $error = false;
 $err_msg = "";
 
 $tr_days_of_month = 'none';
+$tr_days_of_week = 'none';
 $tr_single_date = 'none';
 $tr_date_range = 'none';
 
@@ -49,7 +50,7 @@ $tr_flash_content = 'none';
 $tr_rss_content = 'none';
 
 $arr_sc_days_of_month = array();
-
+$arr_sc_days_of_week = array();
 if(isset($_POST['btnSubmit']))
 {
 	$sc_listing_date_type = trim($_POST['sc_listing_date_type']);
@@ -57,6 +58,11 @@ if(isset($_POST['btnSubmit']))
 	foreach ($_POST['sc_days_of_month'] as $key => $value) 
 	{
 		array_push($arr_sc_days_of_month,$value);
+	}
+
+	foreach ($_POST['sc_days_of_week'] as $key => $value) 
+	{
+		array_push($arr_sc_days_of_week,$value);
 	}
 	
 	$sc_single_date = trim($_POST['sc_single_date']);
@@ -102,6 +108,22 @@ if(isset($_POST['btnSubmit']))
 		else
 		{
 			$sc_days_of_month = implode(',',$arr_sc_days_of_month);
+		}	
+	}
+	elseif($sc_listing_date_type == 'days_of_week')
+	{
+		$tr_days_of_week = '';
+		$tr_single_date = 'none';
+		$tr_date_range = 'none';
+		
+		if(count($arr_sc_days_of_week) < 1)
+		{
+			$error = true;
+			$err_msg = 'Please select days of week';
+		}
+		else
+		{
+			$sc_days_of_week = implode(',',$arr_sc_days_of_week);
 		}	
 	}
 	elseif($sc_listing_date_type == 'single_date')
@@ -342,27 +364,35 @@ if(isset($_POST['btnSubmit']))
 				$sc_single_date = '';
 				$sc_start_date = '';
 				$sc_end_date = '';
+				$sc_days_of_week = '';
 			}
 			elseif($sc_listing_date_type == 'single_date')
 			{
 				$sc_days_of_month = '';
 				$sc_start_date = '';
 				$sc_end_date = '';
-				
+				$sc_days_of_week = '';
 				$sc_single_date = date('Y-m-d',strtotime($sc_single_date));
 			}
 			elseif($sc_listing_date_type == 'date_range')
 			{
 				$sc_days_of_month = '';
 				$sc_single_date = '';
-				
+				$sc_days_of_week = '';
 				$sc_start_date = date('Y-m-d',strtotime($sc_start_date));
 				$sc_end_date = date('Y-m-d',strtotime($sc_end_date));
+			}
+			elseif($sc_listing_date_type == 'days_of_week')
+			{
+				$sc_days_of_month = '';
+				$sc_single_date = '';
+				$sc_start_date  = '';
+				$sc_end_date  = '';
 			}
 			
 			//$sc_content = $obj->get_clean_br_string($sc_content);
 		
-			if($obj->addScrollingContent($sw_id,$sc_title,$sc_title_font_family,$sc_title_font_size,$sc_content_type,$sc_content,$sc_content_font_family,$sc_content_font_size,$sc_image,$sc_video,$sc_flash,$sc_show_credit,$sc_credit_name,$sc_credit_link,$sc_listing_date_type,$sc_days_of_month,$sc_single_date,$sc_start_date,$sc_end_date,$sc_order,$sc_title_font_color,$sc_content_font_color,$rss_feed_item_id,$sc_title_hide,$sc_add_fav_hide))
+			if($obj->addScrollingContent($sw_id,$sc_title,$sc_title_font_family,$sc_title_font_size,$sc_content_type,$sc_content,$sc_content_font_family,$sc_content_font_size,$sc_image,$sc_video,$sc_flash,$sc_show_credit,$sc_credit_name,$sc_credit_link,$sc_listing_date_type,$sc_days_of_month,$sc_single_date,$sc_start_date,$sc_end_date,$sc_order,$sc_title_font_color,$sc_content_font_color,$rss_feed_item_id,$sc_title_hide,$sc_add_fav_hide,$sc_days_of_week))
 			{
 				$msg = "Record Added Successfully!";
 				header('location: index.php?mode=scrolling_contents&msg='.urlencode($msg).'&id='.$sw_id.'');
@@ -483,6 +513,7 @@ else
                                             <option value="days_of_month" <?php if($sc_listing_date_type == 'days_of_month') { ?> selected="selected" <?php } ?>>Days of Month</option>
                                             <option value="single_date" <?php if($sc_listing_date_type == 'single_date') { ?> selected="selected" <?php } ?>>Single Date</option>
                                             <option value="date_range" <?php if($sc_listing_date_type == 'date_range') { ?> selected="selected" <?php } ?>>Date Range</option>
+											<option value="days_of_week" <?php if($sc_listing_date_type == 'days_of_week') { ?> selected="selected" <?php } ?>>Days of Week</option>
                                         </select>
                                    	</td>
 								</tr>
@@ -498,6 +529,22 @@ else
                                         for($i=1;$i<=31;$i++)
                                         { ?>
 	                                        <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_sc_days_of_month)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
+                                        <?php
+                                        } ?>	
+                                        </select>&nbsp;*<br>
+                                        You can choose more than one option by using the ctrl key.
+                                    </td>
+								</tr>
+
+								<tr id="tr_days_of_week" style="display:<?php echo $tr_days_of_week;?>">
+									<td align="right" valign="top"><strong>Select days of week</strong></td>
+									<td align="center" valign="top"><strong>:</strong></td>
+									<td align="left">
+                                    	<select id="sc_days_of_week" name="sc_days_of_week[]" multiple="multiple" style="width:200px;">
+										<?php
+                                        for($i=1;$i<=7;$i++)
+                                        { ?>
+	                                        <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_sc_days_of_week)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
                                         <?php
                                         } ?>	
                                         </select>&nbsp;*<br>

@@ -867,7 +867,10 @@ class Admin extends mysqlConnection
 public	function signUpSubAdmin($email,$username,$password,$fname,$lname,$address,$dob,$contact_no,$country,$state,$city,$menu_comma_separated,$permissions_comma_separated)
 
 	{
-
+		
+		if(empty($dob) || $dob=='--'){
+			$dob = '0000-00-00';
+		}
 		$my_DBH = new mysqlConnection();
 
                 $DBH = $my_DBH->raw_handle();

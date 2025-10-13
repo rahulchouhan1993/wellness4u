@@ -2,7 +2,8 @@
 require_once('config/class.mysql.php');
 require_once('classes/class.scrollingwindows.php');
 $obj = new Scrolling_Windows();
-
+$allOptions = $obj->getScrollingWindowsOption();
+$pageNameOptions = $obj->getPageNameOption();
 $view_action_id = '150';
 $add_action_id = '151';
 
@@ -44,8 +45,68 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
                     <tr>
                         <td class="mainbox-body">
                             <p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
+                            
                             <div id="pagination_contents" align="center"> 
-                                <p></p>
+                                <form action="#" method="get" name="frm_place">
+                                    <input type="hidden" name="mode" value="scrolling_windows">
+                                <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="20%" height="30" align="left" valign="middle"><strong>Page Name:</strong></td>
+                                        <td width="10%" height="30" align="left" valign="middle">
+                                        <select name="page_id" class="form-control">
+                                                <option value="">--Select--</option>
+                                            <?php 
+                                                foreach($pageNameOptions as $k =>$v)
+                                                {
+                                                    if($k == $_GET['page_id']){
+                                                        echo '<option value="'.$k.'" selected>'.stripslashes($v).'</option>';
+                                                    }else{
+                                                        echo '<option value="'.$k.'">'.stripslashes($v).'</option>';
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                        </td>
+                                        <td width="10%" height="30" align="left" valign="middle">&nbsp;</td>
+                                        <td width="20%" height="30" align="left" valign="middle"><strong>Updated by:</strong></td>
+                                        <td width="10%" height="30" align="left" valign="middle">
+                                            <select name="updated_by" class="form-control">
+                                                <option value="">--Select--</option>
+                                                <?php 
+                                                        foreach($allOptions as $row)
+                                                        {
+                                                            if($row['admin_id'] == $_GET['updated_by']){
+                                                                echo '<option value="'.$row['admin_id'].'" selected>'.stripslashes($row['username']).'</option>';
+                                                            }else{
+                                                                echo '<option value="'.$row['admin_id'].'">'.stripslashes($row['username']).'</option>';
+                                                            }
+                                                        }
+                                                     ?>
+                                            </select>
+                                        </td>
+                                        
+                                    </tr>
+
+                                    <tr>
+                                        <td width="20%" height="30" align="left" valign="middle"><strong>Window Header:</strong></td>
+                                        <td width="10%" height="30" align="left" valign="middle">
+                                            <input type="text" name="window_header" class="form-control" value="<?php echo stripslashes($_GET['window_header']); ?>">
+                                        </td>
+                                        <td width="10%" height="30" align="left" valign="middle">&nbsp;</td>
+                                        <td width="20%" height="30" align="left" valign="middle"><strong>Window Footer:</strong></td>
+                                        <td width="10%" height="30" align="left" valign="middle">
+                                            <input type="text" name="window_footer" class="form-control" value="<?php echo stripslashes($_GET['window_footer']); ?>">
+                                        </td>
+                                        <td width="20%" height="30" align="left" valign="middle">&nbsp;</td>
+                                        <td width="10%" height="30" align="left" valign="middle">
+                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="Filter">
+                                        </td>
+                                    </tr>
+                                    
+                                </tbody>
+                                </table>
+                                </form>
                                 <table border="0" width="100%" cellpadding="1" cellspacing="1">
                                 <tbody>
                                     <tr>
@@ -58,21 +119,23 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
                                         </td>
 									</tr>
 									<tr class="manage-header">
-                                                                            <td width="5%" class="manage-header" align="center"><strong>S.No</strong></td>
-                                                                            <td width="20%" class="manage-header" align="center"><strong>Page Name</strong></td>
-                                                                            <td width="10%" class="manage-header" align="center"><strong>Window Header</strong></td>
-                                                                            <td width="15%" class="manage-header" align="center"><strong>Header Image</strong></td>
-                                                                            <td width="10%" class="manage-header" align="center"><strong>Window Footer</strong></td>
-                                                                            <td width="10%" class="manage-header" align="center"><strong>Footer Image</strong></td>
-                                                                            <td width="5%" class="manage-header" align="center"><strong>Show on</strong></td>
-                                                                            <td width="5%" class="manage-header" align="center"><strong>Status</strong></td>
-                                                                            <td width="5%" class="manage-header" align="center"><strong>View Sliders</strong></td>
-                                                                            <td width="5%" class="manage-header" align="center"><strong>Order</strong></td>
-                                                                            <td width="5%" class="manage-header" align="center"><strong>Edit</strong></td>
-                                                                            <td width="5%" class="manage-header" align="center"><strong>Delete</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>S.No</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Edit</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Delete</strong></td>
+                                        <td width="20%" class="manage-header" align="center"><strong>Page Name</strong></td>
+                                        <td width="10%" class="manage-header" align="center"><strong>Window Header</strong></td>
+                                        <td width="15%" class="manage-header" align="center"><strong>Header Image</strong></td>
+                                        <td width="10%" class="manage-header" align="center"><strong>Window Footer</strong></td>
+                                        <td width="10%" class="manage-header" align="center"><strong>Footer Image</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Show on</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Status</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>View Sliders</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Order</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Updated By</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Updated At</strong></td>
 									</tr>
 									<?php
-									echo $obj->getAllScrollingWindows(0);
+									echo $obj->getAllScrollingWindows($_GET);
 									?>
 								</tbody>
 								</table>

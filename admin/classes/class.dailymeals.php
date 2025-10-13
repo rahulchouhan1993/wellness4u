@@ -1757,7 +1757,7 @@ class Daily_Meals extends Admin
 
 		
 
-		$sql = "INSERT INTO `tbl_scale_prof_cat` (`scale_id`,`prof_cat`,`sub_cat`) VALUES ('','0','0')";
+		$sql = "INSERT INTO `tbl_scale_prof_cat` (`scale_id`,`prof_cat`,`sub_cat`) VALUES ('0','0','0')";
 
 		  $STH = $DBH->prepare($sql); 
 

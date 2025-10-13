@@ -885,6 +885,11 @@ $add_more_row_cat_str1 = '<tr id="row_cats_\'+cat_cnt1+\'"><td width="10%" heigh
 
                                                                     {
 
+                                                                        if (!is_array($cat_total_cnt1)) {
+                                                                            $cat_total_cnt1 = []; // default to empty array
+                                                                        }
+
+
                                                                        for($i=0;$i<count($cat_total_cnt1);$i++)
 
                                                                     { ?>

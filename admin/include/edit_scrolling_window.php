@@ -44,16 +44,14 @@ if(isset($_POST['btnSubmit']))
 	$sw_footer_credit_link = strip_tags(trim($_POST['sw_footer_credit_link']));
 	$sw_status = strip_tags(trim($_POST['sw_status']));
 	$sw_order = strip_tags(trim($_POST['sw_order']));
-	
 	$sw_header_font_color = trim($_POST['sw_header_font_color']);
 	$sw_footer_font_color = trim($_POST['sw_footer_font_color']);
-        $sw_show_in_contents = trim($_POST['sw_show_in_contents']);
-        
-        $sw_header_bg_color = trim($_POST['sw_header_bg_color']);
+	$sw_show_in_contents = trim($_POST['sw_show_in_contents']);
+	$sw_header_bg_color = trim($_POST['sw_header_bg_color']);
 	$sw_footer_bg_color = trim($_POST['sw_footer_bg_color']);
-        $sw_box_border_color = trim($_POST['sw_box_border_color']);
-        $sw_header_hide = trim($_POST['sw_header_hide']);
-        $sw_footer_hide = trim($_POST['sw_footer_hide']);
+	$sw_box_border_color = trim($_POST['sw_box_border_color']);
+	$sw_header_hide = trim($_POST['sw_header_hide']);
+	$sw_footer_hide = trim($_POST['sw_footer_hide']);
 	
 	if(count($arr_selected_page_id) == 0)
 	{
@@ -207,7 +205,7 @@ if(isset($_POST['btnSubmit']))
 		if(!$error)
 		{
 			if($obj->updateScrollingWindow($sw_id,$page_id,$sw_header,$sw_header_image,$sw_show_header_credit,$sw_header_credit_link,$sw_footer,$sw_footer_image,$sw_show_footer_credit,$sw_footer_credit_link,$sw_status,$sw_header_font_family,$sw_header_font_size,$sw_footer_font_family,$sw_footer_font_size,$sw_order,$sw_header_font_color,$sw_footer_font_color,$sw_show_in_contents,$sw_header_bg_color,$sw_footer_bg_color,$sw_box_border_color,$sw_header_hide,$sw_footer_hide))
-			{
+			{ 
 				$msg = "Record Updated Successfully!";
 				header('location: index.php?mode=scrolling_windows&msg='.urlencode($msg));
 			}

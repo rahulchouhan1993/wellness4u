@@ -234,11 +234,27 @@ class Contents extends Admin
 
                     }
 
+                    if($row['updated_by_admin'] == '0')
+
+                    {
+
+                        $moodifiedBy = '';
+
+                    }
+
+                    else
+
+                    {
+
+                        $moodifiedBy = $obj2->getUsenameOfAdmin($row['updated_by_admin']);
+
+                    }
+
 
 
                     $date_value = date('d-m-Y',strtotime($row['pd_add_date']));
 
-                    
+                    $modified_date = date('d-m-Y',strtotime($row['updated_on_date']));
 
                     $page_name_str = $obj2->getCommaSeperatedPageName($row['page_id_str']);     
 
@@ -279,6 +295,10 @@ class Contents extends Admin
                     $output .= '<td height="30" align="center">'.$date_value.'</td>';
 
                     $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
+
+                    $output .= '<td height="30" align="center">'.$modified_date.'</td>';
+
+                    $output .= '<td height="30" align="center">'.$moodifiedBy.'</td>';
 
                     $output .= '<td align="center" nowrap="nowrap">';
 
@@ -6769,22 +6789,15 @@ class Contents extends Admin
 
 
 
-                    if(in_array($menu_id,$arr_selected_page_id))
+                    if (!is_array($arr_selected_page_id)) {
+                        $arr_selected_page_id = [];  // Ensure it’s an array
+                    }
 
-                    {
-
+                    if (in_array($menu_id, $arr_selected_page_id)) {
                         $selected = ' checked ';
-
-                    }
-
-                    else
-
-                    {
-
+                    } else {
                         $selected = '';
-
                     }
-
                     
 
                     //$liwidth = $width - 20;
@@ -7685,13 +7698,38 @@ public function AddDesignMyLife($text_box_show,$text_box_count,$user_upload_show
             $sub_cat3_show_fetch = ($cat_fetch_show_data['sub_cat3_show_fetch'] ==''? 0 : $cat_fetch_show_data['sub_cat3_show_fetch']);
 
             $sub_cat4_show_fetch = ($cat_fetch_show_data['sub_cat4_show_fetch'] ==''? 0 : $cat_fetch_show_data['sub_cat4_show_fetch']);
+            $text_box_show = ($text_box_show ==''? 0 : $text_box_show);
+            $user_upload_show = ($user_upload_show ==''? 0 : $user_upload_show);
+            $quick_response_show = ($quick_response_show ==''? 0 : $quick_response_show);
+            $narration_show = ($narration_show ==''? 0 : $narration_show);
+            $user_date_show = ($user_date_show ==''? 0 : $user_date_show);
+            $time_show = ($time_show ==''? 0 : $time_show);
+            $duration_show = ($duration_show ==''? 0 : $duration_show);
+            $location_show = ($location_show ==''? 0 : $location_show);
+            $like_dislike_show = ($like_dislike_show ==''? 0 : $like_dislike_show);
+            $set_goals_show = ($set_goals_show ==''? 0 : $set_goals_show);
+            $scale_show = ($scale_show ==''? 0 : $scale_show);
+            $reminder_show = ($reminder_show ==''? 0 : $reminder_show);
+            $comments_show = ($comments_show ==''? 0 : $comments_show);
+            $fav_cat_type_id = ($fav_cat_type_id ==''? 0 : $fav_cat_type_id);
+            $comment_order_show = ($comment_order_show ==''? 0 : $comment_order_show); $reminder_order_show = ($reminder_order_show ==''? 0 : $reminder_order_show);
+            $scale_order_show = ($scale_order_show ==''? 0 : $scale_order_show);
+            $set_goals_order_show = ($set_goals_order_show ==''? 0 : $set_goals_order_show);
+            $like_dislike_order_show = ($like_dislike_order_show ==''? 0 : $like_dislike_order_show);
+            $location_order_show = ($location_order_show ==''? 0 : $location_order_show);
+            $duration_order_show = ($duration_order_show ==''? 0 : $duration_order_show);
+            $time_order_show = ($time_order_show ==''? 0 : $time_order_show);
+            $user_date_order_show = ($user_date_order_show ==''? 0 : $user_date_order_show);
+            $box_data['other_box_type'] = ($box_data['other_box_type'] ==''? 0 : $box_data['other_box_type']);
+            $level['level_icon'] = ($level['level_icon'] ==''? 0 : $level['level_icon']);
+            $is_featured = ($is_featured ==''? 0 : $is_featured);
 
 
             $return = false;
 
-             // try {
+            // try {
 
-                //update SQL for add prof_cat_heading & prof_cat_link & prof_cat_refer_code by ample 06-11-19 & update 23-01-20 & 22-05-20
+            //update SQL for add prof_cat_heading & prof_cat_link & prof_cat_refer_code by ample 06-11-19 & update 23-01-20 & 22-05-20 prof_cat1_uidprof_cat_id
              $sql = "INSERT INTO `tbl_design_your_life`(`input_box_show`,`input_box_count`,`user_upload_show`,`box_count`,`quick_response_show`,`quick_tip_icon`,`quick_tip_icon_type`,`quick_response_heading`,`response_heading`,`show_to_user`,`data_category`,`narration_show`,`prof_cat2`,`prof_cat3`,`prof_cat4`,`sub_cat2`,`sub_cat3`,`sub_cat4`,`sub_cat1_show_fetch`,`sub_cat2_show_fetch`,`sub_cat3_show_fetch`,`sub_cat4_show_fetch`,`sub_cat1_link`,`sub_cat2_link`,`sub_cat3_link`,`sub_cat4_link`,`ref_code`, `box_title`, `narration`, `admin_comment`, "
 
                     . "`user_date_show`, `time_show`, `duration_show`, `location_show`, `User_view`, `User_Interaction`, `scale_show`, `alert_show`, `comment_show`, `user_date_heading`, `time_heading`, "
@@ -7702,7 +7740,7 @@ public function AddDesignMyLife($text_box_show,$text_box_count,$user_upload_show
 
                     . "`qr_box_type`, `qr_data_source`, `qr_specifiq_text`, `other_box_type`, `other_data_source`, `other_specIfiq_text`, `icon_box1`, `icon_box_source1`, `icon_box2`, `icon_box_source2`, "
 
-                    . "`level`, `level_title`, `level_icon`, `level_icon_type`, `level_heading`, `level_title_heading`, `level_icon_heading`,pop_show,banner_position,example_box,is_featured
+                    . "`level`, `level_title`, `level_icon`, `level_icon_type`, `level_heading`, `level_title_heading`, `level_icon_heading`,pop_show,banner_position,example_box,is_featured,updated_by,prof_cat1_uid,prof_cat2_uid,prof_cat3_uid,prof_cat4_uid,loc_cat_uid,ur_cat_uid,uwn_uid,au_cat_uid,special_font_color,fav_cat_type_id_header,special_bg_color,special_icon_code,special_font_family
 
                     ) "
 
@@ -7720,7 +7758,7 @@ public function AddDesignMyLife($text_box_show,$text_box_count,$user_upload_show
 
                     . "'".$box_data['qr_box_type']."','". $box_data['qr_data_source']."','".$box_data['qr_specifiq_text']."','".$box_data['other_box_type']."','".$box_data['other_data_source']."','".$box_data['other_specifiq_text']."','".$box_data['icon_box1']."','".$box_data['box_source1']."','".$box_data['icon_box2']."','".$box_data['box_source2']."',"
 
-                       . "'".$level['level']."','". $level['level_title']."','".$level['level_icon']."','".$level['level_icon_type']."','".$level[' level_heading']."','".$level['  level_title_heading']."','".$level['level_icon_heading']."', '".$pop_show."', 'Bottom', '".$example_box."','".$is_featured."'
+                       . "'".$level['level']."','". $level['level_title']."','".$level['level_icon']."','".$level['level_icon_type']."','".$level[' level_heading']."','".$level['  level_title_heading']."','".$level['level_icon_heading']."', '".$pop_show."', 'Bottom', '".$example_box."','".$is_featured."', '0', '0', '0', '0', '0', '0', '0', '0', '0','0', '', '', '',''
 
                 )";
             
@@ -7764,8 +7802,51 @@ public function UpdateDesignMyLife($text_box_show,$text_box_count,$user_upload_s
 
             $return = false;
 
+
+            $sub_cat1_show_fetch = ($cat_fetch_show_data['sub_cat1_show_fetch'] ==''? 0 : $cat_fetch_show_data['sub_cat1_show_fetch']);
+
+            $sub_cat2_show_fetch = ($cat_fetch_show_data['sub_cat2_show_fetch'] ==''? 0 : $cat_fetch_show_data['sub_cat2_show_fetch']);
+
+            $sub_cat3_show_fetch = ($cat_fetch_show_data['sub_cat3_show_fetch'] ==''? 0 : $cat_fetch_show_data['sub_cat3_show_fetch']);
+
+            $sub_cat4_show_fetch = ($cat_fetch_show_data['sub_cat4_show_fetch'] ==''? 0 : $cat_fetch_show_data['sub_cat4_show_fetch']);
+            $text_box_show = ($text_box_show ==''? 0 : $text_box_show);
+            $user_upload_show = ($user_upload_show ==''? 0 : $user_upload_show);
+            $quick_response_show = ($quick_response_show ==''? 0 : $quick_response_show);
+            $narration_show = ($narration_show ==''? 0 : $narration_show);
+            $user_date_show = ($user_date_show ==''? 0 : $user_date_show);
+            $time_show = ($time_show ==''? 0 : $time_show);
+            $duration_show = ($duration_show ==''? 0 : $duration_show);
+            $location_show = ($location_show ==''? 0 : $location_show);
+            $like_dislike_show = ($like_dislike_show ==''? 0 : $like_dislike_show);
+            $set_goals_show = ($set_goals_show ==''? 0 : $set_goals_show);
+            $scale_show = ($scale_show ==''? 0 : $scale_show);
+            $reminder_show = ($reminder_show ==''? 0 : $reminder_show);
+            $comments_show = ($comments_show ==''? 0 : $comments_show);
+            $fav_cat_type_id = ($fav_cat_type_id ==''? 0 : $fav_cat_type_id);
+            $comment_order_show = ($comment_order_show ==''? 0 : $comment_order_show); $reminder_order_show = ($reminder_order_show ==''? 0 : $reminder_order_show);
+            $scale_order_show = ($scale_order_show ==''? 0 : $scale_order_show);
+            $set_goals_order_show = ($set_goals_order_show ==''? 0 : $set_goals_order_show);
+            $like_dislike_order_show = ($like_dislike_order_show ==''? 0 : $like_dislike_order_show);
+            $location_order_show = ($location_order_show ==''? 0 : $location_order_show);
+            $duration_order_show = ($duration_order_show ==''? 0 : $duration_order_show);
+            $time_order_show = ($time_order_show ==''? 0 : $time_order_show);
+            $user_date_order_show = ($user_date_order_show ==''? 0 : $user_date_order_show);
+            $box_data['other_box_type'] = ($box_data['other_box_type'] ==''? 0 : $box_data['other_box_type']);
+            $level['level_icon'] = ($level['level_icon'] ==''? 0 : $level['level_icon']);
+            $is_featured = ($is_featured ==''? 0 : $is_featured);
+            $canv_sub_cat1_show_fetch = ($canv_sub_cat1_show_fetch ==''? 0 : $canv_sub_cat1_show_fetch);
+            $canv_sub_cat2_show_fetch = ($canv_sub_cat2_show_fetch ==''? 0 : $canv_sub_cat2_show_fetch);
+            $canv_sub_cat3_show_fetch = ($canv_sub_cat3_show_fetch ==''? 0 : $canv_sub_cat3_show_fetch);
+            $canv_sub_cat4_show_fetch = ($canv_sub_cat4_show_fetch ==''? 0 : $canv_sub_cat4_show_fetch);
+            $cat_fetch_show_data['canv_loc_cat_show_fetch'] = ($cat_fetch_show_data['canv_loc_cat_show_fetch'] ==''? 0 : $cat_fetch_show_data['canv_loc_cat_show_fetch']);
+            $cat_fetch_show_data['canv_user_cat_show_fetch'] = ($cat_fetch_show_data['canv_user_cat_show_fetch'] ==''? 0 : $cat_fetch_show_data['canv_user_cat_show_fetch']);
+            $cat_fetch_show_data['canv_wn_cat_show_fetch'] = ($cat_fetch_show_data['canv_wn_cat_show_fetch'] ==''? 0 : $cat_fetch_show_data['canv_wn_cat_show_fetch']);
+            $cat_fetch_show_data['canv_au_cat_show_fetch'] = ($cat_fetch_show_data['canv_au_cat_show_fetch'] ==''? 0 : $cat_fetch_show_data['canv_au_cat_show_fetch']);
+            $cat_fetch_show_data['special_font_size'] = ($cat_fetch_show_data['special_font_size'] ==''? 0 : $cat_fetch_show_data['special_font_size']);
+            $special_data['special_font_size'] = ($special_data['special_font_size'] ==''? 0 : $special_data['special_font_size']);
              // try {
-                //update sql for link,refer_code,heading by ample 06-11-19 & update 22-06-20
+                //update sql for link,refer_code,heading by ample 06-11-19 & update 22-06-20sub_cat1_show_fetch
              $sql = "UPDATE `tbl_design_your_life` SET `show_to_user`='".addslashes($show_to_user)."',`ref_code`='".addslashes($ref_code)."',`box_title`='".addslashes($title_id)."',"
 
                      . "`narration`='".addslashes($narration)."',`admin_comment`='".$admin_comment."',"

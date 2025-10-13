@@ -56,7 +56,29 @@ if($sw_header == '')
 						<td class="mainbox-body">
 							<p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
 							<div id="pagination_contents" align="center"> 
-								<p></p>
+								<form action="#" method="get" name="frm_place">
+                                    <input type="hidden" name="mode" value="scrolling_contents">
+									<input type="hidden" name="id" value="<?php echo $_GET['id'] ?>">
+                                <table border="0" width="100%" cellpadding="0" cellspacing="0">
+                                <tbody>
+                                    <tr>
+                                        <td width="20%" height="30" align="left" valign="middle"><strong>Title:</strong></td>
+                                        <td width="10%" height="30" align="left" valign="middle">
+							 <input type="text" name="window_header" class="form-control" value="<?php echo stripslashes($_GET['window_header']); ?>">
+                                        </td>
+                                        <td width="20%" height="30" align="left" valign="middle">&nbsp;</td>
+                                        <td width="10%" height="30" align="left" valign="middle">
+                                            <input type="submit" name="btnSubmit" id="btnSubmit" value="Filter">
+                                        </td>
+                                       
+                                        
+                                    </tr>
+
+                                   
+                                    
+                                </tbody>
+                                </table>
+                                </form>
 								<table border="0" width="100%" cellpadding="1" cellspacing="1">
 								<tbody>
 									<tr>
@@ -72,6 +94,8 @@ if($sw_header == '')
 									</tr>
 									<tr class="manage-header">
 										<td width="5%" class="manage-header" align="center"><strong>S.No</strong></td>
+										<td width="5%" class="manage-header" align="center"><strong>Edit</strong></td>
+										<td width="5%" class="manage-header" align="center"><strong>Delete</strong></td>
 										<td width="10%" class="manage-header" align="center"><strong>Title</strong></td>
 										<td width="10%" class="manage-header" align="center"><strong>Image</strong></td>
                                         <td width="10%" class="manage-header" align="center"><strong>Contents</strong></td>
@@ -81,11 +105,10 @@ if($sw_header == '')
                                         <td width="10%" class="manage-header" align="center"><strong>Date</strong></td>
                                         <td width="5%" class="manage-header" align="center"><strong>Status</strong></td>
                                         <td width="5%" class="manage-header" align="center"><strong>Order</strong></td>
-                                        <td width="5%" class="manage-header" align="center"><strong>Edit</strong></td>
-										<td width="5%" class="manage-header" align="center"><strong>Delete</strong></td>
+                                        
 									</tr>
 									<?php
-									echo $obj->getAllScrollingContents($sw_id);
+									echo $obj->getAllScrollingContents($sw_id,$_GET);
 									?>
 								</tbody>
 								</table>

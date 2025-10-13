@@ -42,12 +42,26 @@ if(isset($_POST['btnSubmit']))
 	$sw_header_font_family = strip_tags(trim($_POST['sw_header_font_family']));
 	$sw_header_font_size = strip_tags(trim($_POST['sw_header_font_size']));
 	$sw_show_header_credit = trim($_POST['sw_show_header_credit']);
-	$sw_header_credit_link = strip_tags(trim($_POST['sw_header_credit_link']));
+	$specialHeaderError = false;
+	if (strpos($_POST['sw_header_credit_link'], 'http://') === 0 || strpos($_POST['sw_header_credit_link'], 'https://') === 0) {
+		$sw_header_credit_link = strip_tags(trim($_POST['sw_header_credit_link']));
+	}else{
+		$sw_header_credit_link = '';
+		$specialHeaderError = true;
+	}
 	$sw_footer = strip_tags(trim($_POST['sw_footer']));
 	$sw_footer_font_family = strip_tags(trim($_POST['sw_footer_font_family']));
 	$sw_footer_font_size = strip_tags(trim($_POST['sw_footer_font_size']));
 	$sw_show_footer_credit = trim($_POST['sw_show_footer_credit']);
-	$sw_footer_credit_link = strip_tags(trim($_POST['sw_footer_credit_link']));
+	$specialFooterError = false;
+	if (strpos($_POST['sw_footer_credit_link'], 'http://') === 0 || strpos($_POST['sw_footer_credit_link'], 'https://') === 0) {
+		$sw_footer_credit_link = strip_tags(trim($_POST['sw_footer_credit_link']));
+	}else{
+		$sw_footer_credit_link = '';
+		$specialFooterError = true;
+	}
+
+	
 	$sw_order = trim($_POST['sw_order']);
 	
 	$sw_header_font_color = trim($_POST['sw_header_font_color']);
@@ -113,11 +127,22 @@ if(isset($_POST['btnSubmit']))
 	
 	if($sw_show_footer_credit == '1')
 	{
+		
 		if($sw_footer_credit_link == '')
 		{
 			$error = true;
 			$err_msg .= '<br>Please enter footer credit link';
 		}
+	}
+
+	if($specialFooterError){
+		$error = true;
+			$err_msg .= '<br>Please enter valid footer credit link';
+	}
+
+	if($specialHeaderError){
+		$error = true;
+			$err_msg .= '<br>Please enter valid header credit link';
 	}
 	
 	if($obj->chkIfScrollingWindowOrderAlreadyExists($sw_order,$page_id,$sw_show_in_contents))
@@ -470,7 +495,7 @@ else
                                                                 <tr>
 									<td align="right" valign="top"><strong>Header Credit Link</strong></td>
 									<td align="center" valign="top"><strong>:</strong></td>
-									<td align="left" valign="top"><input name="sw_header_credit_link" type="text" id="sw_header_credit_link" value="<?php echo $sw_header_credit_link; ?>" style="width:200px;" ><br /><p style="color:#990000; font-size:9px;">Please use (http://www.example.com) format for credit link </p></td>
+									<td align="left" valign="top"><input name="sw_header_credit_link" type="url" id="sw_header_credit_link" value="<?php echo $sw_header_credit_link; ?>" style="width:200px;" ><br /><p style="color:#990000; font-size:9px;">Please use (http://www.example.com) format for credit link </p></td>
 								</tr>
 								<tr>
 									<td colspan="3" align="center" valign="top">&nbsp;</td>
@@ -548,7 +573,7 @@ else
                                                                 <tr>
 									<td align="right" valign="top"><strong>Footer Credit Link</strong></td>
 									<td align="center" valign="top"><strong>:</strong></td>
-									<td align="left" valign="top"><input name="sw_footer_credit_link" type="text" id="sw_footer_credit_link" value="<?php echo $sw_footer_credit_link; ?>" style="width:200px;" ><br /><p style="color:#990000; font-size:9px;">Please use (http://www.example.com) format for credit link </p></td>
+									<td align="left" valign="top"><input name="sw_footer_credit_link" type="url" id="sw_footer_credit_link" value="<?php echo $sw_footer_credit_link; ?>" style="width:200px;" ><br /><p style="color:#990000; font-size:9px;">Please use (http://www.example.com) format for credit link </p></td>
 								</tr>
 								<tr>
 									<td colspan="3" align="center" valign="top">&nbsp;</td>

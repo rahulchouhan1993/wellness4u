@@ -3,6 +3,83 @@ require_once('config/class.mysql.php');
 require_once('classes/class.admin.php');
 $obj = new Admin();
 
+$actionsParent = [
+    'Users',
+	'Reports',
+	'Daily Activity',
+	'Daily Meals',
+	'Nutrients',
+	'Nutrient Standard Req Table',
+	'Nutrient Average Req Table',
+	'Nutrient Upper Limit Table',
+	'Sliders',
+	'Heights',
+	'States',
+	'Cities',
+	'Places',
+	'Contents',
+	'Banner',
+	'Anger Vent',
+	'Mind Jumble',
+	'Click Sound',
+	'Themes',
+	'Feedback and Suggestions',
+	'Library',
+	'Database Backup',
+	'Manage Menus',
+	'Manage Reward Points',
+	'Manage Reward Modules',
+	'Manage Reward Bonus Points',
+	'Manage Reward & Prizes List',
+	'Manage Scrolling Windows',
+	'Manage Fav Categories',
+	'View User Referal',
+	'View User Favlist',
+	'Manage RSS Aggregator',
+	'View User Reward Chart',
+	'User Subscription Plan',
+	'User Plan Requests',
+	'Manage Scrolling Bars',
+	'User Plan Categories',
+	'Email Autoresponders',
+	'Send Bulk Email',
+	'View Sent Bulk Emails',
+	'View User Encashed Rewards',
+	'Manage Body Parts',
+	'Manage Symptoms',
+	'Manage Page Dropdown',
+	'Manage Wellness Solution Items',
+	'Profile Customization Category',
+	'Manage Scale',
+	'Manage Page Cat Dropdowns',
+	'Icons',
+	'Function Name',
+	'Manage Fav Cat Dropdown',
+	'Manage BG Music',
+	'Manage User Area',
+	'Exclusion',
+	'Manage Data Dropdown',
+	'Design Your Life',
+	'User Dashboard',
+	'User Uploads',
+	'Manage Table Dropdown',
+	'Report Customisation',
+	'Manage Message',
+	'Page Pop',
+	'Calendar',
+	'Manage Page Decor',
+	'Manage SMS Credentials',
+	'Special Button Setting',
+	'Manage Banner Slider',
+	'View Vendor Referral',
+];
+$actionSubMenu = [
+	'Reports' => [
+		'Angervent Intensity Report',
+		'Stressbuster Intensity Report'
+	]
+];
+
 if(!$obj->isAdminLoggedIn())
 {
 	header("Location: index.php?mode=login");
@@ -423,6 +500,7 @@ else
 									  	$count1 = count($arr_admin_menu_id);
 									    for($i1=0;$i1<$count1;$i1++)
 										{  
+											if(!in_array($arr_menu_name[$i1],$actionsParent)){ continue;}
 								   ?>
                                <tr>
                                <td align="right">&nbsp;</td>
@@ -435,6 +513,11 @@ else
 										$count = count($arr_admin_action_id);
 										for($i=0;$i<$count;$i++)
 										{   
+											if($arr_menu_name[$i1]=='Reports'){
+												if(!in_array($arr_action_name[$i],$actionSubMenu[$arr_menu_name[$i1]])){
+													continue;
+												}
+											}
                                    ?>
                                    <tr>
 									<td align="right">&nbsp;</td>

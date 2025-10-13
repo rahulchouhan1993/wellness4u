@@ -29,7 +29,10 @@ if(isset($_POST['btnSubmit']))
 {
     $pd_id = $_POST['hdnpd_id'];
     $pdm_id = strip_tags(trim($_POST['pdm_id']));
-    $menu_id = implode(',', $_POST['admin_menu_id']);
+    $menu_id = '';
+    if (isset($_POST['admin_menu_id']) && is_array($_POST['admin_menu_id'])) {
+        $menu_id = implode(',', $_POST['admin_menu_id']);
+    }
     $admin_comment = $_POST['admin_comment'];
     $table_name = $_POST['table_name'];
     foreach ($_POST['selected_page_id'] as $key => $value) 

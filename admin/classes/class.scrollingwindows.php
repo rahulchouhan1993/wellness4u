@@ -7,6 +7,50 @@ include_once("class.admin.php");
 class Scrolling_Windows extends Admin
 
 {
+    public function getScrollingWindowsOption(){
+        $my_DBH = new mysqlConnection();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $sql = "SELECT * FROM `tblscrollingwindows` ts INNER JOIN `tbladmin` ta ON ts.`updated_by` = ta.`admin_id` WHERE `sw_status` = '1'";
+        $STH = $DBH->prepare($sql);
+        $STH->execute();
+        $row = $STH->fetchAll(PDO::FETCH_ASSOC);
+        
+        return $row;
+    }
+
+    public function getPageNameOption(){
+        $my_DBH = new mysqlConnection();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+
+        $sql = "SELECT 
+            ts.sw_id,
+            tp.page_id,
+            tp.menu_title AS page_name
+        FROM tblscrollingwindows AS ts
+        JOIN tblpages AS tp 
+            ON FIND_IN_SET(tp.page_id, ts.page_id)
+        WHERE ts.sw_status = '1'
+        AND tp.menu_title <> ''
+        ORDER BY tp.menu_title ASC";
+
+        $STH = $DBH->prepare($sql);
+        $STH->execute();
+
+        $pageArray = [];
+
+        if ($STH->rowCount() > 0) {
+            $completeData = $STH->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($completeData as $row) {
+                // Use the correct keys from your SELECT statement
+                $pageArray[$row['page_id']] = $row['page_name'];
+            }
+        }
+        
+        return $pageArray;
+
+    }
 
 	public function getCommonSettingValue($cs_id)
 
@@ -1422,6 +1466,8 @@ class Scrolling_Windows extends Admin
 
 	{
 
+        
+
 		$my_DBH = new mysqlConnection();
 
                 $DBH = $my_DBH->raw_handle();
@@ -1474,7 +1520,10 @@ class Scrolling_Windows extends Admin
 
                         . "`sw_header_hide` = '".addslashes($sw_header_hide)."' ,"
 
-                        . "`sw_footer_hide` = '".addslashes($sw_footer_hide)."' "
+                        . "`sw_footer_hide` = '".addslashes($sw_footer_hide)."' ,"
+                        . "`updated_by` = '".addslashes($_SESSION['admin_id'])."' ,"
+
+                        . "`updated_on` = '".addslashes(date('Y-m-d'))."' "
 
                         . " WHERE `sw_id` = '".$sw_id."'";
 
@@ -2101,7 +2150,7 @@ class Scrolling_Windows extends Admin
 
 	
 
-	public function getAllScrollingWindows($page_id)
+	public function getAllScrollingWindows($filterData = array())
 
 	{
 
@@ -2131,11 +2180,24 @@ class Scrolling_Windows extends Admin
 
 		$view = $this->chkValidActionPermission($admin_id,$view_action_id);
 
-		
+        $str = '';
+        if(!empty($filterData['page_id'])){
+            $str.= " AND FIND_IN_SET('".$filterData['page_id']."', page_id) ";
+        }
 
-		//$sql = "SELECT tsw.* , tp.menu_title FROM `tblscrollingwindows` AS tsw LEFT JOIN `tblpages` AS tp ON tsw.page_id = tp.page_id  ORDER BY tp.menu_title ASC , tsw.sw_order ASC , tsw.sw_add_date DESC";
+        if(!empty($filterData['updated_by'])){
+            $str.= " AND `updated_by` = '".$filterData['updated_by']."' ";
+        }
 
-                $sql = "SELECT * FROM `tblscrollingwindows` WHERE `sw_deleted` = '0'  ORDER BY sw_add_date DESC , sw_order ASC ";
+        if(!empty($filterData['window_header'])){
+            $str.= " AND `sw_header_credit_link` = '".$filterData['window_header']."' ";
+        }
+
+        if(!empty($filterData['window_footer'])){
+            $str.= " AND `sw_footer_credit_link` = '".$filterData['window_footer']."' ";
+        }
+
+        $sql = "SELECT * FROM `tblscrollingwindows` WHERE `sw_deleted` = '0'  ".$str." ORDER BY sw_add_date DESC , sw_order ASC ";
 
 		//$this->execute_query($sql);
 
@@ -2199,6 +2261,11 @@ class Scrolling_Windows extends Admin
 
 			{
 
+                $sqlUser = "SELECT * FROM `tbladmin` WHERE `admin_id` = '".$row['updated_by']."' ";
+                $sthUser = $DBH->prepare($sqlUser);
+                $sthUser->execute();
+		        $userDetails = $sthUser->fetch(PDO::FETCH_ASSOC);
+                $updatedByuserName = $userDetails['username'] ? $userDetails['username'] : 'N/A';
                             $obj2 = new Scrolling_Windows();
 
                             
@@ -2313,39 +2380,20 @@ class Scrolling_Windows extends Admin
 
                                 $page_name_str = $obj2->getCommaSeperatedPageName($row['page_id']);     
 
-						
+				$updatedBy = '';
+                if(!empty($row['updated_on'])){
+                    $updatedOn = date('d M Y',strtotime($row['updated_on']));		
 
+                }else{
+                    $updatedOn = 'N/A';		
+
+                }
+                
 				$output .= '<tr class="manage-row">';
 
 				$output .= '<td height="30" align="center">'.$i.'</td>';
 
-				$output .= '<td height="30" align="center"><strong>'.$page_name_str.'</strong></td>';
-
-				$output .= '<td height="30" align="center"><strong>'.$header_str.'</strong></td>';
-
-				$output .= '<td height="30" align="center"><strong>'.$header_image.'</strong></td>';
-
-				$output .= '<td height="30" align="center"><strong>'.$footer_str.'</strong></td>';
-
-				$output .= '<td height="30" align="center"><strong>'.$footer_image.'</strong></td>';
-
-                                $output .= '<td height="30" align="center"><strong>'.$sw_show_in_contents.'</strong></td>';
-
-				$output .= '<td height="30" align="center"><strong>'.$sw_status.'</strong></td>';
-
-				$output .= '<td height="30" align="center">';
-
-						if($view) {
-
-				$output .= '<a href="index.php?mode=scrolling_contents&id='.$row['sw_id'].'">View Sliders</a>';
-
-							}
-
-				$output .= '</td>';
-
-				$output .= '<td height="30" align="center"><strong>'.stripslashes($row['sw_order']).'</strong></td>';
-
-				$output .= '<td height="30" align="center">';
+                $output .= '<td height="30" align="center">';
 
 						if($edit) {
 
@@ -2365,9 +2413,38 @@ class Scrolling_Windows extends Admin
 
 				$output .= '</td>';
 
+				$output .= '<td height="30" align="center"><strong>'.$page_name_str.'</strong></td>';
+
+				$output .= '<td height="30" align="center"><strong>'.$row['sw_header_credit_link'].'</strong></td>';
+
+				$output .= '<td height="30" align="center"><strong>'.$header_image.'</strong></td>';
+
+				$output .= '<td height="30" align="center"><strong>'.$row['sw_footer_credit_link'].'</strong></td>';
+
+				$output .= '<td height="30" align="center"><strong>'.$footer_image.'</strong></td>';
+
+                                $output .= '<td height="30" align="center"><strong>'.$sw_show_in_contents.'</strong></td>';
+
+				$output .= '<td height="30" align="center"><strong>'.$sw_status.'</strong></td>';
+
+				$output .= '<td height="30" align="center">';
+
+						if($view) {
+
+				$output .= '<a href="index.php?mode=scrolling_contents&id='.$row['sw_id'].'">View Sliders</a>';
+
+							}
+
+				$output .= '</td>';
+
+				$output .= '<td height="30" align="center"><strong>'.stripslashes($row['sw_order']).'</strong></td>';
+                $output .= '<td height="30" align="center"><strong>'.stripslashes($updatedOn).'</strong></td>';
+                $output .= '<td height="30" align="center"><strong>'.$updatedByuserName.'</strong></td>';
+				
+
 				$output .= '</tr>';
 
-				$output .= '<tr class="manage-row" height="30"><td colspan="12" align="center">&nbsp;</td></tr>';
+				$output .= '<tr class="manage-row" height="30"><td colspan="14" align="center">&nbsp;</td></tr>';
 
 				$i++;
 
@@ -2821,7 +2898,7 @@ class Scrolling_Windows extends Admin
 
 	
 
-	public function getAllScrollingContents($sw_id)
+	public function getAllScrollingContents($sw_id,$filterData)
 
 	{
 
@@ -2850,10 +2927,12 @@ class Scrolling_Windows extends Admin
 		$delete = $this->chkValidActionPermission($admin_id,$delete_action_id);
 
 		$view = $this->chkValidActionPermission($admin_id,$view_action_id);
+        $str = '';
+		if(!empty($filterData['window_header'])){
+            $str.=' AND `tblscrollingcontents`.sc_title = "'.$filterData['window_header'].'" ';
+        }
 
-		
-
-		$sql = "SELECT * FROM `tblscrollingcontents` WHERE `sw_id` = '".$sw_id."' ORDER BY sc_order ASC , sc_add_date DESC";
+		$sql = "SELECT * FROM `tblscrollingcontents` WHERE `sw_id` = '".$sw_id."' $str ORDER BY sc_order ASC , sc_add_date DESC";
 
 		//$this->execute_query($sql);
 
@@ -2915,6 +2994,8 @@ class Scrolling_Windows extends Admin
 
 			{
 
+                
+
                             if($row['sc_title_hide'] == '1')
 
                             {
@@ -2956,6 +3037,16 @@ class Scrolling_Windows extends Admin
 					$date_type = 'Days of Month';
 
 					$date_value = stripslashes($row['sc_days_of_month']);
+
+				}
+
+                elseif($row['sc_listing_date_type'] == 'days_of_week')
+
+				{
+
+					$date_type = 'Days of Week';
+
+					$date_value = stripslashes($row['sc_days_of_week']);
 
 				}
 
@@ -3029,25 +3120,7 @@ class Scrolling_Windows extends Admin
 
 				$output .= '<td height="30" align="center">'.$i.'</td>';
 
-				$output .= '<td height="30" align="center"><strong>'.$title_str.'</strong></td>';
-
-				$output .= '<td height="30" align="center"><strong>'.$sc_image.'</strong></td>';
-
-				$output .= '<td height="30" align="center">'.$content.'</td>';
-
-				$output .= '<td height="30" align="center">'.stripslashes($row['sc_credit_name']).'</td>';
-
-				$output .= '<td height="30" align="center">'.stripslashes($row['sc_credit_link']).'</td>';
-
-				$output .= '<td height="30" align="center">'.$date_type.'</td>';
-
-				$output .= '<td height="30" align="center">'.$date_value.'</td>';
-
-				$output .= '<td height="30" align="center">'.$sc_status.'</td>';
-
-				$output .= '<td height="30" align="center">'.stripslashes($row['sc_order']).'</td>';
-
-				$output .= '<td height="30" align="center">';
+                $output .= '<td height="30" align="center">';
 
 						if($edit) {
 
@@ -3067,9 +3140,33 @@ class Scrolling_Windows extends Admin
 
 				$output .= '</td>';
 
+				$output .= '<td height="30" align="center"><strong>'.$title_str.'</strong></td>';
+
+				$output .= '<td height="30" align="center"><strong>'.$sc_image.'</strong></td>';
+
+				$output .= '<td height="30" align="center">'.$content.'</td>';
+
+				$output .= '<td height="30" align="center">'.stripslashes($row['sc_credit_name']).'</td>';
+
+				$output .= '<td height="30" align="center">'.stripslashes($row['sc_credit_link']).'</td>';
+
+				$output .= '<td height="30" align="center">'.$date_type.'</td>';
+
+				$output .= '<td height="30" align="center">'.$date_value.'</td>';
+
+				$output .= '<td height="30" align="center">'.$sc_status.'</td>';
+
+				$output .= '<td height="30" align="center">'.stripslashes($row['sc_order']).'</td>';
+
+                $output .= '<td height="30" align="center">'.$row['updated_by'].'</td>';
+
+				$output .= '<td height="30" align="center">'.$row['updated_by'].'</td>';
+
+				
+
 				$output .= '</tr>';
 
-				$output .= '<tr class="manage-row" height="30"><td colspan="12" align="center">&nbsp;</td></tr>';
+				$output .= '<tr class="manage-row" height="30"><td colspan="14" align="center">&nbsp;</td></tr>';
 
 				$i++;
 
@@ -3213,10 +3310,10 @@ class Scrolling_Windows extends Admin
 
 	
 
-	public function addScrollingContent($sw_id,$sc_title,$sc_title_font_family,$sc_title_font_size,$sc_content_type,$sc_content,$sc_content_font_family,$sc_content_font_size,$sc_image,$sc_video,$sc_flash,$sc_show_credit,$sc_credit_name,$sc_credit_link,$sc_listing_date_type,$sc_days_of_month,$sc_single_date,$sc_start_date,$sc_end_date,$sc_order,$sc_title_font_color,$sc_content_font_color,$rss_feed_item_id,$sc_title_hide,$sc_add_fav_hide)
+	public function addScrollingContent($sw_id,$sc_title,$sc_title_font_family,$sc_title_font_size,$sc_content_type,$sc_content,$sc_content_font_family,$sc_content_font_size,$sc_image,$sc_video,$sc_flash,$sc_show_credit,$sc_credit_name,$sc_credit_link,$sc_listing_date_type,$sc_days_of_month,$sc_single_date,$sc_start_date,$sc_end_date,$sc_order,$sc_title_font_color,$sc_content_font_color,$rss_feed_item_id,$sc_title_hide,$sc_add_fav_hide,$sc_days_of_week)
 
 	{
-
+       
 		$my_DBH = new mysqlConnection();
 
                 $DBH = $my_DBH->raw_handle();
@@ -3237,7 +3334,7 @@ class Scrolling_Windows extends Admin
 
                         . "`sc_credit_name`,`sc_credit_link`,`sc_status`,`sc_listing_date_type`,`sc_days_of_month`,`sc_single_date`,"
 
-                        . "`sc_start_date`,`sc_end_date`,`sc_order`,`sc_title_font_color`,`sc_content_font_color`,`rss_feed_item_id`,`sc_title_hide`,`sc_add_fav_hide`) "
+                        . "`sc_start_date`,`sc_end_date`,`sc_order`,`sc_title_font_color`,`sc_content_font_color`,`rss_feed_item_id`,`sc_title_hide`,`sc_add_fav_hide`,`sc_days_of_week`) "
 
                         . "VALUES ('".$sw_id."','".addslashes($sc_title)."','".addslashes($sc_title_font_family)."','".addslashes($sc_title_font_size)."' ,"
 
@@ -3253,7 +3350,7 @@ class Scrolling_Windows extends Admin
 
                         . "'".addslashes($sc_order)."','".addslashes($sc_title_font_color)."','".addslashes($sc_content_font_color)."',"
 
-                        . "'".addslashes($rss_feed_item_id)."','".$sc_title_hide."','".$sc_add_fav_hide."')";
+                        . "'".addslashes($rss_feed_item_id)."','".$sc_title_hide."','".$sc_add_fav_hide."','".addslashes($sc_days_of_week)."')";
 
 		$STH = $DBH->prepare($sql);
 
@@ -3425,7 +3522,7 @@ class Scrolling_Windows extends Admin
 
 	
 
-	public function updateScrollingContent($sc_id,$sc_title,$sc_content,$sc_image,$sc_credit_name,$sc_credit_link,$sc_status,$sc_listing_date_type,$sc_days_of_month,$sc_single_date,$sc_start_date,$sc_end_date,$sc_show_credit,$sc_title_font_family,$sc_title_font_size,$sc_content_font_family,$sc_content_font_size,$sc_order,$sc_content_type,$sc_video,$sc_flash,$sc_title_font_color,$sc_content_font_color,$rss_feed_item_id,$sc_title_hide,$sc_add_fav_hide)
+	public function updateScrollingContent($sc_id,$sc_title,$sc_content,$sc_image,$sc_credit_name,$sc_credit_link,$sc_status,$sc_listing_date_type,$sc_days_of_month,$sc_single_date,$sc_start_date,$sc_end_date,$sc_show_credit,$sc_title_font_family,$sc_title_font_size,$sc_content_font_family,$sc_content_font_size,$sc_order,$sc_content_type,$sc_video,$sc_flash,$sc_title_font_color,$sc_content_font_color,$rss_feed_item_id,$sc_title_hide,$sc_add_fav_hide,$sc_days_of_week)
 
 	{
 
@@ -3467,6 +3564,8 @@ class Scrolling_Windows extends Admin
                         . "`sc_listing_date_type` = '".addslashes($sc_listing_date_type)."' ,"
 
                         . "`sc_days_of_month` = '".addslashes($sc_days_of_month)."' ,"
+
+                        . "`sc_days_of_week` = '".addslashes($sc_days_of_week)."' ,"
 
                         . "`sc_single_date` = '".addslashes($sc_single_date)."' ,"
 
@@ -3601,6 +3700,7 @@ class Scrolling_Windows extends Admin
 		$sc_listing_date_type = '';
 
 		$sc_days_of_month = '';
+        $sc_days_of_week = '';
 
 		$sc_single_date = '';
 
@@ -3659,7 +3759,7 @@ class Scrolling_Windows extends Admin
 			$sc_listing_date_type = stripslashes($row['sc_listing_date_type']);
 
 			$sc_days_of_month = stripslashes($row['sc_days_of_month']);
-
+            $sc_days_of_week = stripslashes($row['sc_days_of_week']);
 			$sc_single_date = stripslashes($row['sc_single_date']);
 
 			$sc_start_date = stripslashes($row['sc_start_date']);
@@ -3686,7 +3786,7 @@ class Scrolling_Windows extends Admin
 
 		}
 
-		return array($sc_title,$sc_content,$sc_image,$sc_credit_name,$sc_credit_link,$sc_status,$sc_listing_date_type,$sc_days_of_month,$sc_single_date,$sc_start_date,$sc_end_date,$sc_show_credit,$sc_title_font_family,$sc_title_font_size,$sc_content_font_family,$sc_content_font_size,$sc_order,$sc_content_type,$sc_video,$sc_flash,$sc_title_font_color,$sc_content_font_color,$rss_feed_item_id,$sc_title_hide,$sc_add_fav_hide);
+		return array($sc_title,$sc_content,$sc_image,$sc_credit_name,$sc_credit_link,$sc_status,$sc_listing_date_type,$sc_days_of_month,$sc_single_date,$sc_start_date,$sc_end_date,$sc_show_credit,$sc_title_font_family,$sc_title_font_size,$sc_content_font_family,$sc_content_font_size,$sc_order,$sc_content_type,$sc_video,$sc_flash,$sc_title_font_color,$sc_content_font_color,$rss_feed_item_id,$sc_title_hide,$sc_add_fav_hide,$sc_days_of_week);
 
 	}
 

@@ -1527,7 +1527,9 @@ class BodyParts extends Admin
         $STH3 = $DBH->prepare($del_sql);
 
         $STH3->execute();  
-
+        if(empty($keywords)){
+            $keywords = [];
+        }
         if(count($keywords) > 0)
 
             {   
