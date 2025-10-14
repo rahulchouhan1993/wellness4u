@@ -1,7 +1,7 @@
 <?php
 include_once("class.paging.php");
 include_once("class.admin.php");
-
+require_once('class.logs.php');
 class Contents extends Admin
 
 {
@@ -79,7 +79,7 @@ class Contents extends Admin
 	{
 
            // $this->connectDB();
-
+        $logsObject = new Logs();
             $my_DBH = new mysqlConnection();
 
             $DBH = $my_DBH->raw_handle();
@@ -234,27 +234,13 @@ class Contents extends Admin
 
                     }
 
-                    if($row['updated_by_admin'] == '0')
-
-                    {
-
-                        $moodifiedBy = '';
-
-                    }
-
-                    else
-
-                    {
-
-                        $moodifiedBy = $obj2->getUsenameOfAdmin($row['updated_by_admin']);
-
-                    }
+                   
 
 
 
                     $date_value = date('d-m-Y',strtotime($row['pd_add_date']));
 
-                    $modified_date = date('d-m-Y',strtotime($row['updated_on_date']));
+                   
 
                     $page_name_str = $obj2->getCommaSeperatedPageName($row['page_id_str']);     
 
@@ -276,31 +262,18 @@ class Contents extends Admin
 
                     }
 
-                            
-
+                    $lastUpdatedData = [
+                        'page' => 'page_dropdowns',
+                        'reference_id' => $row['pd_id']
+                    ];
+                    $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);        
+                   
 						
 
                     $output .= '<tr class="manage-row">';
 
                     $output .= '<td height="30" align="center">'.$i.'</td>';
-
-                    $output .= '<td height="30" align="center">'.stripslashes($row['pdm_name']).'</td>';
-
-                    $output .= '<td height="30" align="center">'.stripslashes($row['admin_comment']).'</td>';
-
-                    $output .= '<td height="30" align="center">'.$page_name_str.','.$menu_name.'</td>';
-
-                    $output .= '<td height="30" align="center">'.$status.'</td>';
-
-                    $output .= '<td height="30" align="center">'.$date_value.'</td>';
-
-                    $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
-
-                    $output .= '<td height="30" align="center">'.$modified_date.'</td>';
-
-                    $output .= '<td height="30" align="center">'.$moodifiedBy.'</td>';
-
-                    $output .= '<td align="center" nowrap="nowrap">';
+                     $output .= '<td align="center" nowrap="nowrap">';
 
                     if($edit) {
 
@@ -319,6 +292,28 @@ class Contents extends Admin
                     }
 
                     $output .= '</td>';
+                    $output .= '<td height="30" align="center">'.$status.'</td>';
+
+                    $output .= '<td height="30" align="center">'.stripslashes($row['pdm_name']).'</td>';
+
+                    $output .= '<td height="30" align="center">'.stripslashes($row['admin_comment']).'</td>';
+
+                    $output .= '<td height="30" align="center">'.$menu_name.'</td>';
+
+                     $output .= '<td height="30" align="center">'.$page_name_str.'</td>';
+
+                    
+
+                    $output .= '<td height="30" align="center">'.$date_value.'</td>';
+
+                    $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
+
+                   $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=page_dropdowns&id='.$row['pd_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=page_dropdowns&id='.$row['pd_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                   
 
                     $output .= '</tr>';
 
@@ -594,8 +589,12 @@ class Contents extends Admin
 
                     $cat10_imp = implode('\',\'', $cat10_imp);
 
-                     
-
+                    $logsObject = new Logs();
+                    $lastUpdatedData = [
+                        'page' => 'manage_page_fav_cat_dropdowns',
+                        'reference_id' => $row['page_cat_id']
+                    ];
+                    $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);
 						
 
                     $output .= '<tr class="manage-row">';
@@ -607,6 +606,11 @@ class Contents extends Admin
                     $output .= '<td height="30" align="center">'.$row['updated_on_date'].'</td>';
 
                     $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=manage_page_fav_cat_dropdowns&id='.$row['page_cat_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=manage_page_fav_cat_dropdowns&id='.$row['page_cat_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 
                     $output .= '<td align="center" nowrap="nowrap">';
 
@@ -673,7 +677,7 @@ class Contents extends Admin
                 $output = '<tr class="manage-row" height="30"><td colspan="8" align="center">NO RECORDS FOUND</td></tr>';
 
             }
-
+                
 		
 
             $page->get_page_nav();
@@ -972,7 +976,12 @@ class Contents extends Admin
 
                     $cat10_imp = implode('\',\'', $cat10_imp);
 
-                     
+                     $logsObject = new Logs();
+                    $lastUpdatedData = [
+                        'page' => 'manage_page_cat_dropdowns',
+                        'reference_id' => $row['page_cat_id']
+                    ];
+                    $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);        
 
 						
 
@@ -985,6 +994,11 @@ class Contents extends Admin
                     $output .= '<td height="30" align="center">'.$row['updated_on_date'].'</td>';
 
                     $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=manage_page_cat_dropdowns&id='.$row['page_cat_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=manage_page_cat_dropdowns&id='.$row['page_cat_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 
                     $output .= '<td align="center" nowrap="nowrap">';
 
@@ -2748,6 +2762,14 @@ class Contents extends Admin
 
                     $return = true;
 
+                    //Insert logs
+                    $logsObject = new Logs();
+                    $logsData = [
+                        'page' => 'page_dropdowns',
+                        'reference_id' => $pd_id
+                    ];
+                    $logsObject->insertLogs($logsData);
+
 		}
 
             return $return;
@@ -2785,6 +2807,13 @@ class Contents extends Admin
 		{
 
 			$return = true;
+
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'manage_page_cat_dropdowns',
+                'reference_id' => $page_cat_id
+            ];
+            $logsObject->insertLogs($logsData);
 
 		}
 
@@ -2825,6 +2854,14 @@ class Contents extends Admin
 		{
 
 			$return = true;
+
+          
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'manage_page_fav_cat_dropdowns',
+                'reference_id' => $page_cat_id
+            ];
+            $logsObject->insertLogs($logsData);
 
 		}
 
@@ -2939,6 +2976,14 @@ class Contents extends Admin
             {
 
                 $return = true;
+                //Insert lOGS
+                $lastInsertedId = $DBH->lastInsertId();
+                $logsObject = new Logs();
+                $logsData = [
+                    'page' => 'page_dropdowns',
+                    'reference_id' => $lastInsertedId
+                ];
+                $logsObject->insertLogs($logsData);
 
             }
 
@@ -2981,6 +3026,14 @@ class Contents extends Admin
            $STH = $DBH->prepare($sql);
 
             $STH->execute();
+
+            $lastInsertedId = $DBH->lastInsertId();
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'manage_page_cat_dropdowns',
+                'reference_id' => $lastInsertedId
+            ];
+            $logsObject->insertLogs($logsData);
 
             }
 
@@ -3026,6 +3079,14 @@ class Contents extends Admin
 
                $STH->execute();
 
+                $lastInsertedId = $DBH->lastInsertId();
+                $logsObject = new Logs();
+                $logsData = [
+                    'page' => 'manage_page_fav_cat_dropdowns',
+                    'reference_id' => $lastInsertedId
+                ];
+                $logsObject->insertLogs($logsData);
+
             }
 
             if($STH->rowCount()  > 0)
@@ -3033,6 +3094,8 @@ class Contents extends Admin
             {
 
                 $return = true;
+
+                
 
             }
 
@@ -3239,6 +3302,14 @@ class Contents extends Admin
 		{
 
 			$return = true;
+            //Insert lOGS
+           
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'page_dropdowns',
+                'reference_id' => $pd_id
+            ];
+            $logsObject->insertLogs($logsData);
 
 		}
 
@@ -3331,6 +3402,14 @@ class Contents extends Admin
 		{
 
 			$return = true;
+
+           
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'manage_page_cat_dropdowns',
+                'reference_id' => $id
+            ];
+            $logsObject->insertLogs($logsData);
 
 		}
 
@@ -5066,6 +5145,14 @@ class Contents extends Admin
 
 			$return = true;
 
+            
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'manage_page_fav_cat_dropdowns',
+                'reference_id' => $id
+            ];
+            $logsObject->insertLogs($logsData);
+
 		}
 
 		return $return;
@@ -6613,6 +6700,15 @@ class Contents extends Admin
 
                      $return = true;
 
+                    //Insert lOGS
+                     $lastInsertedId = $DBH->lastInsertId();
+                    $logsObject = new Logs();
+                    $logsData = [
+                        'page' => 'page_dropdowns',
+                        'reference_id' => $lastInsertedId
+                    ];
+                    $logsObject->insertLogs($logsData);
+
                 }
 
             return $return;
@@ -6969,6 +7065,14 @@ class Contents extends Admin
 		{
 
 			$return = true;
+            //Inserting Logs
+           
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'page_dropdowns',
+                'reference_id' => $pd_id
+            ];
+            $logsObject->insertLogs($logsData);
 
 		}
 
@@ -10261,9 +10365,9 @@ public function AddUserPlanAttributes($page_id)
 
             $return = false;
 
-            $sql = "INSERT INTO `tbladviserplanatributes` (`apa_name`,`apa_status`,`show_for_adviser`,`show_for_user`,`page_id`,`apa_code`) "
+            $sql = "INSERT INTO `tbladviserplanatributes` (`apa_name`,`apa_status`,`show_for_adviser`,`show_for_user`,`page_id`,`apa_code`,`ref_report_id`) "
 
-                . "VALUES ('".addslashes($this->getPagenamebyid($page_id))."','1','1','1','".$page_id."',0)";
+                . "VALUES ('".addslashes($this->getPagenamebyid($page_id))."','1','1','1','".$page_id."',0,0)";
 
             $STH = $DBH->prepare($sql);
 

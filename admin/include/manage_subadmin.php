@@ -3,7 +3,6 @@ require_once('config/class.mysql.php');
 require_once('classes/class.admin.php');
 
 $obj = new Admin();
-
 if(!$obj->isAdminLoggedIn())
 {
 	header("Location: index.php?mode=login");
@@ -19,6 +18,7 @@ if(!$obj->isSuperAdmin())
 if(isset($_POST['btnSubmit']))
 {
 	$search = strip_tags(trim($_POST['search']));
+	$status = strip_tags(trim($_POST['status']));
 }
 
 if(isset($_POST['btnDelete']))
@@ -79,7 +79,15 @@ if(isset($_POST['btnDelete']))
                                                 <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
                                                     <tr align="center">
                                                         <td align="right" width="40%">Search For - :&nbsp;</td>
-                                                        <td align="left" width="20%"><input type="text" id="search" name="search" value="<?php echo $search; ?>" /></td>
+                                                        <td align="left" width="20%"><input type="text"id="search" name="search" value="<?php echo $search; ?>" /></td>
+														<td align="right" width="40%">Status - :&nbsp;</td>
+                                                        <td align="left" width="20%">
+															<select  name="status" >
+																<option value="">Select Status</option>
+																<option value="active" <?php if($status=='active') echo 'selected'; ?>>Active</option>
+																<option value="inactive" <?php if($status=='inactive') echo 'selected'; ?>>In-Active</option>
+															</select>
+														</td>
                                                         <td align="left" width="40%"> <input type="Submit" name="btnSubmit" value="Search" /></td>             
                                                     </tr>
                                                  </table>
@@ -92,21 +100,24 @@ if(isset($_POST['btnDelete']))
                                       <td colspan="10"> <?php echo $err_msg; ?></td>
                                       </tr>
 									<tr class="manage-header">
-                                    	<td width="5%" class="manage-header" align="center"></td>
-										<td width="5%" class="manage-header" align="center">S.No.</td>
-										<td width="15%" class="manage-header" align="center">Email</td>
-                                        <td width="10%" class="manage-header" align="center">User Name</td>
-                                        <td width="10%" class="manage-header" align="center">First Name</td>
-                                        <td width="10%" class="manage-header" align="center">Last Name</td>
-										<td width="20%" class="manage-header" align="center">Address</td>
-										<td width="10%" class="manage-header" align="center">Contact No</td>
-                                        <td width="5%" class="manage-header" align="center">Status</td>
+                                    	<td width="1%" class="manage-header" align="center"></td>
+										<td width="1%" class="manage-header" align="center">S.No.</td>
+										<td width="4%" class="manage-header" align="center">Edit</td>
 										<td width="5%" class="manage-header" align="center">Reset Password</td>
-										<td width="5%" class="manage-header" align="center">Edit</td>
+										
+										<td width="5%" class="manage-header" align="center">Status</td>
+										<td width="15%" class="manage-header" align="center">Email</td>
+                                        <td width="8%" class="manage-header" align="center">User Name</td>
+                                        <td width="8%" class="manage-header" align="center">First Name</td>
+                                        <td width="8%" class="manage-header" align="center">Last Name</td>
+										<td width="15%" class="manage-header" align="center">Address</td>
+										<td width="8%" class="manage-header" align="center">Contact No</td>
+                                        <td width="15%" class="manage-header" align="center">Modified By</td>
+										<td width="15%" class="manage-header" align="center">Modified On</td>
 								
 									</tr>
 									<?php
-									echo $obj-> GetAllSubAdmin($search);
+									echo $obj->GetAllSubAdmin($search,$status);
 									?>
 								</tbody>
 								</table>

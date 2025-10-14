@@ -1,6 +1,7 @@
 <?php
 
 include_once("class.paging.php");
+require_once('class.logs.php');
 
 class Admin extends mysqlConnection
 
@@ -124,37 +125,33 @@ class Admin extends mysqlConnection
 
 	
 
-	public function GetAllSubAdmin($search)
+	public function GetAllSubAdmin($search,$status)
 
 	{
 
 		$my_DBH = new mysqlConnection();
+		$logsObject = new Logs();
 
                 $DBH = $my_DBH->raw_handle();
 
                 $DBH->beginTransaction();
+				$extQry = '';
+		if(!empty($search)){
+			$extQry.=' AND (email like '%".$search."%' OR fname like '%".$search."%' OR lname like '%".$search."%' OR username like '%".$search."%') ';
+		}
 
-		if($search == '')
-
-			{
-
-				$sql = "SELECT * FROM `tbladmin` 
-
-						WHERE `super_admin` = '0' ORDER BY admin_id DESC";
-
+		if(!empty($status)){
+			if($status=='active'){
+				$extQry.=' AND status = 1 ';
+			}else{
+				$extQry.=' AND status = 0 ';
 			}
+			
+		}
 
-		else
+		$sql = "SELECT * FROM `tbladmin` WHERE `super_admin` = '0' $extQry      
 
-			{
-
-				$sql = "SELECT * FROM `tbladmin` WHERE `super_admin` = '0' AND status = '1' AND
-
-					    (email like '%".$search."%' OR fname like '%".$search."%' OR lname like '%".$search."%' OR username like '%".$search."%')     
-
-						ORDER BY admin_id DESC";
-
-			}
+	ORDER BY admin_id DESC";
 
 		//echo $sql;
 
@@ -227,7 +224,12 @@ class Admin extends mysqlConnection
 						$status = 'Inactive';
 
 					}
-
+				$lastUpdatedData = [
+					'page' => 'manage_subadmin',
+					'reference_id' => $row['admin_id']
+				];
+				$lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);
+				
 				$output .= '<tr class="manage-row">';
 
 				
@@ -235,7 +237,9 @@ class Admin extends mysqlConnection
 				$output .= '<td align="center" nowrap="nowrap" ><input type="checkbox" id="chk_delete" name="chk_delete[]" value="'.$row['admin_id'].'" /></td>';
 
 				$output .= '<td align="center" nowrap="nowrap" >'.$i.'</td>';
-
+				$output .= '<td height="30" align="center" nowrap="nowrap"><a href="index.php?mode=edit_sub_admin&uid='.$row['admin_id'].'" ><img src = "images/edit.gif" border="0"></a></td>';
+				$output .= '<td align="center" nowrap="nowrap"><a href="index.php?mode=reset_sub_admin_password&uid='.$row['admin_id'].'" >Reset Password</a></td>';
+				$output .= '<td align="center">'.$status.'</td>';
 				$output .= '<td align="center">'.$row['email'].'</td>';
 
 				$output .= '<td align="center">'.stripslashes($row['username']).'</td>';
@@ -248,14 +252,10 @@ class Admin extends mysqlConnection
 
 				$output .= '<td align="center">'.stripslashes($row['contact_no']).'</td>';
 
-				$output .= '<td align="center">'.$status.'</td>';
+				$output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+				<a href="/admin/index.php?mode=logs-history&type=manage_subadmin&id='.$row['admin_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 
-		       	$output .= '<td align="center" nowrap="nowrap"><a href="index.php?mode=reset_sub_admin_password&uid='.$row['admin_id'].'" >Reset Password</a></td>';
-
-				$output .= '<td height="30" align="center" nowrap="nowrap"><a href="index.php?mode=edit_sub_admin&uid='.$row['admin_id'].'" ><img src = "images/edit.gif" border="0"></a></td>';
-
-				
-
+				$output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=manage_subadmin&id='.$row['admin_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 				$output .= '</tr>';
 
 				$i++;
@@ -839,7 +839,9 @@ class Admin extends mysqlConnection
                 $DBH->beginTransaction();
 
 		$return = false;
-
+		if(empty($dob) || $dob=='--'){
+			$dob = '0000-00-00';
+		}
 		
 
 		$sql = "UPDATE `tbladmin` SET `email` = '".addslashes($email)."' ,`username` = '".addslashes($username)."' ,`status` = '".addslashes($status)."' , `fname` = '".addslashes($fname)."' ,`lname` = '".addslashes($lname)."' ,`address` = '".addslashes($address)."' , `dob` = '".addslashes($dob)."' ,`contact_no` = '".addslashes($contact_no)."' ,`country` = '".addslashes($country)."' , `state` = '".addslashes($state)."' ,`city` = '".addslashes($city)."' ,`admin_menu_id` = '".addslashes($menu_comma_separated)."', `admin_action_id` = '".addslashes($permissions_comma_separated)."'   WHERE `admin_id` = '".$admin_id."'";
@@ -856,6 +858,14 @@ class Admin extends mysqlConnection
 
                     $return = true;
 
+					//Insert Logs
+					$logsObject = new Logs();
+					$logsData = [
+						'page' => 'manage_subadmin',
+						'reference_id' => $admin_id
+					];
+					$logsObject->insertLogs($logsData);
+
                 }
 
 		return $return;	
@@ -867,6 +877,7 @@ class Admin extends mysqlConnection
 public	function signUpSubAdmin($email,$username,$password,$fname,$lname,$address,$dob,$contact_no,$country,$state,$city,$menu_comma_separated,$permissions_comma_separated)
 
 	{
+		
 		
 		if(empty($dob) || $dob=='--'){
 			$dob = '0000-00-00';
@@ -892,8 +903,17 @@ public	function signUpSubAdmin($email,$username,$password,$fname,$lname,$address
                 if($STH->rowCount() > 0)
 
 			{
-
+					
                     $return = true;
+
+					//Inserting Logs
+					$lastInsertedId = $DBH->lastInsertId();
+					$logsObject = new Logs();
+					$logsData = [
+						'page' => 'manage_subadmin',
+						'reference_id' => $lastInsertedId
+					];
+					$logsObject->insertLogs($logsData);
 
                 }
 

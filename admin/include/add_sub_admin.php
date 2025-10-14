@@ -2,6 +2,7 @@
 require_once('config/class.mysql.php');
 require_once('classes/class.admin.php');
 $obj = new Admin();
+$logsObject = new Logs();
 
 $actionsParent = [
     'Users',

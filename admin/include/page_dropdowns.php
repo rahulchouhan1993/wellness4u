@@ -106,16 +106,18 @@ else
                                     </tr>
                                     <tr class="manage-header">
                                         <td width="5%" class="manage-header" align="center" >S.No.</td>
+                                        <td width="5%" class="manage-header" align="center">Edit</td>
+                                        <td width="5%" class="manage-header" align="center">Delete</td>
+                                        <td width="10%" class="manage-header" align="center">Status</td>
                                         <td width="20%" class="manage-header" align="center">Function Name</td>
                                         <td width="20%" class="manage-header" align="center">Admin Notes</td>
-                                        <td width="40%" class="manage-header" align="center">Admin Pages</td>
-                                        <td width="10%" class="manage-header" align="center">Status</td>
+                                        <td width="20%" class="manage-header" align="center">Admin </td>
+                                         <td width="20%" class="manage-header" align="center"> Pages</td>
                                         <td width="5%" class="manage-header" align="center">Added Date</td>
                                         <td width="10%" class="manage-header" align="center">Added By Admin</td>
                                         <td width="5%" class="manage-header" align="center">Modified Date</td>
                                         <td width="10%" class="manage-header" align="center">Modified By</td>
-                                        <td width="5%" class="manage-header" align="center">Edit</td>
-                                        <td width="5%" class="manage-header" align="center">Delete</td>
+                                        
                                     </tr>
                                     <?php
                                     echo $obj->getAllPageDropdowns($search,$status);

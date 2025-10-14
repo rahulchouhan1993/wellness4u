@@ -123,6 +123,8 @@ else
                                         <td width="10%" class="manage-header" align="center">Status</td>
                                         <td width="10%" class="manage-header" align="center">Date</td>
                                         <td width="10%" class="manage-header" align="center">Added By Admin</td>
+                                         <td width="10%" class="manage-header" align="center">Updated By</td>
+                                          <td width="10%" class="manage-header" align="center">Updated On</td>
                                         <td width="5%" class="manage-header" align="center">Edit</td>
                                         <td width="5%" class="manage-header" align="center">Del</td>
                                         <td width="10%" class="manage-header" align="center">Ref Code</td>
