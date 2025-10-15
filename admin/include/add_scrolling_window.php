@@ -105,6 +105,11 @@ if(isset($_POST['btnSubmit']))
 			$error = true;
 			$err_msg .= '<br>Please enter header credit link';
 		}
+
+		if($specialHeaderError){
+			$error = true;
+				$err_msg .= '<br>Please enter valid header credit link';
+		}
 	}
 	
 	if($sw_footer == '')
@@ -133,17 +138,16 @@ if(isset($_POST['btnSubmit']))
 			$error = true;
 			$err_msg .= '<br>Please enter footer credit link';
 		}
+
+		if($specialFooterError){
+			$error = true;
+				$err_msg .= '<br>Please enter valid footer credit link';
+		}
 	}
 
-	if($specialFooterError){
-		$error = true;
-			$err_msg .= '<br>Please enter valid footer credit link';
-	}
+	
 
-	if($specialHeaderError){
-		$error = true;
-			$err_msg .= '<br>Please enter valid header credit link';
-	}
+	
 	
 	if($obj->chkIfScrollingWindowOrderAlreadyExists($sw_order,$page_id,$sw_show_in_contents))
 	{

@@ -105,6 +105,8 @@ if($sw_header == '')
                                         <td width="10%" class="manage-header" align="center"><strong>Date</strong></td>
                                         <td width="5%" class="manage-header" align="center"><strong>Status</strong></td>
                                         <td width="5%" class="manage-header" align="center"><strong>Order</strong></td>
+										 <td width="5%" class="manage-header" align="center"><strong>Updated At</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Updated By</strong></td>
                                         
 									</tr>
 									<?php

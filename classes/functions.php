@@ -2092,7 +2092,7 @@ class frontclass {
                         $sc_title = stripslashes($row['sc_title']);
                         $sc_title_font_family = stripslashes($row['sc_title_font_family']);
                         $sc_title_font_size = stripslashes($row['sc_title_font_size']);
-                        $sc_content = get_clean_br_string(stripslashes($row['sc_content']));
+                        $sc_content = $this->get_clean_br_string(stripslashes($row['sc_content']));
                         $sc_content_font_family = stripslashes($row['sc_content_font_family']);
                         $sc_content_font_size = stripslashes($row['sc_content_font_size']);
                         $sc_content_type = stripslashes($row['sc_content_type']);

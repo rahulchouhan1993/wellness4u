@@ -12,7 +12,7 @@ require_once('classes/class.contents.php');
 
 $obj2 = new Contents();
 
-
+$getAllFilters = $obj2->getAllFilters();
 
 if(isset($_POST['btnSubmit']))
 
@@ -99,42 +99,92 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 				<tbody>
 
 					<tr>
-
+                        
 						<td class="mainbox-body">
-
+    
 							<p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
+                                <form>
+                                    <input type="hidden" name="mode" value="<?php echo $_GET['mode'] ?>">
+                                    <label> Data Category</label>
+                                    <select name="system_category" >
+                                        <option value="">Select</option>
+                                        <?php foreach($getAllFilters['system_category'] as $k =>$v){ ?>
+                                            <option value="<?php echo $k ?>" <?php if($_GET['system_category']==$k) echo 'selected'; ?>><?php echo $v ?></option>
+                                        <?php } ?>
+                                    </select>
 
+                                    <label> Profile Category</label>
+                                    <select name="profile_category" >
+                                        <option value="">Select</option>
+                                        <?php foreach($getAllFilters['profile_category'] as $k =>$v){ ?>
+                                            <option value="<?php echo $k ?>" <?php if($_GET['profile_category']==$k) echo 'selected'; ?>><?php echo $v ?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <label> Sub Category</label>
+                                    <select name="sub_category" >
+                                        <option value="">Select</option>
+                                        <?php foreach($getAllFilters['sub_category'] as $k =>$v){ ?>
+                                            <option value="<?php echo $k ?>" <?php if($_GET['sub_category']==$k) echo 'selected'; ?>><?php echo $v ?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <!-- <label>Sub Category 2</label>
+                                    <select name="" >
+                                        <option value="">Select</option>
+                                        <?php foreach($getAllFilters['sub2_category'] as $k =>$v){ ?>
+                                            <option value="<?php echo $k ?>"><?php echo $v ?></option>
+                                        <?php } ?>
+                                    </select> -->
+
+                                    <label> Status</label>
+                                    <select name="status" >
+                                        <option value="">Select</option>
+                                       <option value="inactive"  <?php if($_GET['status']=='inactive') echo 'selected'; ?>>Inactive</option>
+                                       <option value="active"  <?php if($_GET['added_by']=='active') echo 'selected'; ?>>Active</option>
+                                    </select>
+
+
+                                    <label> Added By</label>
+                                    <select name="added_by" >
+                                        <option value="">Select</option>
+                                        <?php foreach($getAllFilters['added_by'] as $k =>$v){ ?>
+                                            <option value="<?php echo $k ?>" <?php if($_GET['added_by']==$k) echo 'selected'; ?>><?php echo $v ?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <label> Modified By</label>
+                                    <select name="modified_by" >
+                                        <option value="">Select</option>
+                                        <?php foreach($getAllFilters['modified_by'] as $k =>$v){ ?>
+                                            <option value="<?php echo $k ?>" <?php if($_GET['modified_by']==$k) echo 'selected'; ?>><?php echo $v ?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <label> User Upload</label>
+                                    <select name="user_upload" >
+                                        <option value="">Select</option>
+                                        <option value="yes" <?php if($_GET['user_upload']=='yes') echo 'selected'; ?>>Yes</option>
+                                       <option value="no" <?php if($_GET['user_upload']=='no') echo 'selected'; ?>>No</option>
+                                    </select>
+
+                                    <label> Page Popup</label>
+                                    <select name="pop" >
+                                        <option value="">Select</option>
+                                        <?php foreach($getAllFilters['page_popup'] as $k =>$v){ ?>
+                                            <option value="<?php echo $k ?>" <?php if($_GET['pop']==$k) echo 'selected'; ?>><?php echo $v ?></option>
+                                        <?php } ?>
+                                    </select>
+
+                                    <button type="submit">Filter</button>
+                                </form>
 							<div id="pagination_contents" align="center"> 
 
 								<p>
+                                    
 
-                                <form action="#" method="post" name="frm_mindjumble" id="frm_mindjumble" enctype="multipart/form-data" AUTOCOMPLETE="off">
-                                    <!--  comment by ample 26-11-19 -->
-                                <!-- <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
-
-                                	<tr align="left">
-
-                                    	<td align="left" colspan="2">
-
-                                        	<input type="button" name="btnSubmit" value="Mind Jumble PDF" onclick="window.location.href='index.php?mode=mindjumble_pdf';"/>
-
-                                       		<input type="button" name="btnSubmit" value="Manage User Uploads" onclick="window.location.href='index.php?mode=mindjumble_user_upload';"/>
-
-                                            <input type="button" name="btnSubmit" value="Manage Background Music" onclick="window.location.href='index.php?mode=mindjumble_bk_music';"/>
-
-                                             <input type="button" name="btnSubmit" value="Manage Title" onclick="window.location.href='index.php?mode=title';"/>
-
-                                          	  <input type="button" name="btnSubmit" value="Manage User Area" onclick="window.location.href='index.php?mode=manage_mindjumble_user_area';"/>
-
-                                            </td>
-
-                                        <td align="left">&nbsp;</td>             
-
-                                    </tr>
-
-                                    <tr> <td>&nbsp;</td></tr>
-
-                                 </table> -->
+                                <!-- <form action="#" method="post" name="frm_mindjumble" id="frm_mindjumble" enctype="multipart/form-data" AUTOCOMPLETE="off">
+                                    
 
                                   <table border="0" width="30%" align="center" cellpadding="0" cellspacing="0">
 
@@ -148,7 +198,8 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 
                                     </tr>
 
-                                 </table>
+
+                                 </table> -->
 
                                 
 
@@ -179,18 +230,21 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
                                           <tr class="manage-header">
 
                                         <td width="5%" class="manage-header" align="center" >S.No.</td>
+                                         <td width="5%" class="manage-header" align="center" >Modified By</td>
+
+                                         <td width="5%" class="manage-header" align="center" >Modified On</td>
+                                         <td width="10%" class="manage-header" align="center">Added By Admin</td>
 
                                         <td width="10%" class="manage-header" align="center">Status</td>
+                                        <td width="5%" class="manage-header" align="center">Edit</td>
 
-                                        <td width="10%" class="manage-header" align="center">Added By Admin</td>
-
+                                        <td width="5%" class="manage-header" align="center">Del</td>
+                                        
                                         <td width="5%" class="manage-header" align="center">Listing Order</td>
 
                                         <td width="10%" class="manage-header" align="center">Date</td>
 
-                                        <td width="5%" class="manage-header" align="center">Edit</td>
-
-                                        <td width="5%" class="manage-header" align="center">Del</td>
+                                        
 
                                         <td width="10%" class="manage-header" align="center">Admin Comment</td>
 
@@ -384,7 +438,7 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 
                                             <?php
 
-                                                 echo $obj2->getAllDesignMyLife($search,$status);
+                                                 echo $obj2->getAllDesignMyLife($search,$status,$_GET);
 
                                             ?>
 

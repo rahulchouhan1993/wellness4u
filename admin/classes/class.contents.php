@@ -7827,7 +7827,7 @@ public function AddDesignMyLife($text_box_show,$text_box_count,$user_upload_show
             $box_data['other_box_type'] = ($box_data['other_box_type'] ==''? 0 : $box_data['other_box_type']);
             $level['level_icon'] = ($level['level_icon'] ==''? 0 : $level['level_icon']);
             $is_featured = ($is_featured ==''? 0 : $is_featured);
-
+            $example_box = ($example_box ==''? 0 : $example_box);
 
             $return = false;
 
@@ -7875,6 +7875,13 @@ public function AddDesignMyLife($text_box_show,$text_box_count,$user_upload_show
             {
 
                 $return = true;
+                $lastInsertedId = $DBH->lastInsertId();
+                $logsObject = new Logs();
+                $logsData = [
+                    'page' => 'manage-design-your-life',
+                    'reference_id' => $lastInsertedId
+                ];
+                $logsObject->insertLogs($logsData);
 
             }
 
@@ -7949,6 +7956,7 @@ public function UpdateDesignMyLife($text_box_show,$text_box_count,$user_upload_s
             $cat_fetch_show_data['canv_au_cat_show_fetch'] = ($cat_fetch_show_data['canv_au_cat_show_fetch'] ==''? 0 : $cat_fetch_show_data['canv_au_cat_show_fetch']);
             $cat_fetch_show_data['special_font_size'] = ($cat_fetch_show_data['special_font_size'] ==''? 0 : $cat_fetch_show_data['special_font_size']);
             $special_data['special_font_size'] = ($special_data['special_font_size'] ==''? 0 : $special_data['special_font_size']);
+             $example_box = ($example_box ==''? 0 : $example_box);
              // try {
                 //update sql for link,refer_code,heading by ample 06-11-19 & update 22-06-20sub_cat1_show_fetch
              $sql = "UPDATE `tbl_design_your_life` SET `show_to_user`='".addslashes($show_to_user)."',`ref_code`='".addslashes($ref_code)."',`box_title`='".addslashes($title_id)."',"
@@ -8021,6 +8029,12 @@ public function UpdateDesignMyLife($text_box_show,$text_box_count,$user_upload_s
             {
 
                 $return = true;
+                $logsObject = new Logs();
+                $logsData = [
+                    'page' => 'manage-design-your-life',
+                    'reference_id' => $design_id
+                ];
+                $logsObject->insertLogs($logsData);
 
             }
 
@@ -8044,7 +8058,7 @@ public function UpdateDesignMyLife($text_box_show,$text_box_count,$user_upload_s
 
 
 
-public function getAllDesignMyLife($search,$status)
+public function getAllDesignMyLife($search,$status,$filterData)
 
 	{
 
@@ -8106,9 +8120,44 @@ public function getAllDesignMyLife($search,$status)
 
             }
 
+            $searchQuery = '';
+            if(!empty($filterData['system_category'])){
+                $searchQuery.= ' AND `data_category`='.$filterData['system_category'];
+            }
+            if(!empty($filterData['profile_category'])){
+                $searchQuery.= ' AND `prof_cat_id`='.$filterData['profile_category'];
+            }
+            if(!empty($filterData['sub_category'])){
+                $searchQuery.= ' AND FIND_IN_SET("'.$filterData['sub_category'].'", sub_cat_id)';
+                
+            }
+            if(!empty($filterData['status'])){
+                if($filterData['status']=='active'){
+                    $searchQuery.= ' AND `status`=1';
+                }elseif($filterData['status']=='inactive'){
+                    $searchQuery.= ' AND `status`=0';
+                }
+                
+            }
+            if(!empty($filterData['added_by'])){
+                $searchQuery.= ' AND `added_by`='.$filterData['added_by'];
+            }
+            if(!empty($filterData['modified_by'])){
+                $searchQuery.= ' AND `added_by`='.$filterData['modified_by'];
+            }
+            if(!empty($filterData['user_upload'])){
+                if($filterData['status']=='yes'){
+                    $searchQuery.= ' AND `user_upload_show`=1';
+                }elseif($filterData['status']=='no'){
+                    $searchQuery.= ' AND `user_upload_show`=0';
+                }
+            }
+            if(!empty($filterData['pop'])){
+                $searchQuery.= ' AND `pop_show`="'.$filterData['pop'].'"';
+            }
 
 
-             $sql = "SELECT * FROM `tbl_design_your_life` WHERE is_deleted = '0' $sql_str_search $sql_str_status  ORDER BY id DESC";
+             $sql = "SELECT * FROM `tbl_design_your_life` WHERE is_deleted = '0' $sql_str_search $sql_str_status  $searchQuery ORDER BY id DESC";
 
            
 
@@ -8353,20 +8402,26 @@ public function getAllDesignMyLife($search,$status)
                     $user_uploads = ($row['user_upload_show'] == 1 ? 'yes' : 'No');
 
                     
-
+                    $logsObject = new Logs();
+                     $lastUpdatedData = [
+                        'page' => 'manage-design-your-life',
+                        'reference_id' => $row['id']
+                    ];
+                    $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);  
                     						
 
                     $output .= '<tr class="manage-row" >';
 
                     $output .= '<td height="30" align="center">'.$i.'</td>';
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=manage-design-your-life&id='.$row['id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 
-                    $output .= '<td height="30" align="center">'.$status.'</td>';
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=manage-design-your-life&id='.$row['id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+                   
 
                     $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
-
-                    $output .= '<td height="30" align="center">'.$row['order_show'].'</td>';
-
-                    $output .= '<td height="30" align="center">'.date("d-m-Y H:i:s",strtotime($row['add_date'])).'</td>';
+ $output .= '<td height="30" align="center">'.$status.'</td>';
+                    
 
                     $output .= '<td align="center" nowrap="nowrap">';
 
@@ -8388,7 +8443,9 @@ public function getAllDesignMyLife($search,$status)
 
                     }
 
-                    
+                    $output .= '<td height="30" align="center">'.$row['order_show'].'</td>';
+
+                    $output .= '<td height="30" align="center">'.date("d-m-Y H:i:s",strtotime($row['add_date'])).'</td>';
 
                     $output .= '<td height="30" align="center">'.stripslashes($row['admin_comment']).'</td>';
 
@@ -16539,6 +16596,12 @@ public function getcolumsNameOftable($tablm_name)
         if($STH->rowCount() > 0)
         {   
             $return = true;
+                $logsObject = new Logs();
+                $logsData = [
+                    'page' => 'manage-design-your-life',
+                    'reference_id' => $DYL_id
+                ];
+                $logsObject->insertLogs($logsData);
         }
         return $return;
     }
@@ -17071,6 +17134,73 @@ public function getcolumsNameOftable($tablm_name)
 
             }
         return $data;  
+    }
+
+    public function getAllFilters(){
+        //tbl_design_your_life
+
+         $my_DBH = new mysqlConnection();
+         $obj2 = new Contents();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $data=array();
+        
+        $sql="SELECT * FROM `tbl_design_your_life` WHERE is_deleted = '0'";
+        $STH = $DBH->query($sql);
+        $allOptions = [
+            'system_category' => [],
+            'profile_category' => [],
+            'sub_category' => [],
+            'sub2_category' => [],
+            'added_by' => [],
+            'modified_by' => [],
+            'user_upload' => [],
+            'page_popup' => []
+        ];
+        
+        $dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($dataReturn)){   
+            
+            foreach ($dataReturn as $row) {
+                $modifiedByData = $this->getModifiedData($row['id']);
+                $allOptions['system_category'][$row['data_category']] = $obj2->getDataREFCOde($row['data_category']);
+                $allOptions['profile_category'][$row['prof_cat_id']] = $obj2->getProfileCustomCategoryName($row['prof_cat_id']);
+                if((int) $row['sub_cat_id']>0){
+                    $dtexp = explode(',',$row['sub_cat_id']);
+                    foreach($dtexp as $exp){
+                         $allOptions['sub_category'][$exp] = $obj2->getIdByProfileFavCategoryName($exp);
+                    }
+                }
+                
+                $allOptions['sub2_category'][$row['sub_cat1_show_fetch']] = $row['sub_cat1_show_fetch']; //fetch,sub2,show
+                $allOptions['added_by'][$row['added_by']] = $obj2->getUsenameOfAdmin($row['added_by']);
+                $allOptions['modified_by'] = $modifiedByData;
+                $allOptions['user_upload'][$row['user_upload_show']] = $row['user_upload_show'];
+                if(!empty($row['pop_show'])){
+                     $allOptions['page_popup'][$row['pop_show']] = $row['pop_show'];
+                }
+            }
+
+        }
+        
+        return $allOptions;
+    }
+
+    public function getModifiedData($id){
+         $obj2 = new Contents();
+        $my_DBH = new mysqlConnection();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $sql="SELECT * FROM `logs` WHERE `reference_id` = $id GROUP BY `updated_by`";
+        $STH = $DBH->query($sql);
+        $dataUser = [];
+        $dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($dataReturn)){   
+            foreach ($dataReturn as $row) {
+                $dataUser[$row['updated_by']] = $obj2->getUsenameOfAdmin($row['updated_by']);
+            }
+        }
+        return $dataUser;
     }
 }
 ?>

@@ -112,8 +112,9 @@ if(isset($_POST['btnDelete']))
                                         <td width="8%" class="manage-header" align="center">Last Name</td>
 										<td width="15%" class="manage-header" align="center">Address</td>
 										<td width="8%" class="manage-header" align="center">Contact No</td>
-                                        <td width="15%" class="manage-header" align="center">Modified By</td>
 										<td width="15%" class="manage-header" align="center">Modified On</td>
+                                        <td width="15%" class="manage-header" align="center">Modified By</td>
+										
 								
 									</tr>
 									<?php

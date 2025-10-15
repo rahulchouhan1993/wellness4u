@@ -1532,12 +1532,19 @@ class Scrolling_Windows extends Admin
 		$STH = $DBH->prepare($upd_sql);
 
                 $STH->execute();
-
+                $logsObject = new Logs();
+                    $logsData = [
+                        'page' => 'scrolling_windows',
+                        'reference_id' => $sw_id
+                    ];
+                    $logsObject->insertLogs($logsData);
                 if($STH->rowCount() > 0)
 
                 {
 
                     $return = true;
+
+                    
 
                 }
 
@@ -1718,7 +1725,13 @@ class Scrolling_Windows extends Admin
 		$STH = $DBH->prepare($sql);
 
                 $STH->execute();
-
+                $logsObject = new Logs();
+                $lastInsertedId = $DBH->lastInsertId();
+                $logsData = [
+                    'page' => 'scrolling_windows',
+                    'reference_id' => $lastInsertedId
+                ];
+                $logsObject->insertLogs($logsData);
                 if($STH->rowCount() > 0)
 
                 { 
@@ -2388,6 +2401,12 @@ class Scrolling_Windows extends Admin
                     $updatedOn = 'N/A';		
 
                 }
+                $logsObject = new Logs();
+                $lastUpdatedData = [
+                    'page' => 'scrolling_windows',
+                    'reference_id' => $row['sw_id']
+                ];
+                $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);
                 
 				$output .= '<tr class="manage-row">';
 
@@ -2438,8 +2457,10 @@ class Scrolling_Windows extends Admin
 				$output .= '</td>';
 
 				$output .= '<td height="30" align="center"><strong>'.stripslashes($row['sw_order']).'</strong></td>';
-                $output .= '<td height="30" align="center"><strong>'.stripslashes($updatedOn).'</strong></td>';
-                $output .= '<td height="30" align="center"><strong>'.$updatedByuserName.'</strong></td>';
+                 $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=scrolling_windows&id='.$row['sw_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=scrolling_windows&id='.$row['sw_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 				
 
 				$output .= '</tr>';
@@ -3116,6 +3137,13 @@ class Scrolling_Windows extends Admin
 
 				
 
+                $logsObject = new Logs();
+                $lastUpdatedData = [
+                    'page' => 'scrolling_contents',
+                    'reference_id' => $row['sc_id']
+                ];
+                $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);
+
 				$output .= '<tr class="manage-row">';
 
 				$output .= '<td height="30" align="center">'.$i.'</td>';
@@ -3158,9 +3186,11 @@ class Scrolling_Windows extends Admin
 
 				$output .= '<td height="30" align="center">'.stripslashes($row['sc_order']).'</td>';
 
-                $output .= '<td height="30" align="center">'.$row['updated_by'].'</td>';
+                 $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=scrolling_contents&id='.$row['sc_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 
-				$output .= '<td height="30" align="center">'.$row['updated_by'].'</td>';
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=scrolling_contents&id='.$row['sc_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+				
 
 				
 
@@ -3361,6 +3391,15 @@ class Scrolling_Windows extends Admin
                 {
 
                     $return = true;
+
+                    $logsObject = new Logs();
+                    $lastInsertedId = $DBH->lastInsertId();
+                    $logsData = [
+                        'page' => 'scrolling_contents',
+                        'reference_id' => $lastInsertedId
+                    ];
+                    $logsObject->insertLogs($logsData);
+                    
 
                 }
 
@@ -3606,6 +3645,13 @@ class Scrolling_Windows extends Admin
                 {
 
                     $return = true;
+
+                    $logsObject = new Logs();
+                    $logsData = [
+                        'page' => 'scrolling_contents',
+                        'reference_id' => $sc_id
+                    ];
+                    $logsObject->insertLogs($logsData);
 
                 }
 

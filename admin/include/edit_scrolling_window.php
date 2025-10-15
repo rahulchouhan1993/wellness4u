@@ -491,7 +491,7 @@ else
                                 <tr>
 									<td align="right" valign="top"><strong>Header Credit Link</strong></td>
 									<td align="center" valign="top"><strong>:</strong></td>
-									<td align="left" valign="top"><input name="sw_header_credit_link" type="text" id="sw_header_credit_link" value="<?php echo $sw_header_credit_link; ?>" style="width:200px;" ><br /><p style="color:#990000; font-size:9px;">Please use (http://www.example.com) format for credit link </p></td>
+									<td align="left" valign="top"><input name="sw_header_credit_link" type="url" id="sw_header_credit_link" value="<?php echo $sw_header_credit_link; ?>" style="width:200px;" ><br /><p style="color:#990000; font-size:9px;">Please use (http://www.example.com) format for credit link </p></td>
 								</tr>
 								<tr>
 									<td colspan="3" align="center" valign="top">&nbsp;</td>
@@ -572,7 +572,7 @@ else
                                                                 <tr>
 									<td align="right" valign="top"><strong>Footer Credit Link</strong></td>
 									<td align="center" valign="top"><strong>:</strong></td>
-									<td align="left" valign="top"><input name="sw_footer_credit_link" type="text" id="sw_footer_credit_link" value="<?php echo $sw_footer_credit_link; ?>" style="width:200px;" ><br /><p style="color:#990000; font-size:9px;">Please use (http://www.example.com) format for credit link </p></td>
+									<td align="left" valign="top"><input name="sw_footer_credit_link" type="url" id="sw_footer_credit_link" value="<?php echo $sw_footer_credit_link; ?>" style="width:200px;" ><br /><p style="color:#990000; font-size:9px;">Please use (http://www.example.com) format for credit link </p></td>
 								</tr>
 								<tr>
 									<td colspan="3" align="center" valign="top">&nbsp;</td>

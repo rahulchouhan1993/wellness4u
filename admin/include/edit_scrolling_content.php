@@ -651,9 +651,18 @@ else
 									<td align="left">
                                     	<select id="sc_days_of_week" name="sc_days_of_week[]" multiple="multiple" style="width:200px;">
 										<?php
+										$weekname = [
+											1 => 'Monday',
+											2 => 'Tuesday',
+											3 => 'Wednesday',
+											4 => 'Thursday',
+											5 => 'Friday',
+											6 => 'Satuarday',
+											7 => 'Sunday'
+										];
                                         for($i=1;$i<=7;$i++)
                                         { ?>
-	                                        <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_sc_days_of_week)) {?> selected="selected" <?php } ?>><?php echo $i;?></option>
+	                                        <option value="<?php echo $i;?>" <?php if (in_array($i, $arr_sc_days_of_week)) {?> selected="selected" <?php } ?>><?php echo $weekname[$i];?></option>
                                         <?php
                                         } ?>	
                                         </select>&nbsp;*<br>
@@ -877,7 +886,7 @@ else
                                 <tr>
 									<td align="right"><strong>Credit Link</strong></td>
 									<td align="center"><strong>:</strong></td>
-									<td align="left"><input name="sc_credit_link" type="text" id="sc_credit_link" value="<?php echo $sc_credit_link; ?>" style="width:200px;"></td>
+									<td align="left"><input name="sc_credit_link" type="url" id="sc_credit_link" value="<?php echo $sc_credit_link; ?>" style="width:200px;"></td>
 								</tr>
 								<tr>
 									<td colspan="3" align="center">&nbsp;</td>
