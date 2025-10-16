@@ -58,7 +58,7 @@ class Logs extends mysqlConnection{
             $DBH->beginTransaction();
 
             // Prepare SQL query with named placeholders
-            $sql = "SELECT lg.updated_on as updatedOn, ta.username as updatedBy
+            $sql = "SELECT lg.updated_on as updatedOn, ta.username as updatedBy, lg.updated_by as updatedById
                 FROM `logs` lg
                 INNER JOIN `tbladmin` ta ON ta.admin_id = lg.updated_by
                 WHERE lg.reference_id = :reference_id
@@ -77,6 +77,7 @@ class Logs extends mysqlConnection{
                 $row = $STH->fetch(PDO::FETCH_ASSOC);
                
                 $returnData = [
+                    'updateById' => $row['updatedById'],
                     'updateBy' => $row['updatedBy'],
                     'updateOn' => date('d M Y H:i', strtotime($row['updatedOn'])), // use timestamp column
                 ];
@@ -159,12 +160,13 @@ class Logs extends mysqlConnection{
             $sql = "SELECT lg.page as page, lg.updated_on as updated_on, ta.username as username
                 FROM `logs` lg
                 INNER JOIN `tbladmin` ta ON ta.admin_id = lg.updated_by
-                WHERE lg.page = :page $customSearch ORDER BY id DESC";
+                WHERE lg.page = :page $customSearch AND lg.reference_id=:reference_id ORDER BY id DESC";
             $STH = $DBH->prepare($sql);
             
             // Execute query with proper values
             $STH->execute([
-                ':page' => $data['type']
+                ':page' => $data['type'],
+                ':reference_id' => $data['id']
             ]);
 
             // Fetch result if exists

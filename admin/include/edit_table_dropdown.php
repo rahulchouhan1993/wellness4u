@@ -163,7 +163,9 @@ if(isset($_POST['btnSubmit']))
     if(!$error)
 
     {
-
+        if(!is_array($selected_table_name)){
+            $selected_table_name = [];
+        }
         $page_id_str = implode(',',$selected_table_name);
 
         

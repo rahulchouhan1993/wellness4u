@@ -341,7 +341,7 @@ class Contents extends Admin
 
         
 
-        public function getAllPageFavCatDropdowns($search,$status)
+        public function getAllPageFavCatDropdowns($search,$status,$filterOption)
 
 	{
 
@@ -422,6 +422,44 @@ class Contents extends Admin
                 $sql_str_status = "";
 
             }
+            $sql_str_status = '';
+            if((int)$filterOption['page']>0){
+                $sql_str_status.=' AND page_name="'.$filterOption['page'].'"';
+            }
+
+            if(!empty($filterOption['category'])){
+                $sql_str_status.=' AND healcareandwellbeing='.$filterOption['category'];
+            }
+
+            if(!empty($filterOption['profcat'])){
+                $sql_str_status.=' AND (prof_cat1="'.$filterOption['profcat'].'" OR prof_cat2="'.$filterOption['profcat'].'" OR prof_cat3="'.$filterOption['profcat'].'" OR prof_cat4="'.$filterOption['profcat'].'" OR prof_cat5="'.$filterOption['profcat'].'" OR prof_cat6="'.$filterOption['profcat'].'" OR prof_cat7="'.$filterOption['profcat'].'" OR prof_cat8="'.$filterOption['profcat'].'" OR prof_cat9="'.$filterOption['profcat'].'" OR prof_cat10="'.$filterOption['profcat'].'" ) ';
+            }
+            //
+            if(!empty($filterOption['subcategory'])){
+                $sql_str_status.=' AND (FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat1) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat2) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat3) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat4) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat5) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat6) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat7) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat8) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat9) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat10) ) ';
+            }
+
+            if(!empty($filterOption['fetch'])){
+                if($filterOption['fetch']=='hide'){
+                    $fetchType = '0';
+                }else{
+                    $fetchType = '1';
+                }
+                $sql_str_status.=' AND (canv_sub_cat1_show_fetch='.$fetchType.' OR canv_sub_cat2_show_fetch='.$fetchType.' OR canv_sub_cat3_show_fetch='.$fetchType.' OR canv_sub_cat4_show_fetch='.$fetchType.' OR canv_sub_cat5_show_fetch='.$fetchType.' OR canv_sub_cat6_show_fetch='.$fetchType.' OR canv_sub_cat7_show_fetch='.$fetchType.' OR canv_sub_cat8_show_fetch='.$fetchType.' OR canv_sub_cat9_show_fetch='.$fetchType.' OR canv_sub_cat10_show_fetch='.$fetchType.' ) ';
+            }
+
+            if(!empty($filterOption['status'])){
+                if($filterOption['status']=='active'){
+                    $statusType = '1';
+                }else{
+                    $statusType = '0';
+                }
+                $sql_str_status.=' AND pag_cat_status='.$statusType.' ';
+            }
+
+            if(!empty($filterOption['added'])){
+                $sql_str_status.=' AND added_by_admin='.$filterOption['added'].' ';
+            }
 
 
 
@@ -457,7 +495,7 @@ class Contents extends Admin
 
             $output = '';		
 
-            if($STH2->rowCount()  > 0)
+            if($STH->rowCount()  > 0)
 
             {
 
@@ -479,7 +517,7 @@ class Contents extends Admin
 
                
 
-                while($row = $STH2->fetch(PDO::FETCH_ASSOC))
+                while($row = $STH->fetch(PDO::FETCH_ASSOC))
 
                         
 
@@ -640,7 +678,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat1_imp).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat2_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat2_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat3_imp).'</td>';
 
@@ -5436,7 +5474,7 @@ class Contents extends Admin
              $special_key['special_key2'] = ($special_key['special_key2'] ==''? 0 : $special_key['special_key2']);
 
             $special_key['special_key3'] = ($special_key['special_key3'] ==''? 0 : $special_key['special_key3']);
-
+            $level['level_icon'] = ($level['level_icon'] ==''? 0 : $level['level_icon']);
 
             
             //update SQL accroding to new prof cat heading & refer_code by ample 04-11-19 & update 16-12-19
@@ -5458,6 +5496,14 @@ class Contents extends Admin
 
                 // echo $STH ; die('fkjghjf');
 
+                $lastInsertedId = $DBH->lastInsertId();
+                $logsObject = new Logs();
+                $logsData = [
+                    'page' => 'manage-data-dropdown',
+                    'reference_id' => $lastInsertedId
+                ];
+                $logsObject->insertLogs($logsData);
+
             }
 
             if($STH->rowCount() > 0)
@@ -5465,6 +5511,8 @@ class Contents extends Admin
                 {
 
                      $return = true;
+
+                     
 
                 }
 
@@ -5474,7 +5522,7 @@ class Contents extends Admin
 
         
 
-   public function getAllDataDropdowns($search,$status)
+   public function getAllDataDropdowns($search,$status,$filterOption)
 
 	{
 
@@ -5535,8 +5583,46 @@ class Contents extends Admin
                 $sql_str_status = "";
 
             }
+            $sql_str_status = '';
 
+            //page_name,healcareandwellbeing,prof_cat1,sub_cat1,added_by_admin
+            if((int)$filterOption['page']>0){
+                $sql_str_status.=' AND page_name="'.$filterOption['page'].'"';
+            }
 
+            if(!empty($filterOption['category'])){
+                $sql_str_status.=' AND healcareandwellbeing='.$filterOption['category'];
+            }
+
+            if(!empty($filterOption['profcat'])){
+                $sql_str_status.=' AND (prof_cat1="'.$filterOption['profcat'].'" OR prof_cat2="'.$filterOption['profcat'].'" OR prof_cat3="'.$filterOption['profcat'].'" OR prof_cat4="'.$filterOption['profcat'].'" OR prof_cat5="'.$filterOption['profcat'].'" OR prof_cat6="'.$filterOption['profcat'].'" OR prof_cat7="'.$filterOption['profcat'].'" OR prof_cat8="'.$filterOption['profcat'].'" OR prof_cat9="'.$filterOption['profcat'].'" OR prof_cat10="'.$filterOption['profcat'].'" ) ';
+            }
+            //
+            if(!empty($filterOption['subcategory'])){
+                $sql_str_status.=' AND (FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat1) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat2) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat3) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat4) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat5) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat6) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat7) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat8) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat9) OR FIND_IN_SET("'.$filterOption['subcategory'].'", sub_cat10) ) ';
+            }
+
+            if(!empty($filterOption['fetch'])){
+                if($filterOption['fetch']=='hide'){
+                    $fetchType = '0';
+                }else{
+                    $fetchType = '1';
+                }
+                $sql_str_status.=' AND (canv_sub_cat1_show_fetch='.$fetchType.' OR canv_sub_cat2_show_fetch='.$fetchType.' OR canv_sub_cat3_show_fetch='.$fetchType.' OR canv_sub_cat4_show_fetch='.$fetchType.' OR canv_sub_cat5_show_fetch='.$fetchType.' OR canv_sub_cat6_show_fetch='.$fetchType.' OR canv_sub_cat7_show_fetch='.$fetchType.' OR canv_sub_cat8_show_fetch='.$fetchType.' OR canv_sub_cat9_show_fetch='.$fetchType.' OR canv_sub_cat10_show_fetch='.$fetchType.' ) ';
+            }
+
+            if(!empty($filterOption['status'])){
+                if($filterOption['status']=='active'){
+                    $statusType = '1';
+                }else{
+                    $statusType = '0';
+                }
+                $sql_str_status.=' AND pag_cat_status='.$statusType.' ';
+            }
+
+            if(!empty($filterOption['added'])){
+                $sql_str_status.=' AND added_by_admin='.$filterOption['added'].' ';
+            }
 
              $sql = "SELECT * FROM `tbl_data_dropdown` WHERE is_deleted = '0' $sql_str_search $sql_str_status  ORDER BY page_cat_id DESC";
 
@@ -5567,10 +5653,10 @@ class Contents extends Admin
             $STH2 = $DBH->prepare($page->get_limit_query($sql));
 
             $STH2->execute();
-
+           
             $output = '';		
-
-            if($STH2->rowCount()  > 0)
+           
+            if($STH->rowCount()  > 0)
 
             {
 
@@ -5592,7 +5678,7 @@ class Contents extends Admin
 
                
 
-                while($row = $STH2->fetch(PDO::FETCH_ASSOC))
+                while($row = $STH->fetch(PDO::FETCH_ASSOC))
 
                         
 
@@ -5770,20 +5856,36 @@ class Contents extends Admin
 
                     
 
-                    
-
+                    $logsObject = new Logs();
+                        $lastUpdatedData = [
+                        'page' => 'manage-data-dropdown',
+                        'reference_id' => $row['page_cat_id']
+                    ];
+                    $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData); 
+                      
+                    if((int)$filterOption['modified']>0){
+                        if($lastUpdatedData['updateById']!=$filterOption['modified']){
+                            continue;
+                        }
+                    }
                     						
 
                     $output .= '<tr class="manage-row" >';
 
                     $output .= '<td height="30" align="center">'.$i.'</td>';
 
-                    $output .= '<td height="30" align="center">'.$status.'</td>';
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=manage-data-dropdown&id='.$row['page_cat_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=manage-data-dropdown&id='.$row['page_cat_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                   
 
                     $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
 
                     $output .= '<td height="30" align="center">'.$row['updated_on_date'].'</td>';
-
+                     $output .= '<td height="30" align="center">'.$status.'</td>';
+                     
                     $output .= '<td align="center" nowrap="nowrap">';
 
                     if($edit) {
@@ -5802,7 +5904,7 @@ class Contents extends Admin
 
                     }
 
-                   
+                    $output .= '<td height="30" align="center">'.$row['order_show'].'</td>';
 
                     $output .= '<td height="30" align="center">'.stripslashes($row['ref_code']).'</td>';
 
@@ -5942,7 +6044,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$comments_show.'</td>';
 
-                    $output .= '<td height="30" align="center">'.$row['order_show'].'</td>';
+                   
 
                     $output .= '<td height="30" align="center">'.$row['pop_show'].'</td>';
 
@@ -6005,6 +6107,14 @@ class Contents extends Admin
 		{
 
 			$return = true;
+
+             
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'manage-data-dropdown',
+                'reference_id' => $page_cat_id
+            ];
+            $logsObject->insertLogs($logsData);
 
 		}
 
@@ -6275,7 +6385,10 @@ class Contents extends Admin
             $updated_on_date = date('Y-m-d H:i:s');
 
             //update SQL by ample 04-11-19 & update 16-12-19
-
+            if(empty($special_key['special_key1'])) $special_key['special_key1'] = 0;
+            if(empty($special_key['special_key2'])) $special_key['special_key2'] = 0;
+            if(empty($special_key['special_key3'])) $special_key['special_key3'] = 0;
+            if(empty($special_key['special_key4'])) $special_key['special_key4'] = 0;
             $sql = "UPDATE `tbl_data_dropdown` SET "
 
                     . "`admin_comment` = '".addslashes($admin_comment)."' ,"
@@ -6473,6 +6586,14 @@ class Contents extends Admin
 		{
 
 			$return = true;
+
+            
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'manage-data-dropdown',
+                'reference_id' => $id
+            ];
+            $logsObject->insertLogs($logsData);
 
 		}
 
@@ -10582,7 +10703,7 @@ public function activateUser($user_id)
 
 
 
-public function getAllTablDropdowns($search,$status)
+public function getAllTablDropdowns($search,$status,$filterData)
 
     {
 
@@ -10606,9 +10727,29 @@ public function getAllTablDropdowns($search,$status)
 
             $delete = $this->chkValidActionPermission($admin_id,$delete_action_id);
 
+            $fltrtring = '';
+            if(!empty($filterData['page'])){
+                $fltrtring.= ' AND page_id='.$filterData['page'].'';
+            }
 
+            if(!empty($filterData['table'])){
+                $fltrtring.= ' AND FIND_IN_SET("'.$filterData['table'].'", tabl_name)';
+            }
 
-            $sql = "SELECT * FROM `tbltabldropdown` WHERE tabl_status=1 AND tabl_delete=0";
+            if(!empty($filterData['added'])){
+                $fltrtring.= ' AND added_by_admin='.$filterData['added'].'';
+            }
+
+            if(!empty($filterData['status'])){
+                if($filterData['status']=='active'){
+                    $fltrtring.= ' AND tabl_status=1';
+                }elseif($filterData['status']=='inactive'){
+                    $fltrtring.= ' AND tabl_status=0';
+                }
+                
+            }
+
+            $sql = "SELECT * FROM `tbltabldropdown` WHERE tabl_status=1 AND tabl_delete=0 $fltrtring ORDER BY tabl_id DESC";
 
             $STH = $DBH->prepare($sql);
 
@@ -10691,31 +10832,21 @@ public function getAllTablDropdowns($search,$status)
 
 
 // stripslashes($row['page_id'])
-
-                    
-
+                    $logsObject = new Logs();
+                     $lastUpdatedData = [
+                        'page' => 'manage_table_dropdown',
+                        'reference_id' => $row['tabl_id']
+                    ];
+                    $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData); 
+                    if((int)$filterData['modified']>0){
+                        if($filterData['modified']!=$lastUpdatedData['updateById']){
+                            continue;
+                        }
+                    }
                     $output .= '<tr class="manage-row">';
 
                     $output .= '<td height="30" align="center">'.$index.'</td>';
-
-                    $output .= '<td height="30" align="center">'.stripslashes($reference_name).'</td>';
-
-
-                    //chnage function by ample 04-11-19
-                    // $output .= '<td height="30" align="center">'.$this->getpagename($row['page_id']).'</td>';
-                     $output .= '<td height="30" align="center">'.$obj2->getPagenamebyPage_menu_id('27',$row['page_id'],$row['page_type']).'</td>';
-
-                    $output .= '<td height="30" align="center">'.stripslashes($row['tabl_name']).'</td>';
-
-                    $output .= '<td height="30" align="center">'.$status.'</td>';
-
-                    $output .= '<td height="30" align="center">'.$row['tabl_add_date'].'</td>';
-
-                    $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
-
-
-
-                    $output .= '<td align="center" nowrap="nowrap">';
+                     $output .= '<td align="center" nowrap="nowrap">';
 
                     if($edit) {
 
@@ -10734,6 +10865,30 @@ public function getAllTablDropdowns($search,$status)
                     }
 
                     $output .= '</td>';
+                      $output .= '<td height="30" align="center">'.$row['tabl_add_date'].'</td>';
+
+                    $output .= '<td height="30" align="center">'.$added_by_admin.'</td>';
+                    $output .= '<td height="30" align="center">'.$row['admin_comment'].'</td>';
+                     $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=manage_table_dropdown&id='.$row['tabl_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=manage_table_dropdown&id='.$row['tabl_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+                     $output .= '<td height="30" align="center">'.$status.'</td>';
+                    $output .= '<td height="30" align="center">'.stripslashes($reference_name).'</td>';
+
+
+                    //chnage function by ample 04-11-19
+                    // $output .= '<td height="30" align="center">'.$this->getpagename($row['page_id']).'</td>';
+                     $output .= '<td height="30" align="center">'.$obj2->getPagenamebyPage_menu_id('27',$row['page_id'],$row['page_type']).'</td>';
+
+                    $output .= '<td height="30" align="center">'.preg_replace('/,\s*/', ', ', stripslashes($row['tabl_name'])).'</td>';
+
+                   
+
+                  
+
+
+                   
 
                     $output .= '</tr>';
 
@@ -11335,6 +11490,15 @@ public function getAllTablDropdowns($search,$status)
 
                 $STH->execute();
 
+                 //Insert lOGS
+                    $lastInsertedId = $DBH->lastInsertId();
+                    $logsObject = new Logs();
+                    $logsData = [
+                        'page' => 'manage_table_dropdown',
+                        'reference_id' => $lastInsertedId
+                    ];
+                    $logsObject->insertLogs($logsData);
+
                 $DBH->commit();
 
             if($STH->rowCount() > 0)
@@ -11342,6 +11506,8 @@ public function getAllTablDropdowns($search,$status)
                 {
 
                      $return = true;
+
+                    
 
                 }
 
@@ -11573,7 +11739,7 @@ public function getAllTablDropdowns($search,$status)
 
                     . "`tabl_name` = '".addslashes($page_id_str)."' ,"
 
-                    . "`tabl_status` = '".addslashes($tabl_status)."' ,"
+                    . "`tabl_status` = $tabl_status ,"
 
                     . "`updated_on_date` = '".addslashes($updated_on_date)."' ,"
 
@@ -11600,6 +11766,14 @@ public function getAllTablDropdowns($search,$status)
         {
 
             $return = true;
+
+          
+            $logsObject = new Logs();
+            $logsData = [
+                'page' => 'manage_table_dropdown',
+                'reference_id' => $tabl_id
+            ];
+            $logsObject->insertLogs($logsData);
 
         }
 
@@ -11642,6 +11816,14 @@ public function deleteTablDropdown($tabl_id)
         {
 
                     $return = true;
+
+                
+                    $logsObject = new Logs();
+                    $logsData = [
+                        'page' => 'manage_table_dropdown',
+                        'reference_id' => $tabl_id
+                    ];
+                    $logsObject->insertLogs($logsData);
 
         }
 
@@ -17201,6 +17383,298 @@ public function getcolumsNameOftable($tablm_name)
             }
         }
         return $dataUser;
+    }
+
+    public function getFiltersTableDropdown(){
+        $my_DBH = new mysqlConnection();
+        $obj2 = new Contents();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $data=array();
+        
+        $sql="SELECT * FROM `tbltabldropdown` WHERE tabl_delete=0";
+        $STH = $DBH->query($sql);
+        $allOptions = [
+            'page' => [],
+            'table' => [],
+            'addedby' => [],
+            'modifiedby' => []
+        ];
+        
+        $dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+        if(!empty($dataReturn)){   
+            foreach ($dataReturn as $row) {
+                $modifiedByData = $this->getModifiedData($row['tabl_id']);
+                $allOptions['modifiedby'] = $modifiedByData;
+                $allOptions['page'][$row['page_id']] = $this->getPagenamebyPage_menu_id('27',$row['page_id'],$row['page_type']);
+                $explodingData = explode(',',$row['tabl_name']);
+                foreach($explodingData as $dt){
+                    $allOptions['table'][$dt] = $dt;
+                }
+                $allOptions['addedby'][$row['added_by_admin']] = $obj2->getUsenameOfAdmin($row['added_by_admin']);
+            }
+
+        }
+        
+        return $allOptions;
+    }
+
+    public function getFiltersDataDropdown(){
+        $my_DBH = new mysqlConnection();
+        $obj2 = new Contents();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $data=array();
+        
+        $sql="SELECT * FROM `tbl_data_dropdown` WHERE is_deleted=0";
+        $STH = $DBH->query($sql);
+        $allOptions = [
+            'page' => [],
+            'category' => [],
+            'profcat' => [],
+            'subcategory' => [],
+            'fetch' => [
+                'hide' => 'Hide',
+                'show-fetch' => 'Show/Fetch'
+            ],
+            'status' => [
+                'active' => 'Active',
+                'inactive' => 'Inactive'
+            ],
+            'added' => [],
+            'modified' => []
+        ];
+        
+        $dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+       
+        if(!empty($dataReturn)){   
+            foreach ($dataReturn as $row) {
+                $modifiedByData = $this->getModifiedData($row['page_cat_id']);
+                //modifiedby
+                $allOptions['modified'] = $modifiedByData;
+                //page
+                $allOptions['page'][$row['page_name']] = $this->getPagenamebyPage_menu_id('4',$row['page_name'],$row['page_type']);
+                //system category
+                $allOptions['category'][$row['healcareandwellbeing']] = $this->getFavCategoryNameVivek($row['healcareandwellbeing']);
+                //profile category 1
+                $explodingData = explode(',',$row['prof_cat1']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat2']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat3']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat4']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat5']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat6']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat7']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat8']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat9']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat10']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+
+                //subcategory
+                $explodingData = explode(',',$row['sub_cat1']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat2']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat3']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat4']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat5']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat6']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat7']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat8']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat9']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat10']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+
+                //added
+                $allOptions['added'][$row['added_by_admin']] = $this->getUsenameOfAdmin($row['added_by_admin']);
+                
+            }
+
+        }
+        
+        return $allOptions;
+    }
+
+    public function getFiltersFavCat(){
+        $my_DBH = new mysqlConnection();
+        $obj2 = new Contents();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $data=array();
+        
+        $sql="SELECT * FROM `tbl_page_fav_cat_dropdown` WHERE is_deleted=0";
+        $STH = $DBH->query($sql);
+        $allOptions = [
+            'page' => [],
+            'category' => [],
+            'profcat' => [],
+            'subcategory' => [],
+            'status' => [
+                'active' => 'Active',
+                'inactive' => 'Inactive'
+            ],
+            'added' => [],
+            'modified' => []
+        ];
+        
+        $dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+       
+        if(!empty($dataReturn)){   
+            foreach ($dataReturn as $row) {
+                $modifiedByData = $this->getModifiedData($row['page_cat_id']);
+                //modifiedby
+                $allOptions['modified'] = $modifiedByData;
+                //page
+                $allOptions['page'][$row['page_name']] = $this->getPagenamebyPage_menu_id('11',$row['page_name'],$row['page_type']);
+                //system category
+                $allOptions['category'][$row['healcareandwellbeing']] = $this->getFavCategoryNameVivek($row['healcareandwellbeing']);
+                //profile category 1
+                $explodingData = explode(',',$row['prof_cat1']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat2']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat3']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat4']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat5']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat6']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat7']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat8']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat9']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat10']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+
+                //subcategory
+                $explodingData = explode(',',$row['sub_cat1']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat2']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat3']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat4']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat5']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat6']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat7']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat8']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat9']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat10']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+
+                //added
+                $allOptions['added'][$row['added_by_admin']] = $this->getUsenameOfAdmin($row['added_by_admin']);
+                
+            }
+
+        }
+        
+        return $allOptions;
     }
 }
 ?>

@@ -2,7 +2,7 @@
 require_once('config/class.mysql.php');
 require_once('classes/class.contents.php');
 $obj = new Contents();
-
+$allFilterOption = $obj->getFiltersTableDropdown();
 $view_action_id = '350';
 $add_action_id = '351';
 
@@ -55,9 +55,52 @@ else
                     <tr>
                         <td class="mainbox-body">
                             <p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
+                            <form>
+                                <input type="hidden" name="mode" value="manage_table_dropdown">
+                                <label>Page:</label>
+                                <select name="page">
+                                    <option value="">Select</option>
+                                    <?php foreach($allFilterOption['page'] as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['page']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <label>Table:</label>
+                                <select name="table">
+                                    <option value="">Select</option>
+                                    <?php foreach($allFilterOption['table'] as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['table']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <label>Added by:</label>
+                                <select name="added">
+                                    <option value="">Select</option>
+                                    <?php foreach($allFilterOption['addedby'] as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['added']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <label>Modified by:</label>
+                                <select name="modified">
+                                    <option value="">Select</option>
+                                    <?php foreach($allFilterOption['modifiedby'] as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['modified']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <label>Status:</label>
+                                <select name="status">
+                                    <option value="">Select</option>
+                                    <option value="active" <?php if($_GET['status']=='active') echo 'selected'; ?>>Active</option>
+                                    <option value="inactive" <?php if($_GET['status']=='inactive') echo 'selected'; ?>>Inactive</option>
+                                </select>
+
+                                <button type="submit">Filter</button>
+                            </form>
                             <div id="pagination_contents" align="center"> 
                                 <p></p>
-                                <form action="#" method="post" name="frm_place" id="frm_place" enctype="multipart/form-data" AUTOCOMPLETE="off">
+                                <!-- <form action="#" method="post" name="frm_place" id="frm_place" enctype="multipart/form-data" AUTOCOMPLETE="off">
                                     
                                 <table border="0" width="100%" cellpadding="0" cellspacing="0">
                                 <tbody>
@@ -90,12 +133,12 @@ else
                                     
                                 </tbody>
                                 </table>
-                                </form>
+                                </form> -->
                             
                                 <table border="1" width="100%" cellpadding="1" cellspacing="1">
                                 <tbody>
                                     <tr>
-                                        <td colspan="8" align="right">
+                                        <td colspan="12" align="right">
                                         <?php 
                                         if($obj->chkValidActionPermission($admin_id,$add_action_id))
                                         { ?>
@@ -105,19 +148,26 @@ else
                                         </td>
                                     </tr>
                                     <tr class="manage-header">
-                                        <td width="5%" class="manage-header" align="center" >S.No.</td>
-                                        <td width="20%" class="manage-header" align="center">Ref.Table</td>
-                                        <td width="20%" class="manage-header" align="center">Page Name</td>
+                                        <td width="2%" class="manage-header" align="center" >S.No.</td>
+                                        <td width="2%" class="manage-header" align="center">Edit</td>
+                                        <td width="2%" class="manage-header" align="center">Delete</td>
+                                        <td width="10%" class="manage-header" align="center">Added Date</td>
+                                         <td width="10%" class="manage-header" align="center">Added By Admin</td>
+                                         <td width="10%" class="manage-header" align="center">Notes</td>
+                                          <td width="8%" class="manage-header" align="center">Updated By</td>
+                                         <td width="8%" class="manage-header" align="center">Updated On</td>
+                                         <td width="4%" class="manage-header" align="center">Status</td>
+                                       
+                                        <td width="8%" class="manage-header" align="center">Ref.Table</td>
+                                        <td width="15%" class="manage-header" align="center">Page Name</td>
 
-                                        <td width="20%" class="manage-header" align="center">Table name</td>
-                                        <td width="40%" class="manage-header" align="center">Status</td>
-                                        <td width="5%" class="manage-header" align="center">Added Date</td>
-                                        <td width="10%" class="manage-header" align="center">Added By Admin</td>
-                                        <td width="5%" class="manage-header" align="center">Edit</td>
-                                        <td width="5%" class="manage-header" align="center">Delete</td>
+                                        <td width="21%" class="manage-header" align="center">Table name</td>
+                                       
+                                        
+                                        
                                     </tr>
                                     <?php
-                                    echo $obj->getAllTablDropdowns($search,$status);
+                                    echo $obj->getAllTablDropdowns($search,$status,$_GET);
                                     ?>
                                 </tbody>
                                 </table>

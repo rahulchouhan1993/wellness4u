@@ -2,7 +2,7 @@
 require_once('config/class.mysql.php');
 require_once('classes/class.contents.php');
 $obj = new Contents();
-
+$allFilterOption = $obj->getFiltersFavCat();
 $view_action_id = '313';
 $add_action_id = '314';
 
@@ -58,24 +58,88 @@ else
                     <tr>
                         <td class="mainbox-body">
                             <p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
+                            <form>
+                                <input type="hidden" name="mode" value="manage_page_fav_cat_dropdowns">
+                                <label>Page:</label>
+                                <select name="page">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['page']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['page']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <label>Category:</label>
+                                <select name="category">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['category']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['category']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                               
+
+                                <label>Profile Category:</label>
+                                <select name="profcat">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['profcat']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['profcat']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <label>Sub category:</label>
+                                <select name="subcategory">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['subcategory']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['subcategory']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                               
+
+                                <label>Status:</label>
+                                <select name="status">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['status']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['status']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                
+
+                                <label>Added by:</label>
+                                <select name="added">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['added']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['added']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <label>Modified by:</label>
+                                <select name="modified">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['modified']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['modified']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <button type="submit">Filter</button>
+                            </form>   
                             <div id="pagination_contents" align="center"> 
                                 <p></p>
-                                <form action="#" method="post" name="frm_place" id="frm_place" enctype="multipart/form-data" AUTOCOMPLETE="off">
+                                <!-- <form action="#" method="post" name="frm_place" id="frm_place" enctype="multipart/form-data" AUTOCOMPLETE="off">
                                     
                                 <table border="0" width="100%" cellpadding="0" cellspacing="0">
                                 <tbody>
                                     <tr>
                                         <td colspan="8" height="30" align="left" valign="middle"><strong>Search Record</strong></td>
                                     </tr>
-                                    <tr>
-                                        
-<!--                                        <td width="10%" height="30" align="left" valign="middle"><strong>Profile Category:</strong></td>
+                                    <tr><td width="10%" height="30" align="left" valign="middle"><strong>Profile Category:</strong></td>
                                         <td width="15%" height="30" align="left" valign="middle">
                                            <select name="prof_cat" id="prof_cat" style="width:200px;">
                                                 <option value="">Select Profile Category</option>
                                                  <?php  echo $obj->getFavCategoryTypeOptions($prof_cat);?>
                                             </select>
-                                        </td>-->
+                                        </td>
                                         <td width="10%" height="30" align="left" valign="middle">&nbsp;</td>
                                         <td width="6%" height="30" align="left" valign="middle"><strong>Search:</strong></td>
                                         <td width="14%" height="30" align="left" valign="middle">
@@ -104,7 +168,7 @@ else
                                     
                                 </tbody>
                                 </table>
-                                </form>
+                                </form> -->
                             
                                 <table border="1" width="100%" cellpadding="1" cellspacing="1">
                                 <tbody>
@@ -119,31 +183,32 @@ else
                                         </td>
                                     </tr>
                                     <tr class="manage-header">
-                                        <td width="5%" class="manage-header" align="center" >S.No.</td>
-                                        <td width="10%" class="manage-header" align="center">Status</td>
-                                        <td width="10%" class="manage-header" align="center">Date</td>
-                                        <td width="10%" class="manage-header" align="center">Added By Admin</td>
-                                         <td width="10%" class="manage-header" align="center">Updated By</td>
-                                          <td width="10%" class="manage-header" align="center">Updated On</td>
-                                        <td width="5%" class="manage-header" align="center">Edit</td>
-                                        <td width="5%" class="manage-header" align="center">Del</td>
-                                        <td width="10%" class="manage-header" align="center">Ref Code</td>
-                                        <td width="10%" class="manage-header" align="center">Admin Notes</td>
-                                        <td width="10%" class="manage-header" align="center">System Category</td>
-                                        <td width="10%" class="manage-header" align="center">Page Name</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat1</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat2</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat3</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat4</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat5</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat6</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat7</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat8</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat9</td>
-                                        <td width="10%" class="manage-header" align="center">Sub Cat10</td>
+                                        <td width="2%" class="manage-header" align="center" >S.No.</td>
+                                        <td width="3%" class="manage-header" align="center">Status</td>
+                                        <td width="5%" class="manage-header" align="center">Date</td>
+                                        <td width="5%" class="manage-header" align="center">Added By Admin</td>
+                                        <td width="5%" class="manage-header" align="center">Updated On</td>
+                                         <td width="5%" class="manage-header" align="center">Updated By</td>
+                                          
+                                        <td width="2%" class="manage-header" align="center">Edit</td>
+                                        <td width="2%" class="manage-header" align="center">Del</td>
+                                        <td width="3%" class="manage-header" align="center">Ref Code</td>
+                                        <td width="8%" class="manage-header" align="center">Admin Notes</td>
+                                        <td width="5%" class="manage-header" align="center">System Category</td>
+                                        <td width="5%" class="manage-header" align="center">Page Name</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat1</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat2</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat3</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat4</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat5</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat6</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat7</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat8</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat9</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat10</td>
                                     </tr>
                                     <?php
-                                    echo $obj->getAllPageFavCatDropdowns($search,$status);
+                                    echo $obj->getAllPageFavCatDropdowns($search,$status,$_GET);
                                     ?>
                                 </tbody>
                                 </table>
