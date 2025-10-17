@@ -3,9 +3,9 @@
 require_once('config/class.mysql.php');
 
 require_once('classes/class.dailymeals.php');
-
+ 
 $obj = new Daily_Meals();
-
+$allFilterOption = $obj->getDailyFilter();
 
 
 if(isset($_POST['btnSubmit']))
@@ -114,10 +114,43 @@ if(isset($_POST['btnSubmit']))
 						<td class="mainbox-body">
 
 							<p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
+   							<form>
+                                <input type="hidden" name="mode" value="daily_meals">
+                                <label>Food Code:</label>
+                                <select name="foodcode">
+                                    <option value="">Activity Code</option>
+                                    <?php foreach(array_filter($allFilterOption['foodcode']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['foodcode']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
 
+                                <label>Food Type:</label>
+                                <select name="foodtype">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['foodtype']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['foodtype']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+                                <label>Status:</label>
+                                <select name="status">
+                                    <option value="">Select</option>
+                                     <option value="active" <?php if($_GET['status']=='active') echo 'selected'; ?>>Active</option>
+									 <option value="inactive" <?php if($_GET['status']=='inactive') echo 'selected'; ?>>InActive</option>
+                                </select>
+
+                                <label>Modified by:</label>
+                                <select name="modified">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['modifiedby']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['modifiedby']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <button type="submit">Filter</button>
+                            </form>
 							<div id="pagination_contents" align="center"> 
 
-								<p>
+								<!-- <p>
 
                                 <form action="#" method="post" name="frm_dailymeal" id="frm_dailymeal" enctype="multipart/form-data" AUTOCOMPLETE="off">
 
@@ -139,7 +172,7 @@ if(isset($_POST['btnSubmit']))
 
                                  </form>
 
-                                 </p>
+                                 </p> -->
 
 								<table border="1" width="100%" cellpadding="1" cellspacing="1">
 
@@ -185,6 +218,11 @@ if(isset($_POST['btnSubmit']))
 
 										<td width="4%" class="manage-header" align="center"><strong>Delete</strong></td>
 
+										<td width="5%" class="manage-header" align="center">Updated At</td>
+
+										<td width="5%" class="manage-header" align="center">Updated By</td>
+
+																		<td width="5%" class="manage-header" align="center">Status</td>
 										<td width="5%" class="manage-header" align="center"><strong>Food Code</strong></td>
 
 										<td width="5%" class="manage-header" align="center"><strong>Food Description</strong></td>
@@ -219,7 +257,7 @@ if(isset($_POST['btnSubmit']))
 
                                                                             //echo $obj->getAllDailyMeals($search);
 																		// added by ample 29-11-19
-                                                                       		echo $obj->getAllDailyMealsNew($search);
+                                                                       		echo $obj->getAllDailyMealsNew($search,$_GET);
 
 									?>
 

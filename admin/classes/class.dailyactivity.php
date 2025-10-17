@@ -4,12 +4,12 @@ include_once("class.paging.php");
 
 include_once("class.admin.php");
 
-
+include_once("class.contents.php");
 class Daily_Activity extends Admin
 
 {
 
-	public function getAllDailyActivities($search)
+	public function getAllDailyActivities($search,$filterParam)
 
 	{
 
@@ -35,23 +35,30 @@ class Daily_Activity extends Admin
 
 		$delete = $this->chkValidActionPermission($admin_id,$delete_action_id);
 
-		
+		$querySearch = '';
+		if(!empty($filterParam['activitycode'])){
+			$querySearch.=' AND activity_code="'.$filterParam['activitycode'].'"';
+		}
 
-		if($search == '')
+		if(!empty($filterParam['activitylevel'])){
+			$querySearch.=' AND activity_level_code="'.$filterParam['activitylevel'].'"';
+		}
 
-			{
+		if(!empty($filterParam['activitycategory'])){
+			$querySearch.=' AND (FIND_IN_SET("'.$filterParam['activitycategory'].'", activity_category))';
+		}
 
-				$sql = "SELECT * FROM `tbldailyactivity` ORDER BY activity ASC";
-
+		if(!empty($filterParam['status'])){
+			if($filterParam['status']=='active'){
+				$statusType = '1';
+			}else{
+				$statusType = '0';
 			}
+			$querySearch.=' AND status='.$statusType.'';
+		}
 
-		else
 
-			{
-
-			  $sql = "select * from `tbldailyactivity` where activity like '%".$search."%' order by activity_id DESC";
-
-			}	
+		$sql = "SELECT * FROM `tbldailyactivity` WHERE `activity_id`>0 $querySearch ORDER BY activity_id DESC";
 
 		 $STH = $DBH->prepare($sql);
 
@@ -100,11 +107,24 @@ class Daily_Activity extends Admin
 			}
 
 			
+			
 
 			while($row = $STH2->fetch(PDO::FETCH_ASSOC))
 
 			{
 
+				$logsObject = new Logs();
+				$lastUpdatedData = [
+					'page' => 'daily_activity',
+					'reference_id' => $row['activity_id']
+				];
+				$lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData); 
+				if((int)$filterParam['modified']>0){
+					if($lastUpdatedData['updateById']!=$filterParam['modified']){
+						continue;
+					}
+				}
+					
 				// add by ample 27-11-19
 				$activity_category=explode(',', $row['activity_category']);
 				$activity_category_names=array();
@@ -152,6 +172,11 @@ class Daily_Activity extends Admin
 							}
 
 				$output .= '</td>';
+
+				$output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+				<a href="/admin/index.php?mode=logs-history&type=daily_activity&id='.$row['activity_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+				$output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=daily_activity&id='.$row['activity_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 
 				$output .= '<td align="center">'.stripslashes($row['activity_code']).'</td>';
 
@@ -371,17 +396,25 @@ class Daily_Activity extends Admin
 		$posted_by = $_SESSION['admin_id'];
 				
 		//update by ample 04-12-19
-		$sql = "INSERT INTO `tbldailyactivity` (`activity_code`,`activity`,`activity_cal_kg_min`,`activity_cal_kg_hr`,`activity_cal_59_kg`,`activity_level_code`,`activity_category`,`recommendations`,`guidelines`,`precautions`,`benefits`,posted_by,status) VALUES ('".addslashes($activity_code)."','".addslashes($activity)."','".addslashes($activity_cal_kg_min)."','".addslashes($activity_cal_kg_hr)."','".addslashes($activity_cal_59_kg)."','".addslashes($activity_level_code)."','".addslashes($activity_category)."','".addslashes($recommendations)."','".addslashes($guidelines)."','".addslashes($precautions)."','".addslashes($benefits)."','".$posted_by."','".$status."')";
+		$sql = "INSERT INTO `tbldailyactivity` (`activity_code`,`activity`,`activity_cal_kg_min`,`activity_cal_kg_hr`,`activity_cal_59_kg`,`activity_level_code`,`activity_category`,`recommendations`,`guidelines`,`precautions`,`benefits`,posted_by,status,modified_by,modified_date,deleted,deleted_date,deleted_by) VALUES ('".addslashes($activity_code)."','".addslashes($activity)."','".addslashes($activity_cal_kg_min)."','".addslashes($activity_cal_kg_hr)."','".addslashes($activity_cal_59_kg)."','".addslashes($activity_level_code)."','".addslashes($activity_category)."','".addslashes($recommendations)."','".addslashes($guidelines)."','".addslashes($precautions)."','".addslashes($benefits)."','".$posted_by."','".$status."',0,'0000-00-00',0,'0000-00-00',0)";
 
 		$STH = $DBH->prepare($sql);
 
                 $STH->execute();
-
+		 //Insert lOGS
+			$lastInsertedId = $DBH->lastInsertId();
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'daily_activity',
+				'reference_id' => $lastInsertedId
+			];
+			$logsObject->insertLogs($logsData);
 		if($STH->rowCount() > 0)
 
 		{
 
 			$return = true;
+			
 
 		}
 
@@ -418,6 +451,14 @@ class Daily_Activity extends Admin
 		{
 
 			$return = true;
+
+			 //Insert lOGS
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'daily_activity',
+				'reference_id' => $activity_id
+			];
+			$logsObject->insertLogs($logsData);
 
 		}
 
@@ -457,6 +498,14 @@ class Daily_Activity extends Admin
 		{
 
 			$return = true;
+
+			 //Insert lOGS
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'daily_activity',
+				'reference_id' => $activity_id
+			];
+			$logsObject->insertLogs($logsData);
 
 		}
 
@@ -531,6 +580,45 @@ class Daily_Activity extends Admin
         return $option_str;  
 
    }
+
+   	public function getActivityFilter(){
+		$my_DBH = new mysqlConnection();
+		$obj2 = new Contents();
+		$DBH = $my_DBH->raw_handle();
+		$DBH->beginTransaction();
+		$data=array();
+		
+		$sql="SELECT * FROM `tbldailyactivity` WHERE deleted=0";
+		$STH = $DBH->query($sql);
+		$allOptions = [
+			'activitycode' => [],
+			'activitylevel' => [],
+			'activitycategory' => [],
+			'modifiedby' => []
+		];
+		
+		$dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+		if(!empty($dataReturn)){   
+			foreach ($dataReturn as $row) {
+				$returnName = $obj2->getModifiedData($row['activity_id']);
+				if(!empty($returnName)){
+					$allOptions['modifiedby'] = $returnName;
+				}
+				
+				$allOptions['activitycode'][$row['activity_code']] = $row['activity_code'];
+				$allOptions['activitylevel'][$row['activity_level_code']] = $this->getfavcatname($row['activity_level_code']);
+				$explodingData = explode(',',$row['activity_category']);
+                foreach($explodingData as $dt){
+                    $allOptions['activitycategory'][$dt] = $this->getfavcatname($dt);
+                }
+			}
+		}
+		
+		
+		
+		return $allOptions;
+   	}
+
 
 }
 

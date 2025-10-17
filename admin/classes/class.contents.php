@@ -17345,6 +17345,9 @@ public function getcolumsNameOftable($tablm_name)
             
             foreach ($dataReturn as $row) {
                 $modifiedByData = $this->getModifiedData($row['id']);
+                if(!empty($modifiedByData)){
+					$allOptions['modified_by'] = $modifiedByData;
+				}
                 $allOptions['system_category'][$row['data_category']] = $obj2->getDataREFCOde($row['data_category']);
                 $allOptions['profile_category'][$row['prof_cat_id']] = $obj2->getProfileCustomCategoryName($row['prof_cat_id']);
                 if((int) $row['sub_cat_id']>0){
@@ -17356,7 +17359,6 @@ public function getcolumsNameOftable($tablm_name)
                 
                 $allOptions['sub2_category'][$row['sub_cat1_show_fetch']] = $row['sub_cat1_show_fetch']; //fetch,sub2,show
                 $allOptions['added_by'][$row['added_by']] = $obj2->getUsenameOfAdmin($row['added_by']);
-                $allOptions['modified_by'] = $modifiedByData;
                 $allOptions['user_upload'][$row['user_upload_show']] = $row['user_upload_show'];
                 if(!empty($row['pop_show'])){
                      $allOptions['page_popup'][$row['pop_show']] = $row['pop_show'];
@@ -17405,7 +17407,9 @@ public function getcolumsNameOftable($tablm_name)
         if(!empty($dataReturn)){   
             foreach ($dataReturn as $row) {
                 $modifiedByData = $this->getModifiedData($row['tabl_id']);
-                $allOptions['modifiedby'] = $modifiedByData;
+                if(!empty($modifiedByData)){
+					$allOptions['modifiedby'] = $modifiedByData;
+				}
                 $allOptions['page'][$row['page_id']] = $this->getPagenamebyPage_menu_id('27',$row['page_id'],$row['page_type']);
                 $explodingData = explode(',',$row['tabl_name']);
                 foreach($explodingData as $dt){
@@ -17451,7 +17455,9 @@ public function getcolumsNameOftable($tablm_name)
             foreach ($dataReturn as $row) {
                 $modifiedByData = $this->getModifiedData($row['page_cat_id']);
                 //modifiedby
-                $allOptions['modified'] = $modifiedByData;
+                if(!empty($modifiedByData)){
+					$allOptions['modified'] = $modifiedByData;
+				}
                 //page
                 $allOptions['page'][$row['page_name']] = $this->getPagenamebyPage_menu_id('4',$row['page_name'],$row['page_type']);
                 //system category
@@ -17578,7 +17584,9 @@ public function getcolumsNameOftable($tablm_name)
             foreach ($dataReturn as $row) {
                 $modifiedByData = $this->getModifiedData($row['page_cat_id']);
                 //modifiedby
-                $allOptions['modified'] = $modifiedByData;
+                if(!empty($modifiedByData)){
+					$allOptions['modified'] = $modifiedByData;
+				}
                 //page
                 $allOptions['page'][$row['page_name']] = $this->getPagenamebyPage_menu_id('11',$row['page_name'],$row['page_type']);
                 //system category

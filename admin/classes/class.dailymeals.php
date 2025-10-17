@@ -1,9 +1,9 @@
 <?php
 
 include_once("class.paging.php");
-
+ 
 include_once("class.admin.php");
-
+include_once("class.contents.php");
 class Daily_Meals extends Admin
 
 {
@@ -597,7 +597,7 @@ class Daily_Meals extends Admin
 	}	
 
 	//add by ample 29-11-19
-	public function getAllDailyMealsNew($search)
+	public function getAllDailyMealsNew($search,$filterParam)
 
 	{       
 		$obj = new Daily_Meals();
@@ -609,23 +609,26 @@ class Daily_Meals extends Admin
 		$delete_action_id = '13';
 		$edit = $this->chkValidActionPermission($admin_id,$edit_action_id);
 		$delete = $this->chkValidActionPermission($admin_id,$delete_action_id);
+		$querySearch = '';
+		if(!empty($filterParam['foodcode'])){
+			$querySearch.=' AND meal_item="'.$filterParam['foodcode'].'"';
+		}
 
-		if($search == '')
+		if(!empty($filterParam['foodtype'])){
+			$querySearch.=' AND food_type="'.$filterParam['foodtype'].'"';
+		}
 
-			{
-
-				 $sql ='SELECT m.* FROM `tbldailymeals` m order by meal_id DESC ';     
-
+		if(!empty($filterParam['status'])){
+			if($filterParam['status']=='active'){
+				$statusType = '1';
+			}else{
+				$statusType = '0';
 			}
-
-		else
-
-			{
+			$querySearch.=' AND status='.$statusType.'';
+		}
 
 
-			    $sql = "SELECT * FROM `tbldailymeals` WHERE `meal_item` LIKE '%".$search."%' OR `benefits` LIKE '%".$search."%' ORDER BY `meal_id` DESC";
-
-			}
+		$sql ="SELECT * FROM `tbldailymeals` WHERE meal_id>0 $querySearch order by meal_id DESC "; 
                                 
 
                 $STH = $DBH->prepare($sql);
@@ -698,6 +701,18 @@ class Daily_Meals extends Admin
 									}
 								}
 
+				$logsObject = new Logs();
+				$lastUpdatedData = [
+					'page' => 'daily_meals',
+					'reference_id' => $row['meal_id']
+				];
+				$lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData); 
+				if((int)$filterParam['modified']>0){
+					if($lastUpdatedData['updateById']!=$filterParam['modified']){
+						continue;
+					}
+				}
+
 				$output .= '<tr class="manage-row">';
 
 				$output .= '<td align="center" nowrap="nowrap" >'.$i.'</td>';
@@ -730,6 +745,15 @@ class Daily_Meals extends Admin
 
 				$output .= '</td>';
 
+				$output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+				<a href="/admin/index.php?mode=logs-history&type=daily_activity&id='.$row['activity_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+				$output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=daily_activity&id='.$row['activity_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+				if($row['status']==0){
+					$output .= '<td align="center">Inactive</td>';
+				}else{
+					$output .= '<td align="center">Active</td>';
+				}
 				$output .= '<td align="center">'.stripslashes($obj->getCodeNameById($row['meal_id'])).'</td>';
 
 				$output .= '<td align="center">'.stripslashes($obj->getMealsNameById($row['meal_id'])).'</td>';
@@ -2109,6 +2133,15 @@ class Daily_Meals extends Admin
 
 			$return = true;
 
+			 //Insert lOGS
+			$lastInsertedId = $DBH->lastInsertId();
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'daily_meals',
+				'reference_id' => $lastInsertedId
+			];
+			$logsObject->insertLogs($logsData);
+
 		}
 
 		return $return;
@@ -2130,7 +2163,7 @@ class Daily_Meals extends Admin
 
 		
 		//update status by ample 02-12-19
-		$sql = "INSERT INTO `tbldailymeals` (`posted_by`,`benefits`,`daily_core`,`meal_item`,`meal_measure`,`meal_ml`,`weight`,`food_type`,`food_veg_nonveg`,status) VALUES ('".$posted_by."','".addslashes($benefits)."','".addslashes($daily_core)."','".addslashes($meal_item)."','".addslashes($meal_measure)."','".addslashes($meal_ml)."','".addslashes($weight)."','".addslashes($food_type)."','".addslashes($food_veg_nonveg)."','".$status."')";
+		$sql = "INSERT INTO `tbldailymeals` (`posted_by`,`benefits`,`daily_core`,`meal_item`,`meal_measure`,`meal_ml`,`weight`,`food_type`,`food_veg_nonveg`,status,`modified_by`,`deleted`,`deleted_by`) VALUES ('".$posted_by."','".addslashes($benefits)."','".addslashes($daily_core)."','".addslashes($meal_item)."','".addslashes($meal_measure)."','".addslashes($meal_ml)."','".addslashes($weight)."','".addslashes($food_type)."','".addslashes($food_veg_nonveg)."','".$status."',0,0,0)";
 
                 $STH = $DBH->prepare($sql);
 
@@ -2139,7 +2172,9 @@ class Daily_Meals extends Admin
                 $meal_id = $DBH->lastInsertId();
 
                 
-
+				if(!is_array($cat_total_cnt)){
+					$cat_total_cnt = [];
+				}
                  if(count($cat_total_cnt) > 0)
 
                     {
@@ -2172,7 +2207,14 @@ class Daily_Meals extends Admin
                                $STH = $DBH->prepare($sql2);  $STH->execute();
 
                               
-
+									 //Insert lOGS
+								$lastInsertedId = $DBH->lastInsertId();
+								$logsObject = new Logs();
+								$logsData = [
+									'page' => 'daily_meals',
+									'reference_id' => $lastInsertedId
+								];
+								$logsObject->insertLogs($logsData);
                             }
 
 
@@ -2337,6 +2379,15 @@ class Daily_Meals extends Admin
 
 			$return = true;
 
+			 //Insert lOGS
+			
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'daily_meals',
+				'reference_id' => $meal_id
+			];
+			$logsObject->insertLogs($logsData);
+
 		}
 
 		return $return;
@@ -2372,6 +2423,12 @@ class Daily_Meals extends Admin
 		{
 
 			$return = true;
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'daily_meals',
+				'reference_id' => $meal_id
+			];
+			$logsObject->insertLogs($logsData);
 
 		}
 
@@ -4304,6 +4361,52 @@ class Daily_Meals extends Admin
             return $return;
 
 	}     
+	
+	public function getDailyFilter(){
+		
+		$my_DBH = new mysqlConnection();
+		$obj2 = new Contents();
+		$DBH = $my_DBH->raw_handle();
+		$DBH->beginTransaction();
+		$data=array();
+		
+		$sql="SELECT * FROM `tbldailymeals` WHERE deleted=0";
+		$STH = $DBH->query($sql);
+		$allOptions = [
+			'foodcode' => [],
+			'foodtype' => [],
+			'composition' => [],
+			'content' => [],
+			'UOM' => [],
+			'modifiedby' => []
+		];
+		
+		$dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+		if(!empty($dataReturn)){   
+			foreach ($dataReturn as $row) {
+				$returnName = $obj2->getModifiedData($row['meal_id']);
+				if(!empty($returnName)){
+					$allOptions['modifiedby'] = $returnName;
+				}
+				
+				$allOptions['foodcode'][$row['meal_item']] = $row['meal_item'];
+				$allOptions['foodtype'][$row['food_type']] = $row['food_type'];
+
+				// $foods=$this->compositionInfo($row['meal_id']);
+				// if(!empty($foods)){	
+				// 	foreach ($foods as $key => $value) {
+				// 		$allOptions['composition'][$row['meal_id']] = $this->getIdByMEASURESName($value['fav_cat_id']);
+				// 		$allOptions['content'][$row['meal_id']] = $value['content'];
+				// 		$allOptions['UOM'][$row['meal_id']] = $this->getIdByMEASURESName($value['uom']);
+				// 	}
+				// }
+			}
+		}
+		
+		
+		
+		return $allOptions;
+	}
 
 }
 

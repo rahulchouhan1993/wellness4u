@@ -4021,7 +4021,9 @@ class Scrolling_Windows extends Admin
                     $cat_name = stripslashes($row['fav_cat']);
 
 
-
+                    if(!is_array($arr_selected_cat_id)){
+                        $arr_selected_cat_id = [];
+                    }
                     if(in_array($prct_cat_id,$arr_selected_cat_id))
 
                     {

@@ -6,7 +6,7 @@ require_once('classes/class.dailyactivity.php');
 
 $obj = new Daily_Activity();
 
-
+$allFilterOption = $obj->getActivityFilter();
 
 if(isset($_POST['btnSubmit']))
 
@@ -107,10 +107,55 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 						<td class="mainbox-body">
 
 							<p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
+							 <form>
+                                <input type="hidden" name="mode" value="daily_activity">
+                                <label>Page:</label>
+                                <select name="activitycode">
+                                    <option value="">Activity Code</option>
+                                    <?php foreach(array_filter($allFilterOption['activitycode']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['activitycode']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
 
+                                <label>Activity Level:</label>
+                                <select name="activitylevel">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['activitylevel']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['activitylevel']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                               
+
+                                <label>Activity Category:</label>
+                                <select name="activitycategory">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['activitycategory']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['activitycategory']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+
+                                <label>Status:</label>
+                                <select name="status">
+                                    <option value="">Select</option>
+                                     <option value="active">Active</option>
+									 <option value="inactive">InActive</option>
+                                </select>
+
+                                <label>Modified by:</label>
+                                <select name="modified">
+                                    <option value="">Select</option>
+                                    <?php foreach(array_filter($allFilterOption['modifiedby']) as $k =>$v){ ?>
+                                        <option value="<?php echo $k ?>" <?php if($_GET['modifiedby']==$k) echo 'selected'; ?>><?php echo $v?></option>
+                                    <?php } ?>
+                                </select>
+
+                                <button type="submit">Filter</button>
+                            </form>
 							<div id="pagination_contents" align="center"> 
 
-								<p>
+								<!-- <p>
 
                                  <form action="#" method="post" name="frm_dailyactivity" id="frm_dailyactivity" enctype="multipart/form-data" AUTOCOMPLETE="off">
 
@@ -130,7 +175,7 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 
                                 
 
-                                 </form></p>
+                                 </form></p> -->
 
 								<table border="1" width="100%" cellpadding="1" cellspacing="1">
 
@@ -174,6 +219,10 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 
 										<td width="5%" class="manage-header" align="center">Delete</td>
 
+										<td width="5%" class="manage-header" align="center">Updated At</td>
+
+										<td width="5%" class="manage-header" align="center">Updated By</td>
+
 										<td width="10%" class="manage-header" align="center">Activity Code</td>
 
 										<td width="30%" class="manage-header" align="center">Daily Activity</td>
@@ -192,7 +241,7 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 
 									<?php
 
-									echo $obj->GetAlldailyActivities($search);
+									echo $obj->GetAlldailyActivities($search,$_GET);
 
 									?>
 
