@@ -15862,8 +15862,8 @@ public function getcolumsNameOftable($tablm_name)
             }
 
 
-      $getuniqu_id='ID'.time().date();
-
+      //$getuniqu_id='ID'.time().date();
+       $getuniqu_id='ID'.time();     
 
         foreach($getselected_data  as $upvalue)
 
@@ -15895,7 +15895,7 @@ public function getcolumsNameOftable($tablm_name)
 
           {
 
-               $inser="INSERT INTO `tblcolumndetails`(`col_name`,`uniqu_m_id`,`Id_table`,`fetch_columns`,`fetch_value`) VALUES('".$upvalue[2]."','".$getuniqu_id."','".$upvalue[3]."','".$upvalue[4]."','".$upvalue[5]."')";
+               $inser="INSERT INTO `tblcolumndetails`(`col_name`,`uniqu_m_id`,`Id_table`,`fetch_columns`,`fetch_value`,`col_report_label`,`col_row_col`,`col_query_field`,`col_query_order`,`col_query_combo`,`col_report_feild`,`col_report_order`,`posted_by`,`status`) VALUES('".$upvalue[2]."','".$getuniqu_id."','".$upvalue[3]."','".$upvalue[4]."','".$upvalue[5]."','','','',0,'','',0,0,1)";
 
 
 

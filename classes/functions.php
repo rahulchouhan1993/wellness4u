@@ -2057,7 +2057,8 @@ class frontclass {
                 }
                 $today_day = date('j');
                 $today_date = date('Y-m-d');
-                $sql2 = "SELECT * FROM `tblscrollingcontents` WHERE ( (`sc_listing_date_type` = 'days_of_month' AND FIND_IN_SET('" . $today_day . "', sc_days_of_month) ) OR (`sc_listing_date_type` = 'single_date' AND `sc_single_date` = '" . $today_date . "') OR (`sc_listing_date_type` = 'date_range' AND `sc_start_date` <= '" . $today_date . "' AND `sc_end_date` >= '" . $today_date . "') ) AND ( `sw_id` = '" . $row1['sw_id'] . "' ) AND ( `sc_status` = '1' ) ORDER BY `sc_order` ASC , `sc_add_date` DESC ";
+                $dayNumber = date('N');
+                $sql2 = "SELECT * FROM `tblscrollingcontents` WHERE ( (`sc_listing_date_type` = 'days_of_month' AND FIND_IN_SET('" . $today_day . "', sc_days_of_month) ) OR (`sc_listing_date_type` = 'single_date' AND `sc_single_date` = '" . $today_date . "') OR (`sc_listing_date_type` = 'date_range' AND `sc_start_date` <= '" . $today_date . "' AND `sc_end_date` >= '" . $today_date . "') OR (`sc_listing_date_type` = 'days_of_week' AND  FIND_IN_SET('" . $dayNumber . "', sc_days_of_week)) ) AND ( `sw_id` = '" . $row1['sw_id'] . "' ) AND ( `sc_status` = '1' ) ORDER BY `sc_order` ASC , `sc_add_date` DESC ";
                 //echo '<br>sql = '.$sql;
                 $STH2 = $DBH->prepare($sql2);
                 $STH2->execute();

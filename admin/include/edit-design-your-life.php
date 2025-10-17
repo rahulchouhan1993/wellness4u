@@ -1130,7 +1130,7 @@ if(!empty($_SESSION['banner_msg'])) {
 
                                                                                 <option value="">Select Option</option>
 
-                                                                                <?php// echo $final_dropdown; ?>  
+                                                                                <?php // echo $final_dropdown; ?>  
 
                                                                             </select>
 
