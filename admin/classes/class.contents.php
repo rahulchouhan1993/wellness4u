@@ -74,7 +74,7 @@ class Contents extends Admin
 
         
 
-        public function getAllPageDropdowns($search,$status)
+        public function getAllPageDropdowns($search,$status,$filterOption)
 
 	{
 
@@ -134,6 +134,25 @@ class Contents extends Admin
 
             }
 
+            $sql_str_search = ''; $sql_str_status = '';
+
+            if((int)$filterOption['page']>0){
+                $sql_str_status.=' AND FIND_IN_SET("'.$filterOption['page'].'", page_id_str)';
+            }
+
+            if(!empty($filterOption['status'])){
+                if($filterOption['status']=='active'){
+                    $statusType = '1';
+                }else{
+                    $statusType = '0';
+                }
+                $sql_str_status.=' AND pd_status='.$statusType.' ';
+            }
+
+            if(!empty($filterOption['added'])){
+                $sql_str_status.=' AND added_by_admin='.$filterOption['added'].' ';
+            }
+
 
 
             $sql = "SELECT * FROM `tblpagedropdowns` AS tpd "
@@ -172,7 +191,7 @@ class Contents extends Admin
 
             $output = '';		
 
-            if($STH2->rowCount()  > 0)
+            if($STH->rowCount()  > 0)
 
             {
 
@@ -194,7 +213,7 @@ class Contents extends Admin
 
 				
 
-                while($row = $STH2->fetch(PDO::FETCH_ASSOC))
+                while($row = $STH->fetch(PDO::FETCH_ASSOC))
 
                 {
 
@@ -268,7 +287,11 @@ class Contents extends Admin
                     ];
                     $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);        
                    
-						
+					if((int)$filterOption['modified']>0){
+                        if($lastUpdatedData['updateById']!=$filterOption['modified']){
+                            continue;
+                        }
+                    }
 
                     $output .= '<tr class="manage-row">';
 
@@ -766,11 +789,12 @@ class Contents extends Admin
 
         
 
-        public function getAllPageCatDropdowns($search,$status)
+        public function getAllPageCatDropdowns($search,$status,$filterOption)
 
 	{
+        
 
-           // print_r($prof_cat);
+           // print_r($filterOption);
 
            // $this->connectDB();
 
@@ -849,8 +873,38 @@ class Contents extends Admin
             }
 
 
+            $sql_str_status = '';
 
-             $sql = "SELECT * FROM `tbl_page_cat_dropdown` WHERE is_deleted = '0' $sql_str_search $sql_str_status  ORDER BY page_cat_id DESC";
+            if((int)$filterOption['page']>0){
+                $sql_str_status.=' AND page_name="'.$filterOption['page'].'"';
+            }
+
+            if(!empty($filterOption['category'])){
+                $sql_str_status.=' AND healcareandwellbeing='.$filterOption['category'];
+            }
+
+            if(!empty($filterOption['profcat'])){
+                $sql_str_status.=' AND (FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat1) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat2) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat3) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat4) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat5) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat6) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat7) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat8) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat9) OR FIND_IN_SET("'.$filterOption['profcat'].'", prof_cat10) ) ';
+            }
+
+
+            if(!empty($filterOption['status'])){
+                if($filterOption['status']=='active'){
+                    $statusType = '1';
+                }else{
+                    $statusType = '0';
+                }
+                $sql_str_status.=' AND pag_cat_status='.$statusType.' ';
+            }
+
+            if(!empty($filterOption['added'])){
+                $sql_str_status.=' AND added_by_admin='.$filterOption['added'].' ';
+            }
+
+
+
+
+             $sql = "SELECT * FROM `tbl_page_cat_dropdown` WHERE is_deleted = '0' $sql_str_status  ORDER BY page_cat_id DESC";
 
            
 
@@ -882,7 +936,7 @@ class Contents extends Admin
 
             $output = '';		
 
-            if($STH2->rowCount()  > 0)
+            if($STH->rowCount()  > 0)
 
             {
 
@@ -904,7 +958,7 @@ class Contents extends Admin
 
                
 
-                while($row = $STH2->fetch(PDO::FETCH_ASSOC))
+                while($row = $STH->fetch(PDO::FETCH_ASSOC))
 
                         
 
@@ -5922,9 +5976,9 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat1']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat1_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat1_imp)).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$canv_sub_cat1_show_fetch.'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$canv_sub_cat1_show_fetch).'</td>';
 
                     $output .= '<td height="30" align="center">'.stripslashes($row['canv_sub_cat1_link']).'</td>';
 
@@ -5932,7 +5986,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat2']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat2_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat2_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat2_show_fetch.'</td>';
 
@@ -5942,7 +5996,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat3']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat3_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat3_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat3_show_fetch.'</td>';
 
@@ -5952,7 +6006,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat4']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat4_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat4_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat4_show_fetch.'</td>';
 
@@ -5962,7 +6016,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat5']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat5_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat5_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat5_show_fetch.'</td>';
 
@@ -5972,7 +6026,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat6']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat6_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat6_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat6_show_fetch.'</td>';
 
@@ -5982,7 +6036,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat7']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat7_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat7_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat7_show_fetch.'</td>';
 
@@ -5992,7 +6046,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat8']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat8_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat8_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat8_show_fetch.'</td>';
 
@@ -6002,7 +6056,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat9']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat9_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat9_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat9_show_fetch.'</td>';
 
@@ -6012,7 +6066,7 @@ class Contents extends Admin
 
                     $output .= '<td height="30" align="center">'.$obj2->getProfileCustomCategoryName($row['prof_cat10']).'</td>';
 
-                    $output .= '<td height="30" align="center">'.$obj2->getIdByProfileFavCategoryName($cat10_imp).'</td>';
+                    $output .= '<td height="30" align="center">'.str_replace(',',', ',$obj2->getIdByProfileFavCategoryName($cat10_imp)).'</td>';
 
                     $output .= '<td height="30" align="center">'.$canv_sub_cat10_show_fetch.'</td>';
 
@@ -17553,6 +17607,178 @@ public function getcolumsNameOftable($tablm_name)
 
         }
         
+        return $allOptions;
+    }
+
+    public function getFiltersPageDropdown(){
+        $my_DBH = new mysqlConnection();
+        $obj2 = new Contents();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $data=array();
+        
+        $sql="SELECT * FROM `tbl_page_cat_dropdown` WHERE is_deleted=0";
+        $STH = $DBH->query($sql);
+        $allOptions = [
+            'page' => [],
+            'category' => [],
+            'profcat' => [],
+            'status' => [
+                'active' => 'Active',
+                'inactive' => 'Inactive'
+            ],
+            'added' => [],
+            'modified' => []
+        ];
+        
+        $dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+       
+        if(!empty($dataReturn)){   
+            foreach ($dataReturn as $row) {
+                $modifiedByData = $this->getModifiedData($row['page_cat_id']);
+                //modifiedby
+                if(!empty($modifiedByData)){
+					$allOptions['modified'] = $modifiedByData;
+				}
+                //page
+                $allOptions['page'][$row['page_name']] = $this->getPagenamebyPage_menu_id('4',$row['page_name'],$row['page_type']);
+                //system category
+                $allOptions['category'][$row['healcareandwellbeing']] = $this->getFavCategoryNameVivek($row['healcareandwellbeing']);
+                //profile category 1
+                $explodingData = explode(',',$row['prof_cat1']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat2']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat3']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat4']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat5']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat6']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat7']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat8']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat9']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['prof_cat10']);
+                foreach($explodingData as $dt){
+                    $allOptions['profcat'][$dt] = $this->getProfileCustomCategoryName($dt);
+                }
+
+                //subcategory
+                $explodingData = explode(',',$row['sub_cat1']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat2']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat3']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat4']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat5']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat6']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat7']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat8']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat9']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+                $explodingData = explode(',',$row['sub_cat10']);
+                foreach($explodingData as $dt){
+                    $allOptions['subcategory'][$dt] = $this->getIdByProfileFavCategoryName($dt);
+                }
+
+                //added
+                $allOptions['added'][$row['added_by_admin']] = $this->getUsenameOfAdmin($row['added_by_admin']);
+                
+            }
+
+        }
+      
+        return $allOptions;
+    }
+
+    public function getPageDropdownFilters(){
+        $my_DBH = new mysqlConnection();
+        $obj2 = new Contents();
+        $DBH = $my_DBH->raw_handle();
+        $DBH->beginTransaction();
+        $data=array();
+        
+        $sql="SELECT * FROM `tblpagedropdowns` WHERE pd_deleted=0";
+        $STH = $DBH->query($sql);
+        $allOptions = [
+            'page' => [],
+            'status' => [
+                'active' => 'Active',
+                'inactive' => 'Inactive'
+            ],
+            'added' => [],
+            'modified' => []
+        ];
+        
+        $dataReturn = $STH->fetchAll(PDO::FETCH_ASSOC);
+       
+        if(!empty($dataReturn)){   
+            foreach ($dataReturn as $row) {
+                $modifiedByData = $this->getModifiedData($row['pd_id']);
+                //modifiedby
+                if(!empty($modifiedByData)){
+					$allOptions['modified'] = $modifiedByData;
+				}
+                //page
+                $explodingData = explode(',',$row['page_id_str']);
+                foreach($explodingData as $dt){
+                    $allOptions['page'][$dt] = $this->getCommaSeperatedPageName($dt);
+                }
+
+                //added
+                $allOptions['added'][$row['added_by_admin']] = $this->getUsenameOfAdmin($row['added_by_admin']);
+                
+            }
+
+        }
+      
         return $allOptions;
     }
 

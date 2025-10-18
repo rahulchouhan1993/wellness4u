@@ -109,9 +109,9 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 							<p class="err_msg"><?php if(isset($_GET['msg']) && $_GET['msg'] != '' ) { echo urldecode($_GET['msg']); }?></p>
 							 <form>
                                 <input type="hidden" name="mode" value="daily_activity">
-                                <label>Page:</label>
+                                <label> Activity Code:</label>
                                 <select name="activitycode">
-                                    <option value="">Activity Code</option>
+                                    <option value="">Select</option>
                                     <?php foreach(array_filter($allFilterOption['activitycode']) as $k =>$v){ ?>
                                         <option value="<?php echo $k ?>" <?php if($_GET['activitycode']==$k) echo 'selected'; ?>><?php echo $v?></option>
                                     <?php } ?>
@@ -218,6 +218,9 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 										<td width="5%" class="manage-header" align="center">Edit</td>
 
 										<td width="5%" class="manage-header" align="center">Delete</td>
+										<td width="5%" class="manage-header" align="center">Added At</td>
+
+										<td width="5%" class="manage-header" align="center">Added By</td>
 
 										<td width="5%" class="manage-header" align="center">Updated At</td>
 

@@ -155,7 +155,8 @@ else
                                         <option value="<?php echo $k ?>" <?php if($_GET['subcategory']==$k) echo 'selected'; ?>><?php echo $v?></option>
                                     <?php } ?>
                                 </select>
-
+                                    <br>
+                                    <br>
                                 <label>Fetch/Show:</label>
                                 <select name="fetch">
                                     <option value="">Select</option>
@@ -316,113 +317,113 @@ else
                                          <td width="5%" class="manage-header" align="center">Order</td>
                                         <td width="10%" class="manage-header" align="center">Ref Code</td>
 
-                                        <td width="10%" class="manage-header" align="center">Admin Notes</td>
+                                        <td width="8%" class="manage-header" align="center">Admin Notes</td>
 
-                                        <td width="10%" class="manage-header" align="center">Heading</td>
+                                        <td width="5%" class="manage-header" align="center">Heading</td>
 
-                                        <td width="10%" class="manage-header" align="center">System Category</td>
+                                        <td width="5%" class="manage-header" align="center">System Category</td>
 
-                                        <td width="10%" class="manage-header" align="center">Page Name</td>
+                                        <td width="5%" class="manage-header" align="center">Page Name</td>
 
-                                        <td width="10%" class="manage-header" align="center">Data Source</td>
+                                        <td width="5%" class="manage-header" align="center">Data Source</td>
 
-                                        <td width="10%" class="manage-header" align="center">Prof Cat1</td>
+                                        <td width="5%" class="manage-header" align="center">Prof Cat1</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat1</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat1</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat1 Fetch/Show</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat1 Fetch/Show</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat1 Link</td>
-
-                                        
-
-                                        <td width="10%" class="manage-header" align="center">Prof Cat2</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat2</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat2 Fetch/Show</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat2 Link</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat1 Link</td>
 
                                         
 
-                                        <td width="10%" class="manage-header" align="center">Prof Cat3</td>
+                                        <td width="5%" class="manage-header" align="center">Prof Cat2</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat3</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat2</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat3 Fetch/Show</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat2 Fetch/Show</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat3 Link</td>
-
-                                        
-
-                                        <td width="10%" class="manage-header" align="center">Prof Cat4</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat4</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat4 Fetch/Show</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat4 Link</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat2 Link</td>
 
                                         
 
-                                        <td width="10%" class="manage-header" align="center">Prof Cat5</td>
+                                        <td width="5%" class="manage-header" align="center">Prof Cat3</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat5</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat3</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat5 Fetch/Show</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat3 Fetch/Show</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat5 Link</td>
-
-                                        
-
-                                        <td width="10%" class="manage-header" align="center">Prof Cat6</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat6</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat6 Fetch/Show</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat6 Link</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat3 Link</td>
 
                                         
 
-                                        <td width="10%" class="manage-header" align="center">Prof Cat7</td>
+                                        <td width="5%" class="manage-header" align="center">Prof Cat4</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat7</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat4</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat7 Fetch/Show</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat4 Fetch/Show</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat7 Link</td>
-
-                                        
-
-                                        <td width="10%" class="manage-header" align="center">Prof Cat8</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat8</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat8 Fetch/Show</td>
-
-                                        <td width="10%" class="manage-header" align="center">Sub Cat8 Link</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat4 Link</td>
 
                                         
 
-                                        <td width="10%" class="manage-header" align="center">Prof Cat9</td>
+                                        <td width="5%" class="manage-header" align="center">Prof Cat5</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat9</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat5</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat9 Fetch/Show</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat5 Fetch/Show</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat9 Link</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat5 Link</td>
 
                                         
 
-                                        <td width="10%" class="manage-header" align="center">Prof Cat10</td>
+                                        <td width="5%" class="manage-header" align="center">Prof Cat6</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat10</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat6</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat10 Fetch/Show</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat6 Fetch/Show</td>
 
-                                        <td width="10%" class="manage-header" align="center">Sub Cat10 Link</td>
+                                        <td width="5%" class="manage-header" align="center">Sub Cat6 Link</td>
+
+                                        
+
+                                        <td width="5%" class="manage-header" align="center">Prof Cat7</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat7</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat7 Fetch/Show</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat7 Link</td>
+
+                                        
+
+                                        <td width="5%" class="manage-header" align="center">Prof Cat8</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat8</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat8 Fetch/Show</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat8 Link</td>
+
+                                        
+
+                                        <td width="5%" class="manage-header" align="center">Prof Cat9</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat9</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat9 Fetch/Show</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat9 Link</td>
+
+                                        
+
+                                        <td width="5%" class="manage-header" align="center">Prof Cat10</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat10</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat10 Fetch/Show</td>
+
+                                        <td width="5%" class="manage-header" align="center">Sub Cat10 Link</td>
 
                                         
 

@@ -2406,6 +2406,7 @@ class Scrolling_Windows extends Admin
                     'page' => 'scrolling_windows',
                     'reference_id' => $row['sw_id']
                 ];
+                $firstUpdatedData = $logsObject->getFirstUpdatedLogs($lastUpdatedData); 
                 $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);
                 
 				$output .= '<tr class="manage-row">';
@@ -2431,6 +2432,14 @@ class Scrolling_Windows extends Admin
 							}
 
 				$output .= '</td>';
+                 $output .= '<td align="center">'.stripslashes($firstUpdatedData['updateOn']).'</td>';
+
+                $output .= '<td align="center">'.stripslashes($firstUpdatedData['updateBy']).'</td>';
+				
+                $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=scrolling_windows&id='.$row['sw_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=scrolling_windows&id='.$row['sw_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
 
 				$output .= '<td height="30" align="center"><strong>'.$page_name_str.'</strong></td>';
 
@@ -2457,15 +2466,13 @@ class Scrolling_Windows extends Admin
 				$output .= '</td>';
 
 				$output .= '<td height="30" align="center"><strong>'.stripslashes($row['sw_order']).'</strong></td>';
-                 $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
-                    <a href="/admin/index.php?mode=logs-history&type=scrolling_windows&id='.$row['sw_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
-
-                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=scrolling_windows&id='.$row['sw_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+                 
+            
 				
 
 				$output .= '</tr>';
 
-				$output .= '<tr class="manage-row" height="30"><td colspan="14" align="center">&nbsp;</td></tr>';
+				$output .= '<tr class="manage-row" height="30"><td colspan="16" align="center">&nbsp;</td></tr>';
 
 				$i++;
 
@@ -3064,10 +3071,10 @@ class Scrolling_Windows extends Admin
                 elseif($row['sc_listing_date_type'] == 'days_of_week')
 
 				{
-
+                    $weekName = [1=>'Mon',2=>'Tue',3=>'Wed',4=>'Thu',5=>'Fri',6=>'Sat',7=>'Sun'];
 					$date_type = 'Days of Week';
 
-					$date_value = stripslashes($row['sc_days_of_week']);
+					$date_value = implode(', ', array_map(fn($d) => $weekName[$d], explode(',', $row['sc_days_of_week'])));
 
 				}
 
@@ -3142,6 +3149,7 @@ class Scrolling_Windows extends Admin
                     'page' => 'scrolling_contents',
                     'reference_id' => $row['sc_id']
                 ];
+                $firstUpdatedData = $logsObject->getFirstUpdatedLogs($lastUpdatedData); 
                 $lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);
 
 				$output .= '<tr class="manage-row">';
@@ -3165,6 +3173,15 @@ class Scrolling_Windows extends Admin
 				$output .= '<a href=\'javascript:fn_confirmdelete("Scrolling Content","sql/delscrollingcontent.php?id='.$sw_id.'&sc_id='.$row['sc_id'].'")\' ><img src = "images/del.gif" border="0" ></a>';
 
 							}
+                $output .= '<td height="30" align="center">'.$sc_status.'</td>';
+                $output .= '<td align="center">'.stripslashes($firstUpdatedData['updateOn']).'</td>';
+
+                    $output .= '<td align="center">'.stripslashes($firstUpdatedData['updateBy']).'</td>';
+				$output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=scrolling_contents&id='.$row['sc_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=scrolling_contents&id='.$row['sc_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+				
 
 				$output .= '</td>';
 
@@ -3182,21 +3199,17 @@ class Scrolling_Windows extends Admin
 
 				$output .= '<td height="30" align="center">'.$date_value.'</td>';
 
-				$output .= '<td height="30" align="center">'.$sc_status.'</td>';
+				
 
 				$output .= '<td height="30" align="center">'.stripslashes($row['sc_order']).'</td>';
 
-                 $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
-                    <a href="/admin/index.php?mode=logs-history&type=scrolling_contents&id='.$row['sc_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
-
-                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=scrolling_contents&id='.$row['sc_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
-				
+                 
 
 				
 
 				$output .= '</tr>';
 
-				$output .= '<tr class="manage-row" height="30"><td colspan="14" align="center">&nbsp;</td></tr>';
+				$output .= '<tr class="manage-row" height="30"><td colspan="16" align="center">&nbsp;</td></tr>';
 
 				$i++;
 

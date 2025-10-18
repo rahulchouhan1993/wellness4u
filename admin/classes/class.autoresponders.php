@@ -145,6 +145,12 @@ class Autoresponders extends Admin
 					$status = 'Inactive';
 
 				}
+				  $logsObject = new Logs();
+				$lastUpdatedData = [
+					'page' => 'email_autoresponders',
+					'reference_id' => $row['email_ar_id']
+				];
+				$lastUpdatedData = $logsObject->getLastUpdatedLogs($lastUpdatedData);    
 
 				
 
@@ -176,6 +182,13 @@ class Autoresponders extends Admin
 
 				$output .= '</td>';
 
+				$output .= '<td height="30" align="center">'.date('d/m/Y',strtotime($row['email_ar_add_date'])).'</td>';
+
+				 $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateOn']).'
+                    <a href="/admin/index.php?mode=logs-history&type=email_autoresponders&id='.$row['email_ar_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
+                    $output .= '<td align="center">'.stripslashes($lastUpdatedData['updateBy']).'<a href="/admin/index.php?mode=logs-history&type=email_autoresponders&id='.$row['email_ar_id'].'" target="_blank"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="15px" height="15px"><path d="M19,21H5c-1.1,0-2-0.9-2-2V5c0-1.1,0.9-2,2-2h7v2H5v14h14v-7h2v7C21,20.1,20.1,21,19,21z"/><path d="M21 10L19 10 19 5 14 5 14 3 21 3z"/><path d="M6.7 8.5H22.3V10.5H6.7z" transform="rotate(-45.001 14.5 9.5)"/></svg></a></td>';
+
 				$output .= '<td height="30" align="center">'.stripslashes($row['email_ar_id']).'</td>';
 
 				$output .= '<td height="30" align="center">'.stripslashes($row['email_action_title']).'</td>';
@@ -184,7 +197,7 @@ class Autoresponders extends Admin
 
 				$output .= '<td height="30" align="center">'.$status.'</td>';
 
-				$output .= '<td height="30" align="center">'.date('d/m/Y',strtotime($row['email_ar_add_date'])).'</td>';
+				
 
 				
 
@@ -565,8 +578,10 @@ class Autoresponders extends Admin
                  $DBH->beginTransaction();
 
                  $return=false;
-
-		$ins_sql = "INSERT INTO `tblautoresponders`(`email_action_id`,`email_ar_subject`,`email_ar_from_name`,`email_ar_from_email`,`email_ar_to_email`,`email_ar_body`,`email_ar_status`,SMS_ID) VALUES ('".addslashes($email_action_id)."','".addslashes($email_ar_subject)."','".addslashes($email_ar_from_name)."','".addslashes($email_ar_from_email)."','".addslashes($email_ar_to_email)."','".addslashes($email_ar_body)."','1',".$SMS_ID.")";
+		if(empty($SMS_ID)){
+			$SMS_ID = 0;
+		}
+		$ins_sql = "INSERT INTO `tblautoresponders`(`email_action_id`,`email_ar_subject`,`email_ar_from_name`,`email_ar_from_email`,`email_ar_to_email`,`email_ar_body`,`email_ar_status`,SMS_ID,`email_ar_title`,`email_ar_desc`,`email_ar_mandatory_tags`,`email_ar_to_name`,`email_ar_cc`,`email_ar_bcc`,`email_ar_deleted`) VALUES ('".addslashes($email_action_id)."','".addslashes($email_ar_subject)."','".addslashes($email_ar_from_name)."','".addslashes($email_ar_from_email)."','".addslashes($email_ar_to_email)."','".addslashes($email_ar_body)."','1',".$SMS_ID.",'','','','','','',0)";
 
 		//echo $ins_sql;
 
@@ -581,6 +596,15 @@ class Autoresponders extends Admin
 		{
 
 			$return = true;
+
+			 //Insert lOGS
+			$lastInsertedId = $DBH->lastInsertId();
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'email_autoresponders',
+				'reference_id' => $lastInsertedId
+			];
+			$logsObject->insertLogs($logsData);
 
 		}
 
@@ -667,7 +691,9 @@ class Autoresponders extends Admin
 		 $DBH->beginTransaction();
 
                  $return=false;
-
+		if(empty($SMS_ID)){
+			$SMS_ID = 0;
+		}
 		$sql = "UPDATE `tblautoresponders` SET `email_action_id` = '".addslashes($email_action_id)."' ,`email_ar_subject` = '".addslashes($email_ar_subject)."' , `email_ar_from_name` = '".addslashes($email_ar_from_name)."' , `email_ar_from_email` = '".addslashes($email_ar_from_email)."', `email_ar_to_email` = '".addslashes($email_ar_to_email)."', `email_ar_body` = '".addslashes($email_ar_body)."' ,`email_ar_status` = '".addslashes($email_ar_status)."',`SMS_ID` = '".$SMS_ID."' WHERE `email_ar_id` = '".$email_ar_id."'";
 
 	    //echo $sql;
@@ -681,6 +707,14 @@ class Autoresponders extends Admin
 		{
 
 			$return = true;
+
+			 //Insert lOGS
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'email_autoresponders',
+				'reference_id' => $email_ar_id
+			];
+			$logsObject->insertLogs($logsData);
 
 		}
 
@@ -713,6 +747,13 @@ class Autoresponders extends Admin
 		{
 
 			$return = true;
+			 //Insert lOGS
+			$logsObject = new Logs();
+			$logsData = [
+				'page' => 'email_autoresponders',
+				'reference_id' => $email_ar_id
+			];
+			$logsObject->insertLogs($logsData);
 
 		}
 

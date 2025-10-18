@@ -122,6 +122,11 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
                                         <td width="5%" class="manage-header" align="center"><strong>S.No</strong></td>
                                         <td width="5%" class="manage-header" align="center"><strong>Edit</strong></td>
                                         <td width="5%" class="manage-header" align="center"><strong>Delete</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Added At</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Added By</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Updated At</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Updated By</strong></td>
+                                        
                                         <td width="20%" class="manage-header" align="center"><strong>Page Name</strong></td>
                                         <td width="10%" class="manage-header" align="center"><strong>Window Header</strong></td>
                                         <td width="15%" class="manage-header" align="center"><strong>Header Image</strong></td>
@@ -131,8 +136,7 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
                                         <td width="5%" class="manage-header" align="center"><strong>Status</strong></td>
                                         <td width="5%" class="manage-header" align="center"><strong>View Sliders</strong></td>
                                         <td width="5%" class="manage-header" align="center"><strong>Order</strong></td>
-                                        <td width="5%" class="manage-header" align="center"><strong>Updated At</strong></td>
-                                        <td width="5%" class="manage-header" align="center"><strong>Updated By</strong></td>
+                                        
                                         
 									</tr>
 									<?php
@@ -150,7 +154,7 @@ if(!$obj->chkValidActionPermission($admin_id,$view_action_id))
 				</table>
 			</td>
 		</tr>
-	</tbody>
+	</tbody> 
 	</table>
 	<br>
 </div>

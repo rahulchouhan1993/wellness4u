@@ -63,7 +63,7 @@ class Logs extends mysqlConnection{
                 INNER JOIN `tbladmin` ta ON ta.admin_id = lg.updated_by
                 WHERE lg.reference_id = :reference_id
                 AND lg.page = :page
-                ORDER BY lg.updated_on DESC
+                ORDER BY lg.id DESC
             LIMIT 1;";
             $STH = $DBH->prepare($sql);
             // Execute query with proper values
@@ -178,6 +178,56 @@ class Logs extends mysqlConnection{
             $DBH->commit();
            
             return [];
+
+        } catch (PDOException $e) {
+            $DBH->rollBack();
+            echo "Error: " . $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getFirstUpdatedLogs($data) {
+        try {
+           
+            $returnData = [];
+
+            // Initialize DB connection
+            $my_DBH = new mysqlConnection();
+            $DBH = $my_DBH->raw_handle();
+
+            // Start transaction (optional for read-only)
+            $DBH->beginTransaction();
+
+            // Prepare SQL query with named placeholders
+            $sql = "SELECT lg.updated_on as updatedOn, ta.username as updatedBy, lg.updated_by as updatedById
+                FROM `logs` lg
+                INNER JOIN `tbladmin` ta ON ta.admin_id = lg.updated_by
+                WHERE lg.reference_id = :reference_id
+                AND lg.page = :page
+                ORDER BY lg.id ASC
+            LIMIT 1;";
+            $STH = $DBH->prepare($sql);
+            // Execute query with proper values
+            $STH->execute([
+                ':reference_id' => $data['reference_id'],
+                ':page' => $data['page']
+            ]);
+
+            // Fetch result if exists
+            if ($STH->rowCount() > 0) {
+                $row = $STH->fetch(PDO::FETCH_ASSOC);
+               
+                $returnData = [
+                    'updateById' => $row['updatedById'],
+                    'updateBy' => $row['updatedBy'],
+                    'updateOn' => date('d M Y H:i', strtotime($row['updatedOn'])), // use timestamp column
+                ];
+            }
+
+            // Commit transaction (optional if read-only)
+            $DBH->commit();
+           
+            return $returnData;
 
         } catch (PDOException $e) {
             $DBH->rollBack();

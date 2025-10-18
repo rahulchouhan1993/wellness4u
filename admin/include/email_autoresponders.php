@@ -110,11 +110,16 @@ else
 										<td class="manage-header" align="center" width="5%" nowrap="nowrap" >S.No.</td>
 											<td width="5%" align="center" nowrap="nowrap" class="manage-header">Edit</td>
 										<td width="5%" align="center" nowrap="nowrap" class="manage-header">Delete</td>
+										
+										 <td class="manage-header" align="center" width="10%">Add Date</td>
+										<td width="5%" align="center" nowrap="nowrap" class="manage-header">Updated On</td>
+
+										<td width="5%" align="center" nowrap="nowrap" class="manage-header">Updated By</td>
 										<td width="5%" align="center" nowrap="nowrap" class="manage-header">Email ID</td>
 									    <td class="manage-header" align="center" width="25%">Action</td>
                                         <td class="manage-header" align="center" width="40%">Subject</td>
                                         <td class="manage-header" align="center" width="10%">Status</td>
-                                        <td class="manage-header" align="center" width="10%">Add Date</td>
+                                       
 									
 									</tr>
 									<?php

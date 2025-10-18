@@ -94,19 +94,24 @@ if($sw_header == '')
 									</tr>
 									<tr class="manage-header">
 										<td width="5%" class="manage-header" align="center"><strong>S.No</strong></td>
+										 
 										<td width="5%" class="manage-header" align="center"><strong>Edit</strong></td>
 										<td width="5%" class="manage-header" align="center"><strong>Delete</strong></td>
+										 <td width="5%" class="manage-header" align="center"><strong>Status</strong></td>
+										<td width="5%" class="manage-header" align="center"><strong>Added At</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Added By</strong></td>
+										 <td width="5%" class="manage-header" align="center"><strong>Updated At</strong></td>
+                                        <td width="5%" class="manage-header" align="center"><strong>Updated By</strong></td>
 										<td width="10%" class="manage-header" align="center"><strong>Title</strong></td>
 										<td width="10%" class="manage-header" align="center"><strong>Image</strong></td>
                                         <td width="10%" class="manage-header" align="center"><strong>Contents</strong></td>
                                         <td width="10%" class="manage-header" align="center"><strong>Credit Name</strong></td>
                                         <td width="15%" class="manage-header" align="center"><strong>Credit Link</strong></td>
                                         <td width="10%" class="manage-header" align="center"><strong>Date Type</strong></td>
-                                        <td width="10%" class="manage-header" align="center"><strong>Date</strong></td>
-                                        <td width="5%" class="manage-header" align="center"><strong>Status</strong></td>
+                                        <td width="10%" class="manage-header" align="center"><strong>Days</strong></td>
+                                       
                                         <td width="5%" class="manage-header" align="center"><strong>Order</strong></td>
-										 <td width="5%" class="manage-header" align="center"><strong>Updated At</strong></td>
-                                        <td width="5%" class="manage-header" align="center"><strong>Updated By</strong></td>
+										
                                         
 									</tr>
 									<?php
